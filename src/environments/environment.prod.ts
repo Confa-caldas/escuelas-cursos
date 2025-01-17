@@ -32,7 +32,7 @@ export const environment = {
       linkServicio: "https://confa.co/personas/creditos/",
     },
     {
-      nombreServicio: "Alojamiento",
+      nombreServicio: "Alojamiento", 
       linkServicio: "https://app.confa.co:8321/alojamiento",
     },
     {
@@ -48,8 +48,12 @@ export const environment = {
   viveConfa: "https://confa.co/personas/servicios-en-linea/",
   // Development
 
-  apiUrl: "https://app.confa.co:8376/#/", //Cambiar dependiendo el puerto de la ruta en pruebas
+  apiUrl: "https://master.d1c8ds88qy8uz2.amplifyapp.com/", //Produccion
 
+  escuelaCursoRest:"https://serviciosweb.confa.co/recreacionWS/rest/escuelaCurso",
+  dispoCentros:
+    "https://alojamiento.confa.co/recreacionWS/rest/pasadiaRecreacion",
+  
   //produccion
   apiIngresoConfa: "https://alojamiento.confa.co/ingresoConfaWSS/rest/",
   parametro1: "ZTM4ZDcwNDRlODcyNzZDX0FQUCoyMDE4JA==",
