@@ -1,0 +1,86 @@
+<div *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+
+<!-- Button pay dues -->
+<button
+  type="button"
+  class="btn-form-pay-dues btn btn-primary"
+  data-toggle="modal"
+  data-target="#modalFormPayDues"
+>
+  Form Pay Dues
+</button>
+
+<!-- Modal pay dues -->
+<div
+  class="modal fade modal-form-pay-dues"
+  id="modalFormPayDues"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalFormPayDuesLabel"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered justify-content-center"
+    role="document"
+  >
+    <div class="modal-content">
+      <app-card-pay-dues-form></app-card-pay-dues-form>
+    </div>
+  </div>
+</div>
+
+<!-- Button info pay dues -->
+<button
+  type="button"
+  class="btn-info-pay-dues btn btn-primary"
+  data-toggle="modal"
+  data-target="#modalInfoPayDues"
+>
+  Info Pay Dues
+</button>
+
+<!-- Modal info pay dues -->
+<div
+  class="modal fade modal-info-pay-dues"
+  id="modalInfoPayDues"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalInfoPayDuesLabel"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered justify-content-center"
+    role="document"
+  >
+    <div class="modal-content">
+      <app-card-info-pay-dues></app-card-info-pay-dues>
+    </div>
+  </div>
+</div>
+
+<!-- Modal sar -->
+<div
+  class="modal fade modal-form-pay-dues"
+  id="modalFormSAR"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalFormSARLabel"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div
+    class="modal-dialog modal-lg modal-dialog-centered justify-content-center"
+    role="document"
+  >
+    <div class="modal-content">
+      <!-- <app-card-register-sar></app-card-register-sar> -->
+    </div>
+  </div>
+</div>

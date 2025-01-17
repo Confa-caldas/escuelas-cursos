@@ -1,0 +1,817 @@
+<!-- Button error -->
+<button type="button" class="btn-modal-token-expired btn btn-primary" data-toggle="modal"
+  data-target="#modalTokenExpired">
+  Modal token expired
+</button>
+
+<!-- Modal token expired -->
+<div class="modal fade modal-token-expired" id="modalTokenExpired" tabindex="-1" role="dialog"
+  aria-labelledby="modalTokenExpiredLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header error-header" id="modalTokenExpiredLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-4">
+            <i aria-hidden="true" class="fa fa-exclamation-circle fa-3x"></i>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <span *ngIf="utilitiesService.messageModal != ''">
+              <p class="text-center m-0">{{ utilitiesService.messageModal }}</p>
+            </span>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="backLogin(utilitiesService.backLogin)">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button modal success -->
+<button type="button" class="btn-modal-success btn btn-primary" data-toggle="modal" data-target="#modalSuccess">
+  Modal success
+</button>
+
+<!-- Modal success -->
+<div class="modal fade modal-success" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="modalSuccessLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header success-header" id="modalSuccessLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="assets/img/success.png" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <p class="m-0">{{ utilitiesService.messageModal }}</p>
+            <p class="m-0" *ngIf="utilitiesService.recoveryEmail">
+              <!-- {{ utilitiesService.recoveryEmail | indicationEmail : true }} -->
+              {{ utilitiesService.recoveryEmail}}
+            </p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-next btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="backLogin(utilitiesService.backLogin)">
+              Continuar..
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button modal success -->
+<button type="button" class="btn-modal-success-validate btn btn-primary" data-toggle="modal"
+  data-target="#modal-success-validate">
+  Modal success Validate
+</button>
+
+<!-- Modal success -->
+<div class="modal fade modal-success-validate" id="modal-success-validate" tabindex="-1" role="dialog"
+  aria-labelledby="modal-success-validateLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header success-header-validate" id="modal-success-validateLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="assets/img/success.png" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <p class="m-0">{{ utilitiesService.messageModal }}</p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-next btn btn-block" data-dismiss="modal" aria-label="Close" (click)="
+                continue(utilitiesService.backHome, utilitiesService.backModify)
+              ">
+              Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button error -->
+<button type="button" class="btn-modal-error btn btn-primary" data-toggle="modal" data-target="#modalError">
+  Modal error
+</button>
+
+<!-- Modal error -->
+<div class="modal fade modal-error" id="modalError" tabindex="-1" role="dialog" aria-labelledby="modalErrorLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header error-header" id="modalErrorLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="\assets\img\error2.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <span *ngIf="utilitiesService.messageModal == ''">
+              <p class="m-0">Intenta nuevamente o comunícate a</p>
+              <p class="m-0">confa&#64;confa.co</p>
+            </span>
+            <span *ngIf="utilitiesService.messageModal != ''">
+              <p class="text-center m-0">{{ utilitiesService.messageModal }}</p>
+            </span>
+          </div>
+          <div class="info-contact-us" *ngIf="
+              utilitiesService.messageModal == utilitiesService.errorInfoLogin
+            ">
+            <p class="m-0">Si tienes alguna duda, también puedes llamarnos:</p>
+            <p class="m-0">PBX:(606) 878 3111 ó 3009125080</p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="backLogin(utilitiesService.backLogin)">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button error -->
+<button type="button" class="btn-modal-error-confirm btn btn-primary" data-toggle="modal"
+  data-target="#modalErrorConfirm">
+  Modal error confirm
+</button>
+
+<!-- Modal error -->
+<div class="modal fade modal-error-confirm" id="modalErrorConfirm" tabindex="-1" role="dialog"
+  aria-labelledby="modalErrorConfirmLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header error-header" id="modalErrorConfirmLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="\assets\img\error2.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <span *ngIf="utilitiesService.messageModal == ''">
+              <p class="m-0">Intenta nuevamente o comunícate a</p>
+              <p class="m-0">confa&#64;confa.co</p>
+            </span>
+            <span *ngIf="utilitiesService.messageModal != ''">
+              <p class="text-center m-0">{{ utilitiesService.messageModal }}</p>
+            </span>
+          </div>
+          <div class="info-contact-us" *ngIf="
+              utilitiesService.messageModal == utilitiesService.errorInfoLogin
+            ">
+            <p class="m-0">Si tienes alguna duda, también puedes llamarnos:</p>
+            <p class="m-0">PBX:(606) 878 3111 ó 3009125080</p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <a class="btn btn-close btn-block" href="https://confa.co/personas/servicios-en-linea/">Cerrar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button modal success -->
+<button type="button" class="btn-modal-success-confirm btn btn-primary" data-toggle="modal"
+  data-target="#modalSuccessConfirm">
+  Modal success confirm
+</button>
+
+<!-- Modal success -->
+<div class="modal fade modal-success-confirm" id="modalSuccessConfirm" tabindex="-1" role="dialog"
+  aria-labelledby="modalSuccessConfirmLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header success-confirm-header" id="modalSuccessConfirmLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="assets/img/success.png" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <p class="m-0">{{ utilitiesService.messageModal }}</p>
+            <p class="m-0" *ngIf="utilitiesService.recoveryEmail">
+              <!-- {{ utilitiesService.recoveryEmail | indicationEmail : true }} -->
+              {{ utilitiesService.recoveryEmail }}
+            </p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <a class="btn btn-next btn-block" href="https://app.confa.co:8376/#/login">Continuar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button error -->
+<button type="button" class="btn-modal-warning btn btn-primary" data-toggle="modal" data-target="#modalWarning">
+  Modal warning
+</button>
+
+<!-- Modal error -->
+<div class="modal fade modal-warning" id="modalWarning" tabindex="-1" role="dialog" aria-labelledby="modalWarningLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header warning-header" id="modalWarningLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="\assets\img\alert.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <span *ngIf="utilitiesService.messageModal != ''">
+              <p class="text-center m-0">{{ utilitiesService.messageModal }}</p>
+            </span>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="backLogin(utilitiesService.backLogin)">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button error -->
+<button type="button" class="btn-modal-sugerencia btn btn-primary" data-toggle="modal" data-target="#modalSugerencia">
+  Modal sugerencia
+</button>
+
+<!-- Modal error -->
+<div class="modal fade modal-sugerencia" id="modalSugerencia" tabindex="-1" role="dialog"
+  aria-labelledby="modalSugerenciaLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header sugerencia-header" id="modalSugerenciaLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="\assets\img\success.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">Ten en cuenta!</h6>
+          <div class="m-0 pb-3">
+            <p class="text-center m-0">
+              Tener una contraseña segura y actualizada con frecuencia te ayuda
+              a proteger tu cuenta.
+              <br />
+              Recuerda que una contraseña segura debe tener una combinación de
+              letras, números y símbolos.
+              <br />
+              Evita usar contraseñas que pueda ser fácilmente adivinadas, como
+              por ejemplo: "Conf&#64;123*"
+            </p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="col-6" style="margin-left: auto; margin-right: auto">
+            <button type="button" class="btn-close btn btn-block p-2" data-dismiss="modal" aria-label="Close">
+              <strong>Cerrar</strong>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button error -->
+<button type="button" class="btn-modal-error-questions-register btn btn-primary" data-toggle="modal"
+  data-target="#modalErrorQuestions">
+  Modal error questions register
+</button>
+
+<!-- Modal error -->
+<div class="modal fade modal-error" id="modalErrorQuestions" tabindex="-1" role="dialog"
+  aria-labelledby="modalErrorLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header error-header" id="modalErrorLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="\assets\img\error2.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <span *ngIf="utilitiesService.messageModal == ''">
+              <p class="m-0">Intenta nuevamente o comunícate a</p>
+              <p class="m-0">confa&#64;confa.co</p>
+            </span>
+            <span *ngIf="utilitiesService.messageModal != ''">
+              <p class="text-center m-0">{{ utilitiesService.messageModal }}</p>
+            </span>
+          </div>
+          <div class="info-contact-us" *ngIf="
+              utilitiesService.messageModal == utilitiesService.errorInfoLogin
+            ">
+            <p class="m-0">Si tienes alguna duda, también puedes llamarnos:</p>
+            <p class="m-0">PBX:(606) 878 3111 ó 3009125080</p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="backLogin2(utilitiesService.backLogin)">
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button modal success pago en linea -->
+<button type="button" class="btn-modal-success-payu btn btn-primary" data-toggle="modal"
+  data-target="#modalSuccess-payu" hidden>
+  Modal success payu
+</button>
+
+<!-- Modal success pago en linea -->
+<div class="modal fade modal-success-payu" id="modalSuccess-payu" tabindex="-1" role="dialog"
+  aria-labelledby="modalSuccessLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header success-header" id="modalSuccessLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="assets/img/success.png" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <p class="m-0">{{ utilitiesService.messageModal }}</p>
+            <p class="m-0" *ngIf="utilitiesService.recoveryEmail">
+              {{ utilitiesService.recoveryEmail }}
+            </p>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex">
+            <button type="button" class="btn-close1 btn btn-block" data-dismiss="modal" aria-label="Close"
+              data-backdrop="false" (click)="regresar()">
+              Regresar
+            </button>
+          </div>
+          <div *ngIf="!this.utilitiesService.documentNopyzen" class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="redirigirPayzen()">
+              Continuar
+            </button>
+          </div>
+
+          <div *ngIf="this.utilitiesService.documentNopyzen" class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="confirmNoPyzen(utilitiesService.backLogin)">
+              Validar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Button warning -->
+<button type="button" class="btn-modal-warning-regresar btn btn-primary" data-toggle="modal"
+  data-target="#modalWarningRegresar" hidden>
+  Modal warning regresar cancelar reserva cupa
+</button>
+
+<!-- Modal error -->
+<div class="modal fade modal-warning" id="modalWarningRegresar" tabindex="-1" role="dialog"
+  aria-labelledby="modalWarningLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" hidden>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-header warning-header" id="modalWarningLabel">
+        <div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="logo animated fadeIn fast" src="\assets\img\logo_reverse.png" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center m-3">
+            <img class="icon animated fadeIn fast" src="\assets\img\alert.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center p-2">
+          <h6 class="m-0 pt-3 pb-3">
+            {{ utilitiesService.messageTitleModal }}
+          </h6>
+          <div class="m-0 pt-3 pb-3">
+            <span *ngIf="utilitiesService.messageModal != ''">
+              <p class="text-center m-0">{{ utilitiesService.messageModal }}</p>
+            </span>
+          </div>
+        </div>
+        <div class="p-2">
+          <div class="d-flex pb-2">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close"
+              (click)="limpiarCupos()">
+              Seguir
+            </button>
+          </div>
+
+          <div class="d-flex">
+            <button type="button" class="btn-close btn btn-block" data-dismiss="modal" aria-label="Close">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODALES NUEVOS -->
+<!-- Button success -->
+<button type="button" class="btn btn-primary modalNuevoSuccess" data-toggle="modal" data-target="#modalNuevoSuccess"
+  hidden>
+  Modal success nuevo
+</button>
+
+<!-- Modal success -->
+<div class="modal fade" id="modalNuevoSuccess" tabindex="-1" role="dialog" aria-labelledby="modalSuccessNewLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2 col-11">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+              <rect x="4" y="4" width="64" height="64" rx="32" stroke="#D3DD99" stroke-width="8" />
+              <g clip-path="url(#clip0_128_1257)">
+                <path d="M29.9998 44.34L21.6598 36L18.8198 38.82L29.9998 50L53.9998 26L51.1798 23.18L29.9998 44.34Z"
+                  fill="#A4C000" />
+              </g>
+              <defs>
+                <clipPath id="clip0_128_1257">
+                  <rect width="48" height="48" fill="white" transform="translate(12 12)" />
+                </clipPath>
+              </defs>
+            </svg>
+
+          </div>
+          <div class="col-md-10 col-11">
+            <strong>{{ utilitiesService.messageTitleModal }}</strong>
+            <p *ngIf="utilitiesService.messageModal != ''">{{ utilitiesService.messageModal }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-credits">Confirmar</button> -->
+        <button type="button" class="btn btn-credits-blue" data-dismiss="modal">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button warning -->
+<button type="button" class="btn btn-primary modalNuevowarning" data-toggle="modal" data-target="#modalNuevowarning"
+  hidden>
+  Modal warning nuevo
+</button>
+
+<!-- Modal warning -->
+<div class="modal fade" id="modalNuevowarning" tabindex="-1" role="dialog" aria-labelledby="modalSuccessNewLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2 col-11">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+              <rect x="4" y="4" width="64" height="64" rx="32" stroke="#FFECB9" stroke-width="8" />
+              <path
+                d="M34 42H38V46H34V42ZM34 26H38V38H34V26ZM35.98 16C24.94 16 16 24.96 16 36C16 47.04 24.94 56 35.98 56C47.04 56 56 47.04 56 36C56 24.96 47.04 16 35.98 16ZM36 52C27.16 52 20 44.84 20 36C20 27.16 27.16 20 36 20C44.84 20 52 27.16 52 36C52 44.84 44.84 52 36 52Z"
+                fill="#FFBB00" />
+            </svg>
+
+
+          </div>
+          <div class="col-md-10 col-11">
+            <strong>{{ utilitiesService.messageTitleModal }}</strong>
+            <p *ngIf="utilitiesService.messageModal != ''">{{ utilitiesService.messageModal }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-credits">Confirmar</button> -->
+        <button type="button" class="btn btn-credits-blue" data-dismiss="modal">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Button Error -->
+<button type="button" class="btn btn-primary modalNuevoError" data-toggle="modal" data-target="#modalNuevoError" hidden>
+  Modal Error nuevo
+</button>
+
+<!-- Modal Error -->
+<div class="modal fade" id="modalNuevoError" tabindex="-1" role="dialog" aria-labelledby="modalSuccessNewLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2 col-11">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+              <rect x="4" y="4" width="64" height="64" rx="32" stroke="#FFA8A8" stroke-width="8" />
+              <g clip-path="url(#clip0_127_4357)">
+                <path
+                  d="M50 24.82L47.18 22L36 33.18L24.82 22L22 24.82L33.18 36L22 47.18L24.82 50L36 38.82L47.18 50L50 47.18L38.82 36L50 24.82Z"
+                  fill="#FF2E2E" />
+              </g>
+              <defs>
+                <clipPath id="clip0_127_4357">
+                  <rect width="48" height="48" fill="white" transform="translate(12 12)" />
+                </clipPath>
+              </defs>
+            </svg>
+
+
+          </div>
+          <div class="col-md-10 col-11">
+            <strong>{{ utilitiesService.messageTitleModal }}</strong>
+            <p *ngIf="utilitiesService.messageModal != ''">{{ utilitiesService.messageModal }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-credits">Confirmar</button> -->
+        <button type="button" class="btn btn-credits-blue" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button Info -->
+<button type="button" class="btn btn-primary modalNuevoInfo" data-toggle="modal" data-target="#modalNuevoInfo" hidden>
+  Modal Info nuevo
+</button>
+
+<!-- Modal Info -->
+<div class="modal fade" id="modalNuevoInfo" tabindex="-1" role="dialog" aria-labelledby="modalSuccessNewLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2 col-11">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+              <rect x="4" y="4" width="64" height="64" rx="32" stroke="#BCEDFF" stroke-width="8" />
+              <g clip-path="url(#clip0_128_1009)">
+                <path
+                  d="M34 26H38V30H34V26ZM34 34H38V46H34V34ZM36 16C24.96 16 16 24.96 16 36C16 47.04 24.96 56 36 56C47.04 56 56 47.04 56 36C56 24.96 47.04 16 36 16ZM36 52C27.18 52 20 44.82 20 36C20 27.18 27.18 20 36 20C44.82 20 52 27.18 52 36C52 44.82 44.82 52 36 52Z"
+                  fill="#00AEEF" />
+              </g>
+              <defs>
+                <clipPath id="clip0_128_1009">
+                  <rect width="48" height="48" fill="white" transform="translate(12 12)" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div class="col-md-10 col-11">
+            <strong>{{ utilitiesService.messageTitleModal }}</strong>
+            <p *ngIf="utilitiesService.messageModal != ''">{{ utilitiesService.messageModal }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-credits">Confirmar</button> -->
+        <button type="button" class="btn btn-secun btn-cerrar-modal" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODALES DE PAYU -->
+<!-- Button success -->
+<button type="button" class="btn btn-primary modalNuevoSuccessPayu" data-toggle="modal"
+  data-target="#modalNuevoSuccessPayu" hidden>
+  Modal success nuevo
+</button>
+
+<!-- Modal success PayU-->
+<div class="modal fade" id="modalNuevoSuccessPayu" tabindex="-1" role="dialog" aria-labelledby="modalSuccessNewLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2 col-11">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+              <rect x="4" y="4" width="64" height="64" rx="32" stroke="#D3DD99" stroke-width="8" />
+              <g clip-path="url(#clip0_128_1257)">
+                <path d="M29.9998 44.34L21.6598 36L18.8198 38.82L29.9998 50L53.9998 26L51.1798 23.18L29.9998 44.34Z"
+                  fill="#A4C000" />
+              </g>
+              <defs>
+                <clipPath id="clip0_128_1257">
+                  <rect width="48" height="48" fill="white" transform="translate(12 12)" />
+                </clipPath>
+              </defs>
+            </svg>
+
+          </div>
+          <div class="col-md-10 col-11">
+            <strong>{{ utilitiesService.messageTitleModal }}</strong>
+            <p *ngIf="utilitiesService.messageModal != ''">{{ utilitiesService.messageModal }}</p>
+            <p class="m-0" *ngIf="utilitiesService.recoveryEmail">
+              {{ utilitiesService.recoveryEmail }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+        <div *ngIf="!this.utilitiesService.documentNopyzen">
+          <button id="escuelaCursoContinuarPago" type="button" class="btn btn-credits-blue" data-dismiss="modal"
+            aria-label="Close" (click)="redirigirPayzen()">
+            Continuar
+          </button>
+        </div>
+
+        <div *ngIf="this.utilitiesService.documentNopyzen">
+          <button type="button" class="btn btn-credits-blue" data-dismiss="modal" aria-label="Close"
+            (click)="confirmNoPyzen(utilitiesService.backLogin)">
+            Validar
+          </button>
+        </div>
+        <button id="escuelaCursoRegresarDelPago" type="button" class="btn btn-secun" data-dismiss="modal"
+          aria-label="Close" data-backdrop="false" (click)="regresar()">
+          Regresar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button Info cancelar reserva -->
+<button type="button" class="btn btn-primary modalNuevoInfoCancelReserva" data-toggle="modal"
+  data-target="#modalNuevoInfoCancelReserva" hidden>
+  Modal Info nuevo cancelar reserva
+</button>
+
+<!-- Modal Info -->
+<div class="modal fade" id="modalNuevoInfoCancelReserva" tabindex="-1" role="dialog"
+  aria-labelledby="modalSuccessNewLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-2 col-11">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+              <rect x="4" y="4" width="64" height="64" rx="32" stroke="#BCEDFF" stroke-width="8" />
+              <g clip-path="url(#clip0_128_1009)">
+                <path
+                  d="M34 26H38V30H34V26ZM34 34H38V46H34V34ZM36 16C24.96 16 16 24.96 16 36C16 47.04 24.96 56 36 56C47.04 56 56 47.04 56 36C56 24.96 47.04 16 36 16ZM36 52C27.18 52 20 44.82 20 36C20 27.18 27.18 20 36 20C44.82 20 52 27.18 52 36C52 44.82 44.82 52 36 52Z"
+                  fill="#00AEEF" />
+              </g>
+              <defs>
+                <clipPath id="clip0_128_1009">
+                  <rect width="48" height="48" fill="white" transform="translate(12 12)" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div class="col-md-10 col-11">
+            <strong>{{ utilitiesService.messageTitleModal }}</strong>
+            <p *ngIf="utilitiesService.messageModal != ''">{{ utilitiesService.messageModal }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-credits-blue" (click)="limpiarCupos()" data-dismiss="modal">Segir</button>
+        <button type="button" class="btn btn-secun" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

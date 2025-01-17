@@ -1,0 +1,417 @@
+<div class="modal-header login-header" id="modalPopupLoginLabel">
+  <div class="col-md-11">
+    <div class="d-flex align-items-center justify-content-center">
+      <p class="m-0 pl-4 pr-2">Registrar usuario</p>
+    </div>
+  </div>
+  <button type="button" class="close btn-close-form-register" data-dismiss="modal" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body pr-5 pl-5">
+  <div class="animated fadeIn fast">
+    <div class="login-content">
+      <form class="form-login needs-validation" [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Número de documento {{user}}</label>
+              <!-- <input type="text" [(ngModel)]="utilitiesService.registerUser.documento" [ngModelOptions]="{ standalone: true }" name="document"
+                class="form-control" placement="right" autocomplete="off" [readonly]="true" min="1" [ngClass]="{
+    'is-invalid':
+      (submitted || f.document?.touched) && f.document?.errors
+  }" /> -->
+              <input
+                type="text"
+                formControlName="document"
+                [value]="user?.documento"
+                class="form-control"
+                placement="right"
+                autocomplete="off"
+                readonly="readonly"
+                min="1"
+                [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.document.touched) && f.document.errors
+                }"
+              />
+              <div *ngIf="
+                  (submitted || f.document.touched) &&
+                  f.document.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR UN DOCUMENTO
+                </span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.document.touched) &&
+                  f.document.errors?.minlength
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR MÍNIMO
+                  {{ f.document.errors.minlength.requiredLength }} CARACTERES
+                </span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.document.touched) &&
+                  f.document.errors?.maxlength
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR MÁXIMO
+                  {{ f.document.errors.maxlength.requiredLength }}
+                  CARACTERES</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.document.touched) &&
+                  f.document.errors?.pattern
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR DÍGITOS POSITIVOS</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="select-register">
+              <label class="m-0 mb-1">Tipo de documento (*)</label>
+              <select class="form-control" id="typeDocument" [value]="user?.tipoDocumento" name="typeDocument"
+                formControlName="typeDocument" placeholder="* Tipo Documento" required [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.typeDocument.touched) &&
+                    f.typeDocument.errors
+                }">
+                <option value="" selected disabled>
+                  Selecciona una opción
+                </option>
+                <option value="C">Cédula de ciudadanía</option>
+                <option value="E">Cédula extranjería</option>
+                <option value="T">Tarjeta de identidad</option>
+                <option value="R">Registro civil</option>
+                <option value="P">Pasaporte</option>
+                <option value="V">Permiso especial de permanencia</option>
+                <option value="M">Permiso de protección temporal</option>
+                <option value="D">Carné diplimático</option>
+              </select>
+              <div *ngIf="
+                  (submitted || f.typeDocument.touched) &&
+                  f.typeDocument.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES SELECCIONAR UN TIPO DE DOCUMENTO</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Primer nombre</label>
+              <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="text" formControlName="firstName"
+                [value]="user?.primerNombre" class="form-control" placeholder="* Primer nombre" placement="right"
+                autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.firstName.touched) && f.firstName.errors
+                }" />
+              <div *ngIf="
+                  (submitted || f.firstName.touched) &&
+                  f.firstName.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR EL PRIMER NOMBRE</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.firstName.touched) &&
+                  f.firstName.errors?.pattern
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR SOLO LETRAS</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Segundo nombre</label>
+              <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="text" formControlName="secondName"
+                [value]="user?.segundoNombre" class="form-control" placeholder="Segundo nombre" placement="right"
+                autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.secondName.touched) && f.secondName.errors
+                }" />
+              <div *ngIf="
+                  (submitted || f.secondName.touched) &&
+                  f.secondName.errors?.pattern
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR
+                  SOLO LETRAS</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Primer apellido</label>
+              <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="text"
+                formControlName="firstLastName" [value]="user?.primerApellido" class="form-control"
+                placeholder="* Primer apellido" placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.firstLastName.touched) &&
+                    f.firstLastName.errors
+                }" />
+              <div *ngIf="
+                  (submitted || f.firstLastName.touched) &&
+                  f.firstLastName.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR EL PRIMER APELLIDO DEL USUARIO</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.firstLastName.touched) &&
+                  f.firstLastName.errors?.pattern
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR
+                  SOLO LETRAS</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Segundo apellido</label>
+              <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="text"
+                formControlName="secondLastName" [value]="user?.segundoApellido" class="form-control"
+                placeholder="* Segundo apellido" placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.secondLastName.touched) &&
+                    f.secondLastName.errors
+                }" />
+              <div *ngIf="
+                  (submitted || f.secondLastName.touched) &&
+                  f.secondLastName.errors?.pattern
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR
+                  SOLO LETRAS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Fecha de nacimiento</label>
+              <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="date" formControlName="birthDate"
+                [value]="user?.fechaNacimiento" class="form-control" placeholder="* Fecha de nacimiento"
+                placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.birthDate.touched) && f.birthDate.errors
+                }" [max]="getCurrentDate()" />
+              <div *ngIf="
+                  (submitted || f.birthDate.touched) &&
+                  f.birthDate.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span
+                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"><!-- && !user?.fechaNacimiento -->
+                  DEBES INGRESAR UNA FECHA DE NACIMIENTO</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Teléfono</label>
+              <input type="number" formControlName="phone" [value]="user?.celular" class="form-control"
+                placeholder="* Teléfono" placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid': (submitted || f.phone.touched) && f.phone.errors
+                }" required />
+              <div *ngIf="
+                  (submitted || f.phone.touched) && f.phone.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR UN NUMERO TELÉFONICO</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Dirección</label>
+              <input type="text" formControlName="address" [value]="user?.direccion" class="form-control"
+                placeholder="* Dirección" placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.address.touched) && f.address.errors
+                }" required />
+              <div *ngIf="
+                  (submitted || f.address.touched) && f.address.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR UNA DIRECCIÓN</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6"></div>
+
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Correo electrónico</label>
+              <input type="email" formControlName="email" class="form-control" placeholder="* E-mail electrónico"
+                placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid': (submitted || f.email.touched) && f.email.errors
+                }" email />
+              <div *ngIf="
+                  (submitted || f.email.touched) && f.email.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR UN
+                  CORREO ELECTRÓNICO</span>
+              </div>
+              <div *ngIf="(submitted || f.email.touched) && f.email.errors?.email"
+                class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">EL CORREO
+                  ELECTRÓNICO NO ES VALIDO</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Confimar correo electrónico</label>
+              <input type="email" formControlName="confirmEmail" class="form-control" placeholder="* Confimar E-mail"
+                placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.confirmEmail.touched) &&
+                    f.confirmEmail.errors
+                }" email onpaste="return false" oncut="return false" oncopy="return false" />
+              <div *ngIf="
+                  (submitted || f.confirmEmail.touched) &&
+                  f.confirmEmail.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES CONFIRMAR EL CORREO ELECTRÓNICO</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.confirmEmail.touched) &&
+                  f.confirmEmail.errors?.email
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  EL CORREO ELECTRÓNICO NO ES VALIDO</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.confirmEmail.touched) && f.confirmEmail.errors
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">EL CORREO NO
+                  COINCIDE</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Contraseña</label>
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+                placeholder="* Contraseña" placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.password.touched) && f.password.errors
+                }" />
+              <span style="font-size: 20px;" class="bx bx-low-vision" (click)="toggleShowPassword()"></span>
+              <label class="m-0 mb-1">Ejemplo: Conf&#64;123*</label>
+              <div *ngIf="
+                  (submitted || f.password.touched) &&
+                  f.password.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR
+                  UNA CONTRASEÑA
+                </span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.password.touched) &&
+                  f.password.errors?.minlength
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR
+                  MÍNIMO
+                  {{ f.password.errors.minlength.requiredLength }}
+                  CARACTERES</span>
+              </div>
+              <div *ngIf="f.password.errors?.passwordInvalida" class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBE CONTENER UNA
+                  LETRA MAYÚSCULA, UNA MINÚSCULA, UN CARÁCTER
+                  ESPECIAL Y UN NÚMERO
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-group-custom">
+              <label class="m-0 mb-1">Confirmar contraseña</label>
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control"
+                placeholder="* Confirmar contraseña" placement="right" autocomplete="off" [ngClass]="{
+                  'is-invalid':
+                    (submitted || f.confirmPassword.touched) &&
+                    f.confirmPassword.errors
+                }" onpaste="return false" oncut="return false" oncopy="return false" />
+              <span style="font-size: 20px;" class="bx bx-low-vision" (click)="toggleShowPassword()"></span>
+              <div *ngIf="
+                  (submitted || f.confirmPassword.touched) &&
+                  f.confirmPassword.errors?.required
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES CONFIRMAR TU CONTRASEÑA</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.confirmPassword.touched) &&
+                  f.confirmPassword.errors?.minlength
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR MÍNIMO
+                  {{ f.confirmPassword.errors.minlength.requiredLength }}
+                  CARACTERES</span>
+              </div>
+              <div *ngIf="
+                  (submitted || f.confirmPassword.touched) &&
+                  f.confirmPassword.errors
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  LA CONTRASEÑA NO COINCIDE</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-left">
+            <div class="form-group form-group-custom" style="font-size: 10px">
+              * Los campos que tienen asterisco son obligatorios
+            </div>
+          </div>
+          <div class="col-md-12 text-left">
+            <div class="form-group form-group-custom">
+              * Este formulario solo admite el registro de personas naturales.
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group form-group-custom">
+              <div class="row m-0 d-flex flex-row align-items-center">
+                <input type="checkbox" formControlName="aceptHabeasData" class="form-control habeas-data mr-2"
+                  placement="right" autocomplete="off" [ngClass]="{
+                    'is-invalid':
+                      (submitted || f.aceptHabeasData.touched) &&
+                      !f.aceptHabeasData.value
+                  }" />
+                <span class="text-left" style="font-size: 16px">
+                  * Acepto
+                  <a id="mpPolitica" href="javascript:;" data-toggle="modal"
+                    data-target="#modalPoliticaTratamientoDatos">
+                    Autorización de tratamiento de datos
+                  </a>
+                </span>
+                <div *ngIf="
+                    (submitted || f.aceptHabeasData.touched) &&
+                    !f.aceptHabeasData.value
+                  " class="invalid-feedback animated fadeIn fast m-0">
+                  <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                    DEBES ACEPTAR PARA CONTINUAR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group form-group-custom m-0">
+              <button id="mpRegistro" [disabled]="utilitiesService.loading"
+                class="btn btn-credits btn-signin btn-block mt-1 mb-3">
+                <span *ngIf="utilitiesService.loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Continuar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- TODO: Limpiar el formulario y volverlo al estado normal cuando pasa un registro en el popup -->
+<!-- TODO: Aplicar el metodo de validación de correo si son iguales con un validador personalizado -->
+<!-- TODO: Crear metodos de validación para los formularios desde el TS para formularios reactivos -->

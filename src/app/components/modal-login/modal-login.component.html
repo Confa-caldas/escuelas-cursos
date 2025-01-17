@@ -1,0 +1,118 @@
+<!-- 
+<div class="modal fade modal-popup-login" id="modalPopupLogin" tabindex="-1" role="dialog" aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header login-header" id="modalPopupLoginLabel">
+                <div class="col-md-11">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <p class="m-0 pl-4 pr-2">Ingresa para disfrutar de todos nuestros servicios</p>
+                    </div>
+                </div>
+                <button type="button" class="close btn-close-popup-login" data-dismiss="modal" aria-label="Close" (click)="cleanForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pr-5 pl-5">
+
+                <div class="collapse show collapseForgotPassword-modal collapseRegister-modal">
+                    <div class="animate__animated animate__fadeIn animate__fast">
+
+                        <div class="login-content">
+                            <app-card-login (formLoginEmitter)="processFormLogin($event)"></app-card-login>
+                            <div class="form-group m-0">
+                                <button class="btn-forgot-password-modal btn btn-block mt-1 mb-1" data-toggle="collapse" data-target=".collapseForgotPassword-modal" aria-expanded="false" aria-controls="collapseForgotPassword-modal">¿Olvidaste la contraseña?</button>
+                                <button class="btn btn-credits btn-block mt-1 mb-1" data-toggle="collapse" data-target=".collapseRegister-modal" aria-expanded="false" aria-controls="collapseRegister-modal">Registrarse</button>
+                            </div>
+                        </div>
+                        <p class="policies m-0 pt-2">Al ingresar estarás aceptando la <a href="javascript:;" data-toggle="modal" data-target="#modalPoliticaTratamientoDatos">Política de tratamiento de datos</a> y las <a href="javascript:;" data-toggle="modal" data-target="#modalCondicionesUsoServicio">Condiciones de Uso del Servicio</a></p>
+
+                    </div>
+                </div>
+
+                <div class="collapse collapseForgotPassword-modal">
+                    <div class="animate__animated animate__fadeIn animate__fast">
+
+                        <h3 class="card-title card-title-register">Reestablece tu contraseña</h3>
+                        <p class="card-text paragraph">Ingresa tu número de documento para restablecer tu contraseña.</p>
+                        <div class="login-content">
+                            <app-card-forgot-password (formForgotPasswordEmitter)="processFormForgotPassword($event)"></app-card-forgot-password>
+                            <div class="form-group">
+                                <button class="btn btn-outline-credits btn-block" data-toggle="collapse" data-target=".collapseForgotPassword-modal" aria-expanded="false" aria-controls="collapseForgotPassword-modal">Volver</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="collapse collapseRegister-modal">
+                    <div class="animate__animated animate__fadeIn animate__fast">
+
+                        <h3 class="card-title card-title-register">Validar documento</h3>
+                        <p class="card-text paragraph">Ingresa el número de documento para iniciar el proceso de registro.</p>
+                        <div class="login-content">
+                            <app-card-register (formValidateEmitter)="processFormValidate($event)"></app-card-register>
+                            <div class="form-group">
+                                <button class="btn btn-outline-credits btn-block" data-toggle="collapse" data-target=".collapseRegister-modal" aria-expanded="false" aria-controls="collapseRegister-modal">Volver</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<button type="button" class="btn-change-password btn btn-primary" data-toggle="modal" data-target="#modalPopupChangePasswordLabel">
+  Change password
+</button>
+
+<div class="modal fade modal-popup-change-password" id="modalPopupChangePasswordLabel" tabindex="-1" role="dialog" aria-labelledby="modalPopupChangePasswordLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header login-header" id="modalPopupChangePasswordLabel">
+                <div class="col-md-11">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <p class="m-0 pl-4 pr-2">Reestablece tu contraseña</p>
+                    </div>
+                </div>
+                <button type="button" class="close btn-close-popup-change-password" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pr-5 pl-5">
+
+                <div class="animate__animated animate__fadeIn animate__fast">
+
+                    <div class="login-content">
+                        <app-card-change-password></app-card-change-password>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<button type="button" class="btn-form-register btn btn-primary" data-toggle="modal" data-target="#modalFormRegister">
+  Form Register
+</button>
+
+<div class="modal fade modal-form-register" id="modalFormRegister" tabindex="-1" role="dialog" aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center" role="document">
+        <div class="modal-content">
+
+            <app-card-register-form></app-card-register-form>
+
+        </div>
+    </div>
+</div> -->

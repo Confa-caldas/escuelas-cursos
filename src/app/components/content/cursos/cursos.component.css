@@ -1,0 +1,24 @@
+.btn-acordeon {
+  font-family: Ubuntu;
+  color: black !important;
+  font-weight: bold;
+}
+
+.acordeon{
+  width: 80%;
+}
+
+.header-accordeon{
+  background: white;
+  border: none !important;
+}
+
+.card-acordeon{
+  border: none;
+}
+.card-acordeon-activo{
+  background:#F9FAFB !important;
+  border: none;
+}
+
+

@@ -1,0 +1,150 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin-bottom: 10px;
+  font-family: Ubuntu, Medium;
+}
+
+div.cita-1 h5 {
+  font-family: Ubuntu, Poppins;
+  position: relative;
+  font-size: 30px;
+  line-height: 35px;
+  color: #fff;
+  font-weight: normal;
+}
+
+.bg-color {
+  padding: 15px 0;
+  background-color: var(--color-secundario);
+}
+
+.botonBack {
+  background-color: #e2e2e2;
+  border-color: #e2e2e2;
+  border-radius: 25px;
+  padding: 5px 10px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  margin-left: auto;
+}
+
+.botonBack i {
+  color: var(--color-secundario);
+}
+
+.colorList {
+  color: #00aeef;
+  word-wrap: break-word;
+}
+
+.colorHr {
+  border-color: #00aeef;
+  background-color: #00aeef;
+  height: 1px;
+  margin-top: 0px;
+}
+
+table.table-bordered {
+  text-align: center !important;
+  font-size: 13px !important;
+  line-height: 14px !important;
+  border-collapse: separate !important;
+  border-spacing: 0 5px !important;
+  padding: 0px !important;
+}
+table.table-bordered > thead > tr > th {
+  background-color: #00adef !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+  padding: 10px !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  font-family: Ubuntu, Poppins !important;
+}
+table.table-bordered > tbody > tr > td {
+  border: 0.3px solid #00adef !important;
+  background-color: #fff !important;
+  color: #777777 !important;
+  padding-top: 10px !important;
+  padding-right: 4px !important;
+  padding-bottom: 10px !important;
+  padding-left: 4px !important;
+  vertical-align: middle !important;
+}
+
+.informacion {
+  padding-top: 14px;
+  background-color: white;
+  position: relative;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+}
+
+.textoInformativo {
+  color: white;
+  font-size: 14px;
+  font-family: Ubuntu;
+  font-weight: bold;
+  line-height: 20px;
+}
+button.btn-perfil-blue {
+  white-space: normal;
+  background-color: #00aeef;
+  border-color: #fff;
+  color: #fff;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 10px 20px;
+}
+
+button.btn-perfil-blue:hover {
+  white-space: normal;
+  border: 2px solid #00aeef;
+  color: #00aeef;
+  background-color: transparent;
+}
+span.badge1 {
+  font-family: Ubuntu, Poppins;
+  font-weight: 400;
+  white-space: normal;
+  font-size: 10px;
+}
+button.btn-perfil-red {
+  background-color: #fff;
+  border-color: #ff0000;
+  color: #ff0000;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 10px 20px;
+}
+
+.colord {
+  color: #00aeef;
+}
+
+.colord:hover {
+  color: #fff;
+}
+
+.btn-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+.card-categ{
+  border: 1px solid var(--color-secundario);
+}

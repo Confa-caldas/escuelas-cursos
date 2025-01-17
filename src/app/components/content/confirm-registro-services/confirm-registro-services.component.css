@@ -1,0 +1,215 @@
+
+
+
+section.body-login div.content-body {
+    justify-content: center !important;
+}
+section.body-home div.students div.content-select-image {
+    justify-content: center !important;
+}
+section.body-home div.students div.content-select-image div.card-select-student {
+    position: relative !important;
+}
+section.body-student div.content-boletines {
+    padding-left: 0% !important;
+}
+section.body-home div.students div.column-article-right div.contenido div.card img {
+    height: 110.88px !important;
+}
+
+
+section.body-login {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/assets/img/login3.jpg") center center;
+    background-size: cover;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 600ms;
+    animation-duration: 600ms;
+}
+
+section.background-forgot-password {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/assets/img/login3.jpg") top center;
+    background-size: cover !important;
+    padding: 10.4rem 0rem !important;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 600ms;
+    animation-duration: 600ms;
+}
+
+section.background-signup {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/assets/img/login3.jpg") center center;
+    background-size: cover !important;
+    padding: 10.4rem 0rem !important;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    -webkit-animation-duration: 600ms;
+    animation-duration: 600ms;
+}
+
+section.body-login div.content-body {
+    font-family: Ubuntu;
+}
+
+section.body-login div.content-body div.card-login {
+    width: 404px;
+    border-radius: 7px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login {
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login h3.card-title-login {
+    color: #03a9f4;
+    line-height: 29px;
+    font-weight: bold;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login h3.card-title-register {
+    color: #03a9f4;
+    line-height: 32px;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login p.paragraph {
+    position: relative;
+    font-weight: 700;
+    color: #9a9a9a !important;
+    padding-left: 20px;
+    font-size: 14px;
+    line-height: 16.8px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login p.paragraph::before {
+    content: "";
+    background-color: #03a9f4;
+    position: absolute;
+    width: 8px;
+    height: 100%;
+    left: 0;
+    border-radius: 5px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login p.policies {
+    line-height: 12px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login p.policies a {
+    text-decoration: underline;
+    color: #212529;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login label {
+    font-size: 10px;
+    line-height: 11px;
+    color: #666666;
+}
+
+section.body-login div.content-body div.card-login input {
+    padding: 5px 20px !important;
+    height: auto !important;
+    font-family: Ubuntu;
+    font-size: 16px !important;
+    /* ------------- */
+    border-radius: 50px;
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: #eee;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-signin,
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-signup,
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-next,
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-validate {
+    background-color: #03a9f4;
+    border-color: #03a9f4;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-signin:hover,
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-signup:hover,
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-next:hover,
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-validate:hover {
+    background-color: #fff;
+    color: #03a9f4;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-forgot-password {
+    color: #ff2d27;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 29px;
+    text-decoration: underline;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-back {
+    background-color: #fff;
+    border-color: #03a9f4;
+    color: #03a9f4;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+section.body-login div.content-body div.card-login div.card-body-login div.login-content div button.btn-back:hover {
+    background-color: #03a9f4;
+    color: #fff;
+}
+
+section.body-login div.content-body div.card-education {
+    width: 501px;
+}
+
+section.body-login div.content-body div.card-education div.card-body-education {
+    text-align: center;
+}
+
+section.body-login div.content-body div.card-education div.card-body-education h1.card-title-education {
+    color: #03a9f4;
+    font-size: 62px;
+    line-height: 61.1px;
+}
+
+section.body-login div.content-body div.card-education div.card-body-education p {
+    position: relative;
+    color: #fff;
+    text-align: justify;
+    font-size: 15.8px;
+    line-height: 20.7px;
+}
+
+section.body-login div.content-body div.card-education div.card-body-education p::before {
+    content: "";
+    background-color: #03a9f4;
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    bottom: -40px;
+    border-radius: 5px;
+}
+
+

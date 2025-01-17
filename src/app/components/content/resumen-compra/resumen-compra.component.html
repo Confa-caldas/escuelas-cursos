@@ -1,0 +1,298 @@
+<app-header></app-header>
+<div class="container mt-0 mb-0 position-relative">
+    <div class="navbar-welcome ">
+        <div class="content-welcome col-sm-12 my-4">
+            <section class="row ">
+                <div class="my-3 col-md-8 row">
+                    <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="48" height="48" rx="24" fill="#F2F4F7" />
+                        <path
+                            d="M33.3333 34.5C33.3333 32.8718 33.3333 32.0578 33.1323 31.3953C32.6799 29.9039 31.5128 28.7367 30.0213 28.2843C29.3589 28.0833 28.5448 28.0833 26.9166 28.0833H21.0833C19.4551 28.0833 18.6411 28.0833 17.9786 28.2843C16.4872 28.7367 15.32 29.9039 14.8676 31.3953C14.6666 32.0578 14.6666 32.8718 14.6666 34.5M29.25 18.75C29.25 21.6495 26.8995 24 24 24C21.1005 24 18.75 21.6495 18.75 18.75C18.75 15.8505 21.1005 13.5 24 13.5C26.8995 13.5 29.25 15.8505 29.25 18.75Z"
+                            stroke="#475467" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <h6 class="ml-2 my-2">Hola {{ utilitiesService.currentUser.primerNombre | titlecase}} {{ utilitiesService.currentUser.segundoNombre | titlecase }} {{ utilitiesService.currentUser.primerApellido | titlecase }}</h6>
+                </div>
+                <div class="card mt-3 mb-3 m-0 p-0">
+                    <div class="card-body m-0 p-0">
+                        <div class="row p-0 pr-1 d-flex justify-content-end">
+                            <button class="btn-credits btn" (click)="navigate()" id="escuelaCursoHistorico">
+                                Historial de transacciones
+                            </button>
+
+                            <button class="btn-secun btn mx-3 boton-volver" (click)="atras()" id="escuelaCursoAtras">
+                                <!-- <i class="fas fa-arrow-left"></i> Atrás -->
+                                Volver
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <app-top-menu-component *ngIf="isMenuVisible()"></app-top-menu-component>
+    <section class="pt-4 pb-4">
+        <div class="row">
+            <div class="col-md-6 col-12 fondo">
+                <div class="mb-4">
+                    <h4 style="font-weight: 600;"> Personas incluidas </h4>
+                    <p class="item-titulo mb-0">Revisa las personas incluidas en la inscripción. En este paso podrás eliminar alguna de ellas.
+                    </p>
+
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let asis of listaAsistentes; let i = index">
+                        <div class="row">
+                            <div class="col-10">
+                                <h4><strong>{{asis.nombreCompleto | titlecase}}</strong></h4>
+                                <span>{{asis.documento}}</span>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn" (click)="eliminarAsistente(i)">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M23.3333 15.0001V14.3334C23.3333 13.4 23.3333 12.9333 23.1517 12.5768C22.9919 12.2632 22.7369 12.0082 22.4233 11.8484C22.0668 11.6667 21.6001 11.6667 20.6667 11.6667H19.3333C18.3999 11.6667 17.9332 11.6667 17.5767 11.8484C17.2631 12.0082 17.0081 12.2632 16.8483 12.5768C16.6667 12.9333 16.6667 13.4 16.6667 14.3334V15.0001M18.3333 19.5834V23.7501M21.6667 19.5834V23.7501M12.5 15.0001H27.5M25.8333 15.0001V24.3334C25.8333 25.7335 25.8333 26.4336 25.5608 26.9684C25.3212 27.4388 24.9387 27.8212 24.4683 28.0609C23.9335 28.3334 23.2335 28.3334 21.8333 28.3334H18.1667C16.7665 28.3334 16.0665 28.3334 15.5317 28.0609C15.0613 27.8212 14.6788 27.4388 14.4392 26.9684C14.1667 26.4336 14.1667 25.7335 14.1667 24.3334V15.0001"
+                                            stroke="#475467" stroke-width="1.66667" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="my-4">
+                    <div class="mb-4">
+                        <h4 style="font-weight: 600;"> Resumen de tu compra </h4>
+                    </div>
+                    <div class="my-4">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <span class="span-icono-curso">
+                                        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4" width="48" height="48" rx="24" fill="white" />
+                                            <rect x="4" y="4" width="48" height="48" rx="24" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <g clip-path="url(#clip0_124_6848)">
+                                                <path
+                                                    d="M24.25 30.1875C21.325 30.1875 15.5 31.65 15.5 34.5625V36.75H33V34.5625C33 31.65 27.175 30.1875 24.25 30.1875ZM18.425 34.25C19.475 33.525 22.0125 32.6875 24.25 32.6875C26.4875 32.6875 29.025 33.525 30.075 34.25H18.425ZM24.25 28C26.6625 28 28.625 26.0375 28.625 23.625C28.625 21.2125 26.6625 19.25 24.25 19.25C21.8375 19.25 19.875 21.2125 19.875 23.625C19.875 26.0375 21.8375 28 24.25 28ZM24.25 21.75C25.2875 21.75 26.125 22.5875 26.125 23.625C26.125 24.6625 25.2875 25.5 24.25 25.5C23.2125 25.5 22.375 24.6625 22.375 23.625C22.375 22.5875 23.2125 21.75 24.25 21.75ZM33.05 30.2625C34.5 31.3125 35.5 32.7125 35.5 34.5625V36.75H40.5V34.5625C40.5 32.0375 36.125 30.6 33.05 30.2625ZM31.75 28C34.1625 28 36.125 26.0375 36.125 23.625C36.125 21.2125 34.1625 19.25 31.75 19.25C31.075 19.25 30.45 19.4125 29.875 19.6875C30.6625 20.8 31.125 22.1625 31.125 23.625C31.125 25.0875 30.6625 26.45 29.875 27.5625C30.45 27.8375 31.075 28 31.75 28Z"
+                                                    fill="#FF2B81" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_124_6848">
+                                                    <rect width="30" height="30" fill="white"
+                                                        transform="translate(13 13)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </span>
+                                    <span class="item-titulo pt-1 pl-2"> Cantidad de personas: <strong
+                                            class="total-valor">
+                                            {{cantPersonas}}</strong> </span>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <span class="span-icono-curso ">
+                                        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4" width="48" height="48" rx="24" fill="white" />
+                                            <rect x="4" y="4" width="48" height="48" rx="24" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <path
+                                                d="M26.7812 39.25V36.5625C25.6771 36.3125 24.7242 35.8333 23.9225 35.125C23.12 34.4167 22.5312 33.4167 22.1562 32.125L24.4688 31.1875C24.7813 32.1875 25.245 32.9479 25.86 33.4688C26.4742 33.9896 27.2813 34.25 28.2813 34.25C29.1354 34.25 29.8596 34.0575 30.4538 33.6725C31.0471 33.2867 31.3438 32.6875 31.3438 31.875C31.3438 31.1458 31.1146 30.5675 30.6562 30.14C30.1979 29.7133 29.1354 29.2292 27.4688 28.6875C25.6771 28.125 24.4479 27.4533 23.7813 26.6725C23.1146 25.8908 22.7812 24.9375 22.7812 23.8125C22.7812 22.4583 23.2188 21.4062 24.0938 20.6562C24.9688 19.9062 25.8646 19.4792 26.7812 19.375V16.75H29.2812V19.375C30.3229 19.5417 31.1825 19.9217 31.86 20.515C32.5367 21.1092 33.0312 21.8333 33.3438 22.6875L31.0312 23.6875C30.7812 23.0208 30.4271 22.5208 29.9688 22.1875C29.5104 21.8542 28.8854 21.6875 28.0938 21.6875C27.1771 21.6875 26.4792 21.8908 26 22.2975C25.5208 22.7033 25.2812 23.2083 25.2812 23.8125C25.2812 24.5 25.5938 25.0417 26.2188 25.4375C26.8438 25.8333 27.9271 26.25 29.4688 26.6875C30.9062 27.1042 31.995 27.7654 32.735 28.6712C33.4742 29.5779 33.8437 30.625 33.8437 31.8125C33.8437 33.2917 33.4062 34.4167 32.5312 35.1875C31.6562 35.9583 30.5729 36.4375 29.2812 36.625V39.25H26.7812Z"
+                                                fill="#FF2B81" />
+                                        </svg>
+                                    </span>
+                                    <span class="item-titulo pt-1 pl-2"> Total a pagar: <strong class="total-valor">
+                                            {{total | currency :'$'}} </strong> </span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="col-md-8 mt-4">
+                            <button class="btn btn-credits btn-block mx-auto" (click)="pago()" id="escuelaCursoPagar">Pagar</button>
+                            <button class="btn btn-secun btn-block mx-auto" id="escuelaCursoRegresar"
+                                (click)="atras()">Regresar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-12 fondo">
+                <div class="">
+                    <div class="">
+                        <h4 style="font-weight: 600;">Resumen </h4>
+                        <p class="item-titulo">Conoce el detalle de tu inscripción.</p>
+                    </div>
+                    <div class=" mb-3">
+                        <ul class="list-group">
+                            <li class="list-group-item list-resumen mb-1">
+                                <div class="row">
+                                    <span class="span-icono-curso mt-1">
+                                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4" width="32" height="32" rx="16" fill="white" />
+                                            <rect x="4" y="4" width="32" height="32" rx="16" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <g clip-path="url(#clip0_124_5603)">
+                                                <path
+                                                    d="M22.5 19.1667V14.1667L20 11.6667L17.5 14.1667V15.8334H12.5V27.5001H27.5V19.1667H22.5ZM15.8333 25.8334H14.1667V24.1667H15.8333V25.8334ZM15.8333 22.5001H14.1667V20.8334H15.8333V22.5001ZM15.8333 19.1667H14.1667V17.5001H15.8333V19.1667ZM20.8333 25.8334H19.1667V24.1667H20.8333V25.8334ZM20.8333 22.5001H19.1667V20.8334H20.8333V22.5001ZM20.8333 19.1667H19.1667V17.5001H20.8333V19.1667ZM20.8333 15.8334H19.1667V14.1667H20.8333V15.8334ZM25.8333 25.8334H24.1667V24.1667H25.8333V25.8334ZM25.8333 22.5001H24.1667V20.8334H25.8333V22.5001Z"
+                                                    fill="#FF2B81" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_124_5603">
+                                                    <rect width="20" height="20" fill="white"
+                                                        transform="translate(10 10)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </span>
+                                    <div class="item-resumen">
+                                        <span class="item-titulo ">Ciudad</span> <br>
+                                        <span class="item-titulo-seleccion">{{utilitiesService.ciudadCurso |
+                                            titlecase}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-resumen mb-1">
+                                <div class="row">
+                                    <span class="span-icono-curso my-2">
+                                        <svg viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" fill="white" />
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <g clip-path="url(#clip0_124_6135)">
+                                                <g clip-path="url(#clip1_124_6135)">
+                                                    <path
+                                                        d="M25.5 23.5L21.4375 27.5625C21.825 27.7125 22.1375 27.9 22.4 28.05C22.8625 28.3375 23.1375 28.5 23.8375 28.5C24.5375 28.5 24.8125 28.3375 25.275 28.05C25.85 27.7125 26.625 27.25 28.0125 27.25C29.4 27.25 30.175 27.7125 30.7375 28.05C31.2 28.325 31.4875 28.5 32.175 28.5C32.8625 28.5 33.15 28.3375 33.6125 28.05C33.7625 27.9625 33.9375 27.8625 34.125 27.7625L26.1 19.75C24.1625 17.8125 22.375 17.2375 19.25 17.25V20.375C21.525 20.3625 22.8625 20.8625 24.25 22.25L25.5 23.5ZM19.6875 32.875C20.375 32.875 20.6625 33.05 21.125 33.325C21.6875 33.6625 22.4625 34.125 23.85 34.125C25.2375 34.125 26.0125 33.6625 26.575 33.325C27.0375 33.0375 27.3125 32.875 28.0125 32.875C28.7 32.875 28.9875 33.05 29.45 33.325C30.0125 33.6625 30.7875 34.125 32.175 34.125C33.5625 34.125 34.3375 33.6625 34.9 33.325C35.3625 33.0375 35.6375 32.875 36.3375 32.875C37.025 32.875 37.3125 33.05 37.775 33.325C38.3375 33.6625 39.1 34.1125 40.475 34.125V31.625C39.7875 31.625 39.5 31.45 39.0375 31.175C38.475 30.8375 37.7 30.375 36.3125 30.375C34.925 30.375 34.15 30.8375 33.5875 31.175C33.125 31.4625 32.8375 31.625 32.15 31.625C31.4625 31.625 31.175 31.45 30.7125 31.175C30.15 30.8375 29.375 30.375 27.9875 30.375C26.6 30.375 25.825 30.8375 25.2625 31.175C24.8 31.4625 24.525 31.625 23.825 31.625C23.1375 31.625 22.85 31.45 22.3875 31.175C21.825 30.8375 21.05 30.375 19.6625 30.375C18.275 30.375 17.5 30.8375 16.9375 31.175C16.475 31.4625 16.2 31.625 15.5 31.625V34.125C16.8875 34.125 17.6625 33.6625 18.25 33.325C18.7125 33.0375 19 32.875 19.6875 32.875ZM36.3375 36C34.95 36 34.175 36.4625 33.6125 36.8C33.15 37.0875 32.8625 37.25 32.175 37.25C31.4875 37.25 31.2 37.075 30.7375 36.8C30.175 36.4625 29.4 36 28.0125 36C26.625 36 25.85 36.4625 25.275 36.8C24.8125 37.0875 24.5375 37.25 23.8375 37.25C23.1375 37.25 22.8625 37.0875 22.4 36.8C21.8375 36.4625 21.0625 36 19.675 36C18.2875 36 17.5125 36.4625 16.9375 36.8C16.475 37.0875 16.2 37.25 15.5 37.25V39.75C16.8875 39.75 17.6625 39.2875 18.2375 38.95C18.7 38.6625 18.9875 38.5 19.675 38.5C20.3625 38.5 20.65 38.6625 21.1125 38.95C21.675 39.2875 22.45 39.75 23.8375 39.75C25.225 39.75 26 39.2875 26.575 38.95C27.0375 38.6625 27.3125 38.5 28.0125 38.5C28.7 38.5 28.9875 38.675 29.45 38.95C30.0125 39.2875 30.7875 39.75 32.175 39.75C33.5625 39.75 34.325 39.2875 34.9 38.95C35.3625 38.6625 35.6375 38.5 36.3375 38.5C37.025 38.5 37.3125 38.675 37.775 38.95C38.3375 39.2875 39.1125 39.75 40.5 39.75V37.25C39.8 37.25 39.525 37.0875 39.0625 36.8C38.5 36.4625 37.725 36 36.3375 36Z"
+                                                        fill="#FF2B81" />
+                                                    <path
+                                                        d="M33.625 23.5C35.3509 23.5 36.75 22.1009 36.75 20.375C36.75 18.6491 35.3509 17.25 33.625 17.25C31.8991 17.25 30.5 18.6491 30.5 20.375C30.5 22.1009 31.8991 23.5 33.625 23.5Z"
+                                                        fill="#FF2B81" />
+                                                </g>
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_124_6135">
+                                                    <rect width="30" height="30" fill="white"
+                                                        transform="translate(13 13.5)" />
+                                                </clipPath>
+                                                <clipPath id="clip1_124_6135">
+                                                    <rect width="30" height="30" fill="white"
+                                                        transform="translate(13 13.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                    </span>
+                                    <div class="item-resumen ">
+                                        <span class="item-titulo ">Actividad</span> <br>
+                                        <span class="item-titulo-seleccion">{{utilitiesService.actividadCurso |
+                                            titlecase}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-resumen mb-1">
+                                <div class="row">
+                                    <span class="span-icono-curso my-2">
+                                        <svg viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" fill="white" />
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <g clip-path="url(#clip0_126_929)">
+                                                <path
+                                                    d="M28 16C23.1625 16 19.25 19.9125 19.25 24.75C19.25 31.3125 28 41 28 41C28 41 36.75 31.3125 36.75 24.75C36.75 19.9125 32.8375 16 28 16ZM21.75 24.75C21.75 21.3 24.55 18.5 28 18.5C31.45 18.5 34.25 21.3 34.25 24.75C34.25 28.35 30.65 33.7375 28 37.1C25.4 33.7625 21.75 28.3125 21.75 24.75Z"
+                                                    fill="#FF2B81" />
+                                                <path
+                                                    d="M28 27.875C29.7259 27.875 31.125 26.4759 31.125 24.75C31.125 23.0241 29.7259 21.625 28 21.625C26.2741 21.625 24.875 23.0241 24.875 24.75C24.875 26.4759 26.2741 27.875 28 27.875Z"
+                                                    fill="#FF2B81" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_126_929">
+                                                    <rect width="30" height="30" fill="white"
+                                                        transform="translate(13 13.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </span>
+                                    <div class="item-resumen ">
+                                        <span class="item-titulo ">Ubicación</span> <br>
+                                        <span class="item-titulo-seleccion">{{utilitiesService.ubicacionCurso |
+                                            titlecase}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-resumen mb-1">
+                                <div class="row">
+                                    <div class="span-icono-curso my-2">
+                                        <svg viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" fill="white" />
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <g clip-path="url(#clip0_126_940)">
+                                                <path
+                                                    d="M36.75 17.25H19.25C17.875 17.25 16.75 18.375 16.75 19.75V37.25C16.75 38.625 17.875 39.75 19.25 39.75H36.75C38.125 39.75 39.25 38.625 39.25 37.25V19.75C39.25 18.375 38.125 17.25 36.75 17.25ZM36.75 37.25H19.25V19.75H36.75V37.25ZM21.75 26H24.25V34.75H21.75V26ZM26.75 22.25H29.25V34.75H26.75V22.25ZM31.75 29.75H34.25V34.75H31.75V29.75Z"
+                                                    fill="#FF2B81" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_126_940">
+                                                    <rect width="30" height="30" fill="white"
+                                                        transform="translate(13 13.5)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                    </div>
+                                    <div class="item-resumen">
+                                        <span class="item-titulo ">Edad y nivel</span> <br>
+                                        <span class="item-titulo-seleccion">{{utilitiesService.edadNivelCurso 
+                                            | lowercase }}</span>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li class="list-group-item list-resumen mb-1">
+                                <div class="row">
+                                    <div class="span-icono-curso my-2">
+                                        <svg viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" fill="white" />
+                                            <rect x="4" y="4.5" width="48" height="48" rx="24" stroke="#FFD1E4"
+                                                stroke-width="8" />
+                                            <path
+                                                d="M31.1875 34.1875L26.75 29.75V23.5H29.25V28.7188L32.9375 32.4062L31.1875 34.1875ZM26.75 21V18.5H29.25V21H26.75ZM35.5 29.75V27.25H38V29.75H35.5ZM26.75 38.5V36H29.25V38.5H26.75ZM18 29.75V27.25H20.5V29.75H18ZM28 41C26.2708 41 24.6458 40.6717 23.125 40.015C21.6042 39.3592 20.2812 38.4688 19.1563 37.3438C18.0313 36.2188 17.1408 34.8958 16.485 33.375C15.8283 31.8542 15.5 30.2292 15.5 28.5C15.5 26.7708 15.8283 25.1458 16.485 23.625C17.1408 22.1042 18.0313 20.7812 19.1563 19.6563C20.2812 18.5313 21.6042 17.6404 23.125 16.9837C24.6458 16.3279 26.2708 16 28 16C29.7292 16 31.3542 16.3279 32.875 16.9837C34.3958 17.6404 35.7188 18.5313 36.8438 19.6563C37.9688 20.7812 38.8592 22.1042 39.515 23.625C40.1717 25.1458 40.5 26.7708 40.5 28.5C40.5 30.2292 40.1717 31.8542 39.515 33.375C38.8592 34.8958 37.9688 36.2188 36.8438 37.3438C35.7188 38.4688 34.3958 39.3592 32.875 40.015C31.3542 40.6717 29.7292 41 28 41ZM28 38.5C30.7917 38.5 33.1562 37.5312 35.0938 35.5938C37.0312 33.6562 38 31.2917 38 28.5C38 25.7083 37.0312 23.3437 35.0938 21.4062C33.1562 19.4687 30.7917 18.5 28 18.5C25.2083 18.5 22.8437 19.4687 20.9062 21.4062C18.9687 23.3437 18 25.7083 18 28.5C18 31.2917 18.9687 33.6562 20.9062 35.5938C22.8437 37.5312 25.2083 38.5 28 38.5Z"
+                                                fill="#FF2B81" />
+                                        </svg>
+
+                                    </div>
+                                    <div class="item-resumen">
+                                        <span class="item-titulo ">Día y horario</span> <br>
+                                        <div class="mb-2" *ngFor="let hora of horarios">
+                                          <span class="item-titulo-seleccion text-wrap">{{hora.nombreDia}} - {{hora.horaInicio}}</span>
+                                        </div>
+                                      </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item list-resumen mb-1">
+                                <div class="row">
+                                    <div class="span-icono-curso my-2">
+                                        <img src="../../../../assets/icons/calendar.svg" class="span-icono-curso" alt=""
+                                            style="width: 43px;height: 43px;">
+                                    </div>
+                                    <div class="item-resumen">
+                                        <span class="item-titulo "> Duración</span> <br>
+                                        <span class="item-titulo-seleccion">{{utilitiesService.fechaInicioFin }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <button class="btn_reserve" hidden (click)="reserve()">Pagar</button>
+                    <button class="btn_reservenopyzen" hidden
+                        (click)="finaliceNoPyzen(documentNopyzen, identifierProductNopyzen)">
+                        Pagar.
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

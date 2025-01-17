@@ -1,0 +1,294 @@
+<!-- Modal Política de tratamiento de datos -->
+<div
+  class="modal fade modal-policies"
+  id="modalPoliticaTratamientoDatos"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalPoliticaTratamientoDatosTitle"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+  style="z-index: 10000000"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header p-2">
+        <div class="p-1 col-md-11">
+          <div class="card-politica">
+            <div class="row no-gutters">
+              <div
+                class="col-md-2 d-flex justify-content-center align-items-center"
+              >
+                <img
+                  src="{{ policiesService.policies.imagePolicies }}"
+                  class="card-img m-3"
+                  alt=""
+                />
+              </div>
+              <div class="card-politica-body col-md-10">
+                <div class="p-2">
+                  <span>{{
+                    policiesService.policies.informationalMessage
+                  }}</span>
+                  <h4
+                    class="modal-title"
+                    id="modalPoliticaTratamientoDatosTitle"
+                  >
+                    {{ policiesService.tratamientoDeDatos.title }}
+                  </h4>
+                  <p class="text-break m-0">
+                    {{ policiesService.tratamientoDeDatos.subtitle }}
+                    <a
+                      href="https://56a.4c4.myftpupload.com/wp-content/uploads/2022/05/POLI%CC%81TICA-DE-TRATAMIENTO-DE-LA-INFORMACIO%CC%81N-1-1.pdf"
+                      target="_blank"
+                      class="link-politicas"
+                      >ingresa aqui.
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-4 contenidopolicies">
+        <div class="row d-flex m-0">
+          <img
+            class="col-12 p-0"
+            src="{{ policiesService.policies.imageConfa }}"
+            alt=""
+          />
+          <!-- <h4 class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3">{{ policiesService.tratamientoDeDatos.titleBody }}</h4> -->
+        </div>
+        <div style="height: 80% !important; overflow: auto">
+          <p
+            *ngFor="
+              let policiesTratamientoDeDatos of policiesService
+                .tratamientoDeDatos.paragraphs
+            "
+          >
+            <b>{{ policiesTratamientoDeDatos.paragraph1 }}</b>
+            {{ policiesTratamientoDeDatos.paragraph }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Condiciones de uso del servicio -->
+<div
+  class="modal fade modal-policies"
+  id="modalCondicionesUsoServicio"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalCondicionesUsoServicio"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+  style="z-index: 10000000"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header p-2">
+        <div class="p-1 col-md-11">
+          <div class="card-politica">
+            <div class="row no-gutters">
+              <div
+                class="col-md-2 d-flex justify-content-center align-items-center"
+              >
+                <img
+                  src="{{ policiesService.policies.imagePolicies }}"
+                  class="card-img m-3"
+                  alt=""
+                />
+              </div>
+              <div class="card-politica-body col-md-10">
+                <div class="p-2">
+                  <span>{{
+                    policiesService.policies.informationalMessage
+                  }}</span>
+                  <h4 class="modal-title" id="modalCondicionesUsoServicio">
+                    {{ policiesService.condicionesDeUsoDelServicio.title }}
+                  </h4>
+                  <p class="text-break m-0">
+                    {{ policiesService.condicionesDeUsoDelServicio.subtitle }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="close btn_close"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="inicio()"
+          (click)="esMenosr()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-4 contenidopolicies">
+        <div class="row d-flex m-0">
+          <img
+            class="col-12 p-0"
+            src="{{ policiesService.policies.imageConfa }}"
+            alt=""
+          />
+        </div>
+        <div style="height: 80% !important; overflow: auto">
+          <ul class="pl-4">
+            <li
+              *ngFor="
+                let policiesCondicionesDeUso of policiesService
+                  .condicionesDeUsoDelServicio.paragraphs
+              "
+            >
+              <b>{{ policiesCondicionesDeUso.paragraph1 }}</b>
+              {{ policiesCondicionesDeUso.paragraph }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="modal-body p-4">
+          <div class="row">
+          </div>
+          <div class="buttons-section">
+            <div class="d-flex justify-content-center align-items-center">
+              <button
+                class="btn btn-credits mb-2 reserve radio"
+                (click)="pagar2()"
+              >
+                Acepto las políticas de uso del servicio
+              </button>
+            </div>
+            <div class="centro" *ngIf="alertMessage != null" style="color: red">
+              <i class="fa" aria-hidden="true"></i> &nbsp;
+              {{ alertMessage }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button class="btn_reset" hidden (click)="esMenosr()">reset...</button>
+
+<!-- Modal tratamiento de datos Menores -->
+<div
+  class="modal fade modal-policies"
+  id="modalTratamientoDatosMenores"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalPoliticaTratamientoDatosTitle"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+  style="z-index: 10000000"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header p-2">
+        <div class="p-1 col-md-11">
+          <div class="card-politica">
+            <div class="row no-gutters">
+              <div
+                class="col-md-2 d-flex justify-content-center align-items-center"
+              >
+                <img
+                  src="{{ policiesService.policies.imagePolicies }}"
+                  class="card-img m-3"
+                  alt=""
+                />
+              </div>
+              <div class="card-politica-body col-md-10">
+                <div class="p-2">
+                  <span>{{
+                    policiesService.policies.informationalMessage
+                  }}</span>
+                  <h4
+                    class="modal-title"
+                    id="modalPoliticaTratamientoDatosTitle"
+                  >
+                    <!-- {{ policiesService.tratamientoDeDatosMenores.title }} -->
+                  </h4>
+                  <p class="text-break m-0">
+                   <!--  {{ policiesService.tratamientoDeDatosMenores.subtitle }} -->
+                    <a
+                      href="https://56a.4c4.myftpupload.com/wp-content/uploads/2022/05/POLI%CC%81TICA-DE-TRATAMIENTO-DE-LA-INFORMACIO%CC%81N-1-1.pdf"
+                      target="_blank"
+                      class="link-politicas"
+                      >ingresa aqui.
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row d-flex m-0">
+          <img
+            class="col-12 p-0"
+            src="{{ policiesService.policies.imageConfa }}"
+            alt=""
+          />
+          <!-- <h4 class="col-12 col-sm-5 col-md-5 col-lg-3 col-xl-3">{{ policiesService.tratamientoDeDatos.titleBody }}</h4> -->
+        </div>
+        <div style="height: 80% !important; overflow: auto">
+          <!-- <p
+            *ngFor="
+              let policiesTratamientoDeDatos of policiesService
+                .tratamientoDeDatosMenores.paragraphs
+            "
+          >
+            <b>{{ policiesTratamientoDeDatos.paragraph1 }}</b>
+            {{ policiesTratamientoDeDatos.paragraph }}
+          </p> -->
+        </div>
+      </div>
+      <div class="card-politica-body">
+        <!-- <div
+          class="p-2 centro"
+          *ngFor="let no of this.utilitiesService.nombreMenos; index as i"
+        >
+          <h4 class="modal-title" id="modalPoliticaTratamientoDatosTitle">
+            {{ no | titlecase }}
+          </h4>
+        </div> -->
+        <div class="buttons-section">
+          <div class="centro">
+            <button
+              class="btn btn-primary mb-2 reserve radio"
+              (click)="pagar3()"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Acepto las políticas.
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

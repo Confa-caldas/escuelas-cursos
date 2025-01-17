@@ -1,0 +1,259 @@
+<app-header></app-header>
+<div class="container mt-0 mb-0 position-relative">
+  <div class="navbar-welcome">
+    <div class="content-welcome col-sm-12 my-4">
+      <div class="row">
+        <div class="my-3 col-md-8 row">
+          <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="24" fill="#F2F4F7" />
+            <path
+              d="M33.3333 34.5C33.3333 32.8718 33.3333 32.0578 33.1323 31.3953C32.6799 29.9039 31.5128 28.7367 30.0213 28.2843C29.3589 28.0833 28.5448 28.0833 26.9166 28.0833H21.0833C19.4551 28.0833 18.6411 28.0833 17.9786 28.2843C16.4872 28.7367 15.32 29.9039 14.8676 31.3953C14.6666 32.0578 14.6666 32.8718 14.6666 34.5M29.25 18.75C29.25 21.6495 26.8995 24 24 24C21.1005 24 18.75 21.6495 18.75 18.75C18.75 15.8505 21.1005 13.5 24 13.5C26.8995 13.5 29.25 15.8505 29.25 18.75Z"
+              stroke="#475467" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h6 class="ml-2 my-2">Hola {{ utilitiesService.currentUser.primerNombre | titlecase}} {{ utilitiesService.currentUser.segundoNombre | titlecase }} {{ utilitiesService.currentUser.primerApellido | titlecase }} </h6>
+        </div>
+        <div class="card mt-3 mb-3 m-0 p-0">
+          <div class="card-body m-0 p-0">
+            <div class="row p-0 pr-1 d-flex justify-content-end">
+              <button class="btn-credits btn" (click)="navigate()" id="escuelaCursoHistorico">
+                Historial de transacciones
+              </button>
+
+              <button class="btn-secun btn mx-3 boton-volver" (click)="atras()" id="escuelaCursoAtras">
+                Volver
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-top-menu-component *ngIf="isMenuVisible()"></app-top-menu-component>
+
+  <section class="pt-4 pb-4 px-4 fondo">
+    <div class="row px-4">
+      <h4>Explora nuestras opciones y elige cómo quieres moverte y disfrutar.</h4>
+      <span>Selecciona la ubicación, nivel, edad, sede, y horario y escoge la opción de tu interés.</span>
+    </div>
+    <hr>
+  </section>
+  <section class="pt-2 pb-4 px-4 fondo">
+    <div class="row">
+      <!-- servicios -->
+      <div class="col-md-3 mx-auto">
+        <div class="card py-3 card-filters">
+          <!-- Servicios -->
+          <!-- <div class="col mx-auto ">
+          <select class="form-select select-filter mb-4" aria-label="Default select example" (change)="aplicarFiltros()"
+            [(ngModel)]="servicioActivo">
+            <option [value]="'default'" selected disabled>Selecciona el servicio</option>
+            <option *ngFor="let serv of servicios" [value]="serv.id">{{ serv.nombre }} </option>
+          </select>
+        </div> -->
+          <!-- Municipios -->
+          <div class="col mx-auto ">
+            <select class="form-select select-filter mb-4" aria-label="Default select example"
+              (change)="aplicarFiltros()" [(ngModel)]="ciudadSeleccionada">
+              <option [value]="'default'" selected disabled>Municipio</option>
+              <option *ngFor="let ciudad of ciudades" [value]="ciudad.municipioId">{{ ciudad.nombreMunicipio }}
+              </option>
+            </select>
+          </div>
+          <!-- Cursos / deportes -->
+          <div class="col mx-auto ">
+            <select class="form-select select-filter mb-4" aria-label="Default select example"
+              (change)="aplicarFiltros()" [(ngModel)]="deporteSeleccionado">
+              <option [value]="'default'" selected disabled>Curso</option>
+              <option *ngFor="let deporte of deportes" [value]="deporte.id">{{ deporte.nombre }}</option>
+            </select>
+          </div>
+          <!-- nivel -->
+          <div class="col mx-auto">
+            <select class="form-select select-filter mb-4" aria-label="Default select example"
+              (change)="aplicarFiltros()" [(ngModel)]="nivelSeleccionado">
+              <option [value]="'default'" selected disabled>Nivel</option>
+              <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
+            </select>
+          </div>
+          <!-- Sede -->
+
+          <div class="col mx-auto ">
+            <select class="form-select select-filter mb-4" aria-label="Default select example"
+              (change)="aplicarFiltros()" [(ngModel)]="sedeSeleccionada">
+              <option [value]="'default'" selected disabled>Sede</option>
+              <option *ngFor="let sede of sedes" [value]="sede.sedeId">{{ sede.nombreSede }}</option>
+            </select>
+          </div>
+          <!-- edad -->
+          <div class="col mx-auto ">
+            <select class="form-select select-filter mb-4" aria-label="Default select example"
+              (change)="aplicarFiltros()" [(ngModel)]="edadSeleccionada">
+              <option [value]="'default'" selected disabled>Edad</option>
+              <option *ngFor="let ed of edades" [value]="ed.id">{{ ed.min }} - {{ ed.max }}</option>
+            </select>
+          </div>
+          <!-- Horario -->
+          <div class="col mx-auto ">
+            <!-- <label for="">{{horarioSeleccionada}}</label> -->
+            <select class="form-select select-filter mb-4" aria-label="Default select example"
+              (change)="aplicarFiltros()" [(ngModel)]="horarioSeleccionada">
+              <option [value]="'default'" selected disabled>Horario</option>
+              <option *ngFor="let hora of horarios" [value]="hora.horarioId">{{hora.nombreDia}} {{ hora.horaInicio
+                }}-{{hora.horaFin}}</option>
+            </select>
+          </div>
+
+          <div class="d-flex justify-content-center px-3">
+            <button (click)="limpiarFiltros()" class="btn btn-secun mx-auto btn-block">Limpiar
+              Filtros</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9 col-11 mx-auto">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-4"
+            *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+            <div class="card card-curso" style="width: 100%;">
+              <div class="card-header card-header-curso">
+                <div class="row align-items-center">
+                  <div class="col-2">
+                    <span class="span-icono-card-curso">
+                      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+                        <rect x="4" y="4" width="32" height="32" rx="16" fill="white" />
+                        <rect x="4" y="4" width="32" height="32" rx="16" stroke="#FFD1E4" stroke-width="8" />
+                        <g clip-path="url(#clip0_124_5603)">
+                          <path
+                            d="M22.5 19.1667V14.1667L20 11.6667L17.5 14.1667V15.8334H12.5V27.5001H27.5V19.1667H22.5ZM15.8333 25.8334H14.1667V24.1667H15.8333V25.8334ZM15.8333 22.5001H14.1667V20.8334H15.8333V22.5001ZM15.8333 19.1667H14.1667V17.5001H15.8333V19.1667ZM20.8333 25.8334H19.1667V24.1667H20.8333V25.8334ZM20.8333 22.5001H19.1667V20.8334H20.8333V22.5001ZM20.8333 19.1667H19.1667V17.5001H20.8333V19.1667ZM20.8333 15.8334H19.1667V14.1667H20.8333V15.8334ZM25.8333 25.8334H24.1667V24.1667H25.8333V25.8334ZM25.8333 22.5001H24.1667V20.8334H25.8333V22.5001Z"
+                            fill="#FF2B81" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_124_5603">
+                            <rect width="20" height="20" fill="white" transform="translate(10 10)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="col-10 ">
+                    <!-- <span class="card-title-curso">{{curso.modalidadDeportiva.nombre | titlecase}}</span> -->
+                    <span class="card-title-curso">{{curso.nombre | titlecase}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body card-body-curso">
+                <p class="card-text">{{curso.sede.nombreSede | titlecase}}</p>
+                <p class="card-text">{{curso.edadMinima}} a {{curso.edadMaxima }} años -
+                  {{curso.etapa.nombre | titlecase}}</p>
+                <p class="card-text">{{curso.sede.nombreMunicipio | titlecase}} </p>
+
+               <!--  <div class="mb-2"  *ngFor="let horarios of curso.horario ">
+                  <p class="card-text">{{horarios.nombreDia }} - {{horarios.horaInicio}}</p>
+                </div> -->
+                <div class="mb-2">
+                  <!-- Muestra el primer horario -->
+                  <p class="card-text">
+                    {{ curso.horario[0].nombreDia }} - {{ curso.horario[0].horaInicio }}
+                    <button class="btn p-0" (click)="toggleHorarios()" *ngIf="curso.horario.length > 1">
+                      <span *ngIf="mostrarHorarios">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                      </svg>
+                    </span>
+                      <span *ngIf="!mostrarHorarios">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                        </svg>
+                      </span>
+                    </button>
+                  </p>
+                  
+                  <!-- Desplegable con los demás horarios -->
+                  <div *ngIf="mostrarHorarios">
+                    <div class="mb-2" *ngFor="let horario of curso.horario.slice(1)">
+                      <p class="card-text">{{ horario.nombreDia }} - {{ horario.horaInicio }}</p>
+                    </div>
+                  </div>
+                </div>
+                <p class="card-text mt-3"><strong>Inicio: {{curso.programacion.fechaInicio}}</strong> - <strong>Fin:
+                    {{curso.programacion.fechaFin}}</strong></p>
+
+                    <p class="card-text text-danger" *ngIf="curso.programacion.cuposDisponibles == 0"> No tiene cupos disponibles</p>
+
+              </div>
+              <div class="card-footer card-header-curso">
+                <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles == 0">
+                  <button class="btn btn-credits" (click)="cursoSeleccionado(curso)" [disabled]="inactivarbotonSeleccionCurso">Seleccionar</button>
+                </div>
+                <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles != 0">
+                  <button class="btn btn-credits" (click)="cursoSeleccionado(curso)" >Seleccionar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+          <pagination-controls (pageChange)="p = $event" maxSize="6" previousLabel="Anterior" nextLabel="Siguiente">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="pt-4 pb-4 mb-4">
+    <div class="row">
+      <div class="d-flex justify-content-center mx-auto">
+        <h3 class="titulos">Preguntas Frecuentes</h3>
+      </div>
+    </div>
+
+    <div id="accordion" class="acordeon mx-auto">
+      <div
+        class="card card-acordeon"
+        *ngFor="let item of preguntas; let i = index"
+        [attr.aria-expanded]="item.open"
+        [ngClass]="{ 'card-acordeon-activo': item.open }"
+      >
+        <div class="card-header d-flex justify-content-between align-items-center header-accordeon" [id]="'heading' + i">
+          <h5 class="mb-0">
+            <button
+              class="btn btn-acordeon d-flex align-items-center"
+              [class.collapsed]="!item.open"
+              [attr.aria-controls]="'collapse' + i"
+              (click)="toggleAccordion(i)"
+            >
+              <ng-container *ngIf="item.open; else closedIcon">
+                <!-- Icono SVG abierto -->
+                <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z" stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </ng-container>
+              <ng-template #closedIcon>
+                <!-- Icono SVG cerrado -->
+                <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 10V18M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z" stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </ng-template>
+              <span class="ml-2">{{ item.title }}</span>
+            </button>
+          </h5>
+        </div>
+        <div
+          [id]="'collapse' + i"
+          class="collapse"
+          [ngClass]="{ show: item.open }"
+          [attr.aria-labelledby]="'heading' + i"
+          data-parent="#accordion"
+        >
+          <div class="card-body" [innerHTML]="item.description"></div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+  </section>
+</div>
+<app-footer></app-footer>

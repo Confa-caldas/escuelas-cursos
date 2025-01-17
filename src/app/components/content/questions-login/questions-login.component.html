@@ -1,0 +1,55 @@
+<app-header></app-header>
+<div class="container mt-0 mb-0 position-relative">
+    <div class="navbar-welcome ">
+        <div class="row mr-0 ml-0 d-flex flex-row justify-content-between">
+            <div class="content-welcome col-sm-12 p-0 ">
+                <div class="card">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class=" col-md-10 m-0 p-0">
+                                <!-- <h1 class="text-perfil p-0">{{ fullName | titlecase }}</h1> -->
+                                <h1 class="text-perfil p-0">{{ fullName}}</h1>
+                                <h6 class="text-perfil" style="transform: rotate(0);">
+                                    {{this.document}}
+
+                                </h6>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="bg-color pt-5 mt-0">
+    <section class="container">
+
+        <div class="card " style=" border: none;">
+            <div class="card-header text-center" style="background-color: #03a9f4; color: #fff; font-style: bold; ">
+                <h3><i class="far fa-list-alt"></i> Preguntas de validacion de identidad</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 text-center p-3" style=" font-family: Ubuntu;
+                    color: #000;
+                   font-size:  20px;
+                    line-height: 35px;">
+                        <p>Tu seguridad es importante para nosotros, responde las siguientes preguntas.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-11 col-lg-11" style="margin-left: auto; margin-right: auto;">
+                        <app-card-questions [user]="user" [preguntas]="preguntasUser"
+                            (respuestaEmitter)="processRespuesta($event)"></app-card-questions>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

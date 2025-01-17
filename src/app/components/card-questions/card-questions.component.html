@@ -1,0 +1,36 @@
+<form class="" [formGroup]="formQuestion">
+    <div class="question row">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 select-question-card" *ngFor="let question of this.preguntas; let i=index">
+            <label for="">*{{question.texto}}</label>
+            <select class="form-control" formControlName="pregunta{{i+1}}" required id="pregunta{{i+1}}"
+                name="pregunta{{i+1}}">
+                <option value="" selected disabled>Selecciona una respuesta</option>
+                <option *ngFor="let response of question.respuestas; let j=index"
+                    id="respuesta{{i+1}}{{j+1}}">{{response}}</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-12 text-left pl-1">
+        <div class="form-group">
+            <small class="text-muted" style="font-size: 14px;">
+                * Los campos que tienen asterisco son obligatorios
+            </small>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-6 " style="margin-left: auto;margin-right: auto;">
+                <button [disabled]="utilitiesService.loading" (click)="Submit()"
+                    class="btn btn-perfil btn-block p-1 mt-2 mb-2">
+                    <span *ngIf="utilitiesService.loading"
+                        class="spinner-border spinner-border-sm mr-1"></span>
+                  <strong>Guardar</strong>
+                </button>
+            
+                <button (click)="logout()"
+                    class=" btn  btn-outline-perfil p-1 btn-block mt-2 mb-2">
+                   <strong> Cancelar </strong>
+                </button>
+            </div>
+       </div>
+</form>

@@ -1,0 +1,65 @@
+<div class="container position-relative">
+  <div class="navbar-welcome pt-2 pb-2">
+    <div class="row mr-0 ml-0 d-flex flex-row justify-content-between">
+      <div class="content-welcome col-sm-6 p-0 pt-2 pb-2">
+        <div class="card">
+          <div class="row no-gutters">
+            <div *ngIf="!showButtons" class="card-body p-0 pt-1 pb-1">
+              <h2 class="text-education col-md-12 p-0">
+                Bienvenido a Mi Confa
+              </h2>
+              <p class="form-inline col-md-12 mb-0 p-0">
+                Queremos que accedas de manera ágil y oportuna a nuestros
+                servicios.
+              </p>
+              <p class="form-inline col-md-12 mb-0 p-0">
+                Vive aquí tu experiencia Confa.
+              </p>
+            </div>
+
+            <div
+              *ngIf="login && showButtons"
+              class="d-flex flex-row justify-content-start p-0 pt-3 pb-3"
+            >
+              <div class="p-0 pl-1" *ngIf="login">
+                <button class="btn-logout btn" (click)="logout()">
+                  Salida segura
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Banner para avisar que estamos en pruebas -->
+          <div class="card-body p-0 pl-2 pr-0">
+            <h1 class="text-education-h4 m-0" style="color: red">
+              Ambiente de pruebas
+            </h1>
+          </div>
+        </div>
+
+        <div class="content-user col-sm-6 p-0 pt-2 pb-2">
+          <div *ngIf="login && !showButtons" class="card">
+            <div class="no-gutters d-flex flex-row justify-content-end">
+              <div
+                class="d-flex justify-content-center align-items-center animated fadeIn fast"
+              >
+                <img src="assets/img/co.png" class="card-img m-2" alt="CO" />
+              </div>
+              <div>
+                <div class="card-body p-0 pl-2 pr-0">
+                  <p class="m-0 font-weight-bold">Acudiente</p>
+                  <h4 class="text-education-h4 m-0">
+                    {{ fullName }}
+                    <!-- {{ fullName | titlecase }} -->
+                  </h4>
+                  <p class="card-text m-0 font-weight-bold">
+                    C.C. {{ document }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

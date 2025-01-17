@@ -1,0 +1,28 @@
+{
+  "puntosAtencion": [
+    {
+      "nombreSede": "Sede la 50",
+      "direccionSede": "(Calle 50-Cra.25)",
+      "modalidad": "De 7:00 a.m. a 12:00 m y 1:30 p.m. a 5:00 p.m. Sábado, domingo y festivos: cerrado"
+    }
+  ],
+  "lineasAtencion": [
+    {
+      "nombreSede": "Centro de información:",
+      "telefonos": "(606) 878 3111 - (606) 893 0280 ",
+      "extensiones": "Ext. 2785 "
+    },
+    {
+      "nombreSede": "Chatbot:",
+      "telefonos": "311 359 0000"
+    },
+    {
+      "nombreSede": "Asesoría, información de productos y servicios:",
+      "correo": "servicio.cliente@confa.co "
+    },
+    {
+      "nombreSede": "Peticiones, quejas, reclamos, sugerencias y felicitaciones:",
+      "correo": "pqrsf@confa.co"
+    }
+  ]
+}

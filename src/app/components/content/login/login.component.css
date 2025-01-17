@@ -1,0 +1,438 @@
+div.conteninputlabelform {
+  height: 85px !important;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+div.imgcontainerhome {
+  background: url(/assets/img/simulator/banner_simulador.jpg) no-repeat;
+  background-size: cover;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  font-family: Ubuntu !important;
+  position: relative;
+  min-height: 650px;
+}
+div.imgcontainerhome1 {
+  background: url(/assets/img/simulator/banner_simulador2.jpg) no-repeat;
+  background-size: cover;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  font-family: Ubuntu !important;
+  position: relative;
+  min-height: 600px;
+}
+div.imgcontainerhome2 {
+  background: url(/assets/img/simulator/banner_simulador3.jpg) no-repeat;
+  background-size: cover;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  font-family: Ubuntu !important;
+  position: relative;
+  min-height: 600px;
+}
+
+div.contentHome-one {
+  padding-bottom: 20px;
+}
+
+div.contentHome-one .left-side {
+  position: relative;
+  padding-bottom: 20px;
+}
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+div.contentHome-one .left-side h1 {
+  font-size: 58px;
+  line-height: 100%;
+  color: #ff2b81;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+@media (max-width: 400px) {
+  div.contentHome-one .left-side h1 {
+    font-size: 32px !important;
+    line-height: 30px !important;
+    margin-bottom: 0.5rem !important;
+    text-align: left;
+  }
+  div.conteninputlabelform {
+    height: auto !important;
+  }
+  div.contentHome-two .containerLoginHome {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: auto !important;
+  }
+}
+
+div.contentHome-one .left-side p:nth-child(2) {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+div.contentHome-one .left-side p:nth-child(3) {
+  font-weight: 500;
+}
+
+div.contentHome-one .left-side:before {
+  background-color: #ff2b81;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  left: 0;
+  bottom: 0;
+  border-radius: 5px;
+}
+
+div.contentHome-two {
+  display: block;
+
+  padding-bottom: 30px;
+}
+
+div.contentHome-two .containerLoginHome {
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+  background-color: black !important;
+  opacity: 0.8;
+}
+
+div.contentHome-two .containerLoginHome2 {
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+  background-color: white;
+  padding: 1.25rem;
+}
+div.contentHome-two .containerLoginHome3 {
+  border-radius: 8px;
+  width: 100%;
+  display: block;
+  padding: -20px;
+}
+div.contentHome-two .containerLoginHome4 {
+  width: 100%;
+  display: block;
+  background-color: transparent !important;
+  border: 0px !important;
+}
+div.contentHome-two .card .card-body h3 {
+  color: #ff2b81;
+  font-weight: 700;
+  line-height: 1;
+  font-size: 28px !important;
+}
+
+div.contentHome-two .card .card-body2 h3 {
+  color: #ff2b81;
+  font-weight: 700;
+  line-height: 1;
+  font-size: 28px !important;
+}
+div.contentHome-two .card .card-body label {
+  font-size: 15px;
+}
+div.contentHome-two .card .card-body2 section p.subtitleloginhome:before {
+  background-color: #ff2b81;
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 100%;
+  left: 0;
+  border-radius: 5px;
+}
+div.contentHome-two .card .card-body2 section p.subtitleloginhome {
+  font-size: 1rem;
+  margin-bottom: 1rem !important;
+  line-height: normal;
+  color: #9a9a9a;
+  padding-left: 20px;
+  font-weight: 700;
+  position: relative;
+}
+
+div.contentHome-two .card .card-body section p.subtitleloginhome {
+  font-size: 16px;
+  margin-bottom: 1rem !important;
+  line-height: normal;
+  color: white;
+  font-weight: 700;
+  position: relative;
+}
+div.contentHome-two .card .card-body section p.subtitleloginhome2 {
+  font-size: 16px;
+  line-height: normal;
+  color: #727272;
+  font-weight: 700;
+  position: relative;
+  background-color: white;
+}
+div.contentHome-two .card .mar section p.subtitleloginhome2 {
+  font-size: 16px;
+  line-height: normal;
+  color: #727272;
+  font-weight: 700;
+  position: relative;
+  background-color: white;
+  padding: 7px;
+  border-radius: 5px;
+}
+div.contentHome-two .card .card-body section p.subtitleloginhome12 {
+  font-size: 16px;
+  line-height: normal;
+  color: white;
+  font-weight: 700;
+  position: relative;
+}
+div.contentHome-two .card .card-body section p.subtitleloginhome3 {
+  font-size: 20px;
+  line-height: normal;
+  color: #ff2b81;
+  font-weight: 700;
+  position: relative;
+  background-color: white;
+}
+div.contentHome-two .card .card-body section p.subtitleloginhome1 {
+  font-size: 13px;
+  margin-bottom: 1rem !important;
+  line-height: normal;
+  color: white;
+  font-weight: 100;
+  position: relative;
+}
+div.contentHome-two .card .card-body section p.subtitleloginhometa {
+  font-size: 16px;
+  line-height: normal;
+  color: white;
+  font-weight: 700;
+  position: relative;
+  margin-bottom: 1rem !important;
+}
+div.contentHome-two .card .card-body section p.subtitleloginhometo {
+  font-size: 14px;
+  line-height: normal;
+  color: white;
+  font-weight: 100;
+  position: relative;
+}
+div.contentHome-two .card .card-body .inputloginsimulador {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #eeeeee;
+  border-color: #cecece;
+  color: #666666;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 13px;
+  line-height: 21px;
+  text-align: left;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  height: 31px;
+}
+
+/* div.contentHome-two .card .card-body button {
+  background: #ff2b81;
+  color: white !important;
+  border-radius: 25px;
+} */
+div.contentHome-two .card .card-body .btn1 {
+  background: white;
+  color: #ff2b81 !important;
+  border-radius: 25px;
+  border: 1px solid #ff2b81;
+}
+
+div.contentHome-two .card .card-body2 button.btn1 {
+  background: white;
+  color: #ff2b81 !important;
+  border-radius: 25px;
+  border: 1px solid #ff2b81;
+  padding: 0.375rem 0.75rem;
+}
+
+div.contentHome-two .card .card-body .labelLoginHome {
+  font-size: 12px;
+  margin-bottom: 2px !important;
+}
+
+div.contentHome-two .card .card-body button div {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+div.contentHome-two form div label {
+  color: #9a9a9a;
+}
+
+div.contentHome-two div.contentHome-two .card.card-custom-select {
+  width: 100% !important;
+}
+
+/* flecha del selector */
+div.content-custom-select i {
+  color: #ff2b81;
+  position: absolute;
+  bottom: 0;
+  padding: 7px;
+  right: 1rem;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  display: block;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+section.twocontenLoginhome p.policies {
+  line-height: 12px !important;
+  font-weight: 700 !important;
+  font-size: 10px !important;
+  padding: 0 25px !important;
+  color: black !important;
+}
+
+section.twocontenLoginhome p.policies a {
+  color: black !important;
+  text-decoration: underline !important;
+}
+
+table {
+  border-collapse: separate;
+}
+table.table-bordered td {
+  background-color: #fff;
+  border: 1px solid #ff2b81;
+  text-align: center;
+  padding: 5px;
+  color: #777777;
+  top: 100px;
+}
+div.tabla-responsi {
+  overflow-x: auto;
+}
+thead.thead {
+  background-color: #ff2b81;
+  color: #fff;
+  font-size: 13px !important;
+  font-family: Ubuntu, Poppins;
+  text-align: center;
+  padding: 5px !important;
+}
+tbody.tbody {
+  font-size: 13px;
+  font-family: Ubuntu, Poppins;
+}
+
+div.error-header1 {
+  background-color: #ff2b81;
+  padding: 10px !important;
+}
+div.row {
+  display: flex;
+  flex-direction: row;
+}
+div.modal-body12 {
+  font-size: 20px;
+  color: #fff;
+  background-color: #ff2b81;
+}
+div.modal-body13 {
+  font-size: 13px;
+  line-height: 20px;
+  color: #fff;
+  background-color: white;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+div.row1 {
+  margin-left: 80px;
+}
+
+.table td {
+  padding: 8px;
+  vertical-align: top;
+  color: #797979;
+  font-family: Ubuntu !important;
+  font-size: 18px;
+}
+h6 {
+  font-size: 20px;
+  color: #fff;
+  background-color: #ff2b81;
+  padding-top: 5px !important;
+  margin-top: 17px;
+}
+h2 {
+  font-size: 15px;
+  color: #fff;
+  background-color: #ff2b81;
+  padding-top: 5px !important;
+  margin-top: 17px;
+}
+div.mas {
+  margin-left: 35px;
+}
+button.btn-modal-alerta1 {
+  margin-left: -500px;
+  position: relative;
+}
+.card-text {
+  font-size: 12.6px;
+  line-height: 15.1px;
+  color: #fff;
+  text-decoration: underline;
+}
+.text-level-option{
+  font-weight: 1000;
+}
+
+.btn-forgot-password{
+    color: #ff2d27;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 29px;
+}
+
+.card-text-forgot-pass {
+  position: relative;
+  font-weight: 700;
+  color: #9a9a9a !important;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 16.8px;
+}
+
+.card-text-forgot-pass ::before {
+  content: "";
+  background-color: #03a9f4;
+  position: absolute;
+  width: 8px;
+  height: 100%;
+  left: 0;
+  border-radius: 5px;
+}

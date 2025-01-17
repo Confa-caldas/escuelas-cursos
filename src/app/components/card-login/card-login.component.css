@@ -1,0 +1,13 @@
+
+.position-relative {
+    position: relative;
+  }
+  .bx-low-vision {
+    position: absolute;
+    top: auto;
+    right: 14px;
+    cursor: pointer;
+  }
+  .form-control {
+    padding-right: 2.5rem;
+  }

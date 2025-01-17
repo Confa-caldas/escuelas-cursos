@@ -1,0 +1,14 @@
+<div *ngIf="utilitiesService.loading">
+    <app-loading></app-loading>
+</div>
+
+<div class="page-container">
+    <section>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        
+    </section>
+</div>
+
+<!-- Debe de ir dentro del router-outlet para que detecte las rutas activatedRouter -->
+<!-- Modal Content -->
+<app-modal-content></app-modal-content>

@@ -1,0 +1,144 @@
+<app-header></app-header>
+<div class="container mt-0 mb-0 position-relative">
+  <div class="navbar-welcome">
+    <div class="content-welcome col-sm-12 p-0">
+
+      <div class="card mt-3 mb-3 m-0 p-0">
+        <div class="card-body m-0 p-0">
+          <div class="row p-0 pr-1 d-flex justify-content-end">
+
+
+            <button class="btn-secun btn mx-3" (click)="atras()">
+              <!-- <i class="fas fa-arrow-left"></i> Atrás -->
+              Volver
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <section class="container">
+    <div class="row resumen">
+      <table class="table bg-white table-bordered">
+        <thead>
+          <tr class="text-secondary">
+            <th scope="col">Valor pago</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha y hora compra</th>
+            <th scope="col">Titular</th>
+            <th scope="col">Detalles pago</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let compras of listaTransferencias; let i = index">
+            <td>{{ compras.valorPago }}</td>
+            <td>{{ compras.estadoFactura }}</td>
+            <td>{{ compras.fechaCreacion }} / {{ compras.horaCreacion }}</td>
+            <td>{{ compras.nombreCompleto }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#exampleModal"
+                (click)="verDetalles(compras)">
+                Ver detalles
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #ff2b81; color: white;">
+              <div class="col-md-11 d-flex flex-row justify-content-center">
+                <div class="row">
+                  <div class="col col-md-4">
+                    <div class="d-flex align-items-center justify-content-center m-2">
+                      <img
+                        src="assets/img/logo1.png"
+                        class="animate__animated animate__fadeIn animate__fast"
+                        style="width: 190px"
+                      />
+                    </div>
+                  </div>
+                  <div class="col col-md-6 mx-2">
+                    <div
+                      class="d-flex flex-column justify-content-center align-items-start m-2"
+                    >
+                      <h6
+                        class="m-0 pt-1 pb-1"
+                        style="text-align: left; line-height: 1.2em"
+                      > Detalles
+                        
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table bg-white table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th colspan="2">Detalles del pago</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" width="50%">Resumen</th>
+                    <th scope="col" width="50%">Detalle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Número de factura</td>
+                    <td>{{ detallesSeleccionados?.numeroFactura }}</td>
+                  </tr>
+                  <tr>
+                    <td>Nombre del curso</td>
+                    <td>{{ detallesSeleccionados?.curso }}</td>
+                  </tr>
+                  <tr>
+                    <td>Fecha inicio</td>
+                    <td>{{ detallesSeleccionados?.fechaInicio }}</td>
+                  </tr>
+                  <tr>
+                    <td>Fecha fin</td>
+                    <td>{{ detallesSeleccionados?.fechaFin }}</td>
+                  </tr>
+                  <tr>
+                    <td>Asistentes</td>
+                    <td>
+                      <ng-container *ngFor="let asistente of detallesSeleccionados?.asistentes">
+                        <div>
+                          <span>{{ asistente.nombreCompleto }}</span> <br>
+                          <span>{{ asistente.documento }}</span>
+                        </div>
+                        <hr *ngIf="detallesSeleccionados?.asistentes > 1">
+                      </ng-container>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+
+</div>
+<app-footer></app-footer>

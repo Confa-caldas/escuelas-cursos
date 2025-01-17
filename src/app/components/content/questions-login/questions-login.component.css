@@ -1,0 +1,65 @@
+.container {
+    margin-bottom: 83px;
+    font-family: Ubuntu, Medium;
+}
+
+.bg-color {
+    padding: 15px 0;
+    background-color: var(--color-secundario);
+}
+
+div.card-body form.formulario label {
+    font-size: 10px;
+    line-height: 11px;
+    color: #666666;
+}
+
+div.card-body form.formulario input {
+    padding: 5px 20px !important;
+    height: auto !important;
+    font-family: Ubuntu;
+    font-size: 16px !important;
+    /* ---------- */
+    border-radius: 50px;
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: #eee;
+}
+div.question  div.form-group-custom label {
+    font-size: 13px;
+    line-height: 20px;
+    color: #666666;
+}
+
+div.question div.form-group-custom select {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    font-weight: 400;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    background-color: #eee; 
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #eeeeee;
+    border-color: #cecece;
+    color: #495057;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 16px;
+    /* -------- */
+    line-height: 21px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

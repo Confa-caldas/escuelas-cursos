@@ -1,0 +1,154 @@
+
+.bg-color {
+    padding: 15px 0;
+    background-color:#E78500;
+}
+
+.botonBack i{
+    color:#E78500;
+ }
+
+ .colorList h5{
+    color: #E78500;
+    word-wrap: break-word;
+
+}
+.colorHr{
+    background-color: #E78500;
+    border-color: #E78500; 
+    height: 1px;
+    margin-top: 0px;
+}
+
+  table.table-bordered > tbody > tr > td {
+    border: 0.3px solid #E78500 !important;
+    background-color: #fff !important;
+    color: #777777 !important;
+    padding-top: 10px !important;
+    padding-right: 4px !important;
+    padding-bottom: 10px !important;
+    padding-left: 4px !important;
+    vertical-align: middle !important;
+  }
+button.btn-perfil {
+    background-color: #E78500;
+    border-color: #E78500;
+    color: #fff;
+    border-radius: 25px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 10px 20px;
+}
+button.btn-perfil:hover {
+    background-color: #fff;
+    color: #E78500;
+}
+button.btn-perfil-white {
+    background-color: #fff;
+    border-color: #E78500;
+    color: #E78500;
+    border-radius: 25px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 10px 20px;
+}
+button.btn-perfil-white:hover {
+    border: 2px solid #fff;
+    color: #fff;
+    background-color: transparent;
+
+}
+button.btn-outline-perfil {
+    background-color: #fff;
+    border-color: #E78500;
+    color: #E78500;
+    border-radius: 25px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 30px;
+    padding: 10px 20px;
+}
+button.btn-outline-perfil:hover {
+    background-color: #E78500;
+    color: #fff;
+}
+
+.boton-historico {
+    background-color: #E78500;
+    border-color: #E78500;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 21px;
+}
+.btn-modal-alerta {
+    background-color: #fff !important;
+    color: #E8AA01 !important;
+    font-weight: bolder !important;
+    font-size: 16px !important;
+}
+ div.collapse div.card-body div.login-content div button.btn-next {
+    background-color: #E78500;
+    border-color: #E78500;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+div.collapse div.card-body div.login-content div button.btn-next:hover {
+    background-color: #fff;
+    color: #E78500;
+}
+/* =========================Estilos para carnet digital===================== */
+div.modal-carnet-digital div.carnet-header {
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 700;
+    border-bottom: none;
+    background-color:  #E78500;
+     color: #fff; 
+     font-style: bold; 
+} 
+
+
+div.modal-carnet-digital div.modal-body div.login-content div button.btn-next {
+    background-color:  #E78500;
+    border-color:  #E78500;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu, Poppins;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:hover {
+    background-color: #fff;
+    color: #E78500;
+}
+
+ 
+
+ .gh{
+    background-color:  #E78500;
+    border-top-left-radius: 5px; 
+    border-top-right-radius: 5px;
+    color: #fff; 
+    font-family:'Ubuntu';
+    font-size: 16px; 
+    font-weight: bold;
+ }
+

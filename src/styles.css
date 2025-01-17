@@ -1,0 +1,3226 @@
+:root {
+  --color-principal: #ff2c80;
+  --color-secundario: #ff2b81;
+  --color-terciario: #ff2c81;
+  --blanco: #fff;
+  --background-color: #ff2b81;
+  --backgrod-secundario: #e06d9b;
+  --gris: #D0D5DD;
+}
+
+body {
+  font-family: Poppins;
+  -moz-transition: opacity 0.24s ease-in-out;
+  -webkit-transition: opacity 0.24s ease-in-out;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+  margin: 0;
+  opacity: 1;
+  padding: 0;
+  transition: opacity 0.24s ease-in-out;
+  visibility: visible;
+  min-width: 300px;
+}
+
+button {
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li,
+ol li {
+  padding: 0;
+  margin: 0;
+}
+
+textarea:focus,
+input:focus {
+  outline: none !important;
+}
+
+span.badge {
+  font-family: Ubuntu, Poppins;
+  font-weight: 400;
+  opacity: 0.8;
+  white-space: normal;
+  font-size: 10px;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.is-invalid {
+  background-image: none !important;
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border-color: #dc3545 !important;
+}
+
+.is-invalid-select {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border-color: #dc3545 !important;
+  color: #495057 !important;
+}
+
+/************************************ BUTTON ************************************/
+
+button.btn-secun {
+  background-color: white;
+  border-color: #D0D5DD;
+  color: black;
+
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 8px 10px;
+}
+
+button.btn-secun:hover {
+  background-color: #F9FAFB !important;
+  border-color: #D0D5DD;
+  color: black;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 8px 10px;
+
+}
+
+button.btn-credits {
+  background-color: var(--background-color);
+  border-color: var(--background-color);
+  color: white;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 8px 20px;
+}
+
+button.btn-credits:hover {
+  background: #FF5D9F;
+  border-color: #FF5D9F;
+  color: white;
+}
+
+button.btn-credits-blue {
+  background-color: #00AEEF;
+  border-color: #00AEEF;
+  color: white;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 8px 20px;
+}
+
+button.btn-credits-blue:hover {
+  background: #63d4fd;
+  border-color: #63d4fd;
+  color: white;
+}
+
+button.btn-cred {
+  background-color: var(--background-color);
+  border-color: var(--background-color);
+  color: white;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 5px 20px;
+}
+
+button.btn-cred:hover {
+  background-color: white;
+  color: var(--background-color);
+}
+
+button.btn-outline-credits {
+  background-color: white !important;
+  border-color: var(--background-color) !important;
+  color: #ff2c80 !important;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 5px 20px;
+}
+
+button.btn-secundario {
+  background-color: white !important;
+  border-color: 1px solid #D0D5DD !important;
+  color: Black !important;
+  border-radius: 32px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  /* arriba | derecha  | abajo | arriba */
+  padding: 10px 18px;
+}
+
+button.btn-outline-credits:hover {
+  background-color: #ff2c80;
+  color: #ffff;
+}
+
+button.btn-outline-credits-white {
+  border-color: var(--blanco);
+  color: var(--blanco);
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 5px 20px;
+}
+
+button.btn-outline-credits-white:hover {
+  background-color: var(--blanco);
+  color: var(--background-color);
+  border-color: var(--background-color);
+}
+
+section.body-type-credit div.type-credit div.content-image-credit div.mortgage:hover button.btn-outline-credits-white,
+section.body-type-credit div.type-credit div.content-image-credit div.consumer:hover button.btn-outline-credits-white {
+  background-color: var(--blanco);
+  color: var(--background-color);
+  border-color: var(--background-color);
+}
+
+button.btn-perfil {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 10px 20px;
+}
+
+button.btn-perfil:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+button.btn-perfil-white {
+  white-space: normal;
+  background-color: var(--blanco);
+  border-color: var(--color-principal);
+  color: var(--color-principal);
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 10px 20px;
+}
+
+button.btn-perfil-white:hover {
+  white-space: normal;
+  border: 2px solid var(--blanco);
+  color: var(--blanco);
+  background-color: transparent;
+}
+
+button.btn-outline-perfil {
+  background-color: var(--blanco);
+  border-color: var(--color-principal);
+  color: var(--color-principal);
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 30px;
+  padding: 10px 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  button.btn-outline-perfil {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+button.btn-outline-perfil:hover {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+}
+
+/************************************ SELECT ************************************/
+
+div.content-custom-select select {
+  background-color: white;
+  border-color: #cecece;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+}
+
+div.content-custom-select label {
+  font-size: 10pt;
+  line-height: 20px;
+  color: #666666;
+}
+
+div.content-custom-select select option {
+  color: #8f8f8f;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+div.content-custom-select select option:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+div.content-custom-select select option:nth-child(even) {
+  background-color: var(--blanco);
+}
+
+div.content-custom-select i {
+  color: var(--color-terciario);
+  position: absolute;
+  bottom: 0em;
+  padding: 7px;
+  right: 1rem;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  display: block;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/************************************ LABEL - INPUT ************************************/
+
+div.form-group-custom label {
+  font-size: 10px;
+  line-height: 11px;
+  color: #666666;
+}
+
+div.form-group-custom input {
+  padding: 5px 20px !important;
+  height: auto !important;
+  font-family: Ubuntu;
+  font-size: 16px !important;
+  border-radius: 50px !important;
+  display: block !important;
+  width: 100% !important;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057 !important;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: white;
+}
+
+/************************************ RADIO - INPUT ************************************/
+
+div.form-group-radio label.label-radio {
+  font-size: 10px;
+  line-height: 11px;
+  color: #666666;
+}
+
+div.form-group-radio input[type="radio"] {
+  display: none;
+}
+
+div.form-group-radio input[type="radio"]+label {
+  font-size: 20px;
+  line-height: 23.9px;
+  color: #666666;
+}
+
+div.form-group-radio input[type="radio"]+label span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: -2px 10px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 3px solid var(--blanco);
+}
+
+div.form-group-radio input[type="radio"]+label span {
+  background-color: var(--blanco);
+  border: 1px solid #666666;
+}
+
+div.form-group-radio input[type="radio"]+label span i {
+  display: none;
+}
+
+div.form-group-radio input[type="radio"].is-invalid+label span {
+  border: 1px solid #dc3545;
+}
+
+div.form-group-radio input[type="radio"]:checked+label span {
+  border: none;
+}
+
+div.form-group-radio input[type="radio"]:checked+label span i {
+  display: block;
+  font-size: 16px;
+  position: relative;
+  /* top: 0px;
+    left: 0.5px; */
+  color: var(--color-principal);
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 300ms;
+  animation-duration: 300ms;
+}
+
+div.form-group-radio input[type="radio"]:checked+label span i::before {
+  border: 1px solid #666666;
+  border-radius: 50%;
+  margin: 0px;
+  padding: 0px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 300ms;
+  animation-duration: 300ms;
+}
+
+div.form-group-radio input[type="radio"]+label span,
+div.form-group-radio input[type="radio"]:checked+label span {
+  -webkit-transition: background-color 0.24s linear;
+  -o-transition: background-color 0.24s linear;
+  -moz-transition: background-color 0.24s linear;
+  transition: background-color 0.24s linear;
+}
+
+/************************************ DATEPICKER ************************************/
+
+.cf-custom-datepicker .mydp,
+.cf-custom-datepicker .mydp .headertodaybtn {
+  border: 0px !important;
+  line-height: 1.5 !important;
+}
+
+.cf-custom-datepicker .mydp .selection {
+  background-color: #eee;
+}
+
+.cf-custom-datepicker .selectiongroup {
+  /* height: 44px; */
+}
+
+.cf-custom-datepicker .selbtngroup {
+  height: 100% !important;
+  top: 3px;
+  left: -10px;
+}
+
+.cf-custom-datepicker .selbtngroup button.btnpickerenabled {
+  background-color: transparent !important;
+}
+
+.cf-custom-datepicker .selbtngroup button .mydpicon {
+  color: var(--color-principal);
+}
+
+.cf-custom-datepicker.ng-touched.ng-invalid input {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border: 1px solid #dc3545 !important;
+}
+
+.cf-custom-datepicker input {
+  border: 1px solid #ced4da !important;
+}
+
+.cf-custom-datepicker .btnclear {
+  background-color: transparent !important;
+}
+
+/************************************ CONTAINER ************************************/
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1030px;
+  }
+}
+
+/************************************ HEADER ************************************/
+
+.header-home {
+  background: url("assets/img/banner-header.jpg") top center;
+  background-size: cover;
+  padding-bottom: 20px;
+}
+
+.header-nav-top {
+  background-color: var(--blanco);
+  border-radius: 100%;
+  height: 500px;
+  left: 50%;
+  position: absolute;
+  top: -440px;
+  transform: translateX(-50%);
+  width: 700px;
+  z-index: 1000;
+}
+
+.header-nav-top ul.menu {
+  bottom: 20px;
+  /* display: flex;
+grid-column-gap: 30px;
+grid-template-columns: auto auto; */
+  display: flex;
+  flex-direction: row;
+  left: 50%;
+  list-style: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.header-nav-top ul.menu li {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.header-nav-top ul.menu li a {
+  font-family: Ubuntu;
+  color: #555555;
+  font-size: 15px;
+}
+
+.header-nav-top ul.menu li a:hover {
+  color: var(--color-principal);
+}
+
+.header-nav-top ul.menu li a.icon-persona::before {
+  background: url("assets/img/Iconos-01.png") no-repeat;
+  background-size: contain;
+  content: "";
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: -2px;
+}
+
+.header-nav-top ul.menu li a.icon-persona:hover::before {
+  background: url("assets/img/Iconos-02.png") no-repeat;
+  background-size: contain;
+}
+
+.header-nav-top ul.menu li a.icon-empresa::before {
+  background: url("assets/img/Iconos-03.png") no-repeat;
+  background-size: contain;
+  content: "";
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: -2px;
+}
+
+.header-nav-top ul.menu li a.icon-empresa:hover::before {
+  background: url("assets/img/Iconos-04.png") no-repeat;
+  background-size: contain;
+}
+
+.bt-social-wrap {
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+
+.bt-social-wrap a {
+  color: white;
+  margin-right: 5px;
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+.bt-social-wrap a:last-child {
+  margin-right: 0px;
+}
+
+.bt-social-wrap a:hover {
+  color: var(--color-principal);
+}
+
+.bt-social-wrap a i {
+  font-size: 13px;
+}
+
+.header-nav-ppal {
+  padding: 15px 0 0 0;
+}
+
+.header-nav-ppal div a.div-logo {
+  display: block;
+}
+
+.header-nav-ppal div a.div-logo-alt {
+  display: none;
+}
+
+.header-nav-ppal div a img.logo {
+  height: 70px;
+  width: auto;
+  left: 0;
+  top: 0;
+}
+
+.header-nav-ppal div.menu-content {
+  color: var(--blanco);
+  font-size: 14px;
+}
+
+.header-nav-ppal div.menu-content div.menu {
+  width: 100%;
+  text-align: center;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.nav-item a {
+  color: var(--blanco);
+  font-weight: 500;
+  letter-spacing: 0px;
+  opacity: 1;
+  transition: opacity 0.24s ease-in-out;
+  -moz-transition: opacity 0.24s ease-in-out;
+  -webkit-transition: opacity 0.24s ease-in-out;
+  visibility: visible;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.nav-item a span.menu-item {
+  /* padding: 2px .5em; */
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.nav-item:hover a span.menu-item {
+  background-color: var(--blanco);
+  border-radius: 20px;
+  color: var(--color-principal);
+  padding: 1px 4px;
+  transition: 0.5s;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.nav-item a span.btn-login {
+  border: 2px solid var(--blanco);
+  border-radius: 40px;
+  padding: 1px 4px;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.nav-item a span.btn-login:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+  transition: 0.5s;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu {
+  border-top: 3px solid var(--color-principal);
+  border-radius: 10px;
+  margin-top: -1px;
+  min-width: 11rem;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown:hover div.dropdown-menu {
+  /* display: block; */
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu {
+  /* display: none;
+position: absolute; */
+  z-index: 1;
+  left: 10px;
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+  box-shadow: 0 2px 11px -8px #000;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu a.dropdown-item {
+  display: block;
+  padding: 0 15px;
+  text-align: left;
+  background: none;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu a.dropdown-item:hover * {
+  color: var(--color-principal);
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu a.dropdown-item span {
+  font-size: 14px;
+  font-weight: 300;
+  color: #555555;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu a.dropdown-item span:hover {
+  color: var(--color-principal);
+  transition: 0s;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu button.dropdown-item {
+  display: block;
+  padding: 0 15px;
+  text-align: left;
+  background: none;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu button.dropdown-item:hover * {
+  color: var(--color-principal);
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu button.dropdown-item span {
+  font-size: 14px;
+  font-weight: 300;
+  color: #555555;
+}
+
+.header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu button.dropdown-item span:hover {
+  color: var(--color-principal);
+  transition: 0s;
+}
+
+@media only screen and (max-width: 992px) {
+  .cf-menu-desktop {
+    display: none !important;
+  }
+
+  .cf-menu-mobile {
+    display: block !important;
+  }
+
+  .header-home .bt-social-wrap {
+    margin-top: auto;
+  }
+
+  .header-home .bt-social-wrap a {
+    color: #555;
+  }
+
+  .header-home .bt-social-wrap a:hover {
+    color: var(--color-principal);
+  }
+
+  .cf-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-image: none;
+  }
+
+  .cf-header .cf-menu-movile {
+    display: none !important;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: auto;
+    background: var(--color-principal);
+    z-index: 999999;
+  }
+
+  .cf-header .cf-menu-movile:active {
+    display: block !important;
+  }
+
+  .header-nav-top {
+    top: -451px;
+  }
+
+  .header-nav-top .header-nav-ppal {
+    padding-top: 0px;
+  }
+
+  .header-nav-ppal div.menu-content {
+    background-color: var(--color-principal);
+  }
+
+  .header-nav-ppal div a.div-logo img,
+  .header-nav-ppal div a.div-logo-alt img {
+    max-height: 40px;
+  }
+
+  .header-nav-ppal div a.div-logo {
+    display: none;
+  }
+
+  .header-nav-ppal div a.div-logo-alt {
+    display: block;
+  }
+
+  .header-nav-ppal button.navbar-toggler {
+    border: none;
+  }
+
+  .header-nav-ppal button.navbar-toggler i {
+    color: var(--color-principal);
+  }
+
+  section.body-login div.login div.content-image-credit img {
+    width: 100% !important;
+  }
+
+  section.body-login div.login div.content-login-image {
+    justify-content: center !important;
+  }
+
+  section.body-login div.login div.content-login-image div.card-login {
+    position: relative !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .header-nav-top {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .header-nav-ppal div.menu-content div.menu ul li.dropdown:hover div.dropdown-menu {
+    display: block;
+  }
+
+  .header-nav-ppal div.menu-content div.menu ul li.dropdown div.dropdown-menu {
+    display: none;
+    position: absolute;
+  }
+}
+
+/************************************ NAV ************************************/
+
+div.navbar-welcome {
+  font-family: Ubuntu;
+}
+
+div.navbar-welcome p {
+  font-size: 14px;
+  color: #888888;
+}
+
+div.navbar-welcome div.content-welcome div.card {
+  border: none;
+}
+
+div.navbar-welcome div.content-welcome h2.text-education {
+  font-family: Ubuntu;
+  color: var(--color-principal);
+  font-size: 27px;
+  line-height: 35px;
+  font-weight: bold;
+}
+
+div.navbar-welcome div.content-welcome h1.text-perfil {
+  font-family: Ubuntu;
+  color: #404040;
+  font-size: 35px;
+  line-height: 35px;
+  font-weight: bold;
+}
+
+div.navbar-welcome div.content-welcome h6.text-perfil {
+  font-family: Ubuntu;
+  color: #404040;
+}
+
+div.navbar-welcome div.content-welcome h1.text-education {
+  font-family: Ubuntu;
+  color: var(--color-principal);
+  font-size: 27px;
+  line-height: 31px;
+  font-weight: bold;
+}
+
+div.navbar-welcome div.content-welcome p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+div.navbar-welcome div.content-user div.card {
+  border: none;
+}
+
+div.navbar-welcome div.content-user div.card img.card-img {
+  max-width: 70px;
+}
+
+div.navbar-welcome div.content-user h4.text-education-h4 {
+  font-family: Ubuntu;
+  color: var(--color-principal) !important;
+}
+
+div.navbar-welcome div.content-user p.card-text {
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 576px) {
+  div.navbar-welcome div.content-user div.card div {
+    justify-content: start !important;
+  }
+}
+
+button.btn-back-login {
+  background-color: #efefef;
+  border-color: none;
+  color: #525960;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 15px;
+  line-height: 17px;
+}
+
+button.btn-logout {
+  background-color: #efefef;
+  border-color: none;
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 15px;
+  line-height: 17px;
+  font-weight: bold;
+}
+
+button.btn-back-login:hover,
+button.btn-logout:hover {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+}
+
+button.btn-back-login:hover * {
+  color: var(--blanco);
+}
+
+button.btn-back-login i {
+  color: var(--color-principal);
+}
+
+/************************************ FOOTER ************************************/
+
+footer {
+  font-family: Ubuntu, Poppins;
+}
+
+footer div.row div.card {
+  border: none;
+}
+
+footer div.row div.card img {
+  width: 50px;
+}
+
+footer h5.card-title {
+  color: var(--color-principal);
+  line-height: 18px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+footer div.row div.card div.card-body p {
+  font-size: 12.6px;
+  line-height: 15.1px;
+  color: #666666;
+}
+
+footer div.row div.card div.card-body p.more-points a {
+  color: var(--color-principal);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+footer div.row div.card div.card-body div.p-group {
+  margin-bottom: 0.5rem;
+}
+
+footer div.row div.card div.card-body div.p-group p img {
+  width: 25px;
+}
+
+footer div.row div.card div.card-body img {
+  width: 25px;
+}
+
+footer div.footer-super-vigilado button {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 8px 0px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 12px;
+}
+
+footer div.footer-super-vigilado button:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+footer div.footer-super-vigilado img {
+  max-width: 250px;
+  max-height: 42.03px;
+  padding: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+  footer div.footer-super-vigilado div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/************************************ MODAL CARD-POLITICA ************************************/
+
+div.modal-policies div.card-politica div img {
+  width: 80px;
+}
+
+div.modal-policies div.card-politica-body {
+  font-family: Ubuntu;
+}
+
+div.modal-policies div.card-politica-body div span {
+  font-size: 16px;
+  color: var(--color-principal);
+  font-weight: bold;
+}
+
+div.modal-policies div.card-politica-body div h4 {
+  color: #666666;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+div.modal-policies div.card-politica-body div p {
+  font-size: 13px;
+  text-align: justify;
+  line-height: 18px;
+}
+
+div.modal-policies div.modal-body img {
+  max-width: 160px;
+  max-height: 77.83px;
+  font-weight: bold;
+  margin: auto;
+}
+
+div.modal-policies div.modal-body h4 {
+  color: #858585;
+  font-family: Ubuntu;
+}
+
+div.modal-policies div.modal-body p,
+div.modal-policies div.modal-body ul li {
+  font-size: 13px;
+  text-align: justify;
+  font-family: Ubuntu;
+  line-height: 18px;
+}
+
+/************************************ MODAL TOKEN EXPIRED ************************************/
+
+button.btn-modal-token-expired {
+  display: none;
+}
+
+div.modal-token-expired {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-token-expired div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-token-expired div.error-header {
+  background-color: #ff5c5c;
+  color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+}
+
+div.modal-token-expired div.error-header div i {
+  font-size: 64px;
+}
+
+div.modal-token-expired div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: #666666;
+}
+
+div.modal-token-expired div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: #666666;
+  font-weight: bold;
+}
+
+div.modal-token-expired div.modal-body p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+div.modal-token-expired div.modal-body div.info-contact-us p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+div.modal-token-expired div.modal-body button.btn-close {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.btn-cerrar {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/************************************ MODAL SUCCESS ************************************/
+
+button.btn-modal-success,
+button.btn-modal-success-cambio {
+  display: none;
+}
+
+div.modal-success {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-success div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-success div.success-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-success div.success-header img.logo {
+  width: 10em;
+}
+
+div.modal-success div.success-header img.icon {
+  width: 4em;
+}
+
+div.modal-success div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-success div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-success div.modal-body p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: bold;
+}
+
+div.modal-success div.modal-body button.btn-next {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL SUCCESS CONFIRM ************************************/
+
+button.btn-modal-success-confirm {
+  display: none;
+}
+
+div.modal-success-confirm {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-success-confirm div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-success-confirm div.success-confirm-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-success-confirm div.success-confirm-header img.logo {
+  width: 10em;
+}
+
+div.modal-success-confirm div.success-confirm-header img.icon {
+  width: 4em;
+}
+
+div.modal-success-confirm div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-success-confirm div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-success-confirm div.modal-body p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: bold;
+}
+
+div.modal-success-confirm div.modal-body a.btn-next {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL SUCCESS VALIDATE QUESTIONS ************************************/
+
+button.btn-modal-success-validate {
+  display: none;
+}
+
+div.modal-success-validate {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-success-validate div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-success-validate div.success-header-validate {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-success-validate div.success-header-validate img.logo {
+  width: 10em;
+}
+
+div.modal-success-validate div.success-header-validate img.icon {
+  width: 4em;
+}
+
+div.modal-success-validate div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-success-validate div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-success-validate div.modal-body p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: bold;
+}
+
+div.modal-success-validate div.modal-body button.btn-next {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL ERROR simulador ************************************/
+
+button.btn-modal-errorSimulador,
+button.btn-modal-formulariocontactoenvio {
+  display: none;
+}
+
+.numerSimulador {
+  color: var(--blanco);
+}
+
+div.modal-errors {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-errors div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-errors div.error-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+}
+
+div.modal-errors div.error-header div img {
+  width: 64px;
+}
+
+div.modal-errors div.error-header div i.fa-exclamation-circle:before {
+  color: var(--blanco);
+  font-size: 64px;
+}
+
+div.modal-errors div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-errors div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  font-weight: bold;
+}
+
+div.modal-errors div.modal-body p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: bold;
+}
+
+div.modal-errors div.modal-body button.btn-close {
+  background-color: var(--blanco);
+  border-color: var(--color-principal);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/************************************ MODAL  simulador convenio empresa ************************************/
+
+button.btn-modal-convenioEmpresa {
+  display: none;
+}
+
+div.modal-convenioEmpresa .numerSimulador {
+  color: var(--color-principal);
+  border-bottom: 1px var(--color-principal) solid;
+  line-height: 1;
+}
+
+div.modal-convenioEmpresa {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-convenioEmpresa div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-convenioEmpresa div.error-header {
+  background-color: var(--color-principal);
+  text-align: center;
+  justify-content: center;
+  color: var(--blanco);
+}
+
+div.modal-convenioEmpresa div.error-header div img {
+  width: 64px;
+}
+
+div.modal-convenioEmpresa div.error-header div i.fa-exclamation-circle:before {
+  color: var(--blanco);
+  font-size: 64px;
+}
+
+div.modal-convenioEmpresa div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: gray;
+  background-color: var(--blanco);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-convenioEmpresa div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  font-weight: bold;
+}
+
+div.modal-convenioEmpresa div.modal-body p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: bold;
+}
+
+div.modal-convenioEmpresa div.modal-body button.btn-close {
+  background-color: var(--blanco);
+  border-color: var(--color-principal);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/************************************ MODAL ERROR ************************************/
+
+button.btn-modal-error,
+button.btn-modal-error-questions-register {
+  display: none;
+}
+
+div.modal-error {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-error div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-error div.error-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-error div.error-header div i {
+  font-size: 64px;
+}
+
+div.modal-error div.error-header img.logo {
+  width: 10em;
+}
+
+div.modal-error div.error-header img.icon {
+  width: 4em;
+}
+
+div.modal-error div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-error div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-error div.modal-body p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+div.modal-error div.modal-body div.info-contact-us p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+div.modal-error div.modal-body button.btn-close {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL ERROR CONFIRM ************************************/
+
+button.btn-modal-error-confirm {
+  display: none;
+}
+
+div.modal-error-confirm {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-error-confirm div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-error-confirm div.error-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-error-confirm div.error-header div i {
+  font-size: 64px;
+}
+
+div.modal-error-confirm div.error-header img.logo {
+  width: 10em;
+}
+
+div.modal-error-confirm div.error-header img.icon {
+  width: 4em;
+}
+
+div.modal-error-confirm div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-error-confirm div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-error-confirm div.modal-body p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+div.modal-error-confirm div.modal-body div.info-contact-us p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+div.modal-error-confirm div.modal-body a.btn-close {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL WARNING ************************************/
+
+button.btn-modal-warning {
+  display: none;
+}
+
+div.modal-warning {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-warning div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-warning div.warning-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-warning div.warning-header div i {
+  font-size: 64px;
+}
+
+div.modal-warning div.warning-header img.logo {
+  width: 10em;
+}
+
+div.modal-warning div.warning-header img.icon {
+  width: 4em;
+}
+
+div.modal-warning div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-warning div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-warning div.modal-body p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+div.modal-warning div.modal-body div.info-contact-us p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+div.modal-warning div.modal-body button.btn-close {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL SUGERENCIA SEGURIDAD************************************/
+
+button.btn-modal-sugerencia {
+  display: none;
+}
+
+div.modal-sugerencia {
+  font-family: Ubuntu, Poppins;
+  font-size: 16px;
+  z-index: 50000000;
+}
+
+div.modal-sugerencia div.modal-content {
+  border-radius: 7px;
+  /*  width: 447px; */
+}
+
+div.modal-sugerencia div.sugerencia-header {
+  background-color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+}
+
+div.modal-sugerencia div.sugerencia-header div i {
+  font-size: 64px;
+}
+
+div.modal-sugerencia div.sugerencia-header img.logo {
+  width: 10em;
+}
+
+div.modal-sugerencia div.sugerencia-header img.icon {
+  width: 4em;
+}
+
+div.modal-sugerencia div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--blanco);
+  background-color: var(--color-principal);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-sugerencia div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: var(--blanco);
+  font-weight: bold;
+}
+
+div.modal-sugerencia div.modal-body p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+div.modal-sugerencia div.modal-body div.info-contact-us p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+div.modal-sugerencia div.modal-body button.btn-close {
+  background-color: var(--blanco);
+  border-color: var(--blanco);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  justify-content: center;
+}
+
+/************************************ MODAL LOADING ************************************/
+
+div.modal-loading {
+  font-family: Ubuntu, Poppins;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100000;
+}
+
+div.modal-loading div.modal-content {
+  background-color: transparent;
+  border: none;
+}
+
+div.modal-loading div.modal-content div div.img-loading {
+  background-image: url("assets/img/loading.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 200px;
+  max-width: 50%;
+}
+
+div.modal-loading div.modal-content div h2 {
+  color: var(--blanco);
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 576px) {
+  div.modal-loading div.modal-content div div.img-loading {
+    height: 100px !important;
+  }
+}
+
+/************************************ MODAL LOGIN ************************************/
+
+div.modal-popup-login {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-popup-login div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-popup-login div.login-header {
+  /* color: #a4c000; */
+  color: var(--color-principal);
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+div.modal-popup-login div.modal-body h3.card-title-register {
+  /* color: #a4c000; */
+  color: var(--color-principal);
+  line-height: 32px;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+div.modal-popup-login div.modal-body p.paragraph {
+  position: relative;
+  font-weight: 700;
+  color: #9a9a9a !important;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 16.8px;
+}
+
+div.modal-popup-login div.modal-body p.paragraph::before {
+  content: "";
+  background-color: var(--color-principal);
+  position: absolute;
+  width: 8px;
+  height: 100%;
+  left: 0;
+  border-radius: 5px;
+}
+
+div.modal-popup-login div.modal-body p.policies {
+  line-height: 12px;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+div.modal-popup-login div.modal-body p.policies a {
+  text-decoration: underline;
+  color: #212529;
+}
+
+div.modal-popup-login div.modal-body div.login-content form.form-login label {
+  font-size: 10px;
+  line-height: 11px;
+  color: #666666;
+}
+
+div.modal-popup-login div.modal-body div.login-content form.form-login input {
+  padding: 5px 20px !important;
+  height: auto !important;
+  font-family: Ubuntu;
+  font-size: 16px !important;
+  /* ---------- */
+  border-radius: 50px;
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: #eee;
+}
+
+div.modal-popup-login div.modal-body div.login-content div button.btn-signin,
+div.modal-popup-login div.modal-body div.login-content div button.btn-signup-modal,
+div.modal-popup-login div.modal-body div.login-content div button.btn-next,
+div.modal-popup-login div.modal-body div.login-content div button.btn-validate {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-popup-login div.modal-body div.login-content div button.btn-signin:hover,
+div.modal-popup-login div.modal-body div.login-content div button.btn-signup-modal:hover,
+div.modal-popup-login div.modal-body div.login-content div button.btn-next:hover,
+div.modal-popup-login div.modal-body div.login-content div button.btn-validate:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+div.modal-popup-login div.modal-body div.login-content div button.btn-forgot-password-modal {
+  color: #ff2d27;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 29px;
+  text-decoration: underline;
+}
+
+div.modal-popup-login div.modal-body div.login-content div button.btn-back-modal {
+  background-color: var(--blanco);
+  border-color: var(--color-principal);
+  color: var(--color-principal);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-popup-login div.modal-body div.login-content div button.btn-back-modal:hover {
+  background-color: var(--color-principal);
+  color: var(--blanco);
+}
+
+/************************************ MODAL CHANGE PASSWORD ************************************/
+
+button.btn-change-password {
+  display: none;
+}
+
+div.modal-popup-change-password {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-popup-change-password div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-popup-change-password div.login-header {
+  color: var(--color-principal);
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+/************************************ MODAL REGISTER ************************************/
+
+button.btn-form-register {
+  display: none;
+}
+
+div.modal-form-register {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-form-register div.modal-content {
+  border-radius: 7px;
+  width: 1002px;
+}
+
+div.modal-form-register div.login-header {
+  color: var(--color-principal);
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+div.modal-form-register div.modal-body div.login-content form.form-login input[type="checkbox"] {
+  width: auto !important;
+  height: auto !important;
+}
+
+div.modal-form-register div.modal-body div.login-content div button.btn-next {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-form-register div.modal-body div.login-content div button.btn-next:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+/************************************ MODAL TOKEN EXPIRED ************************************/
+
+button.btn-modal-token-expired {
+  display: none;
+}
+
+div.modal-token-expired {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-token-expired div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-token-expired div.error-header {
+  background-color: #ff5c5c;
+  color: var(--blanco);
+  text-align: center;
+  justify-content: center;
+}
+
+div.modal-token-expired div.error-header div i {
+  font-size: 64px;
+}
+
+div.modal-token-expired div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: #666666;
+}
+
+div.modal-token-expired div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  color: #666666;
+  font-weight: bold;
+}
+
+div.modal-token-expired div.modal-body p {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+div.modal-token-expired div.modal-body div.info-contact-us p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+div.modal-token-expired div.modal-body button.btn-close {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/************************************ MODAL SUCCESS PAYU ************************************/
+
+button.btn-modal-success-payu {
+  display: none;
+}
+
+div.modal-success-payu {
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  z-index: 50000000;
+}
+
+div.modal-success-payu div.modal-content {
+  border-radius: 7px;
+  width: 447px;
+}
+
+div.modal-success-payu div.success-header {
+  background-color: #fff;
+  text-align: center;
+  justify-content: center;
+}
+
+div.modal-success-payu div.success-header div img {
+  width: 64px;
+}
+
+div.modal-success-payu div.modal-body {
+  font-size: 13px;
+  line-height: 20px;
+  color: #fff;
+  background-color: #ff2c80;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  font-size: 25px;
+  line-height: 30px;
+  /* color: #666666; */
+  font-weight: bold;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+div.modal-success-payu div.modal-body h6 {
+  font-size: 25px;
+  line-height: 21px;
+  font-weight: bold;
+}
+
+div.modal-success-payu div.modal-body p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: bold;
+}
+
+div.modal-success-payu div.modal-body button.btn-close {
+  /* background-color: #fff;
+  border-color: #fff;
+  color: #ff2c80;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px; */
+
+  background-color: #fff;
+  border-color: #ff2c80;
+  color: #ff2c80;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+button.btn-close-validar {
+  background-color: #fff;
+  border-color: #ff2c80;
+  color: #ff2c80;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+button.btn-close-validar:hover {
+  background-color: #ff2c80;
+  border-color: #fff;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-success-payu div.modal-body button.btn-close1 {
+  /* background-color: #fff;
+  border-color: #fff;
+  color: ff2c80;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px; */
+
+  background-color: #fff;
+  border-color: #ff2c80;
+  color: #ff2c80;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+  margin-bottom: 8px;
+}
+
+
+/************************************ MODAL FORM PAY DUES ************************************/
+
+button.btn-form-pay-dues {
+  display: none;
+}
+
+div.modal-form-pay-dues {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-form-pay-dues div.modal-content {
+  border-radius: 7px;
+  width: 1002px;
+}
+
+div.modal-form-pay-dues div.login-header {
+  color: var(--color-principal);
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+div.modal-form-pay-dues div.modal-body div.login-content form.form-login input[type="checkbox"] {
+  width: auto !important;
+  height: auto !important;
+}
+
+div.modal-form-pay-dues div.modal-body div.login-content div button.btn-next {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-form-pay-dues div.modal-body div.login-content div button.btn-next:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+div.modal-form-pay-dues div.modal-body div.login-content div.info-pay-dues-form {
+  width: 100%;
+  background-color: var(--color-principal);
+  color: var(--blanco);
+  font-size: 15px;
+  line-height: 21px;
+  border-radius: 30px;
+}
+
+div.modal-form-pay-dues div.modal-body div.login-content div.info-pay-dues-form div.img-warning {
+  background-image: url("assets/img/warning-blue.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 40px;
+  max-width: 50%;
+  min-width: 40px;
+}
+
+/************************************ MODAL INFO PAY DUES ************************************/
+
+button.btn-info-pay-dues {
+  display: none;
+}
+
+div.modal-info-pay-dues {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-info-pay-dues div.modal-content {
+  border-radius: 7px;
+  width: 1002px;
+}
+
+div.modal-info-pay-dues div.login-header {
+  background-color: var(--color-principal);
+  text-align: center;
+  justify-content: center;
+  color: var(--blanco);
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+div.modal-info-pay-dues div.login-header div img {
+  width: 64px;
+}
+
+div.modal-info-pay-dues div.login-header h6 {
+  font-size: 25px;
+  line-height: 21px;
+  font-weight: bold;
+}
+
+div.modal-info-pay-dues div.login-header p {
+  font-size: 16px;
+  line-height: 16.8px;
+  font-weight: 300;
+}
+
+div.modal-info-pay-dues div.modal-body p.title {
+  color: var(--color-principal);
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+div.modal-info-pay-dues div.modal-body p.text {
+  color: #797979;
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 500;
+  border-bottom: none;
+}
+
+div.modal-info-pay-dues div.modal-body table thead {
+  color: var(--color-principal);
+  font-size: 18px;
+  line-height: 21px;
+  font-weight: 700;
+}
+
+div.modal-info-pay-dues div.modal-body table tbody {
+  color: #797979;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+}
+
+/* ------------------------MODAL QUESTIONS---------------- */
+
+button.btn-form-questions {
+  display: none;
+}
+
+div.modal-form-questions {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-form-questions div.modal-content {
+  border-radius: 7px;
+  width: 1002px;
+}
+
+div.modal-form-questions div.login-header {
+  color: var(--color-principal);
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+div.modal-form-questions div.modal-body div.login-content form.form-login label {
+  font-size: 10px;
+  line-height: 11px;
+  color: #666666;
+}
+
+div.modal-form-questions div.modal-body div.login-content form.form-login input {
+  padding: 5px 20px !important;
+  height: auto !important;
+  font-family: Ubuntu;
+  font-size: 16px !important;
+  border-radius: 50px;
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: #eee;
+}
+
+div.modal-form-questions div.modal-body div.login-content form.form-login input[type="checkbox"] {
+  width: auto;
+}
+
+div.modal-form-questions div.modal-body div.login-content div button.btn-next {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-form-questions div.modal-body div.login-content div button.btn-next:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+/**************tamaño de los inputs*******************/
+
+.inputloginsimulador {
+  height: 33px !important;
+}
+
+/*================BOTONES DE SERVICIOS==========================*/
+
+section.body-type-credit {
+  background-color: var(--blanco);
+  border-radius: 10px;
+  font-family: Ubuntu, Poppins;
+}
+
+.hvr-rectangle-out {
+  display: inline-block;
+  vertical-align: middle;
+  color: transparent;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  background: transparent;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.citasMedicas .hvr-rectangle-out:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #2098d1;
+  opacity: 0.6;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  filter: alpha(opacity=1);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.creditos .hvr-rectangle-out:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #DE841B;
+  opacity: 0.6;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  filter: alpha(opacity=1);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.pasadia .hvr-rectangle-out:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ff2b81;
+  opacity: 0.6;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  filter: alpha(opacity=1);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.zonaPreescolar .hvr-rectangle-out:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #a4c000;
+  opacity: 0.6;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  filter: alpha(opacity=1);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.reservaAlojamiento .hvr-rectangle-out:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ff2b81;
+
+  opacity: 0.6;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  filter: alpha(opacity=1);
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.hvr-rectangle-out:hover,
+.hvr-rectangle-out:focus,
+.hvr-rectangle-out:active {
+  color: white;
+  transition-duration: 0.5s;
+  opacity: 1;
+  font-size: 20px;
+  filter: alpha(opacity=1);
+}
+
+.hvr-rectangle-out:hover:before,
+.hvr-rectangle-out:focus:before,
+.hvr-rectangle-out:active:before {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+section.body-type-credit div.citas {
+  background-image: url("assets/img/citasMedicas.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 300px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 600ms;
+  animation-duration: 600ms;
+
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  section.body-type-credit div.citas {
+    margin-bottom: 10px;
+  }
+}
+
+section.body-type-credit div.pasadia {
+  background-image: url("assets/img/pasa.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 300px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 600ms;
+  animation-duration: 600ms;
+
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  section.body-type-credit div.pasadia {
+    margin-bottom: 10px;
+  }
+}
+
+section.body-type-credit div.creditoDigi {
+  background-image: url("assets/img/credit.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 300px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 600ms;
+  animation-duration: 600ms;
+
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  section.body-type-credit div.creditoDigi {
+    margin-bottom: 10px;
+  }
+}
+
+section.body-type-credit div.alojamiento {
+  background-image: url("assets/img/reservaAlojamiento.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 600ms;
+  animation-duration: 600ms;
+}
+
+@media only screen and (max-width: 768px) {
+  section.body-type-credit div.alojamiento {
+    margin-top: 10px;
+  }
+}
+
+section.body-type-credit div.boletines {
+  background-image: url("assets/img/zonaPreescolar.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 10px;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 600ms;
+  animation-duration: 600ms;
+  margin-bottom: 10px;
+}
+
+/* Scroll Tablas */
+
+::-webkit-scrollbar {
+  -webkit-appearance: none !important;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 13px !important;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 12px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(148, 145, 145) !important;
+  border-radius: 10px !important;
+  border: 2px solid var(--blanco) !important;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+  background-color: var(--blanco) !important;
+}
+
+/* ====================== MODAL CARNET DIGITAL =========================== */
+
+div.select-gf select {
+  background-color: #eeeeee;
+  border-color: #cecece;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
+}
+
+div.select-gf label {
+  font-size: 10pt;
+  line-height: 20px;
+  color: #666666;
+}
+
+div.select-gf select option {
+  color: #8f8f8f;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+div.select-gf select option:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+div.select-gf select option:nth-child(even) {
+  background-color: var(--blanco);
+}
+
+div.select-gf i {
+  color: #4f5557;
+  position: absolute;
+  bottom: 0em;
+  padding: 7px;
+  right: 1rem;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  display: block;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+button.btn-carnet-digital {
+  display: none;
+}
+
+div.modal-carnet-digital {
+  font-family: Ubuntu, Poppins;
+  font-size: 10px;
+}
+
+div.modal-carnet-digital div.modal-content {
+  border-radius: 7px;
+}
+
+div.modal-carnet-digital div.carnet-header {
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 700;
+  border-bottom: none;
+  background-color: var(--color-principal);
+  color: var(--blanco);
+  font-style: bold;
+}
+
+div.modal-carnet-digital div.modal-body div.login-content form.form-login label {
+  font-size: 10px;
+  line-height: 11px;
+  color: #666666;
+}
+
+div.modal-carnet-digital div.modal-body div.login-content form.form-login input {
+  padding: 5px 20px !important;
+  height: auto !important;
+  font-family: Ubuntu;
+  font-size: 16px !important;
+  border-radius: 50px;
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: #eee;
+}
+
+div.modal-carnet-digital div.modal-body div.login-content form.form-login input[type="checkbox"] {
+  width: auto;
+}
+
+div.modal-carnet-digital div.modal-body div.login-content div button.btn-next {
+  background-color: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--blanco);
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:hover {
+  background-color: var(--blanco);
+  color: var(--color-principal);
+}
+
+.gh {
+  background-color: var(--color-principal);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: var(--blanco);
+  font-family: "Ubuntu";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-curso {
+  box-shadow: 0px 1px 3px 0px #1018280F;
+  box-shadow: 0px 1px 2px 0px #1018281A;
+  background-color: white;
+  border: 1px solid #EAECF0;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card-header-curso {
+  background-color: white;
+  word-wrap: break-word;
+}
+
+.card-body-curso {
+  background-color: white;
+  line-height: 1;
+  /* Ajusta el valor según lo necesario */
+  word-wrap: break-word;
+}
+
+.card-title-curso {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.span-icono-curso {
+  width: 45px;
+  height: 10px;
+  padding: 0 4px 4px 4px;
+}
+
+.span-icono-card-curso {
+  padding: 0 4px;
+}
+
+.btn-size-asistentes {
+  width: 25%;
+}
+
+.item-resumen {
+  padding: 2px;
+  flex: 1;
+  /* Ajusta el ancho del contenedor al espacio disponible */
+  min-width: 0;
+  /* Evita problemas con el desbordamiento de texto */
+}
+
+.item-seleccion {
+  font-size: 14px;
+  color: #495057;
+  padding-left: 10px;
+}
+
+.item-titulo {
+  font-size: 14px;
+  color: #575e64;
+}
+
+.item-titulo-seleccion {
+  font-size: 20px;
+  color: black;
+  font-weight: 500;
+  text-wrap: wrap;
+  display: inline-block;
+  word-break: break-word;
+  white-space: pre-wrap;
+  /* Permite respetar saltos de línea */
+  overflow-wrap: anywhere;
+  /* Divide palabras largas */
+}
+
+.list-group-item {
+  /* border: none !important; */
+  border-bottom: 1px solid #EAECF0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.list-resumen {
+  min-height: 85px;
+  text-wrap: wrap;
+}
+
+.card-body-resumen {
+  padding: 8px;
+}
+
+.hr-separador {
+  border: 0;
+  width: 50%;
+  border-top: 2px solid var(--color-principal);
+}
+
+.cuadro-precio {
+  border: 8px solid var(--color-principal);
+  border-radius: 15px;
+  background-color: var(--backgrod-secundario);
+  color: white;
+  padding: 4px 8px;
+  width: 300px;
+}
+
+.total-valor {
+  color: var(--color-principal)
+}
+
+
+/* CARD DE SERVICIOS */
+
+.card-servicios {
+  width: 20rem;
+  /*  background: linear-gradient(15deg, #f5f2f3, #ff3e5b); */
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(233, 105, 195, 0.315);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card-servicios:hover {
+  transform: translateY(-10px);
+}
+
+.card-servicios h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  color: var(--color-principal);
+}
+
+.card-servicios .learn-more {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--color-principal);
+}
+
+.card-servicios .learn-more:hover {
+  text-decoration: underline;
+}
+
+.card-servicios .learn-more svg {
+  margin-left: 8px;
+}
+
+.card-servicios img {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 120px;
+  opacity: 0.2;
+}
+
+
+.ng-select {
+  background-color: #eeeeee;
+  border-color: #cecece;
+  /*  color: #666666; */
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 16px;
+  line-height: 21px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  white-space: wrap;
+  background: white;
+  /* margin-top: 14px; */
+  padding: 4px;
+  width: 100%;
+}
+
+.ng-select .ng-clear-wrapper {
+  visibility: hidden;
+}
+
+.titulos {
+  color: var(--color-principal);
+}
+
+.ngx-pagination .disabled {
+  background-color: #fff !important;
+  border-radius: 25px !important;
+  font-weight: 500 !important;
+  padding: .1875rem .625rem;
+  color: #cacaca;
+  cursor: default;
+}
+
+.ngx-pagination a, .ngx-pagination button {
+  background-color: #fff !important;
+  color: #0a0a0a;
+  display: block;
+  padding: .1875rem .625rem;
+  border-radius: 25px !important;
+  font-weight: 500 !important;
+}
+
+.ngx-pagination .disabled {
+  background-color: #fff !important;
+  color: #666666 !important;
+  border: 1px solid #666666;
+  border-radius: 25px;
+}
+
+.pagination-next,
+.pagination-previous {
+  background-color: #fff !important;
+  color: #666666 !important;
+  border: 1px solid #666666;
+  border-radius: 25px !important;
+}
+
+.ngx-pagination .pagination-previous a:before,
+.ngx-pagination .pagination-previous.disabled:before {
+  background-color: #fff !important;
+  content: "←" !important;
+  display: inline-block;
+  margin-right: .5rem;
+}
+
+.ngx-pagination .pagination-next a:after,
+.ngx-pagination .pagination-next.disabled:after {
+  background-color: #fff !important;
+  content: "→" !important;
+  display: inline-block;
+  margin-right: .5rem;
+}
+
+.ngx-pagination .current {
+  background-color: #fff !important;
+  padding: .1875rem .625rem;
+  background: transparent !important;
+  color: #666666 !important;
+  cursor: default;
+}
+
+.radio-style {
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  width: 10px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+.radio-style::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.radio-style:active::before,
+.radio-style:focus::before {
+  background-color: #007bff;
+  /* Color activo */
+}
+
+.radio-style:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.radio-style:disabled {
+  border: 2px solid var(--color-principal);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.list-gf {
+  border: 1px solid #ccc !important;
+}
+
+.list-gf-button {
+  border-left: 1px solid #ccc !important;
+  /* Ancho, estilo y color del borde */
+  padding-left: 10px;
+  /* Espaciado interno para separar el contenido del borde */
+}
+
+/* Estilo del radio button en el agregar asistente grupo familiar */
+.cbx {
+  position: relative;
+  top: 1px;
+  width: 27px;
+  height: 27px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  display: block;
+  margin-left: 8px;
+}
+
+
+.cbx:after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 8px;
+  width: 7px;
+  height: 14px;
+  opacity: 0;
+  transform: rotate(45deg) scale(0);
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transition: all 0.3s ease;
+  transition-delay: 0.15s;
+}
+
+#cbx:checked~.cbx {
+  border-color: transparent;
+  background: #ec4899;
+}
+
+#cbx:checked~.cbx:after {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+.cntr {
+  position: relative;
+}
+
+.hidden-xs-up {
+  display: none !important;
+}
+
+.item-border-success {
+  border-left: 5px solid #28a745 !important;
+  /* Color verde similar a bg-success */
+  background-color: #d4edda;
+  /* Color de fondo claro para resaltar */
+}
+
+.btn-delete {
+  border-radius: 50%;
+  background-color: white;
+  padding: 2px;
+}
+
+.select-filter {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px 0px #1018281A;
+  box-shadow: 0px 1px 2px 0px #1018280F;
+}
+
+.card-filters {
+  border: 1px solid #F2F4F7;
+  border-radius: 10px;
+}
+
+.fondo {
+  background: #FCFCFC !important;
+}
+
+.agregar-btn {
+  border-left: 1px solid #ccc;
+}
+
+.boton-volver {
+  width: 140px;
+  top: 176px;
+  left: 1158px;
+  padding: 10px 18px 10px 18px;
+  gap: 8px;
+  border-radius: 32px 0px 0px 0px;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+}

@@ -1,0 +1,9 @@
+div.contenidopolicies {
+    height: 400px !important;
+}
+
+@media(max-width: 420px) {
+    div.contenidopolicies {
+        height: auto !important;
+    }
+}

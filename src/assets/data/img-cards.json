@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "title": "Card 1",
+      "image": "../../../../assets/img/curso-tenis.png"
+    },
+    {
+      "id": 2,
+      "title": "Card 2",
+      "image": "../../../../assets/img/curso-fut.png"
+    },
+    {
+      "id": 3,
+      "title": "Card 3",
+      "image": "../../../../assets/img/curso-yoga.png"
+    },
+    {
+      "id": 4,
+      "title": "Card 4",
+      "image": "../../../../assets/img/curso-bas.png"
+    },
+    {
+      "id": 5,
+      "title": "Card 5",
+      "image": "../../../../assets/img/curso-run.png"
+    },
+    {
+      "id": 6,
+      "title": "Card 5",
+      "image": "../../../../assets/img/curso-dep.png"
+    }
+  ]
+  

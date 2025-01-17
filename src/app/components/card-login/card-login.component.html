@@ -1,0 +1,108 @@
+<form
+  class="form-login needs-validation"
+  [formGroup]="formLogin"
+  (ngSubmit)="onSubmit()" >
+  
+  <div class="form-group form-group-custom">
+    <p class="m-0 mb-1" style="font-size: 14px;">Número de documento *</p>
+    <input
+      type="number"
+      formControlName="document"
+      class="form-control"
+      placeholder="* Número de documento"
+      placement="right"
+      autocomplete="off"
+      min="1"
+      [ngClass]="{ 'is-invalid': (submitted || f.document.touched) && f.document.errors }"
+    />
+    <div
+      *ngIf="(submitted || f.document.touched) && f.document.errors?.required"
+      class="invalid-feedback animated fadeIn fast"
+    >
+      <span
+        *ngIf="f.document.errors.required"
+        class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
+        >NÚMERO DE DOCUMENTO ES REQUERIDO
+      </span>
+    </div>
+    <div
+      *ngIf="(submitted || f.document.touched) && f.document.errors?.min"
+      class="invalid-feedback animated fadeIn fast"
+    >
+      <span
+        class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
+      >
+        DEBES INGRESAR MÍNIMO 6 DÍGITOS
+      </span>
+    </div>
+    <div
+      *ngIf="(submitted || f.document.touched) && f.document.errors?.max"
+      class="invalid-feedback animated fadeIn fast"
+    >
+      <span
+        class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
+        >DEBES INGRESAR MÁXIMO 15 DÍGITOS</span
+      >
+    </div>
+    <div
+      *ngIf="(submitted || f.document.touched) && f.document.errors?.pattern"
+      class="invalid-feedback animated fadeIn fast"
+    >
+      <span
+        class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
+        >DEBES INGRESAR DÍGITOS POSITIVOS</span
+      >
+    </div>
+  </div>
+  <div class="form-group form-group-custom">
+    <p class="m-0 mb-1" style="font-size: 14px;">Contraseña *</p>
+    <div style="position: relative; display: flex; align-items: center;">
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      formControlName="password"
+      class="form-control"
+      placeholder="* Contraseña"
+      placement="right"
+      autocomplete="off"
+      [ngClass]="{
+        'is-invalid': (submitted || f.password.touched) && f.password.errors
+      }"
+    />
+    <span  style="font-size: 20px;" class="bx bx-low-vision" (click)="toggleShowPassword()"></span>
+    </div>
+    <div
+      *ngIf="(submitted || f.password.touched) && f.password.errors?.required"
+      class="invalid-feedback animated fadeIn fast"
+    >
+      <span
+        *ngIf="f.password.errors.required"
+        class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
+        >CONTRASEÑA ES REQUERIDA</span
+      >
+    </div>
+    <div
+      *ngIf="(submitted || f.password.touched) && f.password.errors?.minlength"
+      class="invalid-feedback animated fadeIn fast"
+    >
+      <span
+        class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
+        >DEBES INGRESAR MÍNIMO
+        {{ f.password.errors.minlength.requiredLength }} CARACTERES</span
+      >
+    </div>
+  </div>
+
+  <div class="form-group form-group-custom m-0">
+    <button
+      id="escuelasCursosIngreso"
+      [disabled]="utilitiesService.loading"
+      class="btn btn-credits btn-signin btn-block mt-1 mb-1"
+    >
+      <span
+        *ngIf="utilitiesService.loading"
+        class="spinner-border spinner-border-sm mr-1"
+      ></span>
+      Ingresar
+    </button>
+  </div>
+</form>

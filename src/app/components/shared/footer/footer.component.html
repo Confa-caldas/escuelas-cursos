@@ -1,0 +1,146 @@
+<footer>
+  <div class="container position-relative">
+    <div class="pt-1 pb-4 align-content-center">
+      <div class="row mr-0 ml-0 justify-content-center">
+        <div class="col-sm-6 p-0 pt-2 pb-2">
+          <div class="card">
+            <div class="row no-gutters">
+              <div
+                class="col-md-2 d-flex justify-content-start align-items-center animate__animated animate__fadeIn animate__fast"
+              >
+                <img
+                  src="assets/img/puntosAtencion.jpg"
+                  class="card-img m-3"
+                  alt="Puntos de atención"
+                />
+              </div>
+              <div class="col-md-10">
+                <div class="card-body">
+                  <h5 class="card-title mb-2">Puntos de atención</h5>
+
+                  <div
+                    *ngFor="
+                      let puntoAtencion of attentionService.puntosAtencion
+                    "
+                    class="p-group"
+                  >
+                    <p class="card-text m-0">
+                      <span class="font-weight-bold">{{
+                        puntoAtencion.nombreSede
+                      }}</span>
+                      {{ puntoAtencion.direccionSede }}
+                    </p>
+
+                    <p class="card-text m-0">
+                      <span class="font-weight-bold"> Modalidad: </span>
+                      {{ puntoAtencion.modalidad }}
+                    </p>
+                  </div>
+                  <p class="card-text m-0 more-points">
+                    Consulta otros puntos de atención
+                    <a
+                      href="https://confa.co/personas/contacto/#1544655771991-5460a8cb-0b52fec1-8fb1"
+                      target="_blank"
+                      >Aquí</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 p-0 pt-2 pb-2">
+          <div class="card">
+            <div class="row no-gutters">
+              <div
+                class="col-md-2 d-flex justify-content-start align-items-center animate__animated animate__fadeIn animate__fast"
+              >
+                <img
+                  src="assets/img/contacto.jpg"
+                  class="card-img m-3"
+                  alt="Puntos de atención"
+                />
+              </div>
+              <div class="col-md-10">
+                <div class="card-body">
+                  <h5 class="card-title mb-2">Líneas de atención</h5>
+
+                  <div
+                    *ngFor="
+                      let lineaAtencion of attentionService.lineasAtencion
+                    "
+                    class="p-group"
+                  >
+                    <p class="card-text m-0">
+                      <span class="font-weight-bold">{{
+                        lineaAtencion.nombreSede
+                      }}</span>
+                      {{ lineaAtencion.telefonos }}
+                      {{ lineaAtencion.extensiones }}
+                    </p>
+                    <p *ngIf="lineaAtencion.correo != null">
+                      <img
+                        src="../../../../assets/img/correo.jpg" 
+                        alt="correo"
+                      />
+                      <a class="ml-1" class="card-text m-0">
+                        {{ lineaAtencion.correo }}</a
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row mr-0 ml-0 footer-super-vigilado d-flex justify-content-between align-items-center"
+      >
+        <div
+          class="col-12 col-md-3 d-flex justify-content-center p-0 pt-1 pb-1 pr-2"
+        >
+          <button
+          id="escuelaCursoPolitica"
+            class="btn btn-block font-weight-bold"
+            data-toggle="modal"
+            data-target="#modalPoliticaTratamientoDatos"
+          >
+            Autorización de tratamiento de datos
+          </button>
+        </div>
+        <button
+          class="btn btn-block font-weight-bold btn-modal-polices-menor"
+          data-toggle="modal"
+          data-target="#modalTratamientoDatosMenores"
+          hidden
+        >
+          Mal criados
+        </button>
+        <div
+          class="col-12 col-md-3 d-flex justify-content-center p-0 pt-1 pb-1 pl-2"
+        >
+          <button
+          id="escuelasCursoCondiciones"
+          class="btn btn-block font-weight-bold btn-modal-polices"
+            data-toggle="modal"
+            data-target="#modalCondicionesUsoServicio"
+          >
+            Condiciones de uso del servicio
+          </button>
+        </div>
+        <div
+          class="img-footer col-12 col-md-6 d-flex justify-content-end p-0 pt-1 pb-1 pl-1"
+        >
+          <img
+          src="https://confa.co/wp-content/uploads/2024/08/Logo_vigilado_portal.png"
+            alt="Supersubsidio"
+            class="card-img m-3"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

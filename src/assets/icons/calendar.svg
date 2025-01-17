@@ -1,0 +1,17 @@
+<svg width="56" height="57" viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4.5" width="48" height="48" rx="24" fill="white"/>
+<rect x="4" y="4.5" width="48" height="48" rx="24" stroke="#FFD1E4" stroke-width="8"/>
+<g clip-path="url(#clip0_124_6182)">
+<g clip-path="url(#clip1_124_6182)">
+<path d="M36.75 18H35.5V15.5H33V18H23V15.5H20.5V18H19.25C17.8625 18 16.7625 19.125 16.7625 20.5L16.75 38C16.75 39.375 17.8625 40.5 19.25 40.5H36.75C38.125 40.5 39.25 39.375 39.25 38V20.5C39.25 19.125 38.125 18 36.75 18ZM36.75 38H19.25V25.5H36.75V38ZM36.75 23H19.25V20.5H36.75V23ZM24.25 30.5H21.75V28H24.25V30.5ZM29.25 30.5H26.75V28H29.25V30.5ZM34.25 30.5H31.75V28H34.25V30.5ZM24.25 35.5H21.75V33H24.25V35.5ZM29.25 35.5H26.75V33H29.25V35.5ZM34.25 35.5H31.75V33H34.25V35.5Z" fill="#FF2B81"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_124_6182">
+<rect width="30" height="30" fill="white" transform="translate(13 13.5)"/>
+</clipPath>
+<clipPath id="clip1_124_6182">
+<rect width="30" height="30" fill="white" transform="translate(13 13)"/>
+</clipPath>
+</defs>
+</svg>
