@@ -48,7 +48,7 @@ export const environment = {
   viveConfa: "https://confa.co/personas/servicios-en-linea/",
   // Development
 
-  apiUrl: "https://master.d1c8ds88qy8uz2.amplifyapp.com/", //Produccion
+  apiUrl: "https://cursos-deportivos.app.confa.co/", //Produccion
 
   escuelaCursoRest:"https://serviciosweb.confa.co/recreacionWS/rest/escuelaCurso",
   dispoCentros:

@@ -472,8 +472,8 @@ export class AuthenticationService {
   // Metodo para validar la disponivilidad del aplicativo
   validarAplicativo() {
     let body = {
-      //portal: "escuelasCursos",
-      portal: "miPerfil",
+      portal: "escuelasCursos",
+      //portal: "miPerfil",
     };
 
     return this.getQuery("confa/metodo200", body).pipe(
