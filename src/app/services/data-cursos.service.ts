@@ -221,4 +221,17 @@ export class DataServiciosCursos {
       })
     );
   }
+
+  //consultar el grupo familiar
+  consultarGrupoFamiliar(documento: string) {
+    let body = {
+      documento: documento,
+    };
+
+    return this.getQueryPost("/metodo19", body).pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
 }
