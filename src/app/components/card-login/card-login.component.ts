@@ -130,6 +130,7 @@ export class CardLoginComponent implements OnInit {
                 // Calcular la edad del usuario
                 const edad = this.dataServiciosCursos.calcularEdad(usuario.fechaNacimiento);
                 this.utilitiesService.edad = edad;
+                this.utilitiesService.fechaNaciemintoResponsable = usuario.fechaNacimiento;
 
                 if (edad < 14) {
                   this.showModalMessage(
