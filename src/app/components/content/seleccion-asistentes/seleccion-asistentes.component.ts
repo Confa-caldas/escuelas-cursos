@@ -213,12 +213,12 @@ export class SeleccionAsistentesComponent implements OnInit {
           setTimeout(() => {
             $(".modalNuevowarning").click();
           }, 500);
-          this.consultarInformacionMiPerfilConfa(this.document);
-          //this.traerGrupoFamiliar(this.document)
+          //this.consultarInformacionMiPerfilConfa(this.document);
+          this.traerGrupoFamiliar(this.document)
 
         } else {
-          this.consultarInformacionMiPerfilConfa(this.document);
-          //this.traerGrupoFamiliar(this.document) metodo19
+          //this.consultarInformacionMiPerfilConfa(this.document);
+          this.traerGrupoFamiliar(this.document)
         }
       },
         error => {
@@ -285,7 +285,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                   municipioId: 1,
                   mayor19Anios: this.mayorEdad,
                   esMenor18: this.menorEdad,
-                  tipoAfiliacion: 'B',
+                  tipoAfiliacion: grupoFam[index].tipoAfiliacion,
                   genero: grupoFam[index].sexo || '',
                   fechaNacimiento: grupoFam[index].fechaNac || '',
                   docAfiliado:documento,
@@ -760,7 +760,7 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   
-  consultarInformacionMiPerfilConfa(documento: string) {
+/*   consultarInformacionMiPerfilConfa(documento: string) {
     this.authenticationService.consultarInformacionMiPerfilConfa(documento)
       .pipe(first())
       .subscribe((response: MiPerfilConfa) => {
@@ -837,7 +837,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                     municipioId: 1,
                     mayor19Anios: this.mayorEdad,
                     esMenor18: this.menorEdad,
-                    tipoAfiliacion: 'B',
+                    tipoAfiliacion: resultadoUnico[0].tipoUsuario,
                     genero: resultadoUnico[0].sexo || '',
                     fechaNacimiento: resultadoUnico[0].fechaNacimiento || '',
                     docAfiliado: response.documento,
@@ -921,7 +921,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
 
       });
-  }
+  } */
 
 
 
