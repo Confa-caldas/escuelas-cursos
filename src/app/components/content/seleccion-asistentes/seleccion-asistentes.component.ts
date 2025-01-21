@@ -214,12 +214,12 @@ export class SeleccionAsistentesComponent implements OnInit {
           setTimeout(() => {
             $(".modalNuevowarning").click();
           }, 500);
-          //this.consultarInformacionMiPerfilConfa(this.document);
-          this.traerGrupoFamiliar(this.document)
+          this.consultarInformacionMiPerfilConfa(this.document);
+          //this.traerGrupoFamiliar(this.document)
 
         } else {
-          //this.consultarInformacionMiPerfilConfa(this.document);
-          this.traerGrupoFamiliar(this.document)
+          this.consultarInformacionMiPerfilConfa(this.document);
+          //this.traerGrupoFamiliar(this.document)
         }
       },
         error => {
@@ -761,7 +761,7 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   
-/*   consultarInformacionMiPerfilConfa(documento: string) {
+  consultarInformacionMiPerfilConfa(documento: string) {
 
     this.authenticationService.consultarInformacionMiPerfilConfa(documento)
       .pipe(first())
@@ -923,7 +923,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
 
       });
-  } */
+  }
 
 
 
