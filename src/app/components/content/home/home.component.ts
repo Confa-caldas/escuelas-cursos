@@ -91,14 +91,14 @@ export class HomeComponent implements OnInit {
               localStorage.setItem("cc", response.usuario.documento);
               this.document = response.usuario.documento;
               this.utilitiesService.loading = true;
-              //this.consultarInformacionMiPerfilConfa(this.document);
+              this.consultarInformacionMiPerfilConfa(this.document);
             }
           });
       } else {
         this.utilitiesService.currentUser = user;
         this.document = cc;
         this.utilitiesService.loading = true;
-        //this.consultarInformacionMiPerfilConfa(this.document);
+        this.consultarInformacionMiPerfilConfa(this.document);
       }
     }
   }
