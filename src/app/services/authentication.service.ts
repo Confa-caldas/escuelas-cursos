@@ -332,8 +332,8 @@ export class AuthenticationService {
     );
   }
 
-  saveUserRegister(userRegister: UserRegister) {
-    return this.getQuery("confa/metodo129", userRegister).pipe(
+  saveUserRegister(userRegister: UserRegister, token: string) {
+    return this.getQueryToken("confa/metodo129", userRegister,token).pipe(
       map((response) => {
         return response["respuesta"];
       })

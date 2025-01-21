@@ -173,7 +173,7 @@ export class CardRegisterFormComponent implements OnInit {
           .subscribe((responseTING: Token) => {
             if (responseTING.token) {
               this.authenticationService
-                .saveUserRegister(userRegister)
+                .saveUserRegister(userRegister,responseTING.token)
                 .pipe(first())
                 .subscribe((response: any) => {
                   if (response === "") {
