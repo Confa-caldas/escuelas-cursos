@@ -206,8 +206,7 @@ export class SeleccionAsistentesComponent implements OnInit {
           setTimeout(() => {
             this.utilitiesService.loading = false;
             this.router.navigate(["/cursos"]);
-          }, 3000);
-
+          }, 3000);  
         } else if (cantCupos == 1) {
           this.utilitiesService.messageTitleModal = 'Atención';
           this.utilitiesService.messageModal = 'Este curso solo cuenta con 1 cupo disponible';
@@ -219,7 +218,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
         } else {
           this.consultarInformacionMiPerfilConfa(this.document);
-          //this.traerGrupoFamiliar(this.document)
+          //this.traerGrupoFamiliar(this.document) metodo19
         }
       },
         error => {
@@ -762,7 +761,6 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   
   consultarInformacionMiPerfilConfa(documento: string) {
-
     this.authenticationService.consultarInformacionMiPerfilConfa(documento)
       .pipe(first())
       .subscribe((response: MiPerfilConfa) => {
