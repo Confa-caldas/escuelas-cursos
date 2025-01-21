@@ -50,13 +50,14 @@ export class ModalPayComponent implements OnInit {
   captureParameters() {
 
     const queryString = window.location.search; // Obtiene la parte de la URL que contiene los parámetros, e.g., "?7dc7dc58cdcadaea=curso--1-1053837687-1731933423890"
-
+    let value: any;
     this.ruta =  queryString
     if (queryString) {
       const key = queryString.split('?')[1].split('=')[0]; // Extrae la clave antes del '='
       
       this.parametro = key
-      console.log('Clave extraída:', key);
+      value = queryString.split('=')[1];
+      console.log('Clave extraída:', key, 'valor', value);
 
     } else {
       console.log('No hay parámetros en la URL');
@@ -86,11 +87,11 @@ export class ModalPayComponent implements OnInit {
 
 
     if(this.parametro == "34240997a16763c011134c570fcc149e" ){
-      confirmUser = "34240997a16763c011134c570fcc149e";
+      confirmUser = value;
     }
 
     if (this.parametro == "e541f24f0b06368c9cfb418174699da5" ) {
-      changePassword = "e541f24f0b06368c9cfb418174699da5";
+      changePassword = value;
     }
 
     

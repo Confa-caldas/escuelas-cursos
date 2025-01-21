@@ -168,16 +168,20 @@ export class LoginComponent implements OnInit {
   }
 
   confirmUser() {
+
     let confirmUser =
       this.activatedRoute.snapshot.queryParams[
         "34240997a16763c011134c570fcc149e"
       ];
+
+      console.log(confirmUser)
     if (confirmUser) {
       this.utilitiesService.loading = true;
       this.authenticationService
         .confirmUserRegistrationConfa(confirmUser)
         .pipe(first())
         .subscribe((response: User) => {
+          console.log(response)
           if (response.documento !== "") {
             // console.log(response);
             this.utilitiesService.messageTitleModal = "Registro exitoso";
