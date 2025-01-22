@@ -206,7 +206,7 @@ export class SeleccionAsistentesComponent implements OnInit {
           setTimeout(() => {
             this.utilitiesService.loading = false;
             this.router.navigate(["/cursos"]);
-          }, 3000);  
+          }, 3000);
         } else if (cantCupos == 1) {
           this.utilitiesService.messageTitleModal = 'Atención';
           this.utilitiesService.messageModal = 'Este curso solo cuenta con 1 cupo disponible';
@@ -288,7 +288,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                   tipoAfiliacion: grupoFam[index].tipoAfiliacion,
                   genero: grupoFam[index].sexo || '',
                   fechaNacimiento: grupoFam[index].fechaNac || '',
-                  docAfiliado:documento,
+                  docAfiliado: documento,
                   esTrabajadorConfa: false,
                   valorPagoCurso: Number(tarifaBeneficiario[1]),
                   inhabilitado: false // Nueva propiedad para controlar el estado
@@ -300,11 +300,11 @@ export class SeleccionAsistentesComponent implements OnInit {
         }
 
 
-        
+
         setTimeout(() => {
-          
+
           this.utilitiesService.loading = false;
-          
+
           //console.log(this.nucleoFamiliar);
           // Validación de resultados
           if (this.nucleoFamiliar.length === 0) {
@@ -378,7 +378,8 @@ export class SeleccionAsistentesComponent implements OnInit {
 
               console.log(resultadoObj)
 
-              if (response.estado == 'OK') {
+              if (response.estado === 'OK' && resultadoObj.persona_id != null && resultadoObj.persona_id !== '') {
+                //if (response.estado == 'OK' && (resultadoObj.persona_id != null || resultadoObj.persona_id != undefined || resultadoObj.persona_id != '' || resultadoObj.persona_id != "")) {
                 // set datos de genesys
 
                 /* primero toma la edad y hace el calculo de si cumple con la edad para el curso */
@@ -759,7 +760,7 @@ export class SeleccionAsistentesComponent implements OnInit {
       });
   }
 
-  
+
   consultarInformacionMiPerfilConfa(documento: string) {
     this.authenticationService.consultarInformacionMiPerfilConfa(documento)
       .pipe(first())
@@ -923,6 +924,9 @@ export class SeleccionAsistentesComponent implements OnInit {
       });
   }
 
-
-
+  preventWhitespace(event: KeyboardEvent) {
+    if (event.key === ' ') {
+      event.preventDefault();
+    }
+  }
 }
