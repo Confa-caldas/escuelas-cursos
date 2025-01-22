@@ -270,11 +270,6 @@ export class ResumenCompraComponent {
               $(".modalNuevoSuccessPayu").click();
             }, 1000);
 
-            /* if (response.paymentUrl !== "") {
-              $(".btn-close").click(function (event) {
-                window.location.href = response.paymentUrl;
-              });
-            } */
             //por aca entra cuando no hay pago por pyzen
           } else if (response.paymentOrderStatus == "SIN-PAGO") {
             this.utilitiesService.messageTitleModal =
@@ -347,7 +342,7 @@ export class ResumenCompraComponent {
   }
 
   private getBodyInfoDues() {
-    console.log(this.cursoSeleccionado)
+    console.log(this.utilitiesService.currentUser)
     var haymenor = false;
     for (var i = 0; i < this.listaAsistentes.length; i++) {
       /* if (this.listaAsistentes[i].esMenor18) {
@@ -365,24 +360,24 @@ export class ResumenCompraComponent {
       nombreres = "";
     }
     let body: InitiateTransaction = {
-      documento: this.utilitiesService.documentUser,
-      tipoDocumento: "C",
+      documento: this.utilitiesService.documentUser || this.utilitiesService.currentUser.documento || "",
+      tipoDocumento:this.utilitiesService.currentUser.tipoDocumento || "C",
       sedeId: this.cursoSeleccionado.sede.sedeId, //9
       cursoId: this.cursoSeleccionado.id, //
       programacionId: this.cursoSeleccionado.programacion.programacionId,
       valorPago: this.total,
       urlRetorno: environment.apiUrl + "home", //cambiar url
-      nombreCompleto: this.utilitiesService.fullNameUser,
-      direccionResidencia: this.utilitiesService.direccionResidencia,
-      celular: this.utilitiesService.celular,
-      genero: this.utilitiesService.genero,
-      fechaNacimiento: this.utilitiesService.fechaNaciemintoResponsable,
-      emailConfirmacion: this.utilitiesService.currentUser.correo,
+      nombreCompleto: this.utilitiesService.fullNameUser || this.utilitiesService.currentUser.nombreBeneficiario || "",
+      direccionResidencia:  this.utilitiesService.currentUser.direccion || this.utilitiesService.direccionResidencia || "",
+      celular: this.utilitiesService.currentUser.celular || this.utilitiesService.celular || "",
+      genero:  this.utilitiesService.currentUser.sexo ||this.utilitiesService.genero || "",
+      fechaNacimiento: this.utilitiesService.currentUser.fechaNacimiento || this.utilitiesService.fechaNaciemintoResponsable || "",
+      emailConfirmacion: this.utilitiesService.currentUser.correo || "",
       aceptaPoliticaServicio: true,
       aceptaPoliticaTratamientoDatos: true,
       aceptaAutorizacionMenores: true,
-      documentoResponsable: docres,
-      nombreResponsable: nombreres,
+      documentoResponsable: docres || "",
+      nombreResponsable: nombreres || "",
       asistentes: this.listaAsistentes,
       haymenor18: haymenor, //NO
       nombreDatafono: ""
