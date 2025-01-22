@@ -376,15 +376,13 @@ export class SeleccionAsistentesComponent implements OnInit {
 
               const resultadoObj = JSON.parse(response.resultado);
 
-              console.log(resultadoObj)
-
               if (response.estado === 'OK' && resultadoObj.persona_id != null && resultadoObj.persona_id !== '') {
                 //if (response.estado == 'OK' && (resultadoObj.persona_id != null || resultadoObj.persona_id != undefined || resultadoObj.persona_id != '' || resultadoObj.persona_id != "")) {
                 // set datos de genesys
 
                 /* primero toma la edad y hace el calculo de si cumple con la edad para el curso */
                 const edad = this.obtenerEdad(resultadoObj.fechaNac)
-                //console.log(edad)
+                console.log(edad)
                 if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
                   this.existeUsuarioAdi = true;
                   this.InhabilitarBtnAddOtroasistente = true;
@@ -463,11 +461,8 @@ export class SeleccionAsistentesComponent implements OnInit {
                     }
                   });
               }
-
-
             })
         }
-
       }, 500);
     }
   }

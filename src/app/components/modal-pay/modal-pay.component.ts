@@ -94,13 +94,6 @@ export class ModalPayComponent implements OnInit {
       changePassword = value;
     }
 
-    
-      //https://master.dfnug6ilu50cz.amplifyapp.com/recover?e541f24f0b06368c9cfb418174699da5=649920d426c6c41bf8c6b58188e64954
-      
-
-      console.log('Parámetros:', changePassword, '-', confirmUser);
-
-
     if (confirmUser || changePassword) {
       if (confirmUser) {
         this.router.navigate(["/login"], {
@@ -163,8 +156,8 @@ export class ModalPayComponent implements OnInit {
               });
 
               $(".btn-info-pay-dues").click();
-            } else {
-            /* if (response.paymentOrderStatusId === "REFUSED") { */
+            } /* else { */
+            if (response.paymentOrderStatusId === "REFUSED") {
 
               this.loading = false;
 

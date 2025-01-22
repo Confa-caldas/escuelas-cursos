@@ -139,6 +139,8 @@ export class DataServiciosCursos {
     if (mes < 0 || (mes === 0 && dia < 0)) {
       edad--;
     }
+
+    console.log(edad, "edad linea 143 servicio calcular edad")
     return edad;
   }
 
