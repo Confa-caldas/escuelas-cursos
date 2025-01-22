@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { UtilitiesService } from "src/app/services/utilities.service";
 import { CookieService } from "ngx-cookie-service";
 import { AuthenticationService } from "src/app/services/authentication.service";
@@ -41,6 +41,9 @@ declare var $;
   styleUrl: './seleccion-asistentes.component.css'
 })
 export class SeleccionAsistentesComponent implements OnInit {
+
+  @ViewChild('tipoDocumentoRef') tipoDocumentoRef!: ElementRef;
+
   public environment = environment;
   textNucleoFamiliar: string = "";
   certificadosgrupo: boolean = true;
@@ -470,15 +473,41 @@ export class SeleccionAsistentesComponent implements OnInit {
   /* Corresponde al boton de agregar otro asistente */
   OtrosAsistentes() {
 
+    let validoInsetar : boolean = true;
+
+    console.log(this.tipoDocOtroAsistente)
+
+    const value = this.tipoDocumentoRef.nativeElement.value;
+    console.log(value)
+
+    if (
+      !this.tipoDocOtroAsistente || 
+      this.tipoDocOtroAsistente.trim() === "" || 
+      this.tipoDocOtroAsistente === null || 
+      this.tipoDocOtroAsistente === undefined
+    ) {
+      this.utilitiesService.messageTitleModal = "Recuerda";
+      this.utilitiesService.messageModal = 'Debes ingresar todos los datos solicitados, debes ingresar el tipo de documento';
+      this.utilitiesService.backLogin = false;
+
+      validoInsetar = false;
+
+      setTimeout(() => {
+        this.utilitiesService.loading = false;
+        $(".modalNuevowarning").click();
+      }, 200);
+    }
+    
     if (this.fechaNacOtroAsistente == '' || this.fechaNacOtroAsistente == null || this.fechaNacOtroAsistente == undefined) {
 
       this.utilitiesService.messageTitleModal = "Recuerda"
       this.utilitiesService.messageModal = 'Debes ingresar todos los datos solicitados, la fecha de nacimiento no puede ir vacia'
       this.utilitiesService.backLogin = false;
+      validoInsetar = false;
       setTimeout(() => {
         this.utilitiesService.loading = false;
         $(".modalNuevowarning").click();
-      }, 500);
+      }, 200);
 
     }
 
@@ -488,16 +517,19 @@ export class SeleccionAsistentesComponent implements OnInit {
         this.utilitiesService.messageTitleModal = "Recuerda"
         this.utilitiesService.messageModal = 'Debes ingresar todos los datos solicitados'
         this.utilitiesService.backLogin = false;
+        validoInsetar = false;
+
         setTimeout(() => {
           this.utilitiesService.loading = false;
           $(".modalNuevowarning").click();
-        }, 500);
+        }, 200);
       }
     }
 
     /* primero toma la edad y hace el calculo de si cumple con la edad para el curso */
     const edad = this.obtenerEdad(this.fechaNacOtroAsistente)
-    //console.log(edad)
+    if (validoInsetar) {
+          //console.log(edad)
     if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
 
       this.InhabilitarBtnAddOtroasistente = false;
@@ -535,6 +567,9 @@ export class SeleccionAsistentesComponent implements OnInit {
       this.fechaNacOtroAsistente = "";
 
     }
+      
+    }
+
 
   }
 

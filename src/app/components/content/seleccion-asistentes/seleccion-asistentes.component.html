@@ -90,7 +90,7 @@
               <div class="row">
                 <div class="col form-group form-group-custom content-custom-select">
                   <label for="inputState">Tipo documento</label>
-                  <select id="inputState" class="form-control custom-select" name="tipoDocOtroAsistente"
+                  <select id="inputState" class="form-control custom-select" name="tipoDocOtroAsistente" #tipoDocumentoRef
                     [(ngModel)]="tipoDocOtroAsistente" placeholder="Escoge" (change)="onSelectChange($event)">
                     <option value="" disabled selected> Escoge </option>
                     <option value="C">Cédula de ciudadanía</option>
@@ -150,7 +150,7 @@
                 <div class="col">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Correo </label>
-                    <input type="text" [(ngModel)]="correoOtroAssistente" class="form-control"
+                    <input type="email" [(ngModel)]="correoOtroAssistente" class="form-control"
                       placeholder="*Correo electronico" placement="right" autocomplete="off" name="Apellidos" />
                   </div>
                 </div>
