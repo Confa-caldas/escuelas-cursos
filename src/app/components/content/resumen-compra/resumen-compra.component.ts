@@ -368,7 +368,7 @@ export class ResumenCompraComponent {
       valorPago: this.total,
       urlRetorno: environment.apiUrl + "home", //cambiar url
       nombreCompleto: this.utilitiesService.fullNameUser || this.utilitiesService.currentUser.nombreBeneficiario || "",
-      direccionResidencia:  this.utilitiesService.currentUser.direccion || this.utilitiesService.direccionResidencia || "",
+      direccionResidencia:  this.utilitiesService.currentUser.direccion || this.utilitiesService.direccionResidencia || "cll",
       celular: this.utilitiesService.currentUser.celular || this.utilitiesService.celular || "",
       genero:  this.utilitiesService.currentUser.sexo ||this.utilitiesService.genero || "",
       fechaNacimiento: this.utilitiesService.currentUser.fechaNacimiento || this.utilitiesService.fechaNaciemintoResponsable || "",
