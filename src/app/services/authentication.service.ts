@@ -257,6 +257,8 @@ export class AuthenticationService {
         )
     );
   }
+
+  
   miPerfil(token: string) {
     let bodyValidate = {
       token: token.toString(),
