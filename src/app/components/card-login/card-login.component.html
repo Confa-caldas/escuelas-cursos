@@ -4,6 +4,36 @@
   (ngSubmit)="onSubmit()" >
   
   <div class="form-group form-group-custom">
+    <label class="m-0 labelLoginHome"
+        >Selecciona el tipo de documento *</label
+      >
+      <div class="card card-custom-select">
+        <div class="content-custom-select">
+          <select
+            class="form-control inputloginsimulador"
+            formControlName="tpDoc"
+            (change)="capturar($event.target.value)"
+            [class.is-invalid]="
+              (submitted || f.tpDoc.touched) && f.tpDoc.errors
+            "
+          >
+            <option value="" hidden selected>
+              * Selecciona el tipo de documento
+            </option>
+            <option *ngFor="let dt of dataTpDoc" value="{{ dt.tipoDocumento }}">
+              {{ dt.nombre }}
+            </option>
+          </select>
+          <i class="icon-down1 fas fa-chevron-down pl-2"></i>
+        </div>
+      </div>
+      <span
+        *ngIf="(submitted || f.tpDoc.touched) && f.tpDoc.errors"
+        class="badge badge-pill badge-danger cf-badge d-block mt-2 text-left"
+        >DEBES SELECCIONAR UN TIPO DE DOCUMENTO PARA INICIAR SESIÓN</span
+      >
+  </div>
+  <div class="form-group form-group-custom">
     <p class="m-0 mb-1" style="font-size: 14px;">Número de documento *</p>
     <input
       type="number"

@@ -74,7 +74,26 @@ export const environment = {
   servicio: 1,
 
   dispoCentros:
-    "https://alojamiento.confa.co/recreacionWS/rest/pasadiaRecreacion"
+    "https://alojamiento.confa.co/recreacionWS/rest/pasadiaRecreacion",
+
+    validacionIndentidad: "https://pruebasfon.confa.co:28181/validacionIdentidadWS/",
+  //apiIngresoConfa: "http://localhost:8080/ingresoConfaWSSMiPerfil/rest/",
+
+  /*-----------------DEPARTAMENTOS Y MUNICIPIOS----------------- */
+  apiAlojamiento: "https://alojamiento.confa.co/alojamientoWS/rest/",
+
+  /*-----------------FACIAL----------------- */
+  apiFacial:
+    "https://identidad.confa.co/transaccionAutenticacionWS/transaccion/metodo1",
+
+  /*-----------------INFORMACION HABEAS DATA----------------- */
+  apiHabeasData:
+    "https://identidad.confa.co/transaccionAutenticacionWS/transaccion/metodo13",
+
+     /*  validacion de identida */
+  validacionIdentidadWS:
+  "https://pruebasfon.confa.co:28181/validacionIdentidadWS/transaccion",
+
 };
 
 /*

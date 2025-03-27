@@ -1,0 +1,39 @@
+.btn-validar-facial-login {
+    width: 340px;
+    background-color: #ff2c80;
+    border-color: #ff2c80;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0%;
+
+}
+
+.btn-sin-acceso {
+    border: none;
+    background-color: transparent;
+}
+
+@media (max-width: 576px) {
+    .modal-otp-estilo {
+      min-width: 90vw !important; /* Ajusta el ancho del modal en móviles */
+    }
+    
+    .dash {
+        flex-basis: 100%;
+        text-align: center;
+        display: block; /* Asegura que se comporte como bloque */
+      }
+  }
+  
+  @media (min-width: 577px) {
+    .modal-otp-estilo {
+      max-width: 800px !important; /* Tamaño similar a modal-lg */
+    }
+  }
+  

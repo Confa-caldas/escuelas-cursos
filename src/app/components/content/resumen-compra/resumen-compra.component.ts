@@ -360,7 +360,7 @@ export class ResumenCompraComponent {
       nombreres = "";
     }
     let body: InitiateTransaction = {
-      documento: this.utilitiesService.documentUser || this.utilitiesService.currentUser.documento || "",
+      documento: this.utilitiesService.documentUser || this.utilitiesService.currentUser.documento,
       tipoDocumento:this.utilitiesService.currentUser.tipoDocumento || "C",
       sedeId: this.cursoSeleccionado.sede.sedeId, //9
       cursoId: this.cursoSeleccionado.id, //

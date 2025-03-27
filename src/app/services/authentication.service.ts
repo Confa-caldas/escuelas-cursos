@@ -207,7 +207,7 @@ export class AuthenticationService {
     );
   }
 
-  loginCredenciales(document: number, password: string) {
+  /* loginCredenciales(document: number, password: string) {
     let bodyValidate = {
       documento: document.toString(),
       clave: password.toString(),
@@ -215,14 +215,32 @@ export class AuthenticationService {
 
     return (
       this.getQuery("confa/metodo132", bodyValidate)
-        /*  return this.http.get('assets/data/user.json') */
         .pipe(
           map((response: Session) => {
             return response;
           })
         )
     );
-  }
+  } */
+
+    loginCredenciales(document: number, password: string, tpDoc: string) {
+      let bodyValidate = {
+        documento: document.toString(),
+        id: password.toString(),
+        tipodocumento: tpDoc.toString(),
+      };
+  
+      return (
+        /* this.getQuery("confa/metodo132", bodyValidate) */
+        this.getQuery("validar/metodo6", bodyValidate)
+          /*  return this.http.get('assets/data/user.json') */
+          .pipe(
+            map((response: Session) => {
+              return response;
+            })
+          )
+      );
+    }
 
   login(token: string) {
     let bodyValidate = {
@@ -298,14 +316,16 @@ export class AuthenticationService {
     console.log("ENTRO A LOGOUT");
   }
 
-  consultUserInformationNASFANew(document: number, token: string) {
+  consultUserInformationNASFANew(document: number, token: string, tpDoc: string) {
     let bodyUser = {
       documento: document.toString(),
+      tipodocumento: tpDoc,
     };
 
-    return this.getQueryToken("confa/metodo33", bodyUser, token ).pipe(
+    //return this.getQueryToken("confa/metodo33", bodyUser, token ).pipe(
+    return this.getQueryToken("validar/metodo1", bodyUser, token ).pipe(
       map((response) => {
-        return response["usuario"];
+        return response;
       })
     );
   }
@@ -333,7 +353,8 @@ export class AuthenticationService {
   }
 
   saveUserRegister(userRegister: UserRegister, token: string) {
-    return this.getQueryToken("confa/metodo129", userRegister,token).pipe(
+    //return this.getQueryToken("confa/metodo129", userRegister,token).pipe(
+    return this.getQueryToken("validar/metodo2", userRegister,token).pipe(
       map((response) => {
         return response["respuesta"];
       })
@@ -375,7 +396,7 @@ export class AuthenticationService {
   }
 
   rememberPasswordDocumentUser(body: RememberPassword) {
-    return this.getQuery("confa/metodo14", body).pipe(
+    return this.getQuery("validar/metodo7", body).pipe(
       map((response) => {
         return response["respuesta"];
       })
@@ -448,7 +469,8 @@ export class AuthenticationService {
       documento: Md5.hashStr(documento.toString()),
     };
 
-    return this.getQuery("confa/metodo26", bodyValidateQuestion).pipe(
+    //return this.getQuery("confa/metodo26", bodyValidateQuestion).pipe(
+    return this.getQuery("confa/metodo201", bodyValidateQuestion).pipe(
       map((response) => {
         return response;
       })
@@ -504,5 +526,67 @@ export class AuthenticationService {
     const url = environment.dispoCentros + "/metodo89";
     let response = this.http.post(url, body);
     return response;
+  }
+
+  private get(ruta: string, token: string) {
+    return this.http.get(environment.validacionIndentidad + ruta, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  tipoDoc(token: string) {
+    return this.get("transaccion/metodo9", token).pipe(
+      map((response: any) => {
+        // console.log(response)
+        return response["TiposDocumentos"];
+      })
+    );
+  }
+
+  private getDeparment(ruta: string, token: string) {
+    return this.http.post(environment.apiAlojamiento + ruta, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  getDepartamentos(token: string) {
+    return this.getDeparment("alojamiento/metodo19", token).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
+  validarFacial(imagen: string) {
+    let body = {
+      foto: imagen,
+    };
+
+    return this.getQuery("validar/metodo4", body).pipe(
+      map((response) => {
+        //console.log(response)
+        return response;
+      })
+    );
+  }
+
+  actualizarCampoFacial(
+    documento: string,
+    tipodocumento: string,
+    idTransaccion: string
+  ) {
+    let body = {
+      documento: documento,
+      tipodocumento: tipodocumento,
+      facialOtp: true,
+      idTransaccion: idTransaccion,
+    };
+
+    return this.getQuery("validar/metodo5", body).pipe(
+      map((response) => {
+        //console.log(response)
+        return response;
+      })
+    );
   }
 }

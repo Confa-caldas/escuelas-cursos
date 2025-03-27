@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 //interfaces
 import { Asistente, TransactionStatus, TransactionPayzen } from 'src/app/interfaces/cursos.interface'
-import { User } from '../interfaces/user.interface';
+import { User, credenciales, TipoDoc } from '../interfaces/user.interface';
 
 import * as moment from 'moment';
 
@@ -39,14 +39,25 @@ export class UtilitiesService {
   currentUser: User;
   fullNameUser: string;
   documentUser: string;
+  tipoDoc: string;
+  emailUser: string;
+  phoneUser: string;
+  transaccionId: number;
   registerUser: User ;
+  fechaNacimiento: string = ''; //validacion de identidad
   existUser: boolean = false;
   recoveryEmail: string;
   nasfaUser: User;
   direccionResidencia: string;
   celular: string;
   genero: string;
-
+  estadoFacial: boolean = false;
+  estadoRegistraduria: boolean = false;
+  actualizarEstadoFacialIC: boolean = false;
+  botnesEstadoFacial: boolean = false;
+  usuarioNasfa: boolean = false;
+  tienePreguntas: boolean = false;
+  
   edad: number;
   listadoCursos: [];
 
@@ -79,6 +90,23 @@ export class UtilitiesService {
 
   //responsable de la compra 
   fechaNaciemintoResponsable: string;
+
+   //Validacion facial
+   foto: string = null;
+   indiciocorreo: string = null;
+   indiciocel: string = null;
+   showWebcam: boolean = false;
+   facialOtp: boolean = false;
+   preguntasOtp: boolean = false;
+   desdelogin: boolean = false;
+   celularIndicio: string;
+   correoIndicio: string;
+ 
+   credencialesLogin: credenciales;
+   otrosIngresos: boolean = false;
+ 
+   dataTpDoc:TipoDoc[]
+ 
 
   constructor() { }
 
@@ -119,4 +147,25 @@ export class UtilitiesService {
         break;
     }
   }
+
+  calculateAge(startAge: string): number {
+    // Convertir la cadena en un objeto Date
+    const start = new Date(startAge);
+    const now = new Date();
+
+    // Calcular la diferencia en años
+    let age = now.getFullYear() - start.getFullYear();
+
+    // Verificar si aún no ha cumplido años este año
+    const montDiferent = now.getMonth() - start.getMonth();
+    if (
+      montDiferent < 0 ||
+      (montDiferent === 0 && now.getDate() < start.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  }
+  
 }

@@ -7,7 +7,7 @@ import { AuthenticationService } from "src/app/services/authentication.service";
 import { QuestionsService } from "src/app/services/questions.service";
 import { UtilitiesService } from "src/app/services/utilities.service";
 import { CardRegisterFormComponent } from "../../card-register-form/card-register-form.component";
-
+import { ValidationService } from "../../../services/validation.service";
 import {HeaderComponent} from '../../shared/header/header.component';
 import {FooterComponent} from '../../shared/footer/footer.component';
 import {WelcomeComponent} from '../../welcome/welcome.component';
@@ -16,6 +16,7 @@ import {CardForgotPasswordComponent} from '../../card-forgot-password/card-forgo
 import {CardRegisterComponent} from '../../card-register/card-register.component';
 import {CardChangePasswordComponent} from '../../card-change-password/card-change-password.component';
 import {CardQuestionsComponent} from '../../card-questions/card-questions.component';
+import { ValidacionIdentidadComponent } from '../../validacion-identidad/validacion-identidad.component';
 
 
 import {CommonModule } from "@angular/common";
@@ -39,7 +40,8 @@ declare var $;
     CardChangePasswordComponent,
     CardQuestionsComponent,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ValidacionIdentidadComponent
   ]
 })
 export class LoginComponent implements OnInit {
@@ -51,9 +53,13 @@ export class LoginComponent implements OnInit {
   preguntas: PreguntasUser;
   respuestasList: any = [];
   intentosValidos: number = 3;
+  public tieneCamara: boolean = false;
+  otrosIngresos: boolean = false;
+
   constructor(
     public attentionService: AttentionService,
     private authenticationService: AuthenticationService,
+    private validationService: ValidationService,
     public utilitiesService: UtilitiesService,
     public questionsService: QuestionsService,
     public activatedRoute: ActivatedRoute,
@@ -62,8 +68,9 @@ export class LoginComponent implements OnInit {
     this.confirmUser();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadvalidated();
+    this.tieneCamara = await this.validationService.hasWebcam();
   }
 
   loadvalidated() {
@@ -209,5 +216,48 @@ export class LoginComponent implements OnInit {
   }
   getDownloadUrl(fileId: string): string {
     return `https://drive.google.com/uc?export=download&id=${fileId}`;
+  }
+
+  mostrarOtrasAlternativas(){
+    //this.otrosIngresos = true;
+    $(".btn-TpDocYdoc-login").click();
+  }
+
+  activarCredenciales(){
+    this.utilitiesService.loading = true;
+    this.utilitiesService.showWebcam = false;
+    this.otrosIngresos = true;
+    setTimeout(() => {
+      this.utilitiesService.loading = false;
+      $(".btn-modal-login").click();
+    }, 500);
+  }
+
+  activarFacial() {
+    this.utilitiesService.loading = true;
+    if (this.tieneCamara) {
+      this.utilitiesService.loading = false;
+      this.utilitiesService.desdelogin = true;
+      this.utilitiesService.showWebcam = true;
+      $(".btn-camara-validacion").click();
+    } else {
+      this.utilitiesService.loading = false;
+      this.utilitiesService.messageTitleModal = "¡Error!";
+      this.utilitiesService.messageModal =
+        "No se detectó cámara en el dispositivo";
+      this.utilitiesService.backLogin = false;
+      setTimeout(() => {
+        $(".btn-modal-error-validation").click();
+      }, 500);
+      setTimeout(() => {
+        $(".btnLogin").click();
+      }, 2000);
+    }
+  }
+
+
+  regresarFacial(){
+    this.utilitiesService.otrosIngresos = false;
+    this.otrosIngresos = false;
   }
 }

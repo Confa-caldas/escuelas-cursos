@@ -44,6 +44,12 @@ export interface User {
   preguntas: PreguntasUser;
   mensaje: string;
   registroPendiente:boolean;
+  tienefacial?: boolean;
+  facial?: string;
+  registraduria?: boolean;
+  registrado?: boolean;
+  afiliado?: boolean;
+  tipoBloqueo?: string;
 }
 export interface UserR {
   usuarioId?: number;
@@ -365,10 +371,90 @@ export interface Session {
   puedeIngresar?: boolean;
   usuario?: User;
   exitoso: boolean;
+  facial_otp?: boolean;
+  registraduria?: boolean;
+  tipoBloqueo:string;
+  bloqueo?: boolean;
+  error:string;
+  registrado?: boolean;
 }
 
 export interface EstadoAplicativo {
   titulo: string;
   mensaje: string;
   estado: string;
+}
+
+
+export interface TipoDoc {
+  id: string;
+  nombre: string;
+  tipoDocumento: string;
+  estado: string;
+  fecha: string;
+}
+
+export interface RespuestaValidacionFacial {
+  error: number;
+  transaccionId: number;
+  tipoBloqueo: string;
+  doc: string;
+  estadoValFacial: boolean;
+  observacionMallaValidacion: string;
+  numeroIntentosActual: number;
+  infoBloqueo: string;
+  bloqueo: boolean;
+  mensaje: string;
+  
+}
+
+export interface RespuestaEnvioSMS {
+  error: number;
+  tipoBloqueo: string;
+  mensaje: string;
+  respuesta: {
+    transaccionId: string;
+    resultadoEnvio: boolean;
+    detalle: string;
+  };
+}
+
+export interface RespuestaValidacionOTP {
+  numeroIntentos: number;
+  error: number;
+  mensaje: string;
+  bloqueado: boolean;
+  tipoBloqueo: string;
+}
+
+export interface Departamento {
+  codigo_departamento: string;
+  nombre_departamento: string;
+  municipios: Municipio[];
+}
+
+export interface Municipio {
+  codigo_depto: string;
+  codigo_municipio: string;
+  nombre_municipio: string;
+}
+
+export interface InfoCheckComercial {
+  tipoDocumentoTitular: string;
+  numeroDocumentoTitular: string;
+  tipoDocumentoAutorizado: string;
+  numeroDocumentoAutorizado: string;
+  autorizacionHabeas: boolean;
+  autorizacionComercial: boolean;
+  SMS: boolean;
+  correo: boolean;
+  llamada: boolean;
+  whatsApp: boolean;
+  transaccionId: string;
+}
+
+export interface credenciales {
+  tipoDocumento: string;
+  id: string;
+  documento: string;
 }
