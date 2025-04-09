@@ -58,8 +58,8 @@ export const environment = {
   apiUrl: "https://devkaren.d3l9vlw1s3u96i.amplifyapp.com/", //Cambiar para amplify
   //apiUrl: "http://localhost:4200/", //Cambiar dependiendo el puerto de la ruta en pruebas
   //escuelaCursoRest: "http://nbappa:28080/escuelaCursoRestWS/rest/escuelaCurso", https://app.confa.co:8377
-  //escuelaCursoRest: "https://app.confa.co:8377/recreacionWS/rest/escuelaCurso",
-  escuelaCursoRest: "http://localhost:8081/recreacionWS/rest/escuelaCurso",
+  escuelaCursoRest: "https://app.confa.co:8377/recreacionWS/rest/escuelaCurso",
+  //escuelaCursoRest: "http://localhost:8081/recreacionWS/rest/escuelaCurso",
   //escuelaCursoRest: "http://nbdesrecre:28080/recreacionWS/rest/escuelaCurso",
   
   //apiIngresoConfa: "http://localhost:8080/IngresoConfaWSSMiPerfil/rest/",
