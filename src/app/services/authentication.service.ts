@@ -450,7 +450,8 @@ export class AuthenticationService {
       documento: Md5.hashStr(documento.toString()),
     };
 
-    return this.getQuery("confa/metodo26", bodyValidateQuestion).pipe(
+    return this.getQuery("confa/metodo201", bodyValidateQuestion).pipe(
+    //return this.getQuery("confa/metodo26", bodyValidateQuestion).pipe(
       map((response) => {
         return response;
       })
