@@ -113,7 +113,7 @@ export class CardLoginComponent implements OnInit {
                 const usuario = response.usuario;
                 if (!usuario.existeUsuario) {
                   this.showModalMessage("Inténtalo nuevamente", this.utilitiesService.errorInfoLogin, false);
-                   this.authenticationService.logout();
+                  this.authenticationService.logout();
                   return;
                 }
 
@@ -188,7 +188,7 @@ export class CardLoginComponent implements OnInit {
         next: (token: Token) => {
           if (!token.token) {
             this.showModalMessage("No puedes continuar", "No se pudo obtener el token.", false);
-             this.authenticationService.logout();;
+             this.authenticationService.logout();
             return;
           }
 
@@ -201,6 +201,7 @@ export class CardLoginComponent implements OnInit {
           } else if (response.debeActualizarDatos) {
             this.navigateTo("/modify");
           } else if (response.puedeIngresar) {
+            this.consultarGrupoFamiliar(document)
             this.verificarServicios();
           } else {
             this.showModalMessage("Inténtalo nuevamente", this.utilitiesService.errorInfoLogin, false);
@@ -362,5 +363,16 @@ export class CardLoginComponent implements OnInit {
       console.error("Error al encriptar con Confa:", error);
       throw error;
     }
+  }
+
+  consultarGrupoFamiliar(documento: string){
+
+    this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
+      .subscribe((response: any) => {
+        const gf = response.grupoFamiliar;
+        const lgf = response.listadoGruposFamiliares;
+        console.log('gf',gf)
+        console.log('lgf',lgf)
+      })
   }
 }
