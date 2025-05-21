@@ -365,14 +365,41 @@ export class CardLoginComponent implements OnInit {
     }
   }
 
-  consultarGrupoFamiliar(documento: string){
+  consultarGrupoFamiliar(documento: string) {
+  this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
+    .subscribe((response: any) => {
+      const gf = response.grupoFamiliar;
+      const lgf = response.listadoGruposFamiliares;
 
-    this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
-      .subscribe((response: any) => {
-        const gf = response.grupoFamiliar;
-        const lgf = response.listadoGruposFamiliares;
-        console.log('gf',gf)
-        console.log('lgf',lgf)
-      })
-  }
+      const personasACargo = [];
+
+      // Extraer todas las personasACargo
+      lgf.forEach(grupo => {
+        if (grupo.personasACargo && Array.isArray(grupo.personasACargo)) {
+          grupo.personasACargo.forEach(persona => {
+            // Buscar si hay datos adicionales en grupoFamiliar por documento
+            const datosGF = gf.find(miembro => miembro.documento === persona.documento);
+
+            // Fusionar si existe, sino solo deja la persona original
+            const personaFusionada = {
+              ...persona,
+              ...datosGF,
+              nombreCompleto: datosGF
+                ? `${datosGF.nombre1 || ''} ${datosGF.nombre2 || ''} ${datosGF.apellido1 || ''} ${datosGF.apellido2 || ''}`.replace(/\s+/g, ' ').trim()
+                : persona.nombre
+            };
+
+            personasACargo.push(personaFusionada);
+          });
+        }
+      });
+
+      // Guardar en localStorage
+      localStorage.setItem('grupoFamiliarFusionado', JSON.stringify(personasACargo));
+
+      // Opcional: Mostrar por consola
+      console.log('Grupo familiar fusionado:', personasACargo);
+    });
+}
+
 }

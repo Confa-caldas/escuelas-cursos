@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'cursos', component: CursosComponent, canActivate: [AuthGuard]},
   { path: 'asistente', component: SeleccionAsistentesComponent},
   { path: 'resumen', component: ResumenCompraComponent},
-  { path: 'questions', component: QuestionsLoginComponent,canActivate: [AuthGuard]},
+  { path: 'questions', component: QuestionsLoginComponent}, //canActivate: [AuthGuard]
   { path: 'confirm', component: ConfirmRegistroServicesComponent},
   {path: "historico", component: HistoricoPagosComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }

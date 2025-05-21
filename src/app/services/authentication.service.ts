@@ -3,20 +3,8 @@ import { HttpClient , HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { CookieService } from "ngx-cookie-service";
-
 import { environment } from "../../environments/environment";
-import {
-  User,
-  Token,
-  UserRegister,
-  RememberPassword,
-  ValidateQuestion,
-  Session,
-  MiPerfilConfa,
-  GrupoFamiliar,
-  GruposFamiliaresList,
-} from "../interfaces/user.interface";
-
+import { User, Token, UserRegister, RememberPassword, ValidateQuestion, Session, MiPerfilConfa, GrupoFamiliar, GruposFamiliaresList} from "../interfaces/user.interface";
 import { Md5 } from "ts-md5/dist/md5";
 import { UtilitiesService } from "./utilities.service";
 

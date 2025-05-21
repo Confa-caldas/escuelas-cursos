@@ -218,7 +218,6 @@ export class CursosComponent {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-      if (user == null || cc == null) {
         /* ||res==null */
         this.authenticationService
           .loginNew(ptoken.token)
@@ -233,12 +232,6 @@ export class CursosComponent {
               //this.consultarInformacionMiPerfilConfa(this.document);
             }
           });
-      } else {
-        this.utilitiesService.currentUser = user;
-        this.document = cc;
-        this.utilitiesService.loading = true;
-
-      }
     }
   }
 
@@ -259,17 +252,17 @@ export class CursosComponent {
   }
 
   consultarInformacionMiPerfilConfa(documento: string) {
-    this.authenticationService
-      .consultarInformacionMiPerfilConfa(documento)
-      .pipe(first())
-      .subscribe((response: MiPerfilConfa) => {
+    const infoUser = JSON.parse(localStorage.getItem("user"));
+    console.log(infoUser)
+        this.userMiPerfil = infoUser.user;
+        this.documento = infoUser.usuario.documento;
+        this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
         this.utilitiesService.loading = false;
-        this.utilitiesService.fullNameUser = `${response.primerNombre} ${response.segundoNombre} ${response.primerApellido} ${response.segundoApellido}`;
-        this.utilitiesService.documentUser = response.documento;
-        this.utilitiesService.direccionResidencia = response.direccion
-        this.utilitiesService.celular = response.celular
-        this.utilitiesService.genero = response.genero
-      });
+        this.utilitiesService.fullNameUser =`${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
+        this.utilitiesService.documentUser = infoUser.usuario.documento;
+        this.utilitiesService.direccionResidencia = infoUser.usuario.direccion;
+        this.utilitiesService.celular = infoUser.usuario.celular;
+        this.utilitiesService.genero = infoUser.usuario.genero;
   }
 
   navigate() {

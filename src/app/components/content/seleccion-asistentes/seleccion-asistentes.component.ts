@@ -335,6 +335,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   /* BUSCA LA INFORMACION DE EL OTRO ASISTENTE ADICIONAL */
   ValidarOtroAsistente() {
+     this.utilitiesService.loading = true;
     let documentoOtro = String(this.documentoOtroAsistente);
     console.log(documentoOtro)
 
@@ -347,7 +348,7 @@ export class SeleccionAsistentesComponent implements OnInit {
       this.utilitiesService.messageModal = 'El documento ya pertenece al grupo familiar.'
       this.utilitiesService.backLogin = false;
       setTimeout(() => {
-        this.utilitiesService.loading = false;
+        1054884773
         $(".modalNuevowarning").click();
       }, 1000);
       this.tipoDocOtroAsistente = "";
@@ -466,6 +467,7 @@ export class SeleccionAsistentesComponent implements OnInit {
               }
             })
         }
+         this.utilitiesService.loading = false;
       }, 500);
     }
   }
@@ -574,11 +576,15 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   validarEdadGrupoFamiliar(grupof: any) {
+    this.utilitiesService.loading = true;
     const edad = this.obtenerEdad(grupof.fechaNacimiento);
 
     if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
       this.crearListaAsistentes(grupof);
-      grupof.inhabilitado = true; // Deshabilitar solo este elemento
+      setTimeout(() => {
+         this.utilitiesService.loading = false;
+        grupof.inhabilitado = true; // Deshabilitar solo este elemento
+      }, 1000);
     } else {
       this.utilitiesService.messageTitleModal = "Tu registro ha fallado";
       this.utilitiesService.messageModal = 'No cumples con los requisitos de edad para este curso.';
