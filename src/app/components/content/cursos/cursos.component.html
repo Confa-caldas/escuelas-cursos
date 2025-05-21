@@ -64,8 +64,8 @@
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
               (change)="aplicarFiltros()" [(ngModel)]="deporteSeleccionado">
-              <option [value]="'default'" selected disabled>Curso</option>
-              <option *ngFor="let deporte of deportes" [value]="deporte.id">{{ deporte.nombre }}</option>
+              <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
+              <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id" [title]="deporte.nombre">{{ deporte.nombre }}</option>
             </select>
           </div>
           <!-- nivel -->

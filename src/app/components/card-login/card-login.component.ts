@@ -62,7 +62,7 @@ export class CardLoginComponent implements OnInit {
     // obtener retorno de los parametros route de la url o por defecto a '/'
     this.returnUrl =
       this.activatedRoute.snapshot.queryParams["returnUrl"] || `/home`;
-    // console.log('returnUrl', this.returnUrl);
+    // //console.log('returnUrl', this.returnUrl);
   }
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
@@ -320,7 +320,7 @@ export class CardLoginComponent implements OnInit {
       const claveSHA256 = this.hashSHA256(claveMD5);
       const claveconfa = this.encriptarConfa(claveSHA256);
       return claveconfa;
-      console.log("Nueva contraseña: " + claveconfa);
+      //console.log("Nueva contraseña: " + claveconfa);
     } catch (error) {
       console.error("Error al encriptar la contraseña:", error);
     }
@@ -367,7 +367,11 @@ export class CardLoginComponent implements OnInit {
 
   consultarGrupoFamiliar(documento: string) {
   this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
-    .subscribe((response: any) => {
+  .subscribe((response: any) => {
+    //console.log(response,'consultarInformacionMiPerfilConfa card-login')
+    
+    localStorage.setItem('InformacionMiPerfil', JSON.stringify(response));
+
       const gf = response.grupoFamiliar;
       const lgf = response.listadoGruposFamiliares;
 
@@ -398,7 +402,7 @@ export class CardLoginComponent implements OnInit {
       localStorage.setItem('grupoFamiliarFusionado', JSON.stringify(personasACargo));
 
       // Opcional: Mostrar por consola
-      console.log('Grupo familiar fusionado:', personasACargo);
+      //console.log('Grupo familiar fusionado:', personasACargo);
     });
 }
 

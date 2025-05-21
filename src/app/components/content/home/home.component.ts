@@ -113,7 +113,7 @@ export class HomeComponent implements OnInit {
   consultarInformacionMiPerfilConfa(documento: string) {
 
     const infoUser = JSON.parse(localStorage.getItem("user"));
-    console.log(infoUser)
+    //console.log(infoUser)
         this.userMiPerfil = infoUser.user;
         this.documento = infoUser.usuario.documento;
         this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
   consultarCursos() {
     this.dataServiciosCursos.getServicios().pipe(first())
       .subscribe((response: any) => {
-        //console.log(response)
+        ////console.log(response)
 
         // Ajusta el acceso al arreglo según la estructura de `response`
         const dataArray = response.servicios || []; // Cambia `servicios` por la propiedad correcta si es diferente
@@ -209,7 +209,7 @@ export class HomeComponent implements OnInit {
 
   imagenesCards() {
     this.dataServiciosCursos.getImagenes().subscribe((response: any) => {
-      //console.log(response)
+      ////console.log(response)
       this.listadoImagenes = response
 
       // Asegúrate de que ambas listas tengan la misma longitud

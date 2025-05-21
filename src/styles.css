@@ -3194,12 +3194,12 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
 
 .select-filter {
   width: 100%;
-  padding: 8px;
+  padding: 8px ;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 1px 3px 0px #1018281A;
   box-shadow: 0px 1px 2px 0px #1018280F;
 }
+
 
 .card-filters {
   border: 1px solid #F2F4F7;

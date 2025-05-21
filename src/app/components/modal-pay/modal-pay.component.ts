@@ -57,23 +57,23 @@ export class ModalPayComponent implements OnInit {
       
       this.parametro = key
       value = queryString.split('=')[1];
-      console.log('Clave extraída:', key, 'valor', value);
+      //console.log('Clave extraída:', key, 'valor', value);
 
     } else {
-      console.log('No hay parámetros en la URL');
+      //console.log('No hay parámetros en la URL');
     }
 
     if (this.activatedRoute.snapshot.routeConfig != null) {
       this.path = this.activatedRoute.snapshot.routeConfig.path;
-      console.log("entro por capturar parametros " + this.path);
+      //console.log("entro por capturar parametros " + this.path);
     } else {
-      console.log("routeConfig o path no están definidos");
+      //console.log("routeConfig o path no están definidos");
       
       this.path = ''; // Asigna un valor predeterminado si no está definido
     }
 
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log('Parámetros de consulta:', params);
+      //console.log('Parámetros de consulta:', params);
     });
 
     let confirmUser =
@@ -123,11 +123,11 @@ export class ModalPayComponent implements OnInit {
         const key = this.ruta.split('=')[1]; // Extrae la clave antes del '='
         
         this.parametro = key
-        console.log('Clave extraída:', key);
+        //console.log('Clave extraída:', key);
       }
       
      let productoId = this.parametro;
-      console.log("productoId " + productoId)
+      //console.log("productoId " + productoId)
 
       if (productoId) {
         this.loading = true;
@@ -136,7 +136,7 @@ export class ModalPayComponent implements OnInit {
           .verifyTransaction(productoId)
           .pipe(first())
           .subscribe((response: TransactionPayzen) => {
-            console.log(response)
+            //console.log(response)
             this.utilitiesService.transactionPayzen = response;
 
             this.utilitiesService.setCodeTransactionStatus(

@@ -115,8 +115,9 @@ export class SeleccionAsistentesComponent implements OnInit {
     private cookieService: CookieService,
     private authenticationService: AuthenticationService,
     private dataServiciosCursos: DataServiciosCursos
-  ) {
+  ) { }
 
+  ngOnInit() {
     let ptoken =
       this.cookieService.get("ptoken") !== ""
         ? JSON.parse(this.cookieService.get("ptoken"))
@@ -130,31 +131,20 @@ export class SeleccionAsistentesComponent implements OnInit {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-      if (user == null || cc == null) {
-        /* ||res==null */
-        this.authenticationService
-          .loginNew(ptoken.token)
-          .pipe(first())
-          .subscribe((response: Session) => {
-            if (response.usuario.existeUsuario) {
-              localStorage.setItem("user", JSON.stringify(response));
-              localStorage.setItem("cc", response.usuario.documento);
-              this.document = response.usuario.documento;
-              console.log(this.document)
-              this.utilitiesService.loading = true;
-            }
-          });
-      } else {
-        this.document = cc;
-        this.utilitiesService.loading = true;
-      }
+      this.authenticationService
+        .loginNew(ptoken.token)
+        .pipe(first())
+        .subscribe((response: Session) => {
+          if (response.usuario.existeUsuario) {
+            localStorage.setItem("user", JSON.stringify(response));
+            localStorage.setItem("cc", response.usuario.documento);
+            this.document = response.usuario.documento;
+            //console.log(this.document)
+            this.utilitiesService.loading = false;
+          }
+        });
     }
 
-  }
-
-  ngOnInit() {
-    /* console.log('Actividad del curso:', this.utilitiesService.actividadCurso);
-    console.log('Horario del curso:', this.utilitiesService.horarioCurso); */
     this.horarios = this.utilitiesService.horarioCurso;
 
     if (this.utilitiesService.actividadCurso == '' || this.utilitiesService.actividadCurso == undefined) {
@@ -167,7 +157,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   cargarInfoCurso() {
 
-    console.log(this.utilitiesService.curso)
+    //console.log(this.utilitiesService.curso)
     this.cursoSeleccionado = this.utilitiesService.curso
 
     this.utilitiesService.horarioCurso = this.cursoSeleccionado.horario.horaInicio
@@ -186,7 +176,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
     this.tipoDocOtroAsistente = selectedValue;
 
-    //console.log('Valor seleccionado desde el evento:', selectedValue);
+    ////console.log('Valor seleccionado desde el evento:', selectedValue);
   }
 
   navigate() {
@@ -196,10 +186,11 @@ export class SeleccionAsistentesComponent implements OnInit {
   cuposDisonibles() {
 
     const programacionId = this.cursoSeleccionado.programacion.programacionId
-    //console.log(programacionId)
+    //console.log(programacionId,'programacionId')
+
     this.dataServiciosCursos.getCurposDispo(programacionId).pipe(first())
       .subscribe((response: any) => {
-        //console.log(response)
+        ////console.log(response)
         const cantCupos = response.cuposDisponibles;
 
         if (cantCupos == 0) {
@@ -216,12 +207,12 @@ export class SeleccionAsistentesComponent implements OnInit {
           setTimeout(() => {
             $(".modalNuevowarning").click();
           }, 500);
-          this.consultarInformacionMiPerfilConfa(this.document);
-          //this.traerGrupoFamiliar(this.document)
+          //this.consultarInformacionMiPerfilConfa(this.document);
+          this.informacionUsuarioGrupoFamiliar()
 
         } else {
-          this.consultarInformacionMiPerfilConfa(this.document);
-          //this.traerGrupoFamiliar(this.document)
+          //this.consultarInformacionMiPerfilConfa(this.document);
+          this.informacionUsuarioGrupoFamiliar()
         }
       },
         error => {
@@ -237,19 +228,19 @@ export class SeleccionAsistentesComponent implements OnInit {
     }, 500);
   }
 
-  traerGrupoFamiliar(documento: string) {
+/*   traerGrupoFamiliar(documento: string) {
     this.dataServiciosCursos.consultarGrupoFamiliar(documento)
       .pipe(first())
       .subscribe((response: any) => {
-        console.log(response)
+        //console.log(response)
 
         const grupoFam = response.resultado;
 
-        console.log(grupoFam)
+        //console.log(grupoFam)
 
         for (let index = 0; index < grupoFam.length; index++) {
           const doc = grupoFam[index].identificacion;
-          console.log(doc)
+          //console.log(doc)
           let catBen = grupoFam[index].categoria;
 
           //obtener edad
@@ -298,7 +289,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                 });
               }
             }, 1000);
-            console.log(this.nucleoFamiliar)
+            //console.log(this.nucleoFamiliar)
           }
         }
 
@@ -308,7 +299,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
           this.utilitiesService.loading = false;
 
-          //console.log(this.nucleoFamiliar);
+          ////console.log(this.nucleoFamiliar);
           // Validación de resultados
           if (this.nucleoFamiliar.length === 0) {
             this.utilitiesService.messageTitleModal = "Atención";
@@ -318,14 +309,14 @@ export class SeleccionAsistentesComponent implements OnInit {
           }
         }, 1000);
       });
-  }
+  } */
 
 
   consultarInformacionCategoria(documento: string) {
 
     this.dataServiciosCursos.menorCategoria(documento).pipe(first())
       .subscribe((response: any) => {
-        console.log(response, 'info para categoria')
+        //console.log(response, 'info para categoria')
         const resultadoObjeto = JSON.parse(response.resultado);
         const categoria = resultadoObjeto.categoria;
         this.catgoriaMenor = categoria;
@@ -335,9 +326,9 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   /* BUSCA LA INFORMACION DE EL OTRO ASISTENTE ADICIONAL */
   ValidarOtroAsistente() {
-     this.utilitiesService.loading = true;
+    this.utilitiesService.loading = true;
     let documentoOtro = String(this.documentoOtroAsistente);
-    console.log(documentoOtro)
+    //console.log(documentoOtro)
 
     const existeEnGrupoFamiliar = this.resultadoGF.some(
       (persona) => persona.documento === documentoOtro
@@ -386,12 +377,12 @@ export class SeleccionAsistentesComponent implements OnInit {
 
                 /* primero toma la edad y hace el calculo de si cumple con la edad para el curso */
                 const edad = this.obtenerEdad(resultadoObj.fechaNac)
-                console.log(edad)
+                //console.log(edad)
                 if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
                   this.existeUsuarioAdi = true;
                   this.InhabilitarBtnAddOtroasistente = true;
                   this.categoriaOtroAsistente = resultadoObj.categoria
-                  console.log(this.categoriaOtroAsistente)
+                  //console.log(this.categoriaOtroAsistente)
                   this.tipoDocOtroAsistente = resultadoObj.tipo_id
                   this.fechaNacOtroAsistente = resultadoObj.fechaNac
                   this.nombreOtroAsistente = resultadoObj.nombre;
@@ -417,12 +408,12 @@ export class SeleccionAsistentesComponent implements OnInit {
                 //consulta en ingreso confa
                 this.authenticationService.consultarInformacionMiPerfilConfa(documentoOtro).pipe(first())
                   .subscribe((response: any) => {
-                    console.log(response, 'Consulta info otro asistente')
+                    //console.log(response, 'Consulta info otro asistente')
 
                     if (response.existeUsuario) {
                       /* primero toma la edad y hace el calculo de si cumple con la edad para el curso */
                       const edad = this.obtenerEdad(response.fechaNacimiento)
-                      //console.log(edad)
+                      ////console.log(edad)
                       if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
                         this.existeUsuarioAdi = response.existeUsuario || true;
                         this.InhabilitarBtnAddOtroasistente = true;
@@ -467,7 +458,7 @@ export class SeleccionAsistentesComponent implements OnInit {
               }
             })
         }
-         this.utilitiesService.loading = false;
+        this.utilitiesService.loading = false;
       }, 500);
     }
   }
@@ -475,17 +466,17 @@ export class SeleccionAsistentesComponent implements OnInit {
   /* Corresponde al boton de agregar otro asistente */
   OtrosAsistentes() {
 
-    let validoInsetar : boolean = true;
+    let validoInsetar: boolean = true;
 
-    console.log(this.tipoDocOtroAsistente)
+    //console.log(this.tipoDocOtroAsistente)
 
     const value = this.tipoDocumentoRef.nativeElement.value;
-    console.log(value)
+    //console.log(value)
 
     if (
-      !this.tipoDocOtroAsistente || 
-      this.tipoDocOtroAsistente.trim() === "" || 
-      this.tipoDocOtroAsistente === null || 
+      !this.tipoDocOtroAsistente ||
+      this.tipoDocOtroAsistente.trim() === "" ||
+      this.tipoDocOtroAsistente === null ||
       this.tipoDocOtroAsistente === undefined
     ) {
       this.utilitiesService.messageTitleModal = "Recuerda";
@@ -499,7 +490,7 @@ export class SeleccionAsistentesComponent implements OnInit {
         $(".modalNuevowarning").click();
       }, 200);
     }
-    
+
     if (this.fechaNacOtroAsistente == '' || this.fechaNacOtroAsistente == null || this.fechaNacOtroAsistente == undefined) {
 
       this.utilitiesService.messageTitleModal = "Recuerda"
@@ -531,45 +522,45 @@ export class SeleccionAsistentesComponent implements OnInit {
     /* primero toma la edad y hace el calculo de si cumple con la edad para el curso */
     const edad = this.obtenerEdad(this.fechaNacOtroAsistente)
     if (validoInsetar) {
-          //console.log(edad)
-    if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
+      ////console.log(edad)
+      if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
 
-      this.InhabilitarBtnAddOtroasistente = false;
-      this.habilitarFondo = true;
+        this.InhabilitarBtnAddOtroasistente = false;
+        this.habilitarFondo = true;
 
-      /*       if (this.tipoUsuarioAdd == 'B' && this.existeUsuario && edad > 18) {
-              this.categoriaOtroAsistente = 'C'
-            } */
+        /*       if (this.tipoUsuarioAdd == 'B' && this.existeUsuario && edad > 18) {
+                this.categoriaOtroAsistente = 'C'
+              } */
 
-      if (!this.existeUsuarioAdi) {
-        this.categoriaOtroAsistente = 'D'
-        this.tipoAfiliacionOtroAsistente = 'D'
-      }
+        if (!this.existeUsuarioAdi) {
+          this.categoriaOtroAsistente = 'D'
+          this.tipoAfiliacionOtroAsistente = 'D'
+        }
 
 
-      if (edad > 18) {
-        this.mayorEdad = true;
-        this.menorEdad = false;
+        if (edad > 18) {
+          this.mayorEdad = true;
+          this.menorEdad = false;
+        } else {
+          this.mayorEdad = false;
+          this.menorEdad = true;
+        }
+
+        this.crearListaOtroAsistentes()
       } else {
-        this.mayorEdad = false;
-        this.menorEdad = true;
+        this.utilitiesService.messageTitleModal = "Tu registro ha fallado"
+        this.utilitiesService.messageModal = 'No cumples con los requisitos de edad para este curso.'
+        this.utilitiesService.backLogin = false;
+        setTimeout(() => {
+          this.utilitiesService.loading = false;
+          $(".modalNuevowarning").click();
+        }, 1000);
+        this.tipoDocOtroAsistente = "";
+        this.documentoOtroAsistente = null;
+        this.fechaNacOtroAsistente = "";
+
       }
 
-      this.crearListaOtroAsistentes()
-    } else {
-      this.utilitiesService.messageTitleModal = "Tu registro ha fallado"
-      this.utilitiesService.messageModal = 'No cumples con los requisitos de edad para este curso.'
-      this.utilitiesService.backLogin = false;
-      setTimeout(() => {
-        this.utilitiesService.loading = false;
-        $(".modalNuevowarning").click();
-      }, 1000);
-      this.tipoDocOtroAsistente = "";
-      this.documentoOtroAsistente = null;
-      this.fechaNacOtroAsistente = "";
-
-    }
-      
     }
 
 
@@ -582,7 +573,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     if (Number(edad) >= Number(this.utilitiesService.edadMin) && Number(edad) <= Number(this.utilitiesService.edadMax)) {
       this.crearListaAsistentes(grupof);
       setTimeout(() => {
-         this.utilitiesService.loading = false;
+        this.utilitiesService.loading = false;
         grupof.inhabilitado = true; // Deshabilitar solo este elemento
       }, 1000);
     } else {
@@ -599,10 +590,10 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   obtenerEdad(event: any) {
     const fechaNacimiento = event;
-    //console.log(fechaNacimiento)
+    ////console.log(fechaNacimiento)
 
     let anhos = this.dataServiciosCursos.calcularEdad(fechaNacimiento)
-    //console.log(anhos)
+    ////console.log(anhos)
     return anhos
   }
 
@@ -625,24 +616,24 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   crearListaAsistentes(as: any) {
-    //console.log(as)
+    ////console.log(as)
     this.dataServiciosCursos.menorCategoria(as.documento).pipe(first())
       .subscribe((response: any) => {
 
         if (response.estado != 'OK') {
-          console.log('Error procesando la respuesta para menorCategoria:', response);
+          //console.log('Error procesando la respuesta para menorCategoria:', response);
           this.asistentes.push(as);
-          console.log(as);
+          //console.log(as);
           this.InhabilitarBtnContinuar = false;
         } else {
-          console.log(response, 'info para categoria');
+          //console.log(response, 'info para categoria');
           const resultadoObjeto = JSON.parse(response.resultado);
           const categoria = resultadoObjeto.categoria;
           const tarifa = this.tarifas.find(tarifa => tarifa[0] === categoria);
           as.categoria = categoria;
           as.valorPagoCurso = Number(tarifa[1]);
           this.asistentes.push(as);
-          console.log(as);
+          //console.log(as);
           this.InhabilitarBtnContinuar = false;
         }
       });
@@ -650,7 +641,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   /* Agregar el otro asistenta al array */
   crearListaOtroAsistentes() {
-    console.log(this.nombreOtroAsistente)
+    //console.log(this.nombreOtroAsistente)
 
     if (!this.existeUsuarioAdi) {
       this.nombreOtroAsistente = `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`;
@@ -679,7 +670,7 @@ export class SeleccionAsistentesComponent implements OnInit {
       valorPagoCurso: Number(tarifa[1])
     })
 
-    //console.log(this.asistentes)
+    ////console.log(this.asistentes)
     this.InhabilitarBtnContinuar = false;
     this.existeUsuario = null;
   }
@@ -693,15 +684,15 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   obtenerPrecio() {
 
-    //console.log('sedeId:', this.sedeId);
-    //console.log('programacionId:', this.programacionId);
+    ////console.log('sedeId:', this.sedeId);
+    ////console.log('programacionId:', this.programacionId);
 
     const sede = this.sedeId.toString();
     const programacion = this.programacionId.toString();
 
     this.dataServiciosCursos.getTarifas(sede, programacion).pipe(first())
       .subscribe((response: any) => {
-        console.log(response)
+        //console.log(response)
 
         if (response.estado == false) {
           this.utilitiesService.messageTitleModal = "Atención";
@@ -757,7 +748,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     if (index !== -1) {
       // Elimina el objeto del array
       this.asistentes.splice(index, 1);
-      //console.log(`Asistente con documento ${documento} eliminado.`);
+      ////console.log(`Asistente con documento ${documento} eliminado.`);
       this.nombresAsistenteAdd = null;
       this.apellidosAsistenteAdd = null;
       this.nombreOtroAsistente = null;
@@ -789,7 +780,7 @@ export class SeleccionAsistentesComponent implements OnInit {
   yaEstaIncrito(programacionId: any, documento: any) {
     this.dataServiciosCursos.getCursoInscrito(programacionId, documento).pipe(first())
       .subscribe((response: any) => {
-        console.log(response.estado)
+        //console.log(response.estado)
 
         this.estadoEstadoInscrito = response.estado
 
@@ -797,11 +788,11 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
 
-  consultarInformacionMiPerfilConfa(documento: string) {
+/*   consultarInformacionMiPerfilConfa(documento: string) {
     this.authenticationService.consultarInformacionMiPerfilConfa(documento)
       .pipe(first())
       .subscribe((response: MiPerfilConfa) => {
-        console.log(response);
+        //console.log(response);
         // Asignación de datos principales
         this.userMiPerfil = response;
         this.documento = response.documento;
@@ -817,11 +808,11 @@ export class SeleccionAsistentesComponent implements OnInit {
         );
 
         this.resultadoGF = gfUnico;
-        console.log(gfUnico, 'gfUnico')
+        //console.log(gfUnico, 'gfUnico')
         // Iterar sobre el grupo familiar único
         for (let index = 0; index < gfUnico.length; index++) {
           const doc = gfUnico[index].documento;
-          console.log(doc, 'documento')
+          //console.log(doc, 'documento')
           //Consultar menor categoria
 
           let catBen = gfUnico[index].categoria;
@@ -839,7 +830,7 @@ export class SeleccionAsistentesComponent implements OnInit {
           // Agregar al array `nucleoFamiliar` solo si no existe ya
           if (resultadoUnico.length > 0 &&
             !this.nucleoFamiliar.some(item => item.documento === doc)) {
-            console.log(resultadoUnico)
+            //console.log(resultadoUnico)
 
             if (
               Number(resultadoUnico[0].edad) >= Number(this.utilitiesService.edadMin) &&
@@ -913,7 +904,7 @@ export class SeleccionAsistentesComponent implements OnInit {
           //valida si el usuario ya se encuentra incrito en el curso seleccionado
           this.yaEstaIncrito(this.programacionId, response.documento);
 
-          console.log(this.estadoEstadoInscrito)
+          //console.log(this.estadoEstadoInscrito)
 
           setTimeout(() => {
 
@@ -946,7 +937,7 @@ export class SeleccionAsistentesComponent implements OnInit {
         this.utilitiesService.loading = false;
 
         setTimeout(() => {
-          //console.log(this.nucleoFamiliar);
+          ////console.log(this.nucleoFamiliar);
           // Validación de resultados
           if (this.nucleoFamiliar.length === 0) {
             this.utilitiesService.messageTitleModal = "Atención";
@@ -958,11 +949,85 @@ export class SeleccionAsistentesComponent implements OnInit {
 
 
       });
-  }
+  } */
 
   preventWhitespace(event: KeyboardEvent) {
     if (event.key === ' ') {
       event.preventDefault();
     }
+  }
+
+  /* ajuste de la consulta de asistentes y creacion del grupo familiar */
+  informacionUsuarioGrupoFamiliar() {
+    this.utilitiesService.loading = true;
+//console.log('informacionUsuarioGrupoFamiliar')
+    //informacion del usuario 
+    const infoUser = JSON.parse(localStorage.getItem("InformacionMiPerfil"));
+    //console.log(infoUser, 'infoUser')
+    this.userMiPerfil = infoUser.usuario;
+    this.documento = infoUser.documento;
+    this.fullName = `${infoUser.primerNombre} ${infoUser.segundoNombre} ${infoUser.primerApellido} ${infoUser.segundoApellido}`;
+    this.utilitiesService.fechaNaciemintoResponsable = infoUser.fechaNacimiento;
+
+    //infromacion del grupo familiar 
+    const gfUnico = JSON.parse(localStorage.getItem("grupoFamiliarFusionado"));
+    for (let index = 0; index < gfUnico.length; index++) {
+      const grupoFamiliar = gfUnico[index];
+      //console.log('entro al FOR')
+
+      if (Number(grupoFamiliar.edad) >= Number(this.utilitiesService.edadMin) && Number(grupoFamiliar.edad) <= Number(this.utilitiesService.edadMax)) {
+        if (Number(grupoFamiliar.edad) > 18) {
+          this.mayorEdad = true;
+          this.menorEdad = false;
+          //catBen = resultadoUnico[0].categoria;
+          //catBen = 'C'
+        } else {
+          this.mayorEdad = false;
+          this.menorEdad = true;
+          //catBen = resultadoUnico[0].categoria;
+        }
+        // Buscar la tarifa correspondiente
+        const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === grupoFamiliar.categoria);
+        //valida si el usuario ya se encuentra incrito en el curso seleccionado
+        this.yaEstaIncrito(this.programacionId, grupoFamiliar.documento,);
+        setTimeout(() => {
+          if (this.estadoEstadoInscrito == false) {
+            this.nucleoFamiliar.push({
+              nombreCompleto: grupoFamiliar.nombreCompleto,
+              documento: grupoFamiliar.documento || '',
+              tipoDocumento: grupoFamiliar.tipoDoc || '',
+              direccionResidencia: infoUser.direccion || '',
+              celular: Number(infoUser.celular) || 0,
+              email: infoUser.correo || '',
+              categoria: grupoFamiliar.categoria,
+              municipioId: 1,
+              mayor19Anios: this.mayorEdad,
+              esMenor18: this.menorEdad,
+              tipoAfiliacion: grupoFamiliar.documento === infoUser.documento ? infoUser.tipoUsuario : 'B',
+              genero: grupoFamiliar.sexo || '',
+              fechaNacimiento: grupoFamiliar.fechaNacimiento || '',
+              docAfiliado: infoUser.documento,
+              esTrabajadorConfa: false,
+              valorPagoCurso: Number(tarifaBeneficiario[1]),
+              inhabilitado: false // Nueva propiedad para controlar el estado
+            });
+          }
+        }, 1000);
+      }
+
+    }
+    
+    //console.log('salio del FOR')
+
+    setTimeout(() => {
+      ////console.log(this.nucleoFamiliar);
+      // Validación de resultados
+      if (this.nucleoFamiliar.length === 0) {
+        this.utilitiesService.messageTitleModal = "Atención";
+        this.utilitiesService.messageModal = 'Ningún integrante de tu grupo familiar está habilitado para el curso seleccionado o ya están inscritos';
+        this.utilitiesService.backLogin = false;
+        $(".modalNuevowarning").click();
+      }
+    }, 1000);
   }
 }

@@ -218,7 +218,6 @@ export class CursosComponent {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-        /* ||res==null */
         this.authenticationService
           .loginNew(ptoken.token)
           .pipe(first())
@@ -253,7 +252,7 @@ export class CursosComponent {
 
   consultarInformacionMiPerfilConfa(documento: string) {
     const infoUser = JSON.parse(localStorage.getItem("user"));
-    console.log(infoUser)
+    //console.log(infoUser)
         this.userMiPerfil = infoUser.user;
         this.documento = infoUser.usuario.documento;
         this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
@@ -311,7 +310,7 @@ export class CursosComponent {
 
           // Cambia el formato de las horas para visualización y ordena los horarios
           this.cursosFiltrados.forEach(curso => {
-            /* console.log(curso.programacion.cuposDisponibles); */
+            /* //console.log(curso.programacion.cuposDisponibles); */
 
             if (curso.programacion.cuposDisponibles === 0) {
               this.inactivarbotonSeleccionCurso = true;
@@ -353,7 +352,7 @@ export class CursosComponent {
     const edadMap = new Map();
     const horarioMap = new Map();
 
-    /*   console.log(cursos, "Cursos") */
+    /*   //console.log(cursos, "Cursos") */
 
     cursos.forEach(servicio => {
       if (servicio.sede) {
@@ -376,7 +375,7 @@ export class CursosComponent {
 
         });
       }
-      /* console.log(Array.from(horarioMap.values())) */
+      /* //console.log(Array.from(horarioMap.values())) */
 
       const rangos = cursos.map(curso => ({
         min: curso.edadMinima,
@@ -398,7 +397,7 @@ export class CursosComponent {
     this.deportes = Array.from(deporteMap.values());
     this.horarios = Array.from(horarioMap.values());
 
-    /* console.log(this.horarios) */
+    /* //console.log(this.horarios) */
   }
 
 
@@ -484,8 +483,8 @@ export class CursosComponent {
     this.utilitiesService.edadMin = curso.edadMinima
     this.utilitiesService.edadMax = curso.edadMaxima
 
-    /* console.log(this.utilitiesService.horarioCurso)
-    console.log(curso.horario) */
+    /* //console.log(this.utilitiesService.horarioCurso)
+    //console.log(curso.horario) */
 
     this.router.navigate(["/asistente"]);
   }
