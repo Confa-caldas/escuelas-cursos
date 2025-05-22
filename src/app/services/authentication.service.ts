@@ -534,10 +534,9 @@ export class AuthenticationService {
   }
 
   private getDeparment(ruta: string, token: string) {
-    return this.http.post(environment.apiAlojamiento + ruta, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post(environment.apiAlojamiento + ruta, {}, { headers });
+}
 
   getDepartamentos(token: string) {
     return this.getDeparment("alojamiento/metodo19", token).pipe(
