@@ -64,8 +64,8 @@
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
               (change)="aplicarFiltros()" [(ngModel)]="deporteSeleccionado">
-              <option [value]="'default'" selected disabled>Curso</option>
-              <option *ngFor="let deporte of deportes" [value]="deporte.id">{{ deporte.nombre }}</option>
+              <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
+              <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id" [title]="deporte.nombre">{{ deporte.nombre }}</option>
             </select>
           </div>
           <!-- nivel -->
@@ -151,7 +151,7 @@
                <!--  <div class="mb-2"  *ngFor="let horarios of curso.horario ">
                   <p class="card-text">{{horarios.nombreDia }} - {{horarios.horaInicio}}</p>
                 </div> -->
-                <div class="mb-2">
+                <div class="">
                   <!-- Muestra el primer horario -->
                   <p class="card-text">
                     {{ curso.horario[0].nombreDia }} - {{ curso.horario[0].horaInicio }}

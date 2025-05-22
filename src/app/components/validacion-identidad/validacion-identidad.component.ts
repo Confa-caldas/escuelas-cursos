@@ -1,22 +1,17 @@
 //Dependecias
-import {
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
-} from "@angular/forms";
+import { ReactiveFormsModule,UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import { Component, HostListener, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, Subject } from "rxjs";
 import { first } from "rxjs/operators";
-import { WebcamModule } from "ngx-webcam";
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { WebcamModule } from 'ngx-webcam';
 
 //services
 import { AuthenticationService } from "src/app/services/authentication.service";
-import { ValidationService } from "../../services/validation.service";
+import { ValidationService } from "src/app/services/validation.service";
 import { UtilitiesService } from "src/app/services/utilities.service";
-import { CommonModule } from '@angular/common';
 
 //interface
 import {
@@ -36,8 +31,8 @@ declare var $;
   selector: "app-validacion-identidad",
   templateUrl: "./validacion-identidad.component.html",
   styleUrls: ["./validacion-identidad.component.css"],
-  standalone:true,
-  imports:[ WebcamModule, ReactiveFormsModule, CommonModule]
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule,WebcamModule]
 })
 export class ValidacionIdentidadComponent implements OnInit {
   /* VARIABLES REGISTRO */
@@ -274,6 +269,7 @@ export class ValidacionIdentidadComponent implements OnInit {
   }
 
   closeModalFacial() {
+    this.opcionEnvio = false;
     this.codigoEnviado = false;
     this.utilitiesService.showWebcam = false;
     this.formValidate.reset();
@@ -316,31 +312,31 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                   case "FACIAL":
                     console.log(response.tipoBloqueo, "case facial");
-                    this.utilitiesService.messageTitleModal =
-                      "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Tu usuario ha sido bloqueado por validación biométrica. Visita la sede más cercana de Confa para desbloquearlo.";
                     break;
 
                   case "PREGUNTAS":
+                    this.utilitiesService.messageTitleModal =
+                      "Tu usuario ha sido bloqueado por preguntas de validación";
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                     break;
 
                   case "CONTRASENA":
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                     break;
 
                   default:
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
                 }
                 this.utilitiesService.backLogin = true;
 
                 setTimeout(() => {
                   this.utilitiesService.loading = false;
-                  $(".btn-modal-error-validation").click();
+                  $(".modalNuevoError").click();
                 }, 500);
               } else if (response.error === 0) {
                 // if (true) {
@@ -360,9 +356,9 @@ export class ValidacionIdentidadComponent implements OnInit {
               } else if (response.error === 1) {
                 this.closeModalFacial();
 
-                this.utilitiesService.messageTitleModal = "Atencion.";
+                this.utilitiesService.messageTitleModal = "Atención";
                 this.utilitiesService.messageModal =
-                  "tu usuario presenta problemas con el facial, por favor acercate a confa" ||
+                  "Tu usuario presenta problemas con el facial, por favor acércate a confa." ||
                   response.mensaje;
                 this.utilitiesService.backLogin = false;
                 setTimeout(() => {
@@ -443,7 +439,7 @@ export class ValidacionIdentidadComponent implements OnInit {
   }
   //aca se envia transaccion
   enviarCodigoOTP() {
-    console.log("Entro al enviar codigoOTp", this.formValidate);
+    console.log("desdelogin" + this.utilitiesService.desdelogin);
     this.submitted = true;
     if (this.formValidate.invalid) {
       this.opcionEnvio = true;
@@ -483,7 +479,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                   this.selectedOptionOTP = this.formValidate.value.opcionOTP;
                   console.log(this.selectedOptionOTP);
                 } else if (response.error === 3) {
-                  this.utilitiesService.messageTitleModal = response.mensaje;
+                  this.utilitiesService.messageTitleModal = 'Su usuario ha sido bloqueado';
                   this.utilitiesService.messageModal =
                     response.respuesta.detalle;
                   this.utilitiesService.backLogin = false;
@@ -581,15 +577,16 @@ export class ValidacionIdentidadComponent implements OnInit {
                     this.utilitiesService.messageTitleModal =
                       "¡Código validado correctamente!";
                     this.utilitiesService.messageModal = response.mensaje;
-                    this.utilitiesService.backLogin = false;
+
                     setTimeout(() => {
-                      $(".btn-modal-success-validation").click();
+                      $(".modalNuevoSuccess").click();
+                      this.utilitiesService.backLogin = false;
                     }, 700);
 
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
                       $(".btn-form-register").click();
-                    }, 500);
+                    }, 900);
                   }
 
                   if (this.utilitiesService.desdelogin) {
@@ -625,25 +622,25 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                       case "FACIAL":
                         console.log(response.tipoBloqueo, "case facial");
-                        this.utilitiesService.messageTitleModal =
-                          "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Tu usuario ha sido bloqueado por validación biométrica. Visita la sede más cercana de Confa para desbloquearlo.";
                         break;
 
                       case "PREGUNTAS":
+                        this.utilitiesService.messageTitleModal =
+                          "Tu usuario ha sido bloqueado por preguntas de validación";
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                         break;
 
                       case "CONTRASENA":
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                         break;
 
                       default:
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
                     }
                     this.utilitiesService.backLogin = false;
                     setTimeout(() => {
@@ -792,25 +789,26 @@ export class ValidacionIdentidadComponent implements OnInit {
                     break;
 
                   case "FACIAL":
-                    this.utilitiesService.messageTitleModal =
-                      "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
+                    console.log(response.tipoBloqueo, "case facial");
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Tu usuario ha sido bloqueado por validación biométrica. Visita la sede más cercana de Confa para desbloquearlo.";
                     break;
 
                   case "PREGUNTAS":
+                    this.utilitiesService.messageTitleModal =
+                      "Tu usuario ha sido bloqueado por preguntas de validación";
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                     break;
 
                   case "CONTRASENA":
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                     break;
 
                   default:
                     this.utilitiesService.messageModal =
-                      "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
                 }
                 this.utilitiesService.backLogin = false;
 
@@ -825,14 +823,28 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                 this.utilitiesService.messageTitleModal =
                   "Documento pendiente de validación";
-                this.utilitiesService.messageModal = response.mensaje;
+                this.utilitiesService.messageModal = "Ya tienes un registro pendiente de validación con este número de documento, por favor revisa el correo";
                 this.utilitiesService.backLogin = false;
 
                 $(".btn-close-popup-login").click();
 
                 setTimeout(() => {
                   this.utilitiesService.loading = false;
-                  $(".modal-error-validation").click();
+                  $(".modalNuevoError").click();
+                }, 500);
+              } else if (!response.registrado) {
+                this.utilitiesService.messageTitleModal =
+                  "Usuario no encontrado";
+                this.utilitiesService.messageModal =
+                  "El usuario no está registrado.";
+
+                this.utilitiesService.backLogin = false;
+
+                this.closeModalFacial();
+
+                setTimeout(() => {
+                  this.utilitiesService.loading = false;
+                  $(".modalNuevowarning").click();
                 }, 500);
               } else if (!response.facial) {
                 let mensajeFinal = "";
@@ -891,7 +903,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                     this.imgValida = true;
 
                     setTimeout(() => {
-                      $(".modalNuevowarning-facial").click();
+                      $(".btn-modal-exclaim-validation-facial").click();
                     }, 500);
                   } // este es el caso en que si tenga los indicios, acá se le asinan a las variables correspondientes
                   else {
@@ -998,34 +1010,35 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                       case "FACIAL":
                         console.log(response.tipoBloqueo, "case facial");
-                        this.utilitiesService.messageTitleModal =
-                          "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Tu usuario ha sido bloqueado por validación biométrica. Visita la sede más cercana de Confa para desbloquearlo.";
                         break;
 
                       case "PREGUNTAS":
+                        this.utilitiesService.messageTitleModal =
+                          "Tu usuario ha sido bloqueado por preguntas de validación";
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                         break;
 
                       case "CONTRASENA":
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                         break;
 
                       default:
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
                     }
                     this.utilitiesService.backLogin = true;
 
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $(".btn-modal-error-validation").click();
+                      $(".modalNuevoError").click();
                     }, 500);
                   } else {
                     this.utilitiesService.messageLoading = `Bienvenido ${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
+                    this.utilitiesService.mostrarModalSugerencia = false;
                     this.autenticacionService
                       .getToken(documento, password)
                       .pipe(first())
@@ -1057,7 +1070,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                             $(".btn-close-popup-login").click();
                             setTimeout(() => {
                               this.utilitiesService.loading = false;
-                              this.router.navigate(["/questions"]);
+                              this.router.navigate(["/home"]);
                             }, 500);
                           } else if (response.debeActualizarDatos) {
                             /*  localStorage.setItem("respuesta", "A"); */
@@ -1088,7 +1101,7 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                           setTimeout(() => {
                             this.utilitiesService.loading = false;
-                            $(".modal-error-validation").click();
+                            $(".modalNuevoError").click();
                           }, 500);
                         }
                       });
@@ -1114,7 +1127,7 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                   setTimeout(() => {
                     this.utilitiesService.loading = false;
-                    $(".btn-modal-error-validation").click();
+                    $(".modalNuevoError").click();
                   }, 500);
                 } else {
                   this.utilitiesService.messageTitleModal =
@@ -1125,7 +1138,7 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                   setTimeout(() => {
                     this.utilitiesService.loading = false;
-                    $(".btn-modal-error-validation").click();
+                    $(".modalNuevoError").click();
                   }, 500);
                 }
               }
@@ -1153,6 +1166,7 @@ export class ValidacionIdentidadComponent implements OnInit {
       return;
     } else {
       this.utilitiesService.loading = true;
+      console.log("desdelogin" + this.utilitiesService.desdelogin);
       this.autenticacionService
         .getGenericToken()
         .pipe(first())
@@ -1163,6 +1177,7 @@ export class ValidacionIdentidadComponent implements OnInit {
               .pipe(first())
               .subscribe((response: any) => {
                 this.utilitiesService.otrosIngresos = false;
+                this.utilitiesService.desdelogin = true;
 
                 if (response.bloqueo) {
                   this.utilitiesService.messageTitleModal = "Usuario Bloqueado";
@@ -1176,25 +1191,25 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                     case "FACIAL":
                       console.log(response.tipoBloqueo, "case facial");
-                      this.utilitiesService.messageTitleModal =
-                        "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
                       this.utilitiesService.messageModal =
-                        "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                        "Tu usuario ha sido bloqueado por validación biométrica. Visita la sede más cercana de Confa para desbloquearlo.";
                       break;
 
                     case "PREGUNTAS":
+                      this.utilitiesService.messageTitleModal =
+                        "Tu usuario ha sido bloqueado por preguntas de validación";
                       this.utilitiesService.messageModal =
-                        "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                        "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                       break;
 
                     case "CONTRASENA":
                       this.utilitiesService.messageModal =
-                        "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                        "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                       break;
 
                     default:
                       this.utilitiesService.messageModal =
-                        "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                        "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
                   }
 
                   /* "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos comunicándote al siguiente correo: pqrsf@confa.co"; */
@@ -1217,7 +1232,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                   $(".btn-close-popup-login").click();
                   setTimeout(() => {
                     this.utilitiesService.loading = false;
-                    $(".modal-error-validation").click();
+                    $(".modalNuevoError").click();
                   }, 500);
                   this.formValidate.reset();
                 } else if (response.registraduria && response.registrado) {
@@ -1225,6 +1240,7 @@ export class ValidacionIdentidadComponent implements OnInit {
 
                   console.log("enviaOTP", response);
                   this.startTimer();
+                  this.utilitiesService.mostrarModalSugerencia = false;
 
                   this.celularIndicio = response.celular;
                   this.correoIndicio = response.correo;
@@ -1254,7 +1270,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                     }, 500);
                   } else {
                     setTimeout(() => {
-                      this.utilitiesService.desdelogin = false;
+                      //this.utilitiesService.desdelogin = false;
                       this.utilitiesService.loading = false;
                       $(".btn-envio-otp").click();
                       this.contituarInicio = true;
@@ -1269,7 +1285,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                   setTimeout(() => {
                     $(".btn-cerra-tpDcYdoc").click();
                     this.utilitiesService.loading = false;
-                    $(".btn-modal-error-validation").click();
+                    $(".modalNuevoError").click();
                   }, 500);
                 } else {
                   this.utilitiesService.otrosIngresos = true;
@@ -1293,11 +1309,11 @@ export class ValidacionIdentidadComponent implements OnInit {
   }
 
   enviarOtpXdocTipodoc() {
- 
     console.log(
-      "Entro al enviar enviarOtpXdocTipodoc",
-      this.formValidate.value.opcionOTP
+      "desdelogin noTengoAcceso enviarOtpXdocTipodoc" +
+        this.utilitiesService.desdelogin
     );
+
     this.utilitiesService.loading = true;
     this.submitted = true;
     if (this.formValidate.value.opcionOTP == "") {
@@ -1365,7 +1381,7 @@ export class ValidacionIdentidadComponent implements OnInit {
               this.utilitiesService.backLogin = false;
               setTimeout(() => {
                 this.utilitiesService.loading = false;
-                $(".btn-modal-success-validation").click();
+                $(".modalNuevoSuccess").click();
               }, 500);
             });
         }
@@ -1374,6 +1390,7 @@ export class ValidacionIdentidadComponent implements OnInit {
   }
 
   noTengoAcceso() {
+    console.log("desdelogin noTengoAcceso" + this.utilitiesService.desdelogin);
     $(".btn-flecha-otp").click();
     this.utilitiesService.otrosIngresos = true;
     this.utilitiesService.messageTitleModal =
@@ -1383,16 +1400,17 @@ export class ValidacionIdentidadComponent implements OnInit {
     this.utilitiesService.backLogin = false;
 
     this.utilitiesService.loading = false;
-
-    if (!this.utilitiesService.desdelogin) {
-      $(".btn-form-register").click();
-    } else {
-      $(".btnLogin").click();
-    }
-
     setTimeout(() => {
       this.utilitiesService.loading = false;
       $(".modalNuevowarning").click();
     }, 500);
+
+    setTimeout(() => {
+      if (!this.utilitiesService.desdelogin) {
+        $(".btn-form-register").click();
+      } else {
+        $(".btnLogin").click();
+      }
+    }, 450);
   }
 }

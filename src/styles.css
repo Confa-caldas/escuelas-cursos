@@ -61,6 +61,8 @@ span.badge {
   opacity: 0.8;
   white-space: normal;
   font-size: 10px;
+  color: red;
+  background: none;
 }
 
 .dropdown-toggle::after {
@@ -126,21 +128,22 @@ button.btn-credits:hover {
 }
 
 button.btn-credits-blue {
-  background-color: #ff2c80;
-  border-color: #ff2c80;
-  color: white;
+  background-color: #00aeef;
+  border-color: #00aeef;
+  color: #fff;
   border-radius: 25px;
   outline: 0px;
-  font-family: Ubuntu, Poppins;
+  font-family: Ubuntu;
+  font-weight: 700;
   font-size: 14px;
-  line-height: 21px;
-  padding: 8px 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 button.btn-credits-blue:hover {
-  background: #FF5D9F;
-  border-color: #FF5D9F;
-  color: white;
+  background-color: #4cceff;
+  border: #A8E7FF#4CCEFF;
+  color: #fff;
 }
 
 button.btn-cred {
@@ -3039,7 +3042,8 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
   cursor: default;
 }
 
-.ngx-pagination a, .ngx-pagination button {
+.ngx-pagination a,
+.ngx-pagination button {
   background-color: #fff !important;
   color: #0a0a0a;
   display: block;
@@ -3204,9 +3208,9 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
   padding: 8px;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 1px 3px 0px #1018281A;
   box-shadow: 0px 1px 2px 0px #1018280F;
 }
+
 
 .card-filters {
   border: 1px solid #F2F4F7;
@@ -3432,7 +3436,7 @@ input[type="radio"].is-invalid {
   border-color: #00afef93 !important;
   outline: none;
   box-shadow: 0px 0px 0px 4px #00afef85;
-box-shadow: 0px 1px 2px 0px #1018280D;
+  box-shadow: 0px 1px 2px 0px #1018280D;
 
 }
 
@@ -3518,4 +3522,15 @@ h3.card-title-inicio-tpdoc {
 .modal-content::-webkit-scrollbar {
   display: none;
   /* Chrome, Edge, Safari */
+}
+
+select {
+  appearance: none;
+  /* Firefox, Safari, Chrome */
+  -webkit-appearance: none;
+  /* Safari, Chrome */
+  -moz-appearance: none;
+  /* Firefox */
+  background: none;
+  background-image: none;
 }

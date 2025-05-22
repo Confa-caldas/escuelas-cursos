@@ -67,7 +67,7 @@ export class CardLoginComponent implements OnInit {
     // obtener retorno de los parametros route de la url o por defecto a '/'
     this.returnUrl =
       this.activatedRoute.snapshot.queryParams["returnUrl"] || `/home`;
-    // console.log('returnUrl', this.returnUrl);
+    // //console.log('returnUrl', this.returnUrl);
   }
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
@@ -124,7 +124,7 @@ export class CardLoginComponent implements OnInit {
                 const usuario = response.usuario;
                 if (!usuario.existeUsuario) {
                   this.showModalMessage("Inténtalo nuevamente", this.utilitiesService.errorInfoLogin, false);
-                   this.authenticationService.logout();
+                  this.authenticationService.logout();
                   return;
                 }
 
@@ -227,7 +227,7 @@ export class CardLoginComponent implements OnInit {
         next: (token: Token) => {
           if (!token.token) {
             this.showModalMessage("No puedes continuar", "No se pudo obtener el token.", false);
-             this.authenticationService.logout();;
+             this.authenticationService.logout();
             return;
           }
 
@@ -240,6 +240,7 @@ export class CardLoginComponent implements OnInit {
           } else if (response.debeActualizarDatos) {
             this.navigateTo("/modify");
           } else if (response.puedeIngresar) {
+            this.consultarGrupoFamiliar(document)
             this.verificarServicios();
           } else {
             this.showModalMessage("Inténtalo nuevamente", this.utilitiesService.errorInfoLogin, false);
@@ -361,7 +362,7 @@ export class CardLoginComponent implements OnInit {
       const claveSHA256 = this.hashSHA256(claveMD5);
       const claveconfa = this.encriptarConfa(claveSHA256);
       return claveconfa;
-      console.log("Nueva contraseña: " + claveconfa);
+      //console.log("Nueva contraseña: " + claveconfa);
     } catch (error) {
       console.error("Error al encriptar la contraseña:", error);
     }
@@ -439,4 +440,45 @@ export class CardLoginComponent implements OnInit {
     this.tpDoc = value;
     console.log(value);
   }
+  consultarGrupoFamiliar(documento: string) {
+  this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
+  .subscribe((response: any) => {
+    //console.log(response,'consultarInformacionMiPerfilConfa card-login')
+    
+    localStorage.setItem('InformacionMiPerfil', JSON.stringify(response));
+
+      const gf = response.grupoFamiliar;
+      const lgf = response.listadoGruposFamiliares;
+
+      const personasACargo = [];
+
+      // Extraer todas las personasACargo
+      lgf.forEach(grupo => {
+        if (grupo.personasACargo && Array.isArray(grupo.personasACargo)) {
+          grupo.personasACargo.forEach(persona => {
+            // Buscar si hay datos adicionales en grupoFamiliar por documento
+            const datosGF = gf.find(miembro => miembro.documento === persona.documento);
+
+            // Fusionar si existe, sino solo deja la persona original
+            const personaFusionada = {
+              ...persona,
+              ...datosGF,
+              nombreCompleto: datosGF
+                ? `${datosGF.nombre1 || ''} ${datosGF.nombre2 || ''} ${datosGF.apellido1 || ''} ${datosGF.apellido2 || ''}`.replace(/\s+/g, ' ').trim()
+                : persona.nombre
+            };
+
+            personasACargo.push(personaFusionada);
+          });
+        }
+      });
+
+      // Guardar en localStorage
+      localStorage.setItem('grupoFamiliarFusionado', JSON.stringify(personasACargo));
+
+      // Opcional: Mostrar por consola
+      //console.log('Grupo familiar fusionado:', personasACargo);
+    });
+}
+
 }

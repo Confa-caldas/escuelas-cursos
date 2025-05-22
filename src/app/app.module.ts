@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 // Interceptors
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
+import { NoCacheInterceptor } from './_helpers/no-cache.interceptor';
 
 // Routes
 import { AppRoutingModule } from "./app-routing.module";
@@ -38,6 +39,7 @@ import { DatePipe } from '@angular/common';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: NoCacheInterceptor, multi: true },
     CookieService,
     DatePipe
   ],

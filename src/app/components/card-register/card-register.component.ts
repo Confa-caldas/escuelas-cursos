@@ -40,7 +40,7 @@ export class CardRegisterComponent implements OnInit {
     public questionsService: QuestionsService,
     private cookieService: CookieService,
     private validationService: ValidationService
-  ) { }
+  ) {}
 
   async ngOnInit() {
     this.getTipoDoc(); // hace el llamdo a la consulta de tipos de documentos
@@ -67,66 +67,26 @@ export class CardRegisterComponent implements OnInit {
     );
   }
 
-  getTipoDoc() {
-    this.autheticationService
-      .getGenericToken()
-      .pipe(first())
-      .subscribe((tokenDoc: Token) => {
-        if (tokenDoc.token) {
-          this.autheticationService
-            .tipoDoc(tokenDoc.token)
-            .pipe(first())
-            .subscribe((res: TipoDoc[]) => {
-              if (res?.length && res[0].id != "0") {
-                this.dataTpDoc = res;
-              } else {
-                this.utilitiesService.messageTitleModal = "Espera";
-                this.utilitiesService.messageModal =
-                  "Error consultando los tipos de documentos";
-                this.utilitiesService.backLogin = true;
-
-                setTimeout(() => {
-                  this.utilitiesService.loading = false;
-                  $("..modalNuevowarning").click();
-                }, 500);
-              }
-            });
-        }
-      });
-  }
-
   validateDocument() {
     this.utilitiesService.messageLoading = "Cargando, por favor espera";
-    /* this.cookieService.delete('gtoken'); */
     this.submitted = true;
 
     if (this.formValidate.invalid) {
-      Object.values(this.f)
-        .forEach(control => {
-          control.markAllAsTouched();
-        });
       return;
     } else {
       this.utilitiesService.loading = true;
-      let document = this.f.document.value;
+      let document = this.f.document.value.toString();
       let tpDoc = this.f.tpDoc.value;
-
       if (document !== "" && tpDoc !== "") {
-        this.utilitiesService.loading = true;
-
-        this.autheticationService.getGenericToken()
+        this.autheticationService
+          .getGenericToken()
           .pipe(first())
-          .subscribe((response: Token) => {
-            console.log("Token generico", response);
-
-            if (response.token) {
-              this.autheticationService.consultUserInformationNASFANew(document, response.token, tpDoc)
+          .subscribe((responseTING: Token) => {
+            if (responseTING.token) {
+              this.autheticationService
+                .consultUserInformationNASFANew(document,responseTING.token, tpDoc)
                 .pipe(first())
                 .subscribe((response: User) => {
-
-                  this.utilitiesService.existUser = response.existeUsuario || response.usuarioNasfa;
-                  // console.log("this.utilitiesService.existUser", this.utilitiesService.existUser);
-
                   if (response.bloqueo) {
                     this.utilitiesService.messageTitleModal =
                       "Su usuario ha sido bloqueado";
@@ -138,51 +98,54 @@ export class CardRegisterComponent implements OnInit {
                         break;
 
                       case "FACIAL":
-                        this.utilitiesService.messageTitleModal =
-                          "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
+                        console.log(response.tipoBloqueo, "case facial");
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Tu usuario ha sido bloqueado por validación biométrica. Visita la sede más cercana de Confa para desbloquearlo.";
                         break;
 
                       case "PREGUNTAS":
+                        this.utilitiesService.messageTitleModal =
+                          "Tu usuario ha sido bloqueado por preguntas de validación";
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                         break;
 
                       case "CONTRASENA":
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
                         break;
 
                       default:
                         this.utilitiesService.messageModal =
-                          "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                          "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
                     }
+
                     /* "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos comunicándote al siguiente correo: pqrsf@confa.co"; */
                     this.utilitiesService.backLogin = false;
-
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $('modalNuevoError').click();
+                      $(".btn-modal-exclaim-validation").click();
                     }, 500);
-                    this.formValidate.reset();
-                    this.formValidate.get("tpDoc").setValue("");
+                    ////this.formValidate.reset();
+                    ////this.formValidate.get("tpDoc").setValue("");
                   } else if (response.registroPendiente) {
-                    this.utilitiesService.loading = false;
-                    this.utilitiesService.messageTitleModal = "Documento pendiente de validación";
+                    this.utilitiesService.messageTitleModal =
+                      "Documento pendiente de validación";
                     this.utilitiesService.messageModal = response.mensaje;
                     this.utilitiesService.backLogin = false;
-                    
                     $(".btn-close-popup-login").click();
                     setTimeout(() => {
-                      $('.modalNuevoError').click();
+                      this.utilitiesService.loading = false;
+                      $(".btn-modal-exclaim-validation").click();
                     }, 500);
-                    this.formValidate.reset();
-                    this.formValidate.get("tpDoc").setValue("");
-                  } else if (!response.existeUsuario &&
-                    !response.registroPendiente) {
-
-                      this.utilitiesService.existUser =
+                    ////this.formValidate.reset();
+                    ////this.formValidate.get("tpDoc").setValue("");
+                  } else if (
+                    !response.existeUsuario &&
+                    !response.registroPendiente
+                  ) {
+                    this.userEmitter.emit(response);
+                    this.utilitiesService.existUser =
                       response.existeUsuario || response.usuarioNasfa;
                     this.utilitiesService.documentUser = response.documento;
                     this.utilitiesService.tipoDoc = response.tipoDocumento;
@@ -207,13 +170,13 @@ export class CardRegisterComponent implements OnInit {
                             this.preguntasEmitter.emit(response.preguntas);
                             this.utilitiesService.tienePreguntas = true;
                             this.activarFacial();
-                            this.formValidate.reset();
-                            this.formValidate.get("tpDoc").setValue("");
+                            //this.formValidate.reset();
+                            //this.formValidate.get("tpDoc").setValue("");
                             this.utilitiesService.loading = false;
                           } else {
                             this.activarFacial();
-                            this.formValidate.reset();
-                            this.formValidate.get("tpDoc").setValue("");
+                            //this.formValidate.reset();
+                            //this.formValidate.get("tpDoc").setValue("");
                             this.utilitiesService.loading = false;
                           }
                         } else {
@@ -226,14 +189,14 @@ export class CardRegisterComponent implements OnInit {
                             this.preguntasEmitter.emit(response.preguntas);
                             setTimeout(() => {
                               this.utilitiesService.loading = false;
-                              $("..modalNuevowarning").click();
+                              $(".btn-modal-exclaim-validation").click();
                             }, 500);
                             $(".btn-close-popup-login").click();
                             setTimeout(() => {
                               $(".btn-form-questions").click();
                             }, 2000);
-                            this.formValidate.reset();
-                            this.formValidate.get("tpDoc").setValue("");
+                            //this.formValidate.reset();
+                            //this.formValidate.get("tpDoc").setValue("");
                           } else {
                             this.utilitiesService.messageTitleModal =
                               "No cuentas con validación biométrica";
@@ -253,8 +216,8 @@ export class CardRegisterComponent implements OnInit {
                           setTimeout(() => {
                             $(".btn-form-questions").click();
                           }, 2000);
-                          this.formValidate.reset();
-                          this.formValidate.get("tpDoc").setValue("");
+                          //this.formValidate.reset();
+                          //this.formValidate.get("tpDoc").setValue("");
                           this.utilitiesService.loading = false;
                         } else {
                           this.utilitiesService.messageTitleModal =
@@ -265,8 +228,8 @@ export class CardRegisterComponent implements OnInit {
                           $(".btn-close-popup-login").click();
                           setTimeout(() => {
                             this.utilitiesService.loading = false;
-                            $("..modalNuevowarning-registro").click();
-                            //$("..modalNuevowarning").click();
+                            $(".btn-modal-exclaim-validation-registro").click();
+                            //$(".btn-modal-exclaim-validation").click();
                           }, 500);
                           /* setTimeout(() => {
                             $(".btn-form-register").click();
@@ -280,8 +243,8 @@ export class CardRegisterComponent implements OnInit {
                         setTimeout(() => {
                           $(".btn-form-register").click();
                         }, 500);
-                        this.formValidate.reset();
-                        this.formValidate.get("tpDoc").setValue("");
+                        //this.formValidate.reset();
+                        //this.formValidate.get("tpDoc").setValue("");
                       } else {
                         this.utilitiesService.loading = false;
                         this.utilitiesService.messageTitleModal =
@@ -297,30 +260,24 @@ export class CardRegisterComponent implements OnInit {
                         setTimeout(() => {
                           $(".btn-form-register").click();
                         }, 1000);
-                        this.formValidate.reset();
-                        this.formValidate.get("tpDoc").setValue("");
+                        //this.formValidate.reset();
+                        //this.formValidate.get("tpDoc").setValue("");
                       }
                     }
+                  } else {
                     this.utilitiesService.loading = false;
-                    // console.log('Usuario no encontrado');
-
-                    $('.btn-close-popup-login').click();
-                    setTimeout(() => {
-                      this.utilitiesService.registerUser = response;
-                      console.log(this.utilitiesService.registerUser)
-                      $('.btn-form-register').click();
-                    }, 500);
-                  }
-                  else {
-                    this.utilitiesService.loading = false;
-
-                    // console.log('Usuario encontrado');
-                    this.cookieService.delete('gtoken');
-                    this.utilitiesService.messageTitleModal = 'Documento registrado';
-                    this.utilitiesService.messageModal = 'Este usuario ya se encuentra registrado.';
+                    this.utilitiesService.messageTitleModal =
+                      "Documento registrado";
+                    this.utilitiesService.messageModal =
+                      "Ya existe un usuario asociado al número de documento ingresado.";
+                    /* "Este usuario ya se encuentra registrado."; */
                     this.utilitiesService.backLogin = false;
-
-                    $('.modalNuevoError').click();
+                    $(".btn-close-popup-login").click();
+                    setTimeout(() => {
+                      $(".btn-modal-information-validation").click();
+                    }, 500);
+                    ////this.formValidate.reset();
+                    ////this.formValidate.get("tpDoc").setValue("");
                   }
                 });
             }
@@ -330,7 +287,6 @@ export class CardRegisterComponent implements OnInit {
   }
 
   consultarPreguntas(documento: string) {
-    console.log(documento)
     let existeUsuarioC: boolean = false;
     let ctoken =
       this.cookieService.get("ctoken") !== ""
@@ -381,7 +337,34 @@ export class CardRegisterComponent implements OnInit {
     }
   }
 
-  
+  getTipoDoc() {
+    this.autheticationService
+      .getGenericToken()
+      .pipe(first())
+      .subscribe((tokenDoc: Token) => {
+        if (tokenDoc.token) {
+          this.autheticationService
+            .tipoDoc(tokenDoc.token)
+            .pipe(first())
+            .subscribe((res: TipoDoc[]) => {
+              if (res?.length && res[0].id != "0") {
+                this.dataTpDoc = res;
+              } else {
+                this.utilitiesService.messageTitleModal = "Espera";
+                this.utilitiesService.messageModal =
+                  "Error consultando los tipos de documentos";
+                this.utilitiesService.backLogin = true;
+
+                setTimeout(() => {
+                  this.utilitiesService.loading = false;
+                  $(".btn-modal-exclaim-validation").click();
+                }, 500);
+              }
+            });
+        }
+      });
+  }
+
   capturar(value) {
     this.formValidate.get("tpDoc").setValue(value);
     this.tpDoc = value;
@@ -402,7 +385,6 @@ export class CardRegisterComponent implements OnInit {
     }
     return false;
   }
-
 
   private getMayorDeCatorce(fechaNacimiento: string): boolean {
     const fechaNacimientoDate = new Date(fechaNacimiento);

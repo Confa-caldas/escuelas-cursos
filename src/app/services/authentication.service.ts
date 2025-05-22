@@ -3,20 +3,8 @@ import { HttpClient , HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { CookieService } from "ngx-cookie-service";
-
 import { environment } from "../../environments/environment";
-import {
-  User,
-  Token,
-  UserRegister,
-  RememberPassword,
-  ValidateQuestion,
-  Session,
-  MiPerfilConfa,
-  GrupoFamiliar,
-  GruposFamiliaresList,
-} from "../interfaces/user.interface";
-
+import { User, Token, UserRegister, RememberPassword, ValidateQuestion, Session, MiPerfilConfa, GrupoFamiliar, GruposFamiliaresList} from "../interfaces/user.interface";
 import { Md5 } from "ts-md5/dist/md5";
 import { UtilitiesService } from "./utilities.service";
 
@@ -275,6 +263,8 @@ export class AuthenticationService {
         )
     );
   }
+
+  
   miPerfil(token: string) {
     let bodyValidate = {
       token: token.toString(),
@@ -469,8 +459,8 @@ export class AuthenticationService {
       documento: Md5.hashStr(documento.toString()),
     };
 
-    //return this.getQuery("confa/metodo26", bodyValidateQuestion).pipe(
     return this.getQuery("confa/metodo201", bodyValidateQuestion).pipe(
+    //return this.getQuery("confa/metodo26", bodyValidateQuestion).pipe(
       map((response) => {
         return response;
       })

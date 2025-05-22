@@ -67,7 +67,6 @@ export class QuestionsLoginComponent implements OnInit {
         : null;
 
     if (ptoken != "") {
-      if (user == null || cc == null || preguntas == null) {
         this.authenticationService
           .loginNew(ptoken.token)
           .pipe(first())
@@ -100,24 +99,6 @@ export class QuestionsLoginComponent implements OnInit {
               this.utilitiesService.loading = false;
             }
           });
-      } else {
-        this.correoUser = user.correo;
-        this.fullName = `${user.primerNombre} ${user.segundoNombre} ${user.primerApellido} ${user.segundoApellido}`;
-        this.document = cc;
-        this.user = user;
-        this.preguntasUser = preguntas;
-        if (this.preguntasUser == null) {
-          this.utilitiesService.messageTitleModal = "Intentalo nuevamente!";
-          this.utilitiesService.messageModal = "Ha ocurrido un error!";
-          this.utilitiesService.backLogin = false;
-
-          setTimeout(() => {
-            $(".modalNuevoError").click();
-            this.utilitiesService.loading = false;
-          }, 1000);
-        }
-        this.utilitiesService.loading = false;
-      }
     }
     this.currentUser = this.utilitiesService.currentUser;
   }

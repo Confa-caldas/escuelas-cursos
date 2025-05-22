@@ -59,9 +59,10 @@ export const environment = {
   //apiUrl: "http://localhost:4200/", //Cambiar dependiendo el puerto de la ruta en pruebas
   //escuelaCursoRest: "http://nbappa:28080/escuelaCursoRestWS/rest/escuelaCurso", https://app.confa.co:8377
   escuelaCursoRest: "https://app.confa.co:8377/recreacionWS/rest/escuelaCurso",
+  //escuelaCursoRest: "http://localhost:8081/recreacionWS/rest/escuelaCurso",
   //escuelaCursoRest: "http://nbdesrecre:28080/recreacionWS/rest/escuelaCurso",
   
-  //apiIngresoConfa: "http://localhost:8080/IngresoConfaWSSMiPerfil/rest/",
+  //apiIngresoConfa: "http://localhost:8080/ingresoConfaWssMiPerfil/rest/",
   apiIngresoConfa: "https://app.confa.co:8687/ingresoConfaWSSGC/rest/",
   //apiIngresoConfa: "https://alojamiento.confa.co/ingresoConfaWSS/rest/", //PRODUCCION
   parametro1: "hlZTM4ZDcwNDRlODcyNzZDX1BPUlQqMjAxOCQ=",

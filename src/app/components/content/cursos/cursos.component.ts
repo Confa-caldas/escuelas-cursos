@@ -218,8 +218,6 @@ export class CursosComponent {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-      if (user == null || cc == null) {
-        /* ||res==null */
         this.authenticationService
           .loginNew(ptoken.token)
           .pipe(first())
@@ -233,12 +231,6 @@ export class CursosComponent {
               //this.consultarInformacionMiPerfilConfa(this.document);
             }
           });
-      } else {
-        this.utilitiesService.currentUser = user;
-        this.document = cc;
-        this.utilitiesService.loading = true;
-
-      }
     }
   }
 
@@ -259,17 +251,17 @@ export class CursosComponent {
   }
 
   consultarInformacionMiPerfilConfa(documento: string) {
-    this.authenticationService
-      .consultarInformacionMiPerfilConfa(documento)
-      .pipe(first())
-      .subscribe((response: MiPerfilConfa) => {
+    const infoUser = JSON.parse(localStorage.getItem("user"));
+    //console.log(infoUser)
+        this.userMiPerfil = infoUser.user;
+        this.documento = infoUser.usuario.documento;
+        this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
         this.utilitiesService.loading = false;
-        this.utilitiesService.fullNameUser = `${response.primerNombre} ${response.segundoNombre} ${response.primerApellido} ${response.segundoApellido}`;
-        this.utilitiesService.documentUser = response.documento;
-        this.utilitiesService.direccionResidencia = response.direccion
-        this.utilitiesService.celular = response.celular
-        this.utilitiesService.genero = response.genero
-      });
+        this.utilitiesService.fullNameUser =`${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
+        this.utilitiesService.documentUser = infoUser.usuario.documento;
+        this.utilitiesService.direccionResidencia = infoUser.usuario.direccion;
+        this.utilitiesService.celular = infoUser.usuario.celular;
+        this.utilitiesService.genero = infoUser.usuario.genero;
   }
 
   navigate() {
@@ -318,7 +310,7 @@ export class CursosComponent {
 
           // Cambia el formato de las horas para visualización y ordena los horarios
           this.cursosFiltrados.forEach(curso => {
-            /* console.log(curso.programacion.cuposDisponibles); */
+            /* //console.log(curso.programacion.cuposDisponibles); */
 
             if (curso.programacion.cuposDisponibles === 0) {
               this.inactivarbotonSeleccionCurso = true;
@@ -360,7 +352,7 @@ export class CursosComponent {
     const edadMap = new Map();
     const horarioMap = new Map();
 
-    /*   console.log(cursos, "Cursos") */
+    /*   //console.log(cursos, "Cursos") */
 
     cursos.forEach(servicio => {
       if (servicio.sede) {
@@ -383,7 +375,7 @@ export class CursosComponent {
 
         });
       }
-      /* console.log(Array.from(horarioMap.values())) */
+      /* //console.log(Array.from(horarioMap.values())) */
 
       const rangos = cursos.map(curso => ({
         min: curso.edadMinima,
@@ -405,7 +397,7 @@ export class CursosComponent {
     this.deportes = Array.from(deporteMap.values());
     this.horarios = Array.from(horarioMap.values());
 
-    /* console.log(this.horarios) */
+    /* //console.log(this.horarios) */
   }
 
 
@@ -491,8 +483,8 @@ export class CursosComponent {
     this.utilitiesService.edadMin = curso.edadMinima
     this.utilitiesService.edadMax = curso.edadMaxima
 
-    /* console.log(this.utilitiesService.horarioCurso)
-    console.log(curso.horario) */
+    /* //console.log(this.utilitiesService.horarioCurso)
+    //console.log(curso.horario) */
 
     this.router.navigate(["/asistente"]);
   }

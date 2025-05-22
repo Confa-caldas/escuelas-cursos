@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input,OnChanges,SimpleChanges } from "@angular/core";
 import { ReactiveFormsModule, UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from "@angular/forms";
 import { AuthenticationService } from "../../services/authentication.service";
 import { first } from "rxjs/operators";
@@ -20,12 +20,16 @@ declare var $;
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, FormsModule]
 })
-export class CardRegisterFormComponent implements OnInit {
+export class CardRegisterFormComponent implements OnInit, OnChanges {
   formRegister: UntypedFormGroup;
   submitted: boolean = false;
   showPassword: boolean = false;
+  isComercialCheched: boolean = false;
   @Input() user: User;
   @Input() respuesta: boolean;
+
+
+  
 
   departamento: string;
   dataDepartamentos: Departamento[];
@@ -37,6 +41,7 @@ export class CardRegisterFormComponent implements OnInit {
     public utilitiesService: UtilitiesService,
     private validationService: ValidationService,
     private cookieService: CookieService
+    
   ) {}
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
@@ -116,7 +121,27 @@ export class CardRegisterFormComponent implements OnInit {
       Validators.required,
       this.equalsPhone.bind(this.formRegister),
     ]);
+
   }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user'] && changes['user'].currentValue) {
+      console.log('Usuario cambiado:', this.user);
+      // Lógica cuando llega o cambia el `user`
+        this.formRegister?.get('email')?.setValue(this.user.correo || '');
+        this.formRegister?.get("phone")?.setValue(this.user.celular  || '');
+ 
+    
+    }
+  }
+
+
+ /*  onEmailInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.formRegister.get("email").setValue(input.value); 
+  } */
+
   validarPassword(control: UntypedFormControl) {
     const valor = control.value;
     const tieneMayuscula = /[A-Z]/.test(valor);
@@ -151,8 +176,8 @@ export class CardRegisterFormComponent implements OnInit {
         .setValue(this.utilitiesService.tipoDoc);
 
       if (this.user.correo) {
-        this.formRegister.get("email").setValue(this.user.correo);
-        this.formRegister.get("confirmEmail").setValue(this.user.correo);
+        //this.formRegister.get("email").setValue(this.user.correo);
+      //  this.formRegister.get("confirmEmail").setValue(this.user.correo);
       }
       if (this.user.celular) {
         this.formRegister.get("phone").setValue(this.user.celular);
@@ -172,6 +197,10 @@ export class CardRegisterFormComponent implements OnInit {
     this.formRegister.get("typeDocument").setValue("");
     this.formRegister.get("phone").setValue("");
     this.formRegister.get("email").setValue("");
+    this.formRegister.get("confirmEmail").setValue("");
+    this.formRegister.get("password").setValue("");
+    this.formRegister.get("confirmPassword").setValue("");
+     window.location.reload();
   }
 
   onSubmit() {
@@ -197,7 +226,7 @@ export class CardRegisterFormComponent implements OnInit {
           .subscribe((responseTING: Token) => {
             if (responseTING.token) {
               this.authenticationService
-                .saveUserRegister(userRegister, responseTING.token)
+                .saveUserRegister(userRegister,responseTING.token)
                 .pipe(first())
                 .subscribe((response: any) => {
                   console.log(response);
@@ -288,6 +317,7 @@ export class CardRegisterFormComponent implements OnInit {
   }
 
   private generateUser(f: any, user: User) {
+
     let url = `${environment.apiUrl}` + "confirm";
     let fechaRegistroPreguntas = null;
     let habeasData;
@@ -305,6 +335,7 @@ export class CardRegisterFormComponent implements OnInit {
     } else {
       fechaRegistroPreguntas = null;
     }
+    this.isComercialCheched = f.checkComercial.value;
     let userRegister = {
       sistema: "Mi perfil",
       linkMensaje: url,
@@ -455,11 +486,14 @@ export class CardRegisterFormComponent implements OnInit {
                   .getDepartamentos(responseTING.token)
                   .subscribe((response: Departamento[]) => {
                     if (response?.length > 0) {
+                     
                       this.dataDepartamentos = response;
+                      this.dataDepartamentos =  this.ordenarDepartamentosYMunicipios( this.dataDepartamentos);
+
                     } else {
                       this.utilitiesService.messageTitleModal = "Espera";
                       this.utilitiesService.messageModal =
-                        "Error consultando los tipos de documentos";
+                        "Error consultando los tipos de documentos.";
                       this.utilitiesService.backLogin = true;
                       setTimeout(() => {
                         this.utilitiesService.loading = false;
@@ -472,6 +506,27 @@ export class CardRegisterFormComponent implements OnInit {
         }
       });
   }
+
+
+  ordenarDepartamentosYMunicipios(departamentos: Departamento[]): Departamento[] {
+    // Primero ordenamos los municipios de cada departamento
+    departamentos.forEach(depto => {
+      depto.municipios.sort((a, b) =>
+        a.nombre_municipio.localeCompare(b.nombre_municipio)
+      );
+    });
+  
+    // Luego ordenamos los departamentos dejando Caldas de primero
+    departamentos.sort((a, b) => {
+      if (a.nombre_departamento === 'CALDAS') return -1;
+      if (b.nombre_departamento === 'CALDAS') return 1;
+      return a.nombre_departamento.localeCompare(b.nombre_departamento);
+    });
+  
+    return departamentos;
+  }
+
+
 
   captureDepartamento(value: string) {
     this.formRegister.controls["departamento"].setValue(value);
@@ -489,20 +544,17 @@ export class CardRegisterFormComponent implements OnInit {
   }
 
   private getInfoCheck() {
-    const isComercialCheched =
-      this.formRegister.controls["checkComercial"].value;
-
     const infoCheckComercial = {
       tipoDocumentoTitular: this.utilitiesService.tipoDoc,
       numeroDocumentoTitular: this.user.documento,
       tipoDocumentoAutorizado: this.utilitiesService.tipoDoc,
       numeroDocumentoAutorizado: this.user.documento,
-      autorizacionHabeas: this.formRegister.controls["aceptHabeasData"].value,
-      autorizacionComercial: isComercialCheched,
-      SMS: isComercialCheched,
-      correo: isComercialCheched,
-      llamada: isComercialCheched,
-      whatsApp: isComercialCheched,
+      autorizacionHabeas: true,
+      autorizacionComercial: this.isComercialCheched,
+      SMS: this.isComercialCheched,
+      correo: this.isComercialCheched,
+      llamada: this.isComercialCheched,
+      whatsApp: this.isComercialCheched,
       transaccionId: this.utilitiesService.transaccionId.toString(),
     };
 
@@ -539,4 +591,5 @@ export class CardRegisterFormComponent implements OnInit {
       this.formRegister.get("checkComercial")?.value
     );
   }
+
 }

@@ -1,35 +1,17 @@
 <!-- Button trigger modal facial-->
-<button
-  type="button"
-  class="btn-camara-validacion btn btn-primary"
-  data-toggle="modal"
-  data-target="#camara-validacion"
-  hidden
->
+<button type="button" class="btn-camara-validacion btn btn-primary" data-toggle="modal" data-target="#camara-validacion"
+  hidden>
   modal camara facial
 </button>
 
 <!-- Modal  facial-->
-<div
-  class="modal fade modal-camara"
-  id="camara-validacion"
-  tabindex="-1"
-  aria-labelledby="camaraValidacionModalLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-xl modal-dialog-centered justify-content-center"
-    role="document"
-  >
+<div class="modal fade modal-camara" id="camara-validacion" tabindex="-1" aria-labelledby="camaraValidacionModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered justify-content-center" role="document">
     <div class="modal-content">
       <div class="modal-header camara-header" id="modalCamaraLabel">
-        <button
-          type="button "
-          class="close btn-close-camara-validar"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModalFacial()"
-        >
+        <button type="button " class="close btn-close-camara-validar" data-dismiss="modal" aria-label="Close"
+          (click)="closeModalFacial()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -43,35 +25,23 @@
               </h5>
             </div>
             <div class="col-12 d-flex justify-content-center">
-              <div
-                class="card-login card d-flex flex-column align-items-center align-items-stretch"
-              >
+              <div class="card-login card d-flex flex-column align-items-center align-items-stretch">
                 <div class="card-body animated fadeIn fast mt-4">
                   <div class="" (window:resize)="onResize($event)">
                     <div class="container">
                       <div class="p-1" *ngIf="errors.length > 0">
-                        <div
-                          class=""
-                          style="
+                        <div class="" style="
                             width: 100%;
                             height: 50vh;
                             background-color: rgba(39, 39, 39, 1);
-                          "
-                        ></div>
+                          "></div>
                       </div>
                     </div>
-                    <webcam
-                      [height]="height"
-                      [width]="width"
-                      [trigger]="triggerObservable"
-                      (imageCapture)="handleImage($event)"
-                      [allowCameraSwitch]="allowCameraSwitch"
-                      [switchCamera]="nextWebcamObservable"
-                      [videoOptions]="videoOptions"
-                      (cameraSwitched)="cameraWasSwitched($event)"
-                      (initError)="handleInitError($event)"
-                      *ngIf="utilitiesService.showWebcam && errors.length == 0"
-                    ></webcam>
+                    <webcam [height]="height" [width]="width" [trigger]="triggerObservable"
+                      (imageCapture)="handleImage($event)" [allowCameraSwitch]="allowCameraSwitch"
+                      [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions"
+                      (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"
+                      *ngIf="utilitiesService.showWebcam && errors.length == 0"></webcam>
                   </div>
                 </div>
 
@@ -83,68 +53,39 @@
 
                   <p></p>
                 </div>
-                <div
-                  class="mt-4 d-flex flex-column align-items-center"
-                  *ngIf="
+                <div class="mt-4 d-flex flex-column align-items-center" *ngIf="
                     !utilitiesService.desdelogin &&
                     !utilitiesService.botnesEstadoFacial
-                  "
-                >
-                  <button
-                    id="mpValidarFacial"
-                    class="btn-credits btn mt-1 mb-4 validar" style="font-size: 18px !important;"
-                    [disabled]="errors.length > 0"
-                    (click)="triggerSnapshot()"
-                  >
+                  ">
+                  <button id="miperfil_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
+                    (click)="triggerSnapshot()">
                     <h5 class="m-0">Validar</h5>
                   </button>
-                  <button
-                    id="mpSaltarFacial"
-                    class="btn-secun btn mt-1 mb-1 validar"
-                    
-                    (click)="saltarFacial()"
-                  >
+                  <button id="miperfil_otros_metodos" class="btn-validar-facial-login btn mt-1 mb-1"
+                    (click)="saltarFacial()">
                     <h5 class="m-0">Probar con otros métodos</h5>
                   </button>
                 </div>
-                <div
-                  class="mt-4 d-flex flex-column align-items-center"
-                  *ngIf="
+                <div class="mt-4 d-flex flex-column align-items-center" *ngIf="
                     utilitiesService.actualizarEstadoFacialIC &&
                     utilitiesService.botnesEstadoFacial
-                  "
-                >
-                  <button
-                    id="mpValidarFacial"
-                    class="btn-credits btn mt-1 mb-4 validar" style="font-size: 18px !important;"
-                    [disabled]="errors.length > 0"
-                    (click)="triggerSnapshot()"
-                  >
+                  ">
+                  <button id="miperfil_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
+                    (click)="triggerSnapshot()">
                     <h5 class="m-0">Validar</h5>
                   </button>
-                  <button
-                    id="mpSaltarFacial"
-                    class="btn-secun btn mt-1 mb-1 mr-1 validar"
-                    [disabled]="errors.length > 0"
-                    (click)="closeModalFacial()"
-                  >
+                  <button id="miperfil_saltar_facial" class="btn-validar-facial-login btn mt-1 mb-1"
+                    [disabled]="errors.length > 0" (click)="closeModalFacial()">
                     <h5 class="m-0">Saltar facial</h5>
                   </button>
                 </div>
-                <div class="mx-auto py-4" *ngIf="utilitiesService.desdelogin">
-                  <button
-                    class="btn btn-validar-facial-login btn-block mt-1 mb-4" style="font-size: 18px !important;"
-                    [disabled]="errors.length > 0"
-                    (click)="triggerSnapshot()"
-                  >
+                <div class="mt-4 d-flex flex-column align-items-center" *ngIf="utilitiesService.desdelogin">
+                  <button id="miperfil_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
+                    (click)="triggerSnapshot()">
                     <h5 class="m-0">Validar</h5>
                   </button>
-                  <button
-                    id="mpSaltarFacial"
-                    class="btn btn-secun btn-block mt-1 mb-1" 
-                    
-                    (click)="saltarFacialLogin()"
-                  >
+                  <button id=" miperfil_otros_metodos" class="btn-validar-facial-login btn mt-1 mb-1"
+                    (click)="saltarFacialLogin()">
                     <h5 class="m-0">Probar con otros métodos</h5>
                   </button>
                 </div>
@@ -158,80 +99,39 @@
 </div>
 
 <!-- modal envio de otp -->
-<button
-  type="button"
-  class="btn-envio-otp btn btn-primary"
-  data-toggle="modal"
-  data-target="#modalOtp"
-  hidden
->
+<button type="button" class="btn-envio-otp btn btn-primary" data-toggle="modal" data-target="#modalOtp" hidden>
   Form envio OTP
 </button>
 
 <!-- modal otp -->
-<div
-  class="modal fade modal-otp"
-  id="modalOtp"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="modalPopupLoginLabel"
-  aria-hidden="true"
-  data-backdrop="static"
-  data-keyboard="false"
->
-  <div
-    class="modal-dialog modal-lg modal-dialog-centered justify-content-center"
-    role="document"
-  >
+<div class="modal fade modal-otp" id="modalOtp" tabindex="-1" role="dialog" aria-labelledby="modalPopupLoginLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center" role="document">
     <div class="modal-content modal-otp-estilo">
       <div class="modal-header otp-header" id="modalOtpLabel">
-        <button
-          type="button"
-          class="close btn-flecha-otp"
-          (click)="closeModalFacial()"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close btn-flecha-otp" (click)="closeModalFacial()" data-dismiss="modal"
+          aria-label="Close">
           <i class="bx bx-left-arrow-alt"></i>
         </button>
         <div class="col-md-11 text-center">
-          <div
-            class="justify-content-center"
-            style="
+          <div class="justify-content-center" style="
               display: flex;
               align-items: center;
               justify-content: center;
               position: relative;
-            "
-          >
-            <div
-              class="d-flex justify-content-center align-items-center content-icon"
-            >
-              <img
-                src="assets/img/shield-plus.png"
-                alt="icon-otp"
-                class="icon-otp"
-                *ngIf="!codigoEnviado"
-              />
-              <img
-                src="assets/img/message-notification.png"
-                alt="icon-otp"
-                class="icon-otp"
-                *ngIf="codigoEnviado"
-              />
+            ">
+            <div class="d-flex justify-content-center align-items-center content-icon">
+              <img src="../../../assets/img/shield-plus.png" alt="icon-otp" class="icon-otp" *ngIf="!codigoEnviado" />
+              <img src="../../../assets/img/message-notification.png" alt="icon-otp" class="icon-otp"
+                *ngIf="codigoEnviado" />
             </div>
             <!-- <div class="p-0" style="margin-left: 10px">
               Validación de identidad
             </div> -->
           </div>
         </div>
-        <button
-          type="button"
-          class="close btn-close-otp"
-          (click)="closeModalFacial()"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close btn-close-otp" (click)="closeModalFacial()" data-dismiss="modal"
+          aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -239,27 +139,22 @@
         <div class="container2">
           <div class="row">
             <div class="col-12 m-0 p-0">
-              <h3 class="text-center text1">Validación de identidad</h3>
+              <h3 class="text-center text-titulo-validacion">
+                Validación de identidad
+              </h3>
             </div>
             <div class="col-12 d-flex justify-content-center">
-              <div
-                class="card-login card d-flex flex-column align-items-center align-items-stretch"
-              >
-                <div
-                  class="card-body card-body-login animated fadeIn fast px-4"
-                >
-                  <div
-                    style="text-align: center"
-                    class="wrapper"
-                    (window:resize)="onResize($event)"
-                  >
-                    <p class="paragraph" *ngIf="!codigoEnviado">
+              <div class="card-login card d-flex flex-column align-items-center align-items-stretch">
+                <div class="card-body card-body-login animated fadeIn fast px-4">
+                  <div style="text-align: center" class="wrapper" (window:resize)="onResize($event)">
+                    <p class="paragraph" *ngIf="!codigoEnviado" style="line-height: normal">
                       Te enviaremos un mensaje con un código temporal. Una vez
                       lo ingrese correctamente podrás continuar con el proceso.
                     </p>
                     <p class="paragraph" *ngIf="codigoEnviado">
-                      Ingresa el código en los campos una vez lo recibas. <br>
-                      Después de 3 intentos incorrectos, el acceso será bloqueado.
+                      Ingresa el código en los campos una vez lo recibas. <br />
+                      Después de 3 intentos incorrectos, el acceso será
+                      bloqueado.
                       <!-- Hemos enviado un código a tu {{ selectedOptionOTP }}. Una
                       vez lo recibas, ingrésalo en los campos. -->
                     </p>
@@ -269,256 +164,114 @@
                     <p class="paragraph mt-3" *ngIf="!codigoEnviado">
                       Selecciona donde quieres recibir el código:
                     </p>
-                    <!-- <button
-                      class="btn-sin-acceso"
-                      (click)="noTengoAcceso()"
-                      *ngIf="!codigoEnviado"
-                    >
-                      <p
-                        class="my-4"
-                        style="
-                          font-size: 14px;
-                          color: red;
-                          font-weight: bold;
-                          text-decoration: underline;
-                        "
-                      >
-                        No tengo acceso a este dato
-                      </p>
-                    </button> -->
-
-                    <div class="mt-5" *ngIf="!codigoEnviado">
-                      <form
-                        class="form-login needs-validation"
-                        [formGroup]="formValidate"
-                      >
-                        <div
-                          class="form-check"
-                          style="margin-left: -4.8rem"
-                          *ngIf="celularIndicio || utilitiesService.indiciocel"
-                        >
-                          <input
-                            type="radio"
-                            formControlName="opcionOTP"
-                            class="form-check-input"
-                            autocomplete="off"
-                            name="opcionOTP"
-                            value="movil"
-                            [ngClass]="{
+                    <div class="mt-5 div-form-indicios" *ngIf="!codigoEnviado">
+                      <form class="form-indicios" [formGroup]="formValidate">
+                        <div class="margin-otp">
+                          <div class="form-check d-flex align-items-center mb-2"
+                          *ngIf="celularIndicio || utilitiesService.indiciocel">
+                          <input type="radio" formControlName="opcionOTP" class="form-check-input me-2"
+                            autocomplete="off" name="opcionOTP" value="movil" [ngClass]="{
                               'is-invalid': submitted || f.opcionOTP.touched
-                            }"
-                          />
-                          <label class="" for="opcionOTP">
-                            Celular:
-                            {{ celularIndicio || utilitiesService.indiciocel }}
+                            }" (change)="opcionEnvio = true" />
+                          <label class="form-check-label m-0 text-wrap">
+                            <strong>Celular:</strong>  {{ celularIndicio || utilitiesService.indiciocel }}
                           </label>
-                        </div>
-                        <div
-                          class="form-check"
-                          *ngIf="
-                            correoIndicio || utilitiesService.indiciocorreo
-                          "
-                        >
-                          <input
-                            type="radio"
-                            formControlName="opcionOTP"
-                            class="form-check-input"
-                            autocomplete="off"
-                            name="opcionOTP"
-                            value="correo"
-                            [ngClass]="{
-                              'is-invalid':
-                                (submitted || f.opcionOTP.touched) &&
-                                f.opcionOTP.errors
-                            }"
-                          />
-                          <label class="" for="opcionOTP">
-                            Correo:
-                            {{
-                              correoIndicio || utilitiesService.indiciocorreo
-                            }}
-                          </label>
-                        </div>
-                        <div
-                          class="form-check"
-                          *ngIf="celularIndicio || utilitiesService.indiciocel"
-                        >
-                          <input
-                            type="radio"
-                            formControlName="opcionOTP"
-                            class="form-check-input"
-                            autocomplete="off"
-                            name="opcionOTP"
-                            value="noTengo"
-                            [ngClass]="{
-                              'is-invalid': submitted || f.opcionOTP.touched
-                            }"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="sinAcceso"
-                            style="
-                              color: red !important;
-                              font-weight: bold;
-                              text-decoration: underline;
-                            "
-                          >
-                            ¿No tengo acceso a este dato?
-                          </label>
-                        </div>
-                        <div
-                          *ngIf="opcionEnvio"
-                          class="invalid-feedback animated fadeIn fast"
-                        >
-                          <span
-                            class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-                          >
-                            DEBE ESCOGER UNA OPCIÓN</span
-                          >
                         </div>
 
-                        <!--  <p
-                          class="my-4"
-                          style="
-                            font-size: 14px;
-                            color: red;
-                            text-decoration: underline;
-                            font-weight: bold;
-                          "
-                        >
-                          ¿No tienes acceso a estos datos?
-                      </p> -->
+                        <div class="form-check d-flex align-items-center"
+                          *ngIf="correoIndicio || utilitiesService.indiciocorreo">
+                          <input type="radio" formControlName="opcionOTP" class="form-check-input me-2"
+                            autocomplete="off" name="opcionOTP" value="correo" [ngClass]="{
+                              'is-invalid': (submitted || f.opcionOTP.touched) && f.opcionOTP.errors
+                            }" (change)="opcionEnvio = true" />
+                          <label class="form-check-label m-0 text-wrap">
+                            <strong>Correo:</strong>  {{ correoIndicio || utilitiesService.indiciocorreo }}
+                          </label>
+                        </div>
+                        </div>
+                        
+
+                        <div class="form-check" style="align-items: flex-start"
+                          *ngIf="celularIndicio || utilitiesService.indiciocel">
+                          <button class="btn-sin-acceso" (click)="noTengoAcceso()" *ngIf="!codigoEnviado">
+                            <p class="my-4" style="
+                                color: red !important;
+                                font-weight: bold;
+                                text-decoration: underline;
+                              ">
+                              ¿No tengo acceso a este dato?
+                            </p>
+                          </button>
+                          
+                        </div>
+                        
                       </form>
                     </div>
                     <div class="my-5" *ngIf="codigoEnviado">
-                      <form
-                        class="form-login needs-validation"
-                        [formGroup]="formValidateOTP"
-                      >
+                      <form class="form-login needs-validation" [formGroup]="formValidateOTP">
                         <div class="form-group form-group-custom">
                           <div class="row">
                             <div class="col-12 otp-container">
-                              <input
-                                type="text"
-                                class="form-control clean-input otp-input"
-                                formControlName="numberOTP_uno"
-                                name="numberOTP_uno"
-                                placeholder="0"
-                                autocomplete="off"
-                                maxlength="1"
-                                (keypress)="prevenirNoNumerico($event)"
-                                (input)="
+                              <input type="tel" class="form-control clean-input otp-input"
+                                formControlName="numberOTP_uno" name="numberOTP_uno" placeholder="0" autocomplete="off"
+                                maxlength="1" (keypress)="prevenirNoNumerico($event)" (input)="
                                   moverSiguiente($event, 'numberOTP_dos');
                                   clearInput($event)
-                                "
-                              />
-                              <input
-                                type="text"
-                                class="form-control clean-input otp-input"
-                                formControlName="numberOTP_dos"
-                                name="numberOTP_dos"
-                                placeholder="0"
-                                autocomplete="off"
-                                maxlength="1"
-                                (keypress)="prevenirNoNumerico($event)"
-                                (input)="
+                                " />
+                              <input type="tel" class="form-control clean-input otp-input"
+                                formControlName="numberOTP_dos" name="numberOTP_dos" placeholder="0" autocomplete="off"
+                                maxlength="1" (keypress)="prevenirNoNumerico($event)" (input)="
                                   moverSiguiente($event, 'numberOTP_tres');
                                   clearInput($event)
-                                "
-                                (keydown.backspace)="
+                                " (keydown.backspace)="
                                   moverAnterior($event, 'numberOTP_uno')
-                                "
-                              />
-                              <input
-                                type="text"
-                                class="form-control clean-input otp-input"
-                                formControlName="numberOTP_tres"
-                                name="numberOTP_tres"
-                                placeholder="0"
-                                autocomplete="off"
-                                maxlength="1"
-                                (keypress)="prevenirNoNumerico($event)"
-                                (input)="
+                                " />
+                              <input type="tel" class="form-control clean-input otp-input"
+                                formControlName="numberOTP_tres" name="numberOTP_tres" placeholder="0"
+                                autocomplete="off" maxlength="1" (keypress)="prevenirNoNumerico($event)" (input)="
                                   moverSiguiente($event, 'numberOTP_cuatro');
                                   clearInput($event)
-                                "
-                                (keydown.backspace)="
+                                " (keydown.backspace)="
                                   moverAnterior($event, 'numberOTP_dos')
-                                "
-                              />
+                                " />
                               <span class="dash">-</span>
-                              <input
-                                type="text"
-                                class="form-control clean-input otp-input"
-                                formControlName="numberOTP_cuatro"
-                                name="numberOTP_cuatro"
-                                placeholder="0"
-                                autocomplete="off"
-                                maxlength="1"
-                                (keypress)="prevenirNoNumerico($event)"
-                                (input)="
+                              <input type="tel" class="form-control clean-input otp-input"
+                                formControlName="numberOTP_cuatro" name="numberOTP_cuatro" placeholder="0"
+                                autocomplete="off" maxlength="1" (keypress)="prevenirNoNumerico($event)" (input)="
                                   moverSiguiente($event, 'numberOTP_cinco');
                                   clearInput($event)
-                                "
-                                (keydown.backspace)="
+                                " (keydown.backspace)="
                                   moverAnterior($event, 'numberOTP_tres')
-                                "
-                              />
-                              <input
-                                type="text"
-                                class="form-control clean-input otp-input"
-                                formControlName="numberOTP_cinco"
-                                name="numberOTP_cinco"
-                                placeholder="0"
-                                autocomplete="off"
-                                maxlength="1"
-                                (keypress)="prevenirNoNumerico($event)"
-                                (input)="
+                                " />
+                              <input type="tel" class="form-control clean-input otp-input"
+                                formControlName="numberOTP_cinco" name="numberOTP_cinco" placeholder="0"
+                                autocomplete="off" maxlength="1" (keypress)="prevenirNoNumerico($event)" (input)="
                                   moverSiguiente($event, 'numberOTP_seis');
                                   clearInput($event)
-                                "
-                                (keydown.backspace)="
+                                " (keydown.backspace)="
                                   moverAnterior($event, 'numberOTP_cuatro')
-                                "
-                              />
-                              <input
-                                type="text"
-                                class="form-control clean-input otp-input"
-                                formControlName="numberOTP_seis"
-                                name="numberOTP_seis"
-                                placeholder="0"
-                                autocomplete="off"
-                                maxlength="1"
-                                (keypress)="prevenirNoNumerico($event)"
-                                (input)="clearInput($event)"
-                                (keydown.backspace)="
+                                " />
+                              <input type="tel" class="form-control clean-input otp-input"
+                                formControlName="numberOTP_seis" name="numberOTP_seis" placeholder="0"
+                                autocomplete="off" maxlength="1" (keypress)="prevenirNoNumerico($event)"
+                                (input)="clearInput($event)" (keydown.backspace)="
                                   moverAnterior($event, 'numberOTP_cinco')
-                                "
-                              />
+                                " />
                             </div>
                           </div>
                           <div class="row mt-2">
                             <div
-                              class="col-12 d-flex justify-content-center align-items-center text-center"
-                            >
-                              <p class="text-reenvio-otp text-muted">
+                              class="col-12 p-0 d-flex flex-nowrap justify-content-center align-items-center text-center">
+                              <p class="text-reenvio-otp text-muted m-0">
                                 ¿No recibiste el código?
                               </p>
-                              <p class="circulo-otp mx-2"></p>
-                              <p
-                                class="text-muted"
-                                style="font-size: 12px"
-                                *ngIf="timer > 0"
-                              >
+                              <p class="circulo-otp mx-2 m-0"></p>
+                              <p class="text-muted m-0 text-reenvio-otp" style="white-space: nowrap" *ngIf="timer > 0">
                                 Reenviar código en 00:{{ timer }}
                               </p>
-                              <a
-                                type="button"
-                                style="font-size: 12px; margin-top: -4%"
-                                (click)="reenviarCodigoOTP()"
-                                *ngIf="timer <= 0"
-                                class="text-muted"
-                              >
+                              <a type="button" class="text-muted m-0 text-reenvio-otp"
+                                style="margin-left: 6px; white-space: nowrap" (click)="reenviarCodigoOTP()"
+                                *ngIf="timer <= 0">
                                 Reenviar código
                               </a>
                             </div>
@@ -528,31 +281,30 @@
                     </div>
 
                     <div class="flex-column">
-                      <button
-                        class="btn-credits btn mt-4 mb-1 btn-block py-1"
-                        *ngIf="!codigoEnviado && !contituarInicio"
-                        (click)="enviarCodigoOTP()"
-                      >
-                        <h5 class="m-0 p-q">Continuar</h5>
+                      <button id="miperfil_otp_envio" class="btn-credits-blue btn mt-2 mb-1 btn-block py-1"
+                        *ngIf="!codigoEnviado && !contituarInicio" (click)="enviarCodigoOTP()" [disabled]="!opcionEnvio"
+                        [ngStyle]="{
+                        color: !opcionEnvio ? '#667085' : '#FFF',
+                        backgroundColor: !opcionEnvio ? '#c1eaf9' : '#00AEEF',
+                       
+                      }">
+                        Continuar
                       </button>
-                      <button
-                        class="btn-credits btn mt-1 mb-1 btn-block p-1"
-                        *ngIf="codigoEnviado && !contituarInicio"
-                        (click)="validarCodigoOTP()"
-                        [disabled]="
+                      <button id="miperfil_otp_confirmar" class="btn-credits-blue btn mt-1 mb-1 btn-block p-1"
+                        *ngIf="codigoEnviado && !contituarInicio" (click)="validarCodigoOTP()" [disabled]="
                           formValidateOTP.invalid || utilitiesService.loading
-                        "
-                      >
+                        ">
                         <h5 class="m-0 p-1">Continuar</h5>
                       </button>
 
-                      <button
-                        (click)="enviarOtpXdocTipodoc()"
-                        class="btn-credits btn btn-block my-4"
-                        style="margin-top: 3rem !important"
-                        *ngIf="!codigoEnviado && contituarInicio"
-                      >
-                        <h5 class="m-0 p-q">Continuar</h5>
+                      <button id="miperfil_otp_envio" (click)="enviarOtpXdocTipodoc()"
+                        class="btn-credits-blue btn btn-block my-4" *ngIf="!codigoEnviado && contituarInicio"
+                        [disabled]="!opcionEnvio" [ngStyle]="{
+                        color: !opcionEnvio ? '#667085' : '#FFF',
+                        backgroundColor: !opcionEnvio ? '#c1eaf9' : '#00AEEF',
+                       
+                      }">
+                        Continuar
                       </button>
                     </div>
                   </div>
@@ -568,38 +320,17 @@
 
 <!-- Modal 3 opcion de inicio de sesion -->
 
-<button
-  type="button"
-  class="btn-TpDocYdoc-login btn btn-primary"
-  data-toggle="modal"
-  data-target="#btn-TpDocYdoc-login"
-  hidden
->
+<button type="button" class="btn-TpDocYdoc-login btn btn-primary" data-toggle="modal" data-target="#btn-TpDocYdoc-login"
+  hidden>
   modal tercera opcion de inicio de sesión
 </button>
 
-<div
-  class="modal fade modal-otp"
-  id="btn-TpDocYdoc-login"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="modalPopupLoginLabel"
-  aria-hidden="true"
-  data-backdrop="static"
-  data-keyboard="false"
->
-  <div
-    class="modal-dialog modal-md modal-dialog-centered justify-content-center"
-    role="document"
-  >
+<div class="modal fade modal-otp" id="btn-TpDocYdoc-login" tabindex="-1" role="dialog"
+  aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md modal-dialog-centered justify-content-center" role="document">
     <div class="modal-content">
       <div class="card-body card-body-login animated fadeIn fast">
-        <button
-          type="button"
-          class="close btn-cerra-tpDcYdoc"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close btn-cerra-tpDcYdoc" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 class="card-title-general card-title card-title-inicio-tpdoc mb-4">
@@ -610,115 +341,69 @@
           proceso de inicio de sesión.
         </p>
         <div class="login-content">
-          <form
-            class="form-login needs-validation"
-            [formGroup]="formCredenciales"
-            (ngSubmit)="inicioDocOtp()"
-          >
+          <form class="form-login needs-validation" [formGroup]="formCredenciales" (ngSubmit)="inicioDocOtp()">
             <div class="form-group form-group-custom conteninputlabelform">
-              <label class="m-0 labelLoginHome"
-                >Selecciona el tipo de documento *</label
-              >
+              <label class="m-0 labelLoginHome">Selecciona el tipo de documento *</label>
               <div class="card card-custom-select">
                 <div class="content-custom-select">
-                  <select
-                    class="form-control inputloginsimulador"
-                    formControlName="tpDoc"
-                    (change)="capturar($event.target.value)"
-                    [ngClass]="{
+                  <select class="form-control inputloginsimulador" formControlName="tpDoc"
+                    (change)="capturar($event.target.value)" [ngClass]="{
                       'is-invalid':
                         (submitted || fCredenciales.tpDoc.touched) &&
                         fCredenciales.tpDoc.errors
-                    }"
-                  >
+                    }">
                     <option value="" hidden selected>
                       * Selecciona el tipo de documento
                     </option>
-                    <option
-                      *ngFor="let dt of dataTpDoc"
-                      value="{{ dt.tipoDocumento }}"
-                    >
+                    <option *ngFor="let dt of dataTpDoc" value="{{ dt.tipoDocumento }}">
                       {{ dt.nombre }}
                     </option>
                   </select>
                   <i class="icon-down1 fas fa-chevron-down pl-2"></i>
                 </div>
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   (submitted || fCredenciales.tpDoc.touched) &&
                   fCredenciales.tpDoc.errors
-                "
-                class="badge badge-pill badge-danger cf-badge d-block mt-2 text-left"
-                >DEBES SELECCIONAR UN TIPO DE DOCUMENTO PARA INICIAR
-                SESIÓN</span
-              >
+                " class="badge badge-pill badge-danger cf-badge d-block mt-2 text-left">DEBES SELECCIONAR UN TIPO DE
+                DOCUMENTO PARA INICIAR
+                SESIÓN</span>
             </div>
             <div class="form-group form-group-custom">
               <label class="m-0 mb-1">Número de documento</label>
-              <input
-                type="number"
-                formControlName="document"
-                class="form-control clean-input"
-                placeholder="* Número de documento"
-                placement="right"
-                autocomplete="off"
-                min="1"
-                [ngClass]="{
+              <input type="number" formControlName="document" class="form-control clean-input"
+                placeholder="* Número de documento" placement="right" autocomplete="off" min="1" [ngClass]="{
                   'is-invalid':
                     (submitted || fCredenciales.document.touched) &&
                     fCredenciales.document.errors
-                }"
-              />
-              <div
-                *ngIf="
+                }" />
+              <div *ngIf="
                   (submitted || fCredenciales.document.touched) &&
                   fCredenciales.document.errors
-                "
-                class="invalid-feedback animated fadeIn fast"
-              >
-                <span
-                  *ngIf="fCredenciales.document.errors?.required"
-                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-                >
-                  NÚMERO DE DOCUMENTO ES REQUERIDO</span
-                >
+                " class="invalid-feedback animated fadeIn fast">
+                <span *ngIf="fCredenciales.document.errors?.required"
+                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  NÚMERO DE DOCUMENTO ES REQUERIDO</span>
               </div>
-              <div
-                *ngIf="
+              <div *ngIf="
                   (submitted || fCredenciales.document.touched) &&
                   fCredenciales.document.errors?.min
-                "
-                class="invalid-feedback animated fadeIn fast"
-              >
-                <span
-                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-                >
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
                   DEBES INGRESAR MÍNIMO 6 DÍGITOS
                 </span>
               </div>
-              <div
-                *ngIf="
+              <div *ngIf="
                   (submitted || fCredenciales.document.touched) &&
                   fCredenciales.document.errors?.max
-                "
-                class="invalid-feedback animated fadeIn fast"
-              >
-                <span
-                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-                  >DEBES INGRESAR MÁXIMO 15 DÍGITOS</span
-                >
+                " class="invalid-feedback animated fadeIn fast">
+                <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">DEBES INGRESAR
+                  MÁXIMO 15 DÍGITOS</span>
               </div>
-              <div
-                *ngIf="submitted"
-                class="invalid-feedback animated fadeIn fast"
-              >
-                <span
-                  *ngIf="fCredenciales.document.errors?.required"
-                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-                >
-                  DEBES INGRESAR DÍGITOS POSITIVOS</span
-                >
+              <div *ngIf="submitted" class="invalid-feedback animated fadeIn fast">
+                <span *ngIf="fCredenciales.document.errors?.required"
+                  class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
+                  DEBES INGRESAR DÍGITOS POSITIVOS</span>
               </div>
             </div>
 
@@ -730,14 +415,8 @@
               </div>
             </div>
             <div class="form-group form-group-custom m-0">
-              <button
-                [disabled]="utilitiesService.loading"
-                class="btn btn-credits btn-signin btn-block mt-1 mb-3"
-              >
-                <span
-                  *ngIf="utilitiesService.loading"
-                  class="spinner-border spinner-border-sm mr-1"
-                ></span>
+              <button [disabled]="utilitiesService.loading" class="btn btn-credits btn-signin btn-block mt-1 mb-3">
+                <span *ngIf="utilitiesService.loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Continuar
               </button>
             </div>

@@ -46,11 +46,11 @@
               <li class="list-group-item list-gf" *ngFor="let grupof of nucleoFamiliar; index as gf"
                 [ngClass]="{ 'item-border-success': grupof.inhabilitado }">
                 <div class="row">
-                  <div class="col-md-10">
+                  <div class="col-md-9">
                     <h6 style="font-weight: 500;">{{ grupof.nombreCompleto | titlecase }}</h6>
                     <p>{{ grupof.documento }}</p>
                   </div>
-                  <div class="col-md-2 d-flex flex-column justify-content-center agregar-btn" *ngIf="!grupof.inhabilitado">
+                  <div class="col-md-3 d-flex flex-column justify-content-center agregar-btn align-items-center" *ngIf="!grupof.inhabilitado">
                     <p class="mb-1 mx-auto">Agregar</p>
                     <div class="cntr ml-1 mx-auto">
                       <input class="hidden-xs-up" id="cbx-{{gf}}" type="checkbox"
@@ -58,7 +58,7 @@
                       <label class="cbx" for="cbx-{{gf}}"></label>
                     </div>
                   </div>
-                  <div class="col-md-2 d-flex flex-column justify-content-center" *ngIf="grupof.inhabilitado">
+                  <div class="col-md-3 d-flex flex-column justify-content-center aling-items-center" *ngIf="grupof.inhabilitado">
                     <button class="btn" (click)="eliminarAsistente(grupof)">
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
                         xmlns="http://www.w3.org/2000/svg">
@@ -143,6 +143,7 @@
                     <option value="" disabled selected> Escoge </option>
                     <option value="F">Femenino</option>
                     <option value="M">Masculino</option>
+                    <option value="O">Otro</option>
                   </select>
                     
                   </div>
