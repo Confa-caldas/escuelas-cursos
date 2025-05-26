@@ -329,6 +329,7 @@ export class CursosComponent {
               // Ordena los horarios del curso
               curso.horario = ordenarHorarios(curso.horario);
             }
+
           });
 
           // Inicializa las opciones de filtros
@@ -380,7 +381,7 @@ export class CursosComponent {
       const rangos = cursos.map(curso => ({
         min: curso.edadMinima,
         max: curso.edadMaxima,
-        id: curso.id,
+        id: curso.id, //391
       }));
       
       this.edades = rangos.filter(
@@ -397,7 +398,7 @@ export class CursosComponent {
     this.deportes = Array.from(deporteMap.values());
     this.horarios = Array.from(horarioMap.values());
 
-    /* //console.log(this.horarios) */
+    //console.log(this.edades, 'Edades')
   }
 
 
@@ -426,10 +427,21 @@ export class CursosComponent {
       //cursosFiltrados = cursosFiltrados.filter(curso => curso.id === deporteSeleccionado);
     }
 
-    if (this.edadSeleccionada !== 'default') {
+   /*  if (this.edadSeleccionada !== 'default') {
+      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
+      cursosFiltrados = cursosFiltrados.filter(curso =>
+        curso.edadMinima >= minEdad && curso.edadMaxima <= maxEdad
+      );
+    } */
+
+     if (this.edadSeleccionada !== 'default') {
       const edadSeleccionada = Number(this.edadSeleccionada);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.id === edadSeleccionada);
+      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
+      console.log(minEdad)
+      cursosFiltrados = cursosFiltrados.filter(curso => curso.edadMinima === minEdad && curso.edadMaxima <= maxEdad);
     }
+
+    
 
     if (this.horarioSeleccionada !== 'default') {
       const horarioSeleccionada = Number(this.horarioSeleccionada); // Asegúrate de convertirlo a número
