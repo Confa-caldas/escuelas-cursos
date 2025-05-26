@@ -227,7 +227,7 @@ export class CursosComponent {
               localStorage.setItem("user", JSON.stringify(response));
               localStorage.setItem("cc", response.usuario.documento);
               this.document = response.usuario.documento;
-              this.utilitiesService.loading = true;
+              //this.utilitiesService.loading = true;
               //this.consultarInformacionMiPerfilConfa(this.document);
             }
           });
@@ -236,8 +236,8 @@ export class CursosComponent {
 
   ngOnInit() {
     this.preguntas = this._collection;
-    this.consultarInformacionMiPerfilConfa(this.document);
     this.consultarCursos();
+    this.consultarInformacionMiPerfilConfa(this.document);
   }
 
   toggleAccordion(index: number): void {
@@ -252,9 +252,9 @@ export class CursosComponent {
 
   consultarInformacionMiPerfilConfa(documento: string) {
     const infoUser = JSON.parse(localStorage.getItem("user"));
-    //console.log(infoUser)
+    console.log(infoUser)
         this.userMiPerfil = infoUser.user;
-        this.documento = infoUser.usuario.documento;
+        //this.documento = infoUser.usuario.documento;
         this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
         this.utilitiesService.loading = false;
         this.utilitiesService.fullNameUser =`${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
@@ -286,6 +286,7 @@ export class CursosComponent {
   }
 
   consultarCursos() {
+    this.utilitiesService.loading = true;
     const idServicio = Number(localStorage.getItem('idServicio'));
     const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
