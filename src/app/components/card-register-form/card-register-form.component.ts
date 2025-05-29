@@ -262,7 +262,7 @@ export class CardRegisterFormComponent implements OnInit, OnChanges {
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
                       $(
-                        ".btn-modal-exclaim-validation-confirmacion-registro"
+                        ".modalNuevowarning-confirmacion-registro"
                       ).click();
                     }, 1000);
                   } else {
@@ -274,7 +274,7 @@ export class CardRegisterFormComponent implements OnInit, OnChanges {
                     // console.log("Registro invalido:", response);
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $(".btn-modal-error-validation").click();
+                      $(".modalNuevoError").click();
                     }, 1000);
                   }
                 });
@@ -497,7 +497,7 @@ export class CardRegisterFormComponent implements OnInit, OnChanges {
                       this.utilitiesService.backLogin = true;
                       setTimeout(() => {
                         this.utilitiesService.loading = false;
-                        $(".btn-modal-exclaim-validation").click();
+                        $(".modalNuevowarning").click();
                       }, 500);
                     }
                   });

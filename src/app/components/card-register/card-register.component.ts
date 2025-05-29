@@ -124,7 +124,7 @@ export class CardRegisterComponent implements OnInit {
                     this.utilitiesService.backLogin = false;
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $(".btn-modal-exclaim-validation").click();
+                      $(".modalNuevowarning").click(); 
                     }, 500);
                     ////this.formValidate.reset();
                     ////this.formValidate.get("tpDoc").setValue("");
@@ -136,7 +136,7 @@ export class CardRegisterComponent implements OnInit {
                     $(".btn-close-popup-login").click();
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $(".btn-modal-exclaim-validation").click();
+                      $(".modalNuevowarning").click();
                     }, 500);
                     ////this.formValidate.reset();
                     ////this.formValidate.get("tpDoc").setValue("");
@@ -189,7 +189,7 @@ export class CardRegisterComponent implements OnInit {
                             this.preguntasEmitter.emit(response.preguntas);
                             setTimeout(() => {
                               this.utilitiesService.loading = false;
-                              $(".btn-modal-exclaim-validation").click();
+                              $(".modalNuevowarning").click();
                             }, 500);
                             $(".btn-close-popup-login").click();
                             setTimeout(() => {
@@ -228,8 +228,8 @@ export class CardRegisterComponent implements OnInit {
                           $(".btn-close-popup-login").click();
                           setTimeout(() => {
                             this.utilitiesService.loading = false;
-                            $(".btn-modal-exclaim-validation-registro").click();
-                            //$(".btn-modal-exclaim-validation").click();
+                            $(".modalNuevowarning").click();
+                            //$(".modalNuevowarning").click();
                           }, 500);
                           /* setTimeout(() => {
                             $(".btn-form-register").click();
@@ -253,7 +253,7 @@ export class CardRegisterComponent implements OnInit {
                           "Como menor de edad, te informamos que envíaremos una notificación a tu padre, madre o tutor legal para notificar tu registro.";
                         this.utilitiesService.backLogin = false;
                         setTimeout(() => {
-                          $(".btn-modal-information-validation").click();
+                          $(".modalNuevoInfo").click();
                           console.log("Notifica al padre");
                         }, 500);
                         $(".btn-close-popup-login").click();
@@ -274,7 +274,7 @@ export class CardRegisterComponent implements OnInit {
                     this.utilitiesService.backLogin = false;
                     $(".btn-close-popup-login").click();
                     setTimeout(() => {
-                      $(".btn-modal-information-validation").click();
+                      $(".modalNuevoInfo").click();
                     }, 500);
                     ////this.formValidate.reset();
                     ////this.formValidate.get("tpDoc").setValue("");
@@ -357,7 +357,7 @@ export class CardRegisterComponent implements OnInit {
 
                 setTimeout(() => {
                   this.utilitiesService.loading = false;
-                  $(".btn-modal-exclaim-validation").click();
+                  $(".modalNuevowarning").click();
                 }, 500);
               }
             });

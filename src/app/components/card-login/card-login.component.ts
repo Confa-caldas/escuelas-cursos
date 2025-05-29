@@ -427,7 +427,7 @@ export class CardLoginComponent implements OnInit {
 
                 setTimeout(() => {
                   this.utilitiesService.loading = false;
-                  $(".btn-modal-exclaim-validation").click();
+                  $(".modalNuevowarning").click();
                 }, 500);
               }
             });

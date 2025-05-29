@@ -73,13 +73,16 @@
         </li>
         <li *ngIf="!utilitiesService.currentUser" class="nav-item">
           <a
-            class="nav-link btn-modal-login"
+            id="btn-login"
+            class="nav-link"
             href="javascript:;"
-            data-toggle="modal"
-            data-target="#modalPopupLogin"
+            (click)="activarFacial()"
             ><span class="btn-login">Iniciar sesión</span></a
           >
         </li>
+        <!-- <li *ngIf="utilitiesService.currentUser" class="nav-item">
+                    <a class="nav-link" href="javascript:;" (click)="logout()" ><span class="btn-login">Cerrar sesión</span></a>
+                </li> -->
         <li *ngIf="utilitiesService.currentUser" class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -91,7 +94,8 @@
             aria-expanded="false"
           >
             <span class="btn-login"
-              >{{ utilitiesService.currentUser.primerNombre }}</span
+              >{{ utilitiesService.currentUser.primerNombre }}
+              {{ utilitiesService.currentUser.segundoNombre }}</span
             >
           </a>
           <div

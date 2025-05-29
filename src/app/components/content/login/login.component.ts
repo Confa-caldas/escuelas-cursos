@@ -247,7 +247,7 @@ export class LoginComponent implements OnInit {
         "No se detectó cámara en el dispositivo";
       this.utilitiesService.backLogin = false;
       setTimeout(() => {
-        $(".btn-modal-error-validation").click();
+        $(".modalNuevoError").click();
       }, 500);
       setTimeout(() => {
         $(".btnLogin").click();

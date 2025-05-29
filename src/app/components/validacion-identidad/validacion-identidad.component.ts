@@ -903,7 +903,7 @@ export class ValidacionIdentidadComponent implements OnInit {
                     this.imgValida = true;
 
                     setTimeout(() => {
-                      $(".btn-modal-exclaim-validation-facial").click();
+                      $(".modalNuevowarning-facial").click();
                     }, 500);
                   } // este es el caso en que si tenga los indicios, acá se le asinan a las variables correspondientes
                   else {
