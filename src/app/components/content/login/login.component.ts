@@ -229,7 +229,7 @@ export class LoginComponent implements OnInit {
     this.otrosIngresos = true;
     setTimeout(() => {
       this.utilitiesService.loading = false;
-      $(".btn-modal-login").click();
+      $(".btnLogin").click();
     }, 500);
   }
 
