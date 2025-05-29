@@ -546,12 +546,12 @@ export class AuthenticationService {
     );
   }
 
-  validarFacial(imagen: string) {
+  validarFacial(imagen: string, token: string) {
     let body = {
       foto: imagen,
     };
 
-    return this.getQuery("validar/metodo4", body).pipe(
+    return this.getQueryToken("validar/metodo4", body, token).pipe(
       map((response) => {
         //console.log(response)
         return response;

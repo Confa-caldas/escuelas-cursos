@@ -772,7 +772,7 @@ export class ValidacionIdentidadComponent implements OnInit {
       .subscribe((responseTING: Token) => {
         if (responseTING.token) {
           this.autenticacionService
-            .validarFacial(this.pictureTaken.imageAsBase64)
+            .validarFacial(this.pictureTaken.imageAsBase64,responseTING.token)
             .pipe(first())
             .subscribe((response: any) => {
               console.log(response.bloqueo);
