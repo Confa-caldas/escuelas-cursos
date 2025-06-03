@@ -963,71 +963,74 @@ export class SeleccionAsistentesComponent implements OnInit {
 //console.log('informacionUsuarioGrupoFamiliar')
     //informacion del usuario 
     const infoUser = JSON.parse(localStorage.getItem("InformacionMiPerfil"));
-    //console.log(infoUser, 'infoUser')
-    this.userMiPerfil = infoUser.usuario;
-    this.documento = infoUser.documento;
-    this.fullName = `${infoUser.primerNombre} ${infoUser.segundoNombre} ${infoUser.primerApellido} ${infoUser.segundoApellido}`;
-    this.utilitiesService.fechaNaciemintoResponsable = infoUser.fechaNacimiento;
-
-    //infromacion del grupo familiar 
-    const gfUnico = JSON.parse(localStorage.getItem("grupoFamiliarFusionado"));
-    for (let index = 0; index < gfUnico.length; index++) {
-      const grupoFamiliar = gfUnico[index];
-      //console.log('entro al FOR')
-
-      if (Number(grupoFamiliar.edad) >= Number(this.utilitiesService.edadMin) && Number(grupoFamiliar.edad) <= Number(this.utilitiesService.edadMax)) {
-        if (Number(grupoFamiliar.edad) > 18) {
-          this.mayorEdad = true;
-          this.menorEdad = false;
-          //catBen = resultadoUnico[0].categoria;
-          //catBen = 'C'
-        } else {
-          this.mayorEdad = false;
-          this.menorEdad = true;
-          //catBen = resultadoUnico[0].categoria;
-        }
-        // Buscar la tarifa correspondiente
-        const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === grupoFamiliar.categoria);
-        //valida si el usuario ya se encuentra incrito en el curso seleccionado
-        this.yaEstaIncrito(this.programacionId, grupoFamiliar.documento,);
-        setTimeout(() => {
-          if (this.estadoEstadoInscrito == false) {
-            this.nucleoFamiliar.push({
-              nombreCompleto: grupoFamiliar.nombreCompleto,
-              documento: grupoFamiliar.documento || '',
-              tipoDocumento: grupoFamiliar.tipoDoc || '',
-              direccionResidencia: infoUser.direccion || '',
-              celular: Number(infoUser.celular) || 0,
-              email: infoUser.correo || '',
-              categoria: grupoFamiliar.categoria,
-              municipioId: 1,
-              mayor19Anios: this.mayorEdad,
-              esMenor18: this.menorEdad,
-              tipoAfiliacion: grupoFamiliar.documento === infoUser.documento ? infoUser.tipoUsuario : 'B',
-              genero: grupoFamiliar.sexo || '',
-              fechaNacimiento: grupoFamiliar.fechaNacimiento || '',
-              docAfiliado: infoUser.documento,
-              esTrabajadorConfa: false,
-              valorPagoCurso: Number(tarifaBeneficiario[1]),
-              inhabilitado: false // Nueva propiedad para controlar el estado
-            });
-          }
-        }, 1000);
-      }
-
-    }
-    
-    //console.log('salio del FOR')
 
     setTimeout(() => {
-      ////console.log(this.nucleoFamiliar);
-      // Validación de resultados
-      if (this.nucleoFamiliar.length === 0) {
-        this.utilitiesService.messageTitleModal = "Atención";
-        this.utilitiesService.messageModal = 'Ningún integrante de tu grupo familiar está habilitado para el curso seleccionado o ya están inscritos';
-        this.utilitiesService.backLogin = false;
-        $(".modalNuevowarning").click();
+      this.userMiPerfil = infoUser.usuario;
+      this.documento = infoUser.documento;
+      this.fullName = `${infoUser.primerNombre} ${infoUser.segundoNombre} ${infoUser.primerApellido} ${infoUser.segundoApellido}`;
+      this.utilitiesService.fechaNaciemintoResponsable = infoUser.fechaNacimiento;
+
+      //infromacion del grupo familiar 
+      const gfUnico = JSON.parse(localStorage.getItem("grupoFamiliarFusionado"));
+      console.log('gfUnico', gfUnico)
+      for (let index = 0; index < gfUnico.length; index++) {
+        const grupoFamiliar = gfUnico[index];
+        //console.log('entro al FOR')
+
+        if (Number(grupoFamiliar.edad) >= Number(this.utilitiesService.edadMin) && Number(grupoFamiliar.edad) <= Number(this.utilitiesService.edadMax)) {
+          if (Number(grupoFamiliar.edad) > 18) {
+            this.mayorEdad = true;
+            this.menorEdad = false;
+            //catBen = resultadoUnico[0].categoria;
+            //catBen = 'C'
+          } else {
+            this.mayorEdad = false;
+            this.menorEdad = true;
+            //catBen = resultadoUnico[0].categoria;
+          }
+          // Buscar la tarifa correspondiente
+          const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === grupoFamiliar.categoria);
+          //valida si el usuario ya se encuentra incrito en el curso seleccionado
+          this.yaEstaIncrito(this.programacionId, grupoFamiliar.documento,);
+          setTimeout(() => {
+            if (this.estadoEstadoInscrito == false) {
+              this.nucleoFamiliar.push({
+                nombreCompleto: grupoFamiliar.nombreCompleto,
+                documento: grupoFamiliar.documento || '',
+                tipoDocumento: grupoFamiliar.tipoDoc || '',
+                direccionResidencia: infoUser.direccion || '',
+                celular: Number(infoUser.celular) || 0,
+                email: infoUser.correo || '',
+                categoria: grupoFamiliar.categoria,
+                municipioId: 1,
+                mayor19Anios: this.mayorEdad,
+                esMenor18: this.menorEdad,
+                tipoAfiliacion: grupoFamiliar.documento === infoUser.documento ? infoUser.tipoUsuario : 'B',
+                genero: grupoFamiliar.sexo || '',
+                fechaNacimiento: grupoFamiliar.fechaNacimiento || '',
+                docAfiliado: infoUser.documento,
+                esTrabajadorConfa: false,
+                valorPagoCurso: Number(tarifaBeneficiario[1]),
+                inhabilitado: false // Nueva propiedad para controlar el estado
+              });
+            }
+          }, 1000);
+        }
+
       }
+      
+      //console.log('salio del FOR')
+
+      setTimeout(() => {
+        ////console.log(this.nucleoFamiliar);
+        // Validación de resultados
+        if (this.nucleoFamiliar.length === 0) {
+          this.utilitiesService.messageTitleModal = "Atención";
+          this.utilitiesService.messageModal = 'Ningún integrante de tu grupo familiar está habilitado para el curso seleccionado o ya están inscritos';
+          this.utilitiesService.backLogin = false;
+          $(".modalNuevowarning").click();
+        }
+      }, 1000);
     }, 1000);
   }
 }

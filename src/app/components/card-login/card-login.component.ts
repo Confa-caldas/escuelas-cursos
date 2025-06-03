@@ -123,7 +123,7 @@ export class CardLoginComponent implements OnInit {
                     "No puedes ingresar debido a que excediste los intentos permitidos para validarte. Escríbenos a pqrsf@confa.co con copia de tu documento.",
                     true
                   );
-                   this.authenticationService.logout();
+                  this.authenticationService.logout();
                   return;
                 }
 
@@ -188,7 +188,7 @@ export class CardLoginComponent implements OnInit {
         next: (token: Token) => {
           if (!token.token) {
             this.showModalMessage("No puedes continuar", "No se pudo obtener el token.", false);
-             this.authenticationService.logout();
+            this.authenticationService.logout();
             return;
           }
 
@@ -205,12 +205,12 @@ export class CardLoginComponent implements OnInit {
             this.verificarServicios();
           } else {
             this.showModalMessage("Inténtalo nuevamente", this.utilitiesService.errorInfoLogin, false);
-             this.authenticationService.logout();
+            this.authenticationService.logout();
           }
         },
         error: () => {
           this.showModalMessage("No puedes continuar", "No se pudo completar la autenticación.", false);
-           this.authenticationService.logout();
+          this.authenticationService.logout();
         }
       });
   }
@@ -223,7 +223,7 @@ export class CardLoginComponent implements OnInit {
           const servicios = response.servicios || [];
           if (servicios.length === 0) {
             this.showModalMessage("No puedes continuar", "No hay cursos activos.", false);
-             this.authenticationService.logout();
+            this.authenticationService.logout();
             return;
           }
 
@@ -366,44 +366,74 @@ export class CardLoginComponent implements OnInit {
   }
 
   consultarGrupoFamiliar(documento: string) {
-  this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
-  .subscribe((response: any) => {
-    //console.log(response,'consultarInformacionMiPerfilConfa card-login')
-    
-    localStorage.setItem('InformacionMiPerfil', JSON.stringify(response));
+    this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
+      .subscribe((response: any) => {
+        localStorage.setItem('InformacionMiPerfil', JSON.stringify(response));
 
-      const gf = response.grupoFamiliar;
-      const lgf = response.listadoGruposFamiliares;
+        const gf = response.grupoFamiliar;
+        const lgf = response.listadoGruposFamiliares;
 
-      const personasACargo = [];
+        const personasACargo = [];
 
-      // Extraer todas las personasACargo
-      lgf.forEach(grupo => {
-        if (grupo.personasACargo && Array.isArray(grupo.personasACargo)) {
-          grupo.personasACargo.forEach(persona => {
-            // Buscar si hay datos adicionales en grupoFamiliar por documento
-            const datosGF = gf.find(miembro => miembro.documento === persona.documento);
+        // Extraer todas las personasACargo
+        lgf.forEach(grupo => {
+          if (grupo.personasACargo && Array.isArray(grupo.personasACargo)) {
+            grupo.personasACargo.forEach(persona => {
+              const datosGF = gf.find(miembro => miembro.documento === persona.documento);
 
-            // Fusionar si existe, sino solo deja la persona original
-            const personaFusionada = {
-              ...persona,
-              ...datosGF,
-              nombreCompleto: datosGF
-                ? `${datosGF.nombre1 || ''} ${datosGF.nombre2 || ''} ${datosGF.apellido1 || ''} ${datosGF.apellido2 || ''}`.replace(/\s+/g, ' ').trim()
-                : persona.nombre
-            };
+              const personaFusionada = {
+                ...persona,
+                ...datosGF,
+                nombreCompleto: datosGF
+                  ? `${datosGF.nombre1 || ''} ${datosGF.nombre2 || ''} ${datosGF.apellido1 || ''} ${datosGF.apellido2 || ''}`.replace(/\s+/g, ' ').trim()
+                  : persona.nombre
+              };
 
-            personasACargo.push(personaFusionada);
-          });
-        }
+              personasACargo.push(personaFusionada);
+            });
+          }
+        });
+
+        const edad = this.dataServiciosCursos.calcularEdad(response.fechaNacimiento)
+
+        // Agregar al titular (la persona que consulta)
+        const titularFusionado = {
+          nombre: `${response.primerApellido || ''} ${response.segundoApellido || ''} ${response.primerNombre || ''} ${response.segundoNombre || ''}`.replace(/\s+/g, ' ').trim(),
+          documento: response.documento,
+          tipoDoc: response.tipoDocumento || '', // o response.tipo_docu_text si aplica
+          parentesco: 'TITULAR',
+          edad: edad,
+          fechaNacimiento: response.fechaNacimiento || '',
+          valorSubsidio: 0,
+          estadoEscolaridad: 'NO APLICA',
+          fechaVencimientoEscolaridad: '',
+          estadoSupervivencia: 'VIGENTE',
+          custodia: '',
+          docBeneficiarioPago: response.documento,
+          nombreBeneficiarioPago: response.nombreCompleto || '',
+          estadoBeneficiario: response.estado || 'A',
+          otroPadre: '',
+          salarioOtroPadre: 0,
+          discapacidad: 'N',
+          docOtroPadre: '',
+          salario: 0,
+          numeroCuotas: 0,
+          sexo: response.sexo || '',
+          nombre1: response.primerNombre || '',
+          nombre2: response.segundoNombre || '',
+          apellido1: response.primerApellido || '',
+          apellido2: response.segundoApellido || '',
+          categoria: response.categoria || '',
+          nombreCompleto: response.nombreCompleto || `${response.primerNombre || ''} ${response.segundoNombre || ''} ${response.primerApellido || ''} ${response.segundoApellido || ''}`.replace(/\s+/g, ' ').trim()
+        };
+
+
+        personasACargo.push(titularFusionado);
+
+        // Guardar en localStorage
+        localStorage.setItem('grupoFamiliarFusionado', JSON.stringify(personasACargo));
       });
+  }
 
-      // Guardar en localStorage
-      localStorage.setItem('grupoFamiliarFusionado', JSON.stringify(personasACargo));
-
-      // Opcional: Mostrar por consola
-      //console.log('Grupo familiar fusionado:', personasACargo);
-    });
-}
 
 }
