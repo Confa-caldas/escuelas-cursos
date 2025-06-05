@@ -106,7 +106,7 @@
                 <div class="col form-group form-group-custom">
                   <label for="">Número de documento</label>
                   <input type="text" class="form-control" placeholder="Escribe " [(ngModel)]="documentoOtroAsistente"
-                    name="numeroDocuemnto" (change)="ValidarOtroAsistente()" (keypress)="preventWhitespace($event)">
+                    name="numeroDocuemnto" (change)="ValidarOtroAsistente()" (keypress)="preventWhitespace($event)" (paste)="evitarPegado($event)">
                 </div>
                 <div class="col">
                   <div class="form-group form-group-custom">
