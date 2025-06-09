@@ -117,6 +117,8 @@ export interface ValidateQuestion {
   error: string;
   estado: number;
   debeActualizarDatos: boolean;
+  transaccionId:number;
+  tipoBloqueo:string;
 }
 
 export interface userMiPerfil {

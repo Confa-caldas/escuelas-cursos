@@ -117,58 +117,117 @@ export class LoginComponent implements OnInit {
   guardarRespuestas(respuestas: any) {
     this.utilitiesService.messageLoading = "Cargando, por favor espera";
     this.utilitiesService.loading = true;
+    let tipoDoc = this.utilitiesService.tipoDoc;
     this.authenticationService
-      .validateQuestion(this.user.documento, respuestas, "R")
+      .getGenericToken()
       .pipe(first())
-      .subscribe((res: ValidateQuestion) => {
-        if (res.estado == 0) {
-          this.utilitiesService.messageTitleModal = "¡Intentalo nuevamente!";
-          this.utilitiesService.messageModal = "Ha ocurrido un error";
-          this.utilitiesService.backLogin = false;
-          setTimeout(() => {
-            $(".modalNuevoError").click();
-            this.utilitiesService.loading = false;
-          }, 1000);
-        } else if (res.estado == 1) {
-          if (res.respuesta == true) {
-            this.respuesta = res.respuesta;
-            this.utilitiesService.loading = false;
-            $(".btn-close-form-questions").click();
-            setTimeout(() => {
-              $(".btn-form-register").click();
-            }, 500);
-          } else if (res.respuesta == false) {
-            if (res.bloqueo == true) {
-              this.utilitiesService.messageTitleModal = "¡No puedes continuar!";
-              this.utilitiesService.messageModal =
-                "No pudimos realizar la validación de tus datos, por favor realiza la revisión de tus datos y comunicate al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
-              this.utilitiesService.backLogin = true;
+      .subscribe((token: Token) => {
+        if (token.token) {
+          this.validationService
 
-              setTimeout(() => {
-                $(".btn-close-form-questions").click();
-                $(".modalNuevoError").click();
+            .validateQuestion(
+              tipoDoc,
+              this.user.documento,
+              respuestas,
+              "R",
+              token.token
+            )
+            .pipe(first())
+            .subscribe((res: ValidateQuestion) => {
+              this.utilitiesService.transaccionId = res.transaccionId;
+              console.log(
+                res.respuesta,
+                this.utilitiesService.estadoRegistraduria,
+                this.utilitiesService.emailUser
+              );
+
+              if (
+                res.respuesta &&
+                this.utilitiesService.estadoRegistraduria &&
+                (this.utilitiesService.emailUser ||
+                  this.utilitiesService.phoneUser)
+              ) {
+                //Datos suficientes para enviar a OTP
+                this.respuesta = res.respuesta;
                 this.utilitiesService.loading = false;
-              }, 1000);
-            } else if (res.bloqueo == false) {
-              let cuantosintentosQuedan: number =
-                this.intentosValidos - res.intentos;
-              let intentotext =
-                cuantosintentosQuedan == 1 ? "intento " : "intentos ";
-              this.utilitiesService.messageTitleModal = "¡Ten cuidado!";
-              this.utilitiesService.messageModal =
-                "Los datos ingresados no son correctos, tienes " +
-                cuantosintentosQuedan +
-                " " +
-                intentotext +
-                " más para  validar tus datos";
-              this.utilitiesService.backLogin = false;
-              setTimeout(() => {
                 $(".btn-close-form-questions").click();
-                $(".btn-modal-error-questions-register").click();
+                this.utilitiesService.preguntasOtp = true;
+                setTimeout(() => {
+                  $(".btn-envio-otp").click();
+                }, 500);
+              } else if (
+                res.respuesta &&
+                !this.utilitiesService.estadoRegistraduria
+              ) {
+                console.log("entro a 139");
+                this.respuesta = res.respuesta;
                 this.utilitiesService.loading = false;
-              }, 1000);
-            }
-          }
+                $(".btn-close-form-questions").click();
+                this.utilitiesService.preguntasOtp = false;
+                setTimeout(() => {
+                  $(".btn-form-register").click();
+                }, 500);
+              } else {
+                if (res.bloqueo == true) {
+                  this.utilitiesService.messageTitleModal =
+                    "¡No puedes continuar!";
+                  switch (res.tipoBloqueo) {
+                    case "OTP_TEMP":
+                      this.utilitiesService.messageModal =
+                        "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, intenta nuevamente en 24 horas.";
+                      break;
+
+                    case "FACIAL":
+                      this.utilitiesService.messageTitleModal =
+                        "Tu usuario ha sido bloqueado por validación biométrica.";
+                      this.utilitiesService.messageModal =
+                        "Visita la sede más cercana de Confa para desbloquearlo.";
+                      break;
+
+                    case "PREGUNTAS":
+                      this.utilitiesService.messageTitleModal =
+                        "Tu usuario ha sido bloqueado por preguntas de validación";
+                      this.utilitiesService.messageModal =
+                        "Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
+                      break;
+
+                    case "CONTRASENA":
+                      this.utilitiesService.messageModal =
+                        "Por seguridad, tu acceso ha sido bloqueado.Visita la sede más cercana de Confa para realizar el proceso de desbloqueo.";
+                      break;
+
+                    default:
+                      this.utilitiesService.messageModal =
+                        "Tu usuario ha sido bloqueado. Acércate a la sede más cercana de Confa para generar tu desbloqueo.";
+                  }
+                  this.utilitiesService.backLogin = true;
+
+                  setTimeout(() => {
+                    $(".btn-close-form-questions").click();
+                    $(".modalNuevoError").click();
+                    this.utilitiesService.loading = false;
+                  }, 1000);
+                } else if (!res.bloqueo && !res.respuesta) {
+                  let cuantosintentosQuedan: number =
+                    this.intentosValidos - res.intentos;
+                  let intentotext =
+                    cuantosintentosQuedan == 1 ? "intento " : "intentos ";
+                  this.utilitiesService.messageTitleModal = "¡Ten cuidado!";
+                  this.utilitiesService.messageModal =
+                    "Los datos ingresados no son correctos, tienes " +
+                    cuantosintentosQuedan +
+                    " " +
+                    intentotext +
+                    " más para  validar tus datos";
+                  this.utilitiesService.backLogin = false;
+                  setTimeout(() => {
+                    $(".btn-close-form-questions").click();
+                    $(".modalNuevoError").click();
+                    this.utilitiesService.loading = false;
+                  }, 1000);
+                }
+              }
+            });
         }
       });
     /* }); */
