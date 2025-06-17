@@ -428,13 +428,6 @@ export class CursosComponent {
       //cursosFiltrados = cursosFiltrados.filter(curso => curso.id === deporteSeleccionado);
     }
 
-   /*  if (this.edadSeleccionada !== 'default') {
-      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
-      cursosFiltrados = cursosFiltrados.filter(curso =>
-        curso.edadMinima >= minEdad && curso.edadMaxima <= maxEdad
-      );
-    } */
-
      if (this.edadSeleccionada !== 'default') {
       const edadSeleccionada = Number(this.edadSeleccionada);
       const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
@@ -451,17 +444,12 @@ export class CursosComponent {
       );
     }
 
-    /* if (this.horarioSeleccionada !== 'default') {
-      const horarioSeleccionada = Number(this.horarioSeleccionada);
-      cursosFiltrados = cursosFiltrados.filter(curso =>  
-        //horario => horario.horarioId === horarioSeleccionada 
-        curso.horarios?.some(horario => horario.horarioId === horarioSeleccionada)
-      );
-    } */
-
     // Actualiza los cursos filtrados y recalcula las opciones de filtros
     this.cursosFiltrados = cursosFiltrados;
     this.actualizarOpcionesFiltros(cursosFiltrados);
+
+    // ✅ Reiniciar paginador a la primera página
+      this.p = 1;
   }
 
 
