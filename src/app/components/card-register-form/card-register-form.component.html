@@ -7,9 +7,6 @@
     </div>
     <button type="button" class="close btn-close-form-register" data-dismiss="modal" aria-label="Close"
       (click)="close()">
-
-      <!-- data-dismiss="modal"
-    aria-label="Close" -->
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -18,7 +15,7 @@
       <div class="login-content">
         <form class="form-login needs-validation" [formGroup]="formRegister" (ngSubmit)="onSubmit()">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-10">
               <div class="form-group form-group-custom">
                 <label class="m-0 mb-1">Número de documento</label>
                 <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="text" formControlName="document"

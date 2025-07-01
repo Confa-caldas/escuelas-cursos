@@ -27,10 +27,6 @@ export class CardRegisterFormComponent implements OnInit, OnChanges {
   isComercialCheched: boolean = false;
   @Input() user: User;
   @Input() respuesta: boolean;
-
-
-  
-
   departamento: string;
   dataDepartamentos: Departamento[];
   dataMunicipios: Municipio[];
