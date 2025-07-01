@@ -311,11 +311,10 @@
 
 <div class="modal fade modal-form-register" id="modalFormRegister" tabindex="-1" role="dialog"
   aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-body" style="min-height: 70vh; overflow-y: auto;">
-        <app-card-register-form [respuesta]="respuesta" [user]="user"></app-card-register-form>
-      </div>
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered justify-content-center"
+    role="document">
+    <div class="modal-content" style="overflow-y: auto;">
+      <app-card-register-form [respuesta]="respuesta" [user]="user"></app-card-register-form>
     </div>
   </div>
 </div>

@@ -71,3 +71,10 @@ div.select-register select {
   .form-control {
     padding-right: 2.5rem;
   }
+
+  @media only screen and (max-width: 576px) {
+    .div-register-user {
+        padding-right: 300px;
+        padding-left: 300px;
+    }
+}
