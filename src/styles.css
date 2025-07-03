@@ -3425,7 +3425,7 @@ input[type="radio"].is-invalid {
   font-size: 24px !important;
   font-weight: bold !important;
   background-color: #f9f9f9 !important;
-  color: #ff2c80 !important;
+ color: #03a9f4 !important;
 }
 
 .modal-otp .otp-input::placeholder {

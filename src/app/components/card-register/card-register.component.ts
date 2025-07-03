@@ -40,7 +40,7 @@ export class CardRegisterComponent implements OnInit {
     public questionsService: QuestionsService,
     private cookieService: CookieService,
     private validationService: ValidationService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.getTipoDoc(); // hace el llamdo a la consulta de tipos de documentos
@@ -84,7 +84,7 @@ export class CardRegisterComponent implements OnInit {
           .subscribe((responseTING: Token) => {
             if (responseTING.token) {
               this.autheticationService
-                .consultUserInformationNASFANew(document,responseTING.token, tpDoc)
+                .consultUserInformationNASFANew(document, responseTING.token, tpDoc)
                 .pipe(first())
                 .subscribe((response: User) => {
                   if (response.bloqueo) {
@@ -124,7 +124,7 @@ export class CardRegisterComponent implements OnInit {
                     this.utilitiesService.backLogin = false;
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $(".modalNuevowarning").click(); 
+                      $(".modalNuevowarning").click();
                     }, 500);
                     ////this.formValidate.reset();
                     ////this.formValidate.get("tpDoc").setValue("");
@@ -199,10 +199,11 @@ export class CardRegisterComponent implements OnInit {
                             //this.formValidate.get("tpDoc").setValue("");
                           } else {
                             this.utilitiesService.messageTitleModal =
-                              "No cuentas con validación biométrica";
+                              "No cuentas con validación biométrica....";
                             this.utilitiesService.messageModal =
                               "Te invitamos a acercarte a la sede más cercana de Confa para realizar tu proceso de enrolamiento despues de que completes el registro.";
                             this.utilitiesService.backLogin = false;
+                            $(".modalNuevowarning").click();
                             setTimeout(() => {
                               this.utilitiesService.loading = false;
                               $(".btn-form-register").click();
@@ -226,14 +227,14 @@ export class CardRegisterComponent implements OnInit {
                             "Te invitamos a acercarte a la sede más cercana de Confa para realizar tu proceso de enrolamiento despues de que completes el registro.";
                           this.utilitiesService.backLogin = false;
                           $(".btn-close-popup-login").click();
+
+                          this.utilitiesService.loading = false;
+                          $(".modalNuevowarning").click();
+                          //$(".modalNuevowarning").click();
+
                           setTimeout(() => {
-                            this.utilitiesService.loading = false;
-                            $(".modalNuevowarning").click();
-                            //$(".modalNuevowarning").click();
-                          }, 500);
-                          /* setTimeout(() => {
                             $(".btn-form-register").click();
-                          }, 1000); */
+                          }, 1000);
                         }
                       }
                     } else {

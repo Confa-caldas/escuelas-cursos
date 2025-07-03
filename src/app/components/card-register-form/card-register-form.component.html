@@ -267,7 +267,7 @@
 
             <div class="col-md-6">
               <div class="form-group form-group-custom">
-                <div class="select-register">
+                <div class="select-register position-relative">
                   <label class="m-0 mb-1">Departamento (*)</label>
                   <select class="form-control" id="departamento" name="departamento" formControlName="departamento"
                     (change)="captureDepartamento($event.target.value)" required [ngClass]="{
@@ -283,6 +283,9 @@
                       {{ departamento.nombre_departamento }}
                     </option>
                   </select>
+                  <i class="icon-down1 fas fa-chevron-down"
+                    style="color: #FF2B81 !important; position: absolute; right: 10px; top: 45px; pointer-events: none;"></i>
+
                   <div *ngIf="
                     (submitted || f.departamento.touched) &&
                     f.departamento.errors?.required
@@ -295,7 +298,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group form-group-custom">
-                <div class="select-register">
+                <div class="select-register position-relative">
                   <label class="m-0 mb-1">Municipio (*)</label>
                   <select class="form-control" id="municipio" name="municipio" formControlName="municipio"
                     (change)="captureMunicipio($event.target.value)" required [ngClass]="{
@@ -309,6 +312,8 @@
                       {{ municipio.nombre_municipio }}
                     </option>
                   </select>
+                  <i class="icon-down1 fas fa-chevron-down"
+                    style="color: #FF2B81 !important; position: absolute; right: 10px; top: 45px; pointer-events: none;"></i>
 
                   <div *ngIf="
                     (submitted || f.municipio.touched) &&
@@ -503,8 +508,8 @@
                 </div>
               </div>
               <div class="form-group form-group-custom">
-                <div *ngIf="!utilitiesService.usuarioNasfa || 
-            (utilitiesService.usuarioNasfa && utilitiesService.calculateAge(utilitiesService.fechaNacimiento) >= 18)">
+                <div *ngIf="
+            utilitiesService.usuarioNasfa && utilitiesService.calculateAge(utilitiesService.fechaNacimiento) >= 18">
                   <div class=" m-0 d-flex flex-row align-items-start">
                     <input type="checkbox" formControlName="checkComercial" class="form-control habeas-data mr-2 mt-2"
                       placement="right" autocomplete="off">
