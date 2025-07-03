@@ -1081,16 +1081,23 @@ export class ValidacionIdentidadComponent implements OnInit {
                             }, 500);
                           } else if (response.puedeIngresar) {
                             /*  localStorage.setItem("respuesta", "I"); */
+                            
                             this.utilitiesService.estadoFacial =
                               response.facial_otp;
                             this.utilitiesService.estadoRegistraduria =
                               response.registraduria;
                             this.utilitiesService.desdelogin = false;
                             $(".btn-close-popup-login").click();
+                            if (response.registraduria == false) {
+                              this.utilitiesService.messageTitleModal = "Aún no cuentas con validación biométrica."
+                              this.utilitiesService.messageModal = "Te invitamos a acercarte a la sede más cercana de Confa para realizar tu proceso de enrolamiento despues de que completes el registro."
+                              $(".btn-modal-exclaim-validation").click();
+                            }
+
                             setTimeout(() => {
                               this.utilitiesService.loading = false;
                               this.router.navigate([this.returnUrl]);
-                            }, 500);
+                            }, 700);
                           }
                         } else {
                           this.utilitiesService.messageTitleModal =
