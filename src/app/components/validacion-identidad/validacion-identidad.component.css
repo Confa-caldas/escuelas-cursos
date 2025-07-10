@@ -98,3 +98,8 @@
     /* Tamaño similar a modal-lg */
   }
 }
+
+  ::ng-deep webcam video {
+    transform: none !important;
+  }
+

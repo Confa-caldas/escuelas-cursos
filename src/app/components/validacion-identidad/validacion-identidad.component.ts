@@ -86,6 +86,7 @@ export class ValidacionIdentidadComponent implements OnInit {
   opcionEnvio: boolean = false;
 
   public indicioEnvioSeleccionado: string = "";
+   isMobile: boolean;
 
   /* VARIABLES ACTUALIZACION */
 
@@ -101,6 +102,7 @@ export class ValidacionIdentidadComponent implements OnInit {
 
   ngOnInit() {
     this.getTipoDoc();
+    this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     WebcamUtil.getAvailableVideoInputs().then(
       (mediaDevices: MediaDeviceInfo[]) => {

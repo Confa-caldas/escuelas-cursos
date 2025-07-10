@@ -63,6 +63,7 @@ span.badge {
   font-size: 10px;
   color: red;
   background: none;
+  text-transform: lowercase !important;
 }
 
 .dropdown-toggle::after {

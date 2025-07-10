@@ -38,7 +38,7 @@
                       </div>
                     </div>
                     <webcam [height]="height" [width]="width" [trigger]="triggerObservable"
-                      (imageCapture)="handleImage($event)" [allowCameraSwitch]="allowCameraSwitch"
+                      (imageCapture)="handleImage($event)" [allowCameraSwitch]="isMobile"
                       [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions"
                       (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"
                       *ngIf="utilitiesService.showWebcam && errors.length == 0"></webcam>
