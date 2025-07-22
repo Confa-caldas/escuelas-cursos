@@ -105,6 +105,7 @@ export class CardLoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
               next: (response: Session) => {
+                console.log(response)
                 if (!response.exitoso) {
                   this.showModalMessage("Inténtalo nuevamente", this.utilitiesService.errorInfoLogin, false);
                   return;
@@ -192,15 +193,18 @@ export class CardLoginComponent implements OnInit {
             return;
           }
 
+          console.log("user",response.usuario)
+
           localStorage.setItem("user", JSON.stringify(response.usuario));
           localStorage.setItem("cc", response.usuario.documento);
 
-          if (response.debeRealizarValidacion) {
+          /*if (response.debeRealizarValidacion) {
             localStorage.setItem("preguntas", JSON.stringify(response.usuario.preguntas));
             this.navigateTo("/questions");
-          } else if (response.debeActualizarDatos) {
+          }  else if (response.debeActualizarDatos) {
+            console.log("Actualzar datos")
             this.navigateTo("/modify");
-          } else if (response.puedeIngresar) {
+          }  else*/ if (response.puedeIngresar) {
             this.consultarGrupoFamiliar(document)
             this.verificarServicios();
           } else {
