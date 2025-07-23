@@ -227,7 +227,8 @@ export class CursosComponent {
               localStorage.setItem("user", JSON.stringify(response));
               localStorage.setItem("cc", response.usuario.documento);
               this.document = response.usuario.documento;
-              this.utilitiesService.loading = true;
+              this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
+              //this.utilitiesService.loading = true;
               //this.consultarInformacionMiPerfilConfa(this.document);
             }
           });
@@ -236,8 +237,8 @@ export class CursosComponent {
 
   ngOnInit() {
     this.preguntas = this._collection;
-    this.consultarInformacionMiPerfilConfa(this.document);
     this.consultarCursos();
+    this.consultarInformacionMiPerfilConfa(this.document);
   }
 
   toggleAccordion(index: number): void {
@@ -252,9 +253,9 @@ export class CursosComponent {
 
   consultarInformacionMiPerfilConfa(documento: string) {
     const infoUser = JSON.parse(localStorage.getItem("user"));
-    //console.log(infoUser)
+    console.log(infoUser)
         this.userMiPerfil = infoUser.user;
-        this.documento = infoUser.usuario.documento;
+        //this.documento = infoUser.usuario.documento;
         this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
         this.utilitiesService.loading = false;
         this.utilitiesService.fullNameUser =`${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
@@ -286,6 +287,7 @@ export class CursosComponent {
   }
 
   consultarCursos() {
+    this.utilitiesService.loading = true;
     const idServicio = Number(localStorage.getItem('idServicio'));
     const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -329,6 +331,7 @@ export class CursosComponent {
               // Ordena los horarios del curso
               curso.horario = ordenarHorarios(curso.horario);
             }
+
           });
 
           // Inicializa las opciones de filtros
@@ -380,7 +383,7 @@ export class CursosComponent {
       const rangos = cursos.map(curso => ({
         min: curso.edadMinima,
         max: curso.edadMaxima,
-        id: curso.id,
+        id: curso.id, //391
       }));
       
       this.edades = rangos.filter(
@@ -397,7 +400,7 @@ export class CursosComponent {
     this.deportes = Array.from(deporteMap.values());
     this.horarios = Array.from(horarioMap.values());
 
-    /* //console.log(this.horarios) */
+    //console.log(this.edades, 'Edades')
   }
 
 
@@ -426,10 +429,14 @@ export class CursosComponent {
       //cursosFiltrados = cursosFiltrados.filter(curso => curso.id === deporteSeleccionado);
     }
 
-    if (this.edadSeleccionada !== 'default') {
+     if (this.edadSeleccionada !== 'default') {
       const edadSeleccionada = Number(this.edadSeleccionada);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.id === edadSeleccionada);
+      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
+      console.log(minEdad)
+      cursosFiltrados = cursosFiltrados.filter(curso => curso.edadMinima === minEdad && curso.edadMaxima <= maxEdad);
     }
+
+    
 
     if (this.horarioSeleccionada !== 'default') {
       const horarioSeleccionada = Number(this.horarioSeleccionada); // Asegúrate de convertirlo a número
@@ -438,17 +445,12 @@ export class CursosComponent {
       );
     }
 
-    /* if (this.horarioSeleccionada !== 'default') {
-      const horarioSeleccionada = Number(this.horarioSeleccionada);
-      cursosFiltrados = cursosFiltrados.filter(curso =>  
-        //horario => horario.horarioId === horarioSeleccionada 
-        curso.horarios?.some(horario => horario.horarioId === horarioSeleccionada)
-      );
-    } */
-
     // Actualiza los cursos filtrados y recalcula las opciones de filtros
     this.cursosFiltrados = cursosFiltrados;
     this.actualizarOpcionesFiltros(cursosFiltrados);
+
+    // ✅ Reiniciar paginador a la primera página
+      this.p = 1;
   }
 
 
