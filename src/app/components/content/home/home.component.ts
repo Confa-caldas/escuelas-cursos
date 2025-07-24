@@ -84,6 +84,7 @@ export class HomeComponent implements OnInit {
           .loginNew(ptoken.token)
           .pipe(first())
           .subscribe((response: Session) => {
+            this.utilitiesService.messageLoading = null;
             this.utilitiesService.currentUser = response.usuario;
             if (response.usuario.existeUsuario) {
               localStorage.setItem("user", JSON.stringify(response));

@@ -223,6 +223,7 @@ export class CursosComponent {
           .pipe(first())
           .subscribe((response: Session) => {
             this.utilitiesService.currentUser = response.usuario;
+            this.utilitiesService.messageLoading = null;
             if (response.usuario.existeUsuario) {
               localStorage.setItem("user", JSON.stringify(response));
               localStorage.setItem("cc", response.usuario.documento);
