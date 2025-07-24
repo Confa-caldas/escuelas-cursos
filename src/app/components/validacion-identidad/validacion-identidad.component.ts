@@ -12,6 +12,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { AuthenticationService } from "src/app/services/authentication.service";
 import { ValidationService } from "src/app/services/validation.service";
 import { UtilitiesService } from "src/app/services/utilities.service";
+import { DataServiciosCursos } from 'src/app/services/data-cursos.service'
 
 //interface
 import {
@@ -95,7 +96,8 @@ export class ValidacionIdentidadComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public utilitiesService: UtilitiesService,
     private validationService: ValidationService,
-    private autenticacionService: AuthenticationService
+    private autenticacionService: AuthenticationService,
+    private dataServiciosCursos: DataServiciosCursos
   ) {
     this.onResize();
   }
@@ -1083,12 +1085,12 @@ export class ValidacionIdentidadComponent implements OnInit {
                             }, 500);
                           } else if (response.puedeIngresar) {
                             /*  localStorage.setItem("respuesta", "I"); */
-                            
+                            this.consultarGrupoFamiliar(documento)
                             this.utilitiesService.estadoFacial =
                               response.facial_otp;
                             this.utilitiesService.estadoRegistraduria =
                               response.registraduria;
-                            this.utilitiesService.desdelogin = false;
+                            this.utilitiesService.desdelogin = false; 
                             $(".btn-close-popup-login").click();
                             if (response.registraduria == false) {
                               this.utilitiesService.messageTitleModal = "Aún no cuentas con validación biométrica."
@@ -1421,5 +1423,75 @@ export class ValidacionIdentidadComponent implements OnInit {
         $(".btnLogin").click();
       }
     }, 450);
+  }
+
+    consultarGrupoFamiliar(documento: string) {
+    this.autenticacionService.consultarInformacionMiPerfilConfa(documento).pipe(first())
+      .subscribe((response: any) => {
+        localStorage.setItem('InformacionMiPerfil', JSON.stringify(response));
+
+        const gf = response.grupoFamiliar;
+        const lgf = response.listadoGruposFamiliares;
+
+        const personasACargo = [];
+
+        // Extraer todas las personasACargo
+        lgf.forEach(grupo => {
+          if (grupo.personasACargo && Array.isArray(grupo.personasACargo)) {
+            grupo.personasACargo.forEach(persona => {
+              const datosGF = gf.find(miembro => miembro.documento === persona.documento);
+
+              const personaFusionada = {
+                ...persona,
+                ...datosGF,
+                nombreCompleto: datosGF
+                  ? `${datosGF.nombre1 || ''} ${datosGF.nombre2 || ''} ${datosGF.apellido1 || ''} ${datosGF.apellido2 || ''}`.replace(/\s+/g, ' ').trim()
+                  : persona.nombre
+              };
+
+              personasACargo.push(personaFusionada);
+            });
+          }
+        });
+
+        const edad = this.dataServiciosCursos.calcularEdad(response.fechaNacimiento)
+
+        // Agregar al titular (la persona que consulta)
+        const titularFusionado = {
+          nombre: `${response.primerApellido || ''} ${response.segundoApellido || ''} ${response.primerNombre || ''} ${response.segundoNombre || ''}`.replace(/\s+/g, ' ').trim(),
+          documento: response.documento,
+          tipoDoc: response.tipoDocumento || '', // o response.tipo_docu_text si aplica
+          parentesco: 'TITULAR',
+          edad: edad,
+          fechaNacimiento: response.fechaNacimiento || '',
+          valorSubsidio: 0,
+          estadoEscolaridad: 'NO APLICA',
+          fechaVencimientoEscolaridad: '',
+          estadoSupervivencia: 'VIGENTE',
+          custodia: '',
+          docBeneficiarioPago: response.documento,
+          nombreBeneficiarioPago: response.nombreCompleto || '',
+          estadoBeneficiario: response.estado || 'A',
+          otroPadre: '',
+          salarioOtroPadre: 0,
+          discapacidad: 'N',
+          docOtroPadre: '',
+          salario: 0,
+          numeroCuotas: 0,
+          sexo: response.sexo || '',
+          nombre1: response.primerNombre || '',
+          nombre2: response.segundoNombre || '',
+          apellido1: response.primerApellido || '',
+          apellido2: response.segundoApellido || '',
+          categoria: response.categoria || '',
+          nombreCompleto: response.nombreCompleto || `${response.primerNombre || ''} ${response.segundoNombre || ''} ${response.primerApellido || ''} ${response.segundoApellido || ''}`.replace(/\s+/g, ' ').trim()
+        };
+
+
+        personasACargo.push(titularFusionado);
+
+        // Guardar en localStorage
+        localStorage.setItem('grupoFamiliarFusionado', JSON.stringify(personasACargo));
+      });
   }
 }
