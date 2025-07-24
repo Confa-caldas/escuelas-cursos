@@ -91,7 +91,9 @@ export class HomeComponent implements OnInit {
               this.document = response.usuario.documento;
               this.utilitiesService.loading = true;
               this.consultarInformacionMiPerfilConfa(this.document);
-            }
+            }else{
+            location.reload();
+          }
           });
     }
   }

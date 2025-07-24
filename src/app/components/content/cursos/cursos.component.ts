@@ -230,7 +230,9 @@ export class CursosComponent {
               this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
               //this.utilitiesService.loading = true;
               //this.consultarInformacionMiPerfilConfa(this.document);
-            }
+            }else{
+            location.reload();
+          }
           });
     }
   }

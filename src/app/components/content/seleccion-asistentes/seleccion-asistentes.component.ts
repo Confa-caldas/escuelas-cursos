@@ -135,12 +135,15 @@ export class SeleccionAsistentesComponent implements OnInit {
         .loginNew(ptoken.token)
         .pipe(first())
         .subscribe((response: Session) => {
+          console.log(response.usuario)
           if (response.usuario.existeUsuario) {
             localStorage.setItem("user", JSON.stringify(response));
             localStorage.setItem("cc", response.usuario.documento);
             this.document = response.usuario.documento;
             //console.log(this.document)
             this.utilitiesService.loading = false;
+          }else{
+            location.reload();
           }
         });
     }
