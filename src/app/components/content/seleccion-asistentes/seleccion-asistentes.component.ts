@@ -142,7 +142,7 @@ export class SeleccionAsistentesComponent implements OnInit {
             this.document = response.usuario.documento;
             //console.log(this.document)
             this.utilitiesService.loading = false;
-          }else{
+          } else {
             location.reload();
           }
         });
@@ -816,8 +816,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     this.utilitiesService.loading = true;
     //console.log('informacionUsuarioGrupoFamiliar')
     //informacion del usuario 
-    const infoUse = JSON.parse(localStorage.getItem("user"));
-    const infoUser = infoUse.usuario;
+    const infoUser = JSON.parse(localStorage.getItem("InformacionMiPerfil"));
 
     setTimeout(() => {
       this.userMiPerfil = infoUser.usuario;
@@ -887,5 +886,7 @@ export class SeleccionAsistentesComponent implements OnInit {
         }
       }, 1000);
     }, 1000);
+
+    this.utilitiesService.loading = false;
   }
 }

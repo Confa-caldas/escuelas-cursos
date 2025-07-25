@@ -698,26 +698,6 @@ export class ValidacionIdentidadComponent implements OnInit {
     );
 
     console.log("Indicio Ajustado", this.celularIndicio, this.correoIndicio);
-
-    /* this.correoIndicio = this.utilitiesService.emailUser.replace(
-      /(.{1})(.*)(.{1})(?=@)(.*)/,
-      function (match, gp1, gp2, gp3, gp4) {
-        const dominio = gp4.replace(
-          /(.)(.*)(\..*)$/,
-          function (domMatch, domGp1, domGp2, domGp3) {
-            return domGp1 + domGp2[0] + "****" + domGp3;
-          }
-        );
-        return gp1 + gp2.replace(/./g, "*") + gp3 + dominio;
-      }
-    );
-
-    this.celularIndicio = this.utilitiesService.phoneUser.replace(
-      /(\d{3})(\d+)(\d{3})/,
-      function (match, gp1, gp2, gp3) {
-        return gp1 + gp2.replace(/./g, "*") + gp3;
-      }
-    ); */
   }
 
   private capturarNumeroOTP(): number {
