@@ -55,7 +55,8 @@ export const environment = {
   serviciosEnLinea: "https://confa.co/personas/servicios-en-linea/",
   miPerfilConfa: "https://app.confa.co:8356/#/",
 
-  apiUrl: "https://devkaren.d1qbr9e38zvx72.amplifyapp.com", //Cambiar para amplify
+  apiUrl: "https://validacion-identidad.d1qbr9e38zvx72.amplifyapp.com/#/login", //Cambiar para amplify
+  //apiUrl: "https://devkaren.d1qbr9e38zvx72.amplifyapp.com", //Cambiar para amplify
   //apiUrl: "http://localhost:4200/", //Cambiar dependiendo el puerto de la ruta en pruebas
   //escuelaCursoRest: "http://nbappa:28080/escuelaCursoRestWS/rest/escuelaCurso", https://app.confa.co:8377
   escuelaCursoRest: "https://app.confa.co:8377/recreacionWS/rest/escuelaCurso",
