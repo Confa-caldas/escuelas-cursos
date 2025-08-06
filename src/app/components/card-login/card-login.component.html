@@ -30,7 +30,7 @@
       <span
         *ngIf="(submitted || f.tpDoc.touched) && f.tpDoc.errors"
         class="badge badge-pill badge-danger cf-badge d-block mt-2 text-left"
-        >DEBES SELECCIONAR UN TIPO DE DOCUMENTO PARA INICIAR SESIÓN</span
+        >Debes seleccionar un tipo de documento para iniciar sesión.</span
       >
   </div>
   <div class="form-group form-group-custom">
@@ -52,7 +52,7 @@
       <span
         *ngIf="f.document.errors.required"
         class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-        >NÚMERO DE DOCUMENTO ES REQUERIDO
+        >Número de documento requerido.
       </span>
     </div>
     <div
@@ -62,7 +62,7 @@
       <span
         class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
       >
-        DEBES INGRESAR MÍNIMO 6 DÍGITOS
+        Debes ingresar mínimo 6 dígitos.
       </span>
     </div>
     <div
@@ -71,7 +71,7 @@
     >
       <span
         class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-        >DEBES INGRESAR MÁXIMO 15 DÍGITOS</span
+        >Debes ingresar máximo 15 dígitos.</span
       >
     </div>
     <div
@@ -80,7 +80,7 @@
     >
       <span
         class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-        >DEBES INGRESAR DÍGITOS POSITIVOS</span
+        >Debes ingresar dígitos positivos</span
       >
     </div>
   </div>
@@ -107,7 +107,7 @@
       <span
         *ngIf="f.password.errors.required"
         class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-        >CONTRASEÑA ES REQUERIDA</span
+        >Contraseña es requerida</span
       >
     </div>
     <div
@@ -116,8 +116,8 @@
     >
       <span
         class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left"
-        >DEBES INGRESAR MÍNIMO
-        {{ f.password.errors.minlength.requiredLength }} CARACTERES</span
+        >Debes ingresar mínimo
+        {{ f.password.errors.minlength.requiredLength }} caracteres</span
       >
     </div>
   </div>
