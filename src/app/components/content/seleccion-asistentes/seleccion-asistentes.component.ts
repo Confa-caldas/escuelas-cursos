@@ -106,6 +106,9 @@ export class SeleccionAsistentesComponent implements OnInit {
   menorEdad: boolean = null;
   valorPagoCursoAsistenteAdd: number | null = null;
 
+  deporteMayores: boolean = false;
+  listaAsistentesAdicionales: any[] = [];
+
 
   constructor(
     private autheticationService: AuthenticationService,
@@ -141,6 +144,8 @@ export class SeleccionAsistentesComponent implements OnInit {
             this.document = response.usuario.documento;
             //console.log(this.document)
             this.utilitiesService.loading = false;
+          } else {
+            location.reload()
           }
         });
     }
@@ -166,6 +171,16 @@ export class SeleccionAsistentesComponent implements OnInit {
     this.sedeId = this.cursoSeleccionado.sede.sedeId
     this.programacionId = this.cursoSeleccionado.programacion.programacionId
     this.cuposDisonibles();
+
+    const mensaje = this.utilitiesService.edadNivelCurso; // Ejemplo: "55 a 100 - deportes mayores"
+    const partes = mensaje.split('-');
+    const soloNivel = partes[1]?.trim();
+
+    if (soloNivel == "DEPORTES MAYORES") {
+      console.log(soloNivel)
+      this.deporteMayores = true;
+    }
+
 
   }
 
@@ -227,89 +242,6 @@ export class SeleccionAsistentesComponent implements OnInit {
       this.router.navigate(["/cursos"]);
     }, 500);
   }
-
-  /*   traerGrupoFamiliar(documento: string) {
-      this.dataServiciosCursos.consultarGrupoFamiliar(documento)
-        .pipe(first())
-        .subscribe((response: any) => {
-          //console.log(response)
-  
-          const grupoFam = response.resultado;
-  
-          //console.log(grupoFam)
-  
-          for (let index = 0; index < grupoFam.length; index++) {
-            const doc = grupoFam[index].identificacion;
-            //console.log(doc)
-            let catBen = grupoFam[index].categoria;
-  
-            //obtener edad
-            const edad = this.obtenerEdad(grupoFam[index].fechaNac)
-  
-            //validacion de edad 
-            if (
-              Number(edad) >= Number(this.utilitiesService.edadMin) &&
-              Number(edad) <= Number(this.utilitiesService.edadMax)
-            ) {
-              if (Number(edad) > 18) {
-                this.mayorEdad = true;
-                this.menorEdad = false;
-                //catBen = resultadoUnico[0].categoria;
-                //catBen = 'C'
-              } else {
-                this.mayorEdad = false;
-                this.menorEdad = true;
-                //catBen = resultadoUnico[0].categoria;
-              }
-  
-              // Buscar la tarifa correspondiente
-              const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === catBen);
-  
-              this.yaEstaIncrito(this.programacionId, doc);
-              setTimeout(() => {
-                if (this.estadoEstadoInscrito == false) {
-                  this.nucleoFamiliar.push({
-                    nombreCompleto: grupoFam[index].nombre,
-                    documento: grupoFam[index].identificacion || '',
-                    tipoDocumento: grupoFam[index].tipo_id || '',
-                    direccionResidencia: grupoFam[index].direccion || '',
-                    celular: Number(grupoFam[index].celular) || 0,
-                    email: grupoFam[index].email || '',
-                    categoria: catBen,
-                    municipioId: 1,
-                    mayor19Anios: this.mayorEdad,
-                    esMenor18: this.menorEdad,
-                    tipoAfiliacion: grupoFam[index].tipoAfiliacion,
-                    genero: grupoFam[index].sexo || '',
-                    fechaNacimiento: grupoFam[index].fechaNac || '',
-                    docAfiliado: documento,
-                    esTrabajadorConfa: false,
-                    valorPagoCurso: Number(tarifaBeneficiario[1]),
-                    inhabilitado: false // Nueva propiedad para controlar el estado
-                  });
-                }
-              }, 1000);
-              //console.log(this.nucleoFamiliar)
-            }
-          }
-  
-  
-  
-          setTimeout(() => {
-  
-            this.utilitiesService.loading = false;
-  
-            ////console.log(this.nucleoFamiliar);
-            // Validación de resultados
-            if (this.nucleoFamiliar.length === 0) {
-              this.utilitiesService.messageTitleModal = "Atención";
-              this.utilitiesService.messageModal = 'Ningún integrante de tu grupo familiar está habilitado para el curso seleccionado o ya están inscritos';
-              this.utilitiesService.backLogin = false;
-              $(".modalNuevowarning").click();
-            }
-          }, 1000);
-        });
-    } */
 
 
   consultarInformacionCategoria(documento: string) {
@@ -640,7 +572,7 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   /* Agregar el otro asistenta al array */
-  crearListaOtroAsistentes() {
+/*   crearListaOtroAsistentes() {
     //console.log(this.nombreOtroAsistente)
 
     if (!this.existeUsuarioAdi) {
@@ -673,7 +605,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     ////console.log(this.asistentes)
     this.InhabilitarBtnContinuar = false;
     this.existeUsuario = null;
-  }
+  } */
 
   continuar() {
     this.utilitiesService.listadoAsistentes = this.asistentes;
@@ -740,7 +672,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   }
 
-  eliminarAsistenteAdicional(documento: any) {
+  /* eliminarAsistenteAdicional(documento: any) {
     this.utilitiesService.loading = true;
 
     const index = this.asistentes.findIndex(asistente => asistente.documento === documento);
@@ -770,7 +702,7 @@ export class SeleccionAsistentesComponent implements OnInit {
 
     this.utilitiesService.loading = false;
 
-  }
+  } */
 
   isMenuVisible(): boolean {
     const routesWithMenu = ['/home', '/cursos', '/asistente', '/resumen'];
@@ -788,168 +720,6 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
 
-  /*   consultarInformacionMiPerfilConfa(documento: string) {
-      this.authenticationService.consultarInformacionMiPerfilConfa(documento)
-        .pipe(first())
-        .subscribe((response: MiPerfilConfa) => {
-          //console.log(response);
-          // Asignación de datos principales
-          this.userMiPerfil = response;
-          this.documento = response.documento;
-          this.fullName = `${response.primerNombre} ${response.segundoNombre} ${response.primerApellido} ${response.segundoApellido}`;
-          this.utilitiesService.fechaNaciemintoResponsable = response.fechaNacimiento;
-  
-          const gf = response.grupoFamiliar;
-          const lgf = response.listadoGruposFamiliares;
-  
-          // Eliminar duplicados en `gf` por documento
-          const gfUnico = gf.filter((item, index, self) =>
-            index === self.findIndex((t) => t.documento === item.documento)
-          );
-  
-          this.resultadoGF = gfUnico;
-          //console.log(gfUnico, 'gfUnico')
-          // Iterar sobre el grupo familiar único
-          for (let index = 0; index < gfUnico.length; index++) {
-            const doc = gfUnico[index].documento;
-            //console.log(doc, 'documento')
-            //Consultar menor categoria
-  
-            let catBen = gfUnico[index].categoria;
-            // Filtrar personas de los grupos familiares que coincidan con el documento
-            const resultado = lgf
-              .map(grupo => grupo.personasACargo.filter(persona => persona.documento === doc))
-              .reduce((acc, curr) => acc.concat(curr), []);
-  
-            // Eliminar duplicados del resultado por documento
-            const resultadoUnico = [...new Map(
-              resultado.map(persona => [persona.documento, persona])
-            ).values()];
-  
-  
-            // Agregar al array `nucleoFamiliar` solo si no existe ya
-            if (resultadoUnico.length > 0 &&
-              !this.nucleoFamiliar.some(item => item.documento === doc)) {
-              //console.log(resultadoUnico)
-  
-              if (
-                Number(resultadoUnico[0].edad) >= Number(this.utilitiesService.edadMin) &&
-                Number(resultadoUnico[0].edad) <= Number(this.utilitiesService.edadMax)
-              ) {
-                if (Number(resultadoUnico[0].edad) > 18) {
-                  this.mayorEdad = true;
-                  this.menorEdad = false;
-                  //catBen = resultadoUnico[0].categoria;
-                  //catBen = 'C'
-                } else {
-                  this.mayorEdad = false;
-                  this.menorEdad = true;
-                  //catBen = resultadoUnico[0].categoria;
-                }
-  
-                // Buscar la tarifa correspondiente
-                const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === catBen);
-  
-                //valida si el usuario ya se encuentra incrito en el curso seleccionado
-                this.yaEstaIncrito(this.programacionId, resultadoUnico[0].documento,);
-                setTimeout(() => {
-                  if (this.estadoEstadoInscrito == false) {
-                    this.nucleoFamiliar.push({
-                      nombreCompleto: resultadoUnico[0].nombre,
-                      documento: resultadoUnico[0].documento || '',
-                      tipoDocumento: resultadoUnico[0].tipoDoc || '',
-                      direccionResidencia: response.direccion || '',
-                      celular: Number(response.celular) || 0,
-                      email: response.correo || '',
-                      categoria: catBen,
-                      municipioId: 1,
-                      mayor19Anios: this.mayorEdad,
-                      esMenor18: this.menorEdad,
-                      tipoAfiliacion: 'B',
-                      genero: resultadoUnico[0].sexo || '',
-                      fechaNacimiento: resultadoUnico[0].fechaNacimiento || '',
-                      docAfiliado: response.documento,
-                      esTrabajadorConfa: false,
-                      valorPagoCurso: Number(tarifaBeneficiario[1]),
-                      inhabilitado: false // Nueva propiedad para controlar el estado
-                    });
-                  }
-                }, 1000);
-              }
-            }
-  
-          }
-  
-          //inserta persona que se autentico en la lista final 
-  
-          // Buscar la tarifa correspondiente
-          const tarifa = this.tarifas.find(tarifa => tarifa[0] === response.categoria);
-  
-  
-          //valida la edad 
-          const edad = this.obtenerEdad(response.fechaNacimiento)
-  
-          if (
-            Number(edad) >= Number(this.utilitiesService.edadMin) &&
-            Number(edad) <= Number(this.utilitiesService.edadMax)
-          ) {
-            if (Number(edad) > 18) {
-              this.mayorEdad = true;
-              this.menorEdad = false;
-            } else {
-              this.mayorEdad = false;
-              this.menorEdad = true;
-            }
-  
-            //valida si el usuario ya se encuentra incrito en el curso seleccionado
-            this.yaEstaIncrito(this.programacionId, response.documento);
-  
-            //console.log(this.estadoEstadoInscrito)
-  
-            setTimeout(() => {
-  
-  
-              if (this.estadoEstadoInscrito == false) {
-                this.nucleoFamiliar.push({
-                  nombreCompleto: `${response.primerNombre} ${response.segundoNombre} ${response.primerApellido} ${response.segundoApellido}`,
-                  documento: response.documento || '',
-                  tipoDocumento: response.tipoDocumento || '',
-                  direccionResidencia: response.direccion || '',
-                  celular: Number(response.celular) || 0,
-                  email: response.correo || '',
-                  categoria: response.categoria || '',
-                  municipioId: 1,
-                  mayor19Anios: this.mayorEdad,
-                  esMenor18: this.menorEdad,
-                  tipoAfiliacion: response.tipoUsuario,
-                  genero: response.genero || '',
-                  fechaNacimiento: response.fechaNacimiento || '',
-                  docAfiliado: response.documento,
-                  esTrabajadorConfa: false,
-                  valorPagoCurso: Number(tarifa[1]),
-                  inhabilitado: false // Nueva propiedad para controlar el estado ddel boton agregar en la lista
-                });
-              }
-            }, 1000);
-          }
-  
-  
-          this.utilitiesService.loading = false;
-  
-          setTimeout(() => {
-            ////console.log(this.nucleoFamiliar);
-            // Validación de resultados
-            if (this.nucleoFamiliar.length === 0) {
-              this.utilitiesService.messageTitleModal = "Atención";
-              this.utilitiesService.messageModal = 'Ningún integrante de tu grupo familiar está habilitado para el curso seleccionado o ya están inscritos';
-              this.utilitiesService.backLogin = false;
-              $(".modalNuevowarning").click();
-            }
-          }, 1000);
-  
-  
-        });
-    } */
 
   preventWhitespace(event: KeyboardEvent) {
     const charCode = event.which ? event.which : event.keyCode;
@@ -1049,4 +819,67 @@ export class SeleccionAsistentesComponent implements OnInit {
       }, 1000);
     }, 1000);
   }
+
+
+  /* SECCION MEJORAS DEPORTES PARA MAYORES */
+
+  crearListaOtroAsistentes() {
+    const documento = this.documentoOtroAsistente;
+
+    // Evita más de 3 asistentes
+    if (this.listaAsistentesAdicionales.length >= 3) {
+      this.utilitiesService.messageTitleModal = "Límite alcanzado";
+      this.utilitiesService.messageModal = "Solo puedes agregar hasta 3 asistentes adicionales.";
+      this.utilitiesService.backLogin = false;
+      $(".modalNuevowarning").click();
+      return;
+    }
+
+    // Verificar que no esté repetido
+    const yaExiste = this.listaAsistentesAdicionales.some(a => a.documento === documento);
+    if (yaExiste) {
+      this.utilitiesService.messageTitleModal = "Documento duplicado";
+      this.utilitiesService.messageModal = "Este asistente ya fue agregado.";
+      this.utilitiesService.backLogin = false;
+      $(".modalNuevowarning").click();
+      return;
+    }
+
+    // Agregar asistente
+    const nuevoAsistente = {
+      tipoDoc: this.tipoDocOtroAsistente,
+      documento: this.documentoOtroAsistente,
+      nombre: this.nombreOtroAsistente || `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`,
+      correo: this.correoOtroAssistente,
+      fechaNacimiento: this.fechaNacOtroAsistente,
+      genero: this.generoAsistenteAdd,
+    };
+
+    this.listaAsistentesAdicionales.push(nuevoAsistente);
+
+    // Resetear campos
+    this.tipoDocOtroAsistente = '';
+    this.documentoOtroAsistente = null;
+    this.nombreOtroAsistente = '';
+    this.nombresAsistenteAdd = '';
+    this.apellidosAsistenteAdd = '';
+    this.fechaNacOtroAsistente = '';
+    this.correoOtroAssistente = '';
+    this.generoAsistenteAdd = '';
+    this.existeUsuarioAdi = false;
+    this.InhabilitarInputDate = false;
+    this.InhabilitarBtnAddOtroasistente = false;
+
+    // Opcional: ocultar formulario o limpiar flags
+    this.habilitarFondo = false;
+  }
+
+  eliminarAsistenteAdicional(documento: string) {
+    this.listaAsistentesAdicionales = this.listaAsistentesAdicionales.filter(
+      (asistente) => asistente.documento !== documento
+    );
+  }
+
+
+
 }

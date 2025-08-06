@@ -68,6 +68,7 @@ export class CursosComponent {
   document: string;
   documento: string;
   inactivarbotonSeleccionCurso: boolean;
+  mostrarCuros: boolean = false;
 
   /* NgxPaginationModule */
   p: number = 1; // Página actual
@@ -218,20 +219,20 @@ export class CursosComponent {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-        this.authenticationService
-          .loginNew(ptoken.token)
-          .pipe(first())
-          .subscribe((response: Session) => {
-            this.utilitiesService.currentUser = response.usuario;
-            if (response.usuario.existeUsuario) {
-              localStorage.setItem("user", JSON.stringify(response));
-              localStorage.setItem("cc", response.usuario.documento);
-              this.document = response.usuario.documento;
-              this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
-              //this.utilitiesService.loading = true;
-              //this.consultarInformacionMiPerfilConfa(this.document);
-            }
-          });
+      this.authenticationService
+        .loginNew(ptoken.token)
+        .pipe(first())
+        .subscribe((response: Session) => {
+          this.utilitiesService.currentUser = response.usuario;
+          if (response.usuario.existeUsuario) {
+            localStorage.setItem("user", JSON.stringify(response));
+            localStorage.setItem("cc", response.usuario.documento);
+            this.document = response.usuario.documento;
+            this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
+            //this.utilitiesService.loading = true;
+            //this.consultarInformacionMiPerfilConfa(this.document);
+          }
+        });
     }
   }
 
@@ -254,15 +255,15 @@ export class CursosComponent {
   consultarInformacionMiPerfilConfa(documento: string) {
     const infoUser = JSON.parse(localStorage.getItem("user"));
     console.log(infoUser)
-        this.userMiPerfil = infoUser.user;
-        //this.documento = infoUser.usuario.documento;
-        this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
-        this.utilitiesService.loading = false;
-        this.utilitiesService.fullNameUser =`${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
-        this.utilitiesService.documentUser = infoUser.usuario.documento;
-        this.utilitiesService.direccionResidencia = infoUser.usuario.direccion;
-        this.utilitiesService.celular = infoUser.usuario.celular;
-        this.utilitiesService.genero = infoUser.usuario.genero;
+    this.userMiPerfil = infoUser.user;
+    //this.documento = infoUser.usuario.documento;
+    this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
+    this.utilitiesService.loading = false;
+    this.utilitiesService.fullNameUser = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
+    this.utilitiesService.documentUser = infoUser.usuario.documento;
+    this.utilitiesService.direccionResidencia = infoUser.usuario.direccion;
+    this.utilitiesService.celular = infoUser.usuario.celular;
+    this.utilitiesService.genero = infoUser.usuario.genero;
   }
 
   navigate() {
@@ -289,6 +290,8 @@ export class CursosComponent {
   consultarCursos() {
     this.utilitiesService.loading = true;
     const idServicio = Number(localStorage.getItem('idServicio'));
+    const idMunicipio = Number(localStorage.getItem('idMunicipio'));
+
     const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     const ordenarHorarios = (horarios: { nombreDia: string }[]): { nombreDia: string }[] => {
@@ -302,17 +305,33 @@ export class CursosComponent {
     this.dataServiciosCursos.getServicios().pipe(first())
       .subscribe((response: any) => {
         const servicios = response.servicios || [];
-        const servicioFiltrado = servicios.find(servicio => servicio.id === idServicio);
+        const servicioFiltradoCursos = servicios.find(servicio => servicio.id === idServicio);
+
+        /*INICIO SECCION SOLO PARACARGAR LOS DEPORTES EN LOS FILTROS DESPLEGABLES */
+
+        const cursos = servicioFiltradoCursos.curso;
+        const deporteMap = new Map();
+        cursos.forEach(cur => {
+          if (cur.modalidadDeportiva) {
+            deporteMap.set(cur.modalidadDeportiva.id, cur.modalidadDeportiva);
+          }
+        })
+
+        this.deportes = Array.from(deporteMap.values());
+
+        /* FIN */
+
+        const servicioFiltrado = cursos.filter(servicio => servicio.sede?.municipioId === idMunicipio);
 
         this.utilitiesService.loading = false;
-
         if (servicioFiltrado) {
-          this.cursos = servicioFiltrado.curso || [];
+          this.cursos = servicioFiltrado || [];
           this.cursosFiltrados = [...this.cursos]; // Clona el array original
+
 
           // Cambia el formato de las horas para visualización y ordena los horarios
           this.cursosFiltrados.forEach(curso => {
-            /* //console.log(curso.programacion.cuposDisponibles); */
+            console.log(curso.programacion.cuposDisponibles);
 
             if (curso.programacion.cuposDisponibles === 0) {
               this.inactivarbotonSeleccionCurso = true;
@@ -337,6 +356,7 @@ export class CursosComponent {
           // Inicializa las opciones de filtros
           this.actualizarOpcionesFiltros(this.cursos);
         } else {
+          console.log('Esta entrando aca ?')
           this.cursos = [];
           this.cursosFiltrados = [];
         }
@@ -351,7 +371,7 @@ export class CursosComponent {
     const sedesMap = new Map();
     const ciudadMap = new Map();
     const nivelMap = new Map();
-    const deporteMap = new Map();
+    //const deporteMap = new Map();
     const edadMap = new Map();
     const horarioMap = new Map();
 
@@ -367,9 +387,9 @@ export class CursosComponent {
         nivelMap.set(servicio.etapa.id, servicio.etapa);
       }
 
-      if (servicio.modalidadDeportiva) {
+      /* if (servicio.modalidadDeportiva) {
         deporteMap.set(servicio.modalidadDeportiva.id, servicio.modalidadDeportiva);
-      }
+      } */
 
 
       if (servicio.horario && Array.isArray(servicio.horario)) {
@@ -385,19 +405,19 @@ export class CursosComponent {
         max: curso.edadMaxima,
         id: curso.id, //391
       }));
-      
+
       this.edades = rangos.filter(
         (rango, index, self) =>
           index === self.findIndex(r => r.min === rango.min && r.max === rango.max)
       ).sort((a, b) => a.min - b.min); // Ordenar por edad mínima
-      
+
     });
 
     // Actualiza las opciones de los filtros
     this.sedes = Array.from(sedesMap.values());
     this.ciudades = Array.from(ciudadMap.values());
     this.niveles = Array.from(nivelMap.values());
-    this.deportes = Array.from(deporteMap.values());
+    //this.deportes = Array.from(deporteMap.values());
     this.horarios = Array.from(horarioMap.values());
 
     //console.log(this.edades, 'Edades')
@@ -429,14 +449,14 @@ export class CursosComponent {
       //cursosFiltrados = cursosFiltrados.filter(curso => curso.id === deporteSeleccionado);
     }
 
-     if (this.edadSeleccionada !== 'default') {
+    if (this.edadSeleccionada !== 'default') {
       const edadSeleccionada = Number(this.edadSeleccionada);
       const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
       console.log(minEdad)
       cursosFiltrados = cursosFiltrados.filter(curso => curso.edadMinima === minEdad && curso.edadMaxima <= maxEdad);
     }
 
-    
+
 
     if (this.horarioSeleccionada !== 'default') {
       const horarioSeleccionada = Number(this.horarioSeleccionada); // Asegúrate de convertirlo a número
@@ -450,20 +470,19 @@ export class CursosComponent {
     this.actualizarOpcionesFiltros(cursosFiltrados);
 
     // ✅ Reiniciar paginador a la primera página
-      this.p = 1;
+    this.p = 1;
   }
 
 
 
   limpiarFiltros() {
-    this.ciudadSeleccionada = 'default';
+    //this.ciudadSeleccionada = 'default';
     this.sedeSeleccionada = 'default';
     this.nivelSeleccionado = 'default';
-    this.deporteSeleccionado = 'default';
+    //this.deporteSeleccionado = 'default';
     this.edadSeleccionada = 'default';
     this.horarioSeleccionada = 'default';
     this.servicioActivo = 'default';
-
     this.consultarCursos();// Restablece los cursos originales
 
 
@@ -485,9 +504,15 @@ export class CursosComponent {
     this.utilitiesService.edadMin = curso.edadMinima
     this.utilitiesService.edadMax = curso.edadMaxima
 
-    /* //console.log(this.utilitiesService.horarioCurso)
-    //console.log(curso.horario) */
+    this.mostrarCuros = false;
 
     this.router.navigate(["/asistente"]);
   }
+
+
+  mostrar() {
+    this.mostrarCuros = true;
+    this.limpiarFiltros();
+  }
+  
 }

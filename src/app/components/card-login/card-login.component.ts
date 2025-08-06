@@ -233,12 +233,14 @@ export class CardLoginComponent implements OnInit {
 
           this.utilitiesService.servicios = servicios;
 
-          if (servicios.length === 1) {
+           this.navigateTo("/home");
+
+          /* if (servicios.length === 1) {
             localStorage.setItem("idServicio", servicios[0].id);
             this.navigateTo("/cursos");
           } else {
             this.navigateTo("/home");
-          }
+          } */
         },
         error: () => {
           this.showModalMessage("No puedes continuar", "No hay servicios disponibles.", false);

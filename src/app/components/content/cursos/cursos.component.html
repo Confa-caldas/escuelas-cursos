@@ -53,14 +53,14 @@
           </select>
         </div> -->
           <!-- Municipios -->
-          <div class="col mx-auto ">
+          <!-- <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
               (change)="aplicarFiltros()" [(ngModel)]="ciudadSeleccionada">
               <option [value]="'default'" selected disabled>Municipio</option>
               <option *ngFor="let ciudad of ciudades" [value]="ciudad.municipioId">{{ ciudad.nombreMunicipio }}
               </option>
             </select>
-          </div>
+          </div> -->
           <!-- Cursos / deportes -->
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
@@ -104,7 +104,9 @@
                 }}-{{hora.horaFin}}</option>
             </select>
           </div>
-
+          <div class="d-flex justify-content-center px-3 mb-2">
+            <button (click)="mostrar()" class="btn btn-credits mx-auto btn-block">Buscar</button>
+          </div>
           <div class="d-flex justify-content-center px-3">
             <button (click)="limpiarFiltros()" class="btn btn-secun mx-auto btn-block">Limpiar
               Filtros</button>
@@ -113,9 +115,9 @@
       </div>
 
       <div class="col-md-9 col-11 mx-auto">
-        <div class="row">
+        <div class="row" *ngIf="mostrarCuros">
           <div class="col-12 col-md-6 mb-4"
-            *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+            *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }" >
             <div class="card card-curso" style="width: 100%;">
               <div class="card-header card-header-curso">
                 <div class="row align-items-center">
@@ -148,12 +150,12 @@
                 <p class="card-text">{{curso.edadMinima}} a {{curso.edadMaxima }} años -
                   {{curso.etapa.nombre | titlecase}}</p>
                 <p class="card-text">{{curso.sede.nombreMunicipio | titlecase}} </p>
+                <p class="card-text">{{curso.horarioAjustado | titlecase}} </p>
 
                <!--  <div class="mb-2"  *ngFor="let horarios of curso.horario ">
                   <p class="card-text">{{horarios.nombreDia }} - {{horarios.horaInicio}}</p>
                 </div> -->
-                <div class="">
-                  <!-- Muestra el primer horario -->
+                <!-- <div class="">
                   <p class="card-text">
                     {{ curso.horario[0].nombreDia }} - {{ curso.horario[0].horaInicio }}
                     <button class="btn p-0" (click)="toggleHorarios()" *ngIf="curso.horario.length > 1">
@@ -172,23 +174,22 @@
                     </button>
                   </p>
                   
-                  <!-- Desplegable con los demás horarios -->
                   <div *ngIf="mostrarHorarios">
                     <div class="mb-2" *ngFor="let horario of curso.horario.slice(1)">
                       <p class="card-text">{{ horario.nombreDia }} - {{ horario.horaInicio }}</p>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <p class="card-text mt-3"><strong>Inicio: {{curso.programacion.fechaInicio}}</strong> - <strong>Fin:
                     {{curso.programacion.fechaFin}}</strong></p>
-
-                    <p class="card-text text-danger" *ngIf="curso.programacion.cuposDisponibles == 0"> No tiene cupos disponibles</p>
-
               </div>
               <div class="card-footer card-header-curso">
-                <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles == 0">
-                  <button class="btn btn-credits" (click)="cursoSeleccionado(curso)" [disabled]="inactivarbotonSeleccionCurso">Seleccionar</button>
+                 <p class="card-text text-danger" *ngIf="curso.programacion.cuposDisponibles == 0"> No tiene cupos disponibles, agotado</p>
+                 
+                <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles == 0 && !inactivarbotonSeleccionCurso">
+                  <button class="btn btn-credits" (click)="cursoSeleccionado(curso)">Seleccionar</button>
                 </div>
+
                 <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles != 0">
                   <button class="btn btn-credits" (click)="cursoSeleccionado(curso)" >Seleccionar</button>
                 </div>
@@ -196,7 +197,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center" *ngIf="mostrarCuros">
           <pagination-controls (pageChange)="p = $event" maxSize="6" previousLabel="Anterior" nextLabel="Siguiente">
           </pagination-controls>
         </div>

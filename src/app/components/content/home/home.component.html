@@ -6,10 +6,12 @@
       <section class="row">
         <div class="my-3 col-md-10 row">
           <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="48" height="48" rx="24" fill="#F2F4F7"/>
-            <path d="M33.3333 34.5C33.3333 32.8718 33.3333 32.0578 33.1323 31.3953C32.6799 29.9039 31.5128 28.7367 30.0213 28.2843C29.3589 28.0833 28.5448 28.0833 26.9166 28.0833H21.0833C19.4551 28.0833 18.6411 28.0833 17.9786 28.2843C16.4872 28.7367 15.32 29.9039 14.8676 31.3953C14.6666 32.0578 14.6666 32.8718 14.6666 34.5M29.25 18.75C29.25 21.6495 26.8995 24 24 24C21.1005 24 18.75 21.6495 18.75 18.75C18.75 15.8505 21.1005 13.5 24 13.5C26.8995 13.5 29.25 15.8505 29.25 18.75Z" stroke="#475467" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <h6 class="ml-2 my-2">Hola {{ utilitiesService.fullNameUser | titlecase}}</h6>
+            <rect width="48" height="48" rx="24" fill="#F2F4F7" />
+            <path
+              d="M33.3333 34.5C33.3333 32.8718 33.3333 32.0578 33.1323 31.3953C32.6799 29.9039 31.5128 28.7367 30.0213 28.2843C29.3589 28.0833 28.5448 28.0833 26.9166 28.0833H21.0833C19.4551 28.0833 18.6411 28.0833 17.9786 28.2843C16.4872 28.7367 15.32 29.9039 14.8676 31.3953C14.6666 32.0578 14.6666 32.8718 14.6666 34.5M29.25 18.75C29.25 21.6495 26.8995 24 24 24C21.1005 24 18.75 21.6495 18.75 18.75C18.75 15.8505 21.1005 13.5 24 13.5C26.8995 13.5 29.25 15.8505 29.25 18.75Z"
+              stroke="#475467" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h6 class="ml-2 my-2">Hola {{ utilitiesService.fullNameUser | titlecase}}</h6>
         </div>
         <div class="card mt-3 mb-3 m-0 p-0">
           <div class="card-body m-0 p-0">
@@ -20,7 +22,7 @@
             </div>
           </div>
         </div>
-      </section>      
+      </section>
     </div>
   </div>
   <div class="fondo px-4 pt-3">
@@ -29,14 +31,24 @@
     </p>
   </div>
 
+  <div class="">
+    <div class="col mx-auto ">
+      <select class="form-select select-filter mb-4" aria-label="Default select example"
+        [(ngModel)]="ciudadSeleccionada" (change)="aplicarFiltros()">
+        <option [value]="'default'" selected disabled>Municipio</option>
+        <option *ngFor="let ciudad of ciudades" [value]="ciudad.municipioId">{{ ciudad.nombreMunicipio }}
+        </option>
+      </select>
+    </div>
+  </div>
+
   <section class="py-4 fondo">
     <div class="container">
       <div class="row justify-content-center " style="background: #FCFCFC;">
         <div *ngFor="let servicio of servicios; let i = index"
           [ngClass]="{'col-md-6': isTwoOrFour, 'col-md-4': !isTwoOrFour}" class="mb-4 d-flex justify-content-center">
           <div class="card p-4">
-            <img [src]="servicio.urlImagen || '../../../../assets/img/curso-tenis.png'"
-              alt="Imagen del servicio" />
+            <img [src]="servicio.urlImagen || '../../../../assets/img/curso-tenis.png'" alt="Imagen del servicio" />
             <div class="row pt-4 pb-2" style="height: 80px;">
               <div class="col-10 pr-0">
                 <!-- <h5 class="">{{ servicio.nombre | titlecase }}</h5> -->

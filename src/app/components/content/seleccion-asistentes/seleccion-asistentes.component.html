@@ -10,7 +10,7 @@
               d="M33.3333 34.5C33.3333 32.8718 33.3333 32.0578 33.1323 31.3953C32.6799 29.9039 31.5128 28.7367 30.0213 28.2843C29.3589 28.0833 28.5448 28.0833 26.9166 28.0833H21.0833C19.4551 28.0833 18.6411 28.0833 17.9786 28.2843C16.4872 28.7367 15.32 29.9039 14.8676 31.3953C14.6666 32.0578 14.6666 32.8718 14.6666 34.5M29.25 18.75C29.25 21.6495 26.8995 24 24 24C21.1005 24 18.75 21.6495 18.75 18.75C18.75 15.8505 21.1005 13.5 24 13.5C26.8995 13.5 29.25 15.8505 29.25 18.75Z"
               stroke="#475467" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <h6 class="ml-2 my-2">Hola {{utilitiesService.fullNameUser  | titlecase}}</h6>
+          <h6 class="ml-2 my-2">Hola {{utilitiesService.fullNameUser | titlecase}}</h6>
         </div>
         <div class="card mt-3 mb-3 m-0 p-0">
           <div class="card-body m-0 p-0">
@@ -38,7 +38,8 @@
         <div class=" mb-3" *ngIf="nucleoFamiliar.length != 0">
           <div class="mb-4 fondo">
             <h4 style="font-weight: 600;">Agregar personas</h4>
-            <span class="item-titulo mb-0">Elige a las personas que vas a inscribir en el curso. Ten presente que deben estar en el rango de edad
+            <span class="item-titulo mb-0">Elige a las personas que vas a inscribir en el curso. Ten presente que deben
+              estar en el rango de edad
               establecido.</span>
           </div>
           <div class="">
@@ -50,7 +51,8 @@
                     <h6 style="font-weight: 500;">{{ grupof.nombreCompleto | titlecase }}</h6>
                     <p>{{ grupof.documento }}</p>
                   </div>
-                  <div class="col-md-3 d-flex flex-column justify-content-center agregar-btn align-items-center" *ngIf="!grupof.inhabilitado">
+                  <div class="col-md-3 d-flex flex-column justify-content-center agregar-btn align-items-center"
+                    *ngIf="!grupof.inhabilitado">
                     <p class="mb-1 mx-auto">Agregar</p>
                     <div class="cntr ml-1 mx-auto">
                       <input class="hidden-xs-up" id="cbx-{{gf}}" type="checkbox"
@@ -58,7 +60,8 @@
                       <label class="cbx" for="cbx-{{gf}}"></label>
                     </div>
                   </div>
-                  <div class="col-md-3 d-flex flex-column justify-content-center aling-items-center" *ngIf="grupof.inhabilitado">
+                  <div class="col-md-3 d-flex flex-column justify-content-center aling-items-center"
+                    *ngIf="grupof.inhabilitado">
                     <button class="btn" (click)="eliminarAsistente(grupof)">
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
                         xmlns="http://www.w3.org/2000/svg">
@@ -85,13 +88,14 @@
             El asistente adicional debe contener como mínimo: Primer Nombre y Primer Apellido (No pueden contener
             números)
           </div>
-          <div class="card p-2" *ngIf="!habilitarFondo">
+          <div class="card p-2" >
             <form class="">
               <div class="row">
                 <div class="col form-group form-group-custom content-custom-select">
                   <label for="inputState">Tipo documento</label>
-                  <select id="inputState" class="form-control custom-select" name="tipoDocOtroAsistente" #tipoDocumentoRef
-                    [(ngModel)]="tipoDocOtroAsistente" placeholder="Escoge" (change)="onSelectChange($event)">
+                  <select id="inputState" class="form-control custom-select" name="tipoDocOtroAsistente"
+                    #tipoDocumentoRef [(ngModel)]="tipoDocOtroAsistente" placeholder="Escoge"
+                    (change)="onSelectChange($event)">
                     <option value="" disabled selected> Escoge </option>
                     <option value="C">Cédula de ciudadanía</option>
                     <option value="E">Cédula extranjería</option>
@@ -105,47 +109,51 @@
                 </div>
                 <div class="col form-group form-group-custom">
                   <label for="">Número de documento</label>
-                  <input type="text" class="form-control" placeholder="Escribe " [(ngModel)]="documentoOtroAsistente" maxlength="15"
-                    name="numeroDocuemnto" (change)="ValidarOtroAsistente()" (keypress)="preventWhitespace($event)" (paste)="evitarPegado($event)">
+                  <input type="text" class="form-control" placeholder="Escribe " [(ngModel)]="documentoOtroAsistente"
+                    maxlength="15" name="numeroDocuemnto" (keypress)="preventWhitespace($event)"
+                    (paste)="evitarPegado($event)">
                 </div>
-                <div class="col">
-                  <div class="form-group form-group-custom">
+                <div class="col mt-4">
+                  <button class="btn btn-cred" (click)="ValidarOtroAsistente()" id="escuelaCursoAgregarAdi"
+                    [disabled]="!documentoOtroAsistente">Buscar</button>
+
+                  <!-- <div class="form-group form-group-custom">
                     <label for="">Fecha de nacimiento</label>
                     <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="date"
                       [(ngModel)]="fechaNacOtroAsistente" [value]="user?.fechaNacimiento" class="form-control"
                       placeholder="Selecciona" placement="right" autocomplete="off" [max]="getCurrentDate()"
                       [disabled]="InhabilitarInputDate" name="fechaNacimiento" />
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Nombres </label>
-                    <input type="text" [(ngModel)]="nombresAsistenteAdd" class="form-control"
-                      placeholder="*Nombres" placement="right" autocomplete="off" name="Nombre" />
+                    <input type="text" [(ngModel)]="nombresAsistenteAdd" class="form-control" placeholder="*Nombres"
+                      placement="right" autocomplete="off" name="Nombre" />
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Apellidos </label>
-                    <input type="text" [(ngModel)]="apellidosAsistenteAdd" class="form-control"
-                      placeholder="*Apellidos" placement="right" autocomplete="off" name="Apellidos" />
+                    <input type="text" [(ngModel)]="apellidosAsistenteAdd" class="form-control" placeholder="*Apellidos"
+                      placement="right" autocomplete="off" name="Apellidos" />
                   </div>
                 </div>
-                </div>
-                <div class="row">  
+              </div>
+              <div class="row">
                 <div class="col form-group form-group-custom content-custom-select">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Genero </label>
                     <select id="inputgenero" class="form-control custom-select" name="generoAsistenteAdd"
-                    [(ngModel)]="generoAsistenteAdd" placeholder="Escoge">
-                    <option value="" disabled selected> Escoge </option>
-                    <option value="F">Femenino</option>
-                    <option value="M">Masculino</option>
-                    <option value="O">Otro</option>
-                  </select>
-                    
+                      [(ngModel)]="generoAsistenteAdd" placeholder="Escoge">
+                      <option value="" disabled selected> Escoge </option>
+                      <option value="F">Femenino</option>
+                      <option value="M">Masculino</option>
+                      <option value="O">Otro</option>
+                    </select>
+
                   </div>
                 </div>
                 <div class="col">
@@ -153,6 +161,22 @@
                     <label for=""> Correo </label>
                     <input type="email" [(ngModel)]="correoOtroAssistente" class="form-control"
                       placeholder="*Correo electronico" placement="right" autocomplete="off" name="Apellidos" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
+                    <label for="">Fecha de nacimiento</label>
+                    <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="date"
+                      [(ngModel)]="fechaNacOtroAsistente" [value]="user?.fechaNacimiento" class="form-control"
+                      placeholder="Selecciona" placement="right" autocomplete="off" [max]="getCurrentDate()"
+                      [disabled]="InhabilitarInputDate" name="fechaNacimiento" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
+                    <label for=""> Número de telefono </label>
+                    <input type="tel" class="form-control" placeholder="*Número de telefono" placement="right"
+                      autocomplete="off" name="telefono" />
                   </div>
                 </div>
               </div>
@@ -164,8 +188,8 @@
               </div>
             </form>
           </div>
-
-          <div class="" *ngIf="habilitarFondo">
+          <br>
+          <div class="" >
             <ul class="list-group">
               <li class="list-group-item list-gf" [ngClass]="{ 'item-border-success': habilitarFondo }">
                 <div class="row">
@@ -173,9 +197,8 @@
                     <h6 style="font-weight: 500;">{{nombreOtroAsistente | titlecase}}</h6>
                     <p>{{documentoOtroAsistente}}</p>
                   </div>
-                  <div class="col-md-2 d-flex flex-column justify-content-center"
-                    *ngIf="habilitarFondo">
-                    <button class="btn " (click)="eliminarAsistenteAdicional(documentoOtroAsistente)">
+                  <div class="col-md-2 d-flex flex-column justify-content-center" *ngIf="habilitarFondo">
+                    <button class="btn " (click)="eliminarAsistenteAdicional(documentoOtroAsistente.toString())">
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -188,6 +211,44 @@
               </li>
             </ul>
           </div>
+          <div class="">
+            <ul class="list-group">
+              <li class="list-group-item list-gf" [ngClass]="{ 'item-border-success': habilitarFondo }">
+                <div class="row">
+              <li *ngFor="let asistente of listaAsistentesAdicionales" class="list-group-item list-gf"
+                [ngClass]="{ 'item-border-success': true }">
+                <div class="row">
+                  <div class="col-md-10">
+                    <h6 style="font-weight: 500;">{{ asistente.nombre | titlecase }}</h6>
+                    <p>{{ asistente.documento }}</p>
+                  </div>
+                  <div class="col-md-2 d-flex flex-column justify-content-center">
+                    <button class="btn" (click)="eliminarAsistenteAdicional(asistente.documento)">
+                      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M23.3333 15.0001V14.3334C23.3333 13.4 23.3333 12.9333 23.1517 12.5768C22.9919 12.2632 22.7369 12.0082 22.4233 11.8484C22.0668 11.6667 21.6001 11.6667 20.6667 11.6667H19.3333C18.3999 11.6667 17.9332 11.6667 17.5767 11.8484C17.2631 12.0082 17.0081 12.2632 16.8483 12.5768C16.6667 12.9333 16.6667 13.4 16.6667 14.3334V15.0001M18.3333 19.5834V23.7501M21.6667 19.5834V23.7501M12.5 15.0001H27.5M25.8333 15.0001V24.3334C25.8333 25.7335 25.8333 26.4336 25.5608 26.9684C25.3212 27.4388 24.9387 27.8212 24.4683 28.0609C23.9335 28.3334 23.2335 28.3334 21.8333 28.3334H18.1667C16.7665 28.3334 16.0665 28.3334 15.5317 28.0609C15.0613 27.8212 14.6788 27.4388 14.4392 26.9684C14.1667 26.4336 14.1667 25.7335 14.1667 24.3334V15.0001"
+                          stroke="#475467" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </li>
+
+              <div class="col-md-2 d-flex flex-column justify-content-center" *ngIf="habilitarFondo">
+                <button class="btn " (click)="eliminarAsistenteAdicional(documentoOtroAsistente.toString())">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M23.3333 15.0001V14.3334C23.3333 13.4 23.3333 12.9333 23.1517 12.5768C22.9919 12.2632 22.7369 12.0082 22.4233 11.8484C22.0668 11.6667 21.6001 11.6667 20.6667 11.6667H19.3333C18.3999 11.6667 17.9332 11.6667 17.5767 11.8484C17.2631 12.0082 17.0081 12.2632 16.8483 12.5768C16.6667 12.9333 16.6667 13.4 16.6667 14.3334V15.0001M18.3333 19.5834V23.7501M21.6667 19.5834V23.7501M12.5 15.0001H27.5M25.8333 15.0001V24.3334C25.8333 25.7335 25.8333 26.4336 25.5608 26.9684C25.3212 27.4388 24.9387 27.8212 24.4683 28.0609C23.9335 28.3334 23.2335 28.3334 21.8333 28.3334H18.1667C16.7665 28.3334 16.0665 28.3334 15.5317 28.0609C15.0613 27.8212 14.6788 27.4388 14.4392 26.9684C14.1667 26.4336 14.1667 25.7335 14.1667 24.3334V15.0001"
+                      stroke="#475467" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+          </div>
+          </li>
+          </ul>
+        </div>
           <div class="card-body-resumen">
             <button class="btn btn-credits col-8  btn-block " (click)="continuar()" id="escuelaCursoContinuar"
               [disabled]="InhabilitarBtnContinuar">Continuar</button> <br>
@@ -310,7 +371,8 @@
                   </div>
                   <div class="item-resumen">
                     <span class="item-titulo ">Edad y nivel</span> <br>
-                    <span class="item-titulo-seleccion text-wrap">{{utilitiesService.edadNivelCurso | lowercase }}</span>
+                    <span class="item-titulo-seleccion text-wrap">{{utilitiesService.edadNivelCurso | lowercase
+                      }}</span>
                   </div>
                 </div>
               </li>
@@ -337,7 +399,8 @@
               <li class="list-group-item list-resumen mb-1">
                 <div class="row">
                   <div class="span-icono-curso my-2">
-                    <img src="../../../../assets/icons/calendar.svg" class="span-icono-curso" alt="" style="width: 43px;height: 43px;">
+                    <img src="../../../../assets/icons/calendar.svg" class="span-icono-curso" alt=""
+                      style="width: 43px;height: 43px;">
                   </div>
                   <div class="item-resumen">
                     <span class="item-titulo "> Duración</span> <br>

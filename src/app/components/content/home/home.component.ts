@@ -3,7 +3,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { DatePipe, CommonModule } from "@angular/common";
-import { ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
+import { ReactiveFormsModule, UntypedFormGroup, FormsModule } from "@angular/forms";
 import { CookieService } from "ngx-cookie-service";
 import { first } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
@@ -33,7 +33,8 @@ declare var $;
     FooterComponent,
     HeaderComponent,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers: [DatePipe]
 })
@@ -50,12 +51,17 @@ export class HomeComponent implements OnInit {
   fullName: string = "";
   document: string;
   documento: string;
- 
+
   token: string;
   listadoImagenes: any;
 
+  ciudadSeleccionada = 'default'; // ciudad seleccionada para filtrar
+  ciudades: any[] = [];
+
   /* Escuelas y cursos */
   servicios: Servicio[] = [];
+  dataCursosOriginal: any[] = []; // estructura original con [{ curso: [...] }]
+  cursosVisibles: any[] = []; // estructura original con [{ curso: [...] }]
 
   constructor(
     private router: Router,
@@ -79,20 +85,20 @@ export class HomeComponent implements OnInit {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-        /* ||res==null */
-        this.authenticationService
-          .loginNew(ptoken.token)
-          .pipe(first())
-          .subscribe((response: Session) => {
-            this.utilitiesService.currentUser = response.usuario;
-            if (response.usuario.existeUsuario) {
-              localStorage.setItem("user", JSON.stringify(response));
-              localStorage.setItem("cc", response.usuario.documento);
-              this.document = response.usuario.documento;
-              this.utilitiesService.loading = true;
-              this.consultarInformacionMiPerfilConfa(this.document);
-            }
-          });
+      /* ||res==null */
+      this.authenticationService
+        .loginNew(ptoken.token)
+        .pipe(first())
+        .subscribe((response: Session) => {
+          this.utilitiesService.currentUser = response.usuario;
+          if (response.usuario.existeUsuario) {
+            localStorage.setItem("user", JSON.stringify(response));
+            localStorage.setItem("cc", response.usuario.documento);
+            this.document = response.usuario.documento;
+            this.utilitiesService.loading = true;
+            this.consultarInformacionMiPerfilConfa(this.document);
+          }
+        });
     }
   }
 
@@ -114,28 +120,35 @@ export class HomeComponent implements OnInit {
 
     const infoUser = JSON.parse(localStorage.getItem("user"));
     //console.log(infoUser)
-        this.userMiPerfil = infoUser.user;
-        this.documento = infoUser.usuario.documento;
-        this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
-        this.utilitiesService.loading = false;
-        this.utilitiesService.fullNameUser =`${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
-        this.utilitiesService.documentUser = infoUser.usuario.documento;
-        this.utilitiesService.direccionResidencia = infoUser.usuario.direccion;
-        this.utilitiesService.celular = infoUser.usuario.celular;
-        this.utilitiesService.genero = infoUser.usuario.genero;
+    this.userMiPerfil = infoUser.user;
+    this.documento = infoUser.usuario.documento;
+    this.fullName = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
+    this.utilitiesService.loading = false;
+    this.utilitiesService.fullNameUser = `${infoUser.usuario.primerNombre} ${infoUser.usuario.segundoNombre} ${infoUser.usuario.primerApellido} ${infoUser.usuario.segundoApellido}`;
+    this.utilitiesService.documentUser = infoUser.usuario.documento;
+    this.utilitiesService.direccionResidencia = infoUser.usuario.direccion;
+    this.utilitiesService.celular = infoUser.usuario.celular;
+    this.utilitiesService.genero = infoUser.usuario.genero;
 
   }
 
   consultarCursos() {
     this.dataServiciosCursos.getServicios().pipe(first())
       .subscribe((response: any) => {
-        ////console.log(response)
+        const ciudadMap = new Map();
+        const ID_SERVICIO_MAYORES = 27;
+
+        response.servicios.sort((a, b) => {
+          if (a.id === ID_SERVICIO_MAYORES) return -1;
+          if (b.id === ID_SERVICIO_MAYORES) return 1;
+          return 0;
+        });
 
         // Ajusta el acceso al arreglo según la estructura de `response`
         const dataArray = response.servicios || []; // Cambia `servicios` por la propiedad correcta si es diferente
 
         // trae las imagenes almacenadas en el JSON img-cards
-        this.imagenesCards();
+        //this.imagenesCards();
 
         // Aquí se setean los valores en la propiedad `servicios`
         this.servicios = dataArray.map((item: any) => ({
@@ -196,6 +209,22 @@ export class HomeComponent implements OnInit {
           urlImagen: item.urlImagen
         }));
 
+        dataArray.forEach(item => {
+          if (Array.isArray(item.curso)) {
+            item.curso.forEach(servicio => {
+              if (servicio.sede) {
+                ciudadMap.set(servicio.sede.municipioId, {
+                  municipioId: servicio.sede.municipioId,
+                  nombreMunicipio: servicio.sede.nombreMunicipio?.trim(), // quitamos espacios innecesarios
+                });
+              }
+            });
+          }
+        });
+
+        this.ciudades = Array.from(ciudadMap.values());
+
+        this.ciudades = Array.from(ciudadMap.values());
         this.utilitiesService.servicios = this.servicios
 
         this.utilitiesService.loading = false;
@@ -225,14 +254,48 @@ export class HomeComponent implements OnInit {
   }
 
   verDetalle(servicio: any) {
+    console.log(this.ciudadSeleccionada)
 
-    /* this.utilitiesService.listadoCursos = servicio.curso;
-    this.dataServiciosCursos.setServicio(servicio.curso); */
+    if (this.ciudadSeleccionada == 'default') {
+      this.utilitiesService.messageTitleModal = "Atención";
+      this.utilitiesService.messageModal = 'Debe selecionar un municipio.';
+      this.utilitiesService.backLogin = false;
+      $(".modalNuevowarning").click();
 
-    localStorage.setItem('idServicio', servicio.id);
-    this.utilitiesService.loading = true;
+    } else {
+      localStorage.setItem('idServicio', servicio.id);
+      localStorage.setItem('idMunicipio', this.ciudadSeleccionada);
+      this.utilitiesService.loading = true;
 
-    // Redirigir a la ruta 'cursos' con el 'id' del servicio como parámetro
-    this.router.navigate(['/cursos']);
+      // Redirigir a la ruta 'cursos' con el 'id' del servicio como parámetro
+      this.router.navigate(['/cursos']);
+    }
+
+
+
   }
+
+  aplicarFiltros() {
+    const municipioId = this.ciudadSeleccionada;
+
+    const cursosFiltrados: any[] = [];
+
+    // Recorremos la estructura original
+    this.dataCursosOriginal.forEach(item => {
+      if (Array.isArray(item.curso)) {
+        const cursosFiltradosPorMunicipio = item.curso.filter(curso =>
+          curso.sede && curso.sede.municipioId === municipioId
+        );
+
+        if (cursosFiltradosPorMunicipio.length > 0) {
+          cursosFiltrados.push(...cursosFiltradosPorMunicipio);
+        }
+      }
+    });
+
+    // Asignamos la lista filtrada a la variable que se muestra en el HTML
+    this.cursosVisibles = cursosFiltrados;
+    console.log(this.cursosVisibles)
+  }
+
 }
