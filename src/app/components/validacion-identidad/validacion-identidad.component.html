@@ -57,11 +57,11 @@
                     !utilitiesService.desdelogin &&
                     !utilitiesService.botnesEstadoFacial
                   ">
-                  <button id="miperfil_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
+                  <button id="escuelasCursos_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
                     (click)="triggerSnapshot()">
                     <h5 class="m-0">Validar</h5>
                   </button>
-                  <button id="miperfil_otros_metodos" class="btn-validar-facial-login btn mt-1 mb-1"
+                  <button id="escuelasCursos_otros_metodos" class="btn-validar-facial-login btn mt-1 mb-1"
                     (click)="saltarFacial()">
                     <h5 class="m-0">Probar con otros métodos</h5>
                   </button>
@@ -70,21 +70,21 @@
                     utilitiesService.actualizarEstadoFacialIC &&
                     utilitiesService.botnesEstadoFacial
                   ">
-                  <button id="miperfil_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
+                  <button id="escuelasCursos_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
                     (click)="triggerSnapshot()">
                     <h5 class="m-0">Validar</h5>
                   </button>
-                  <button id="miperfil_saltar_facial" class="btn-validar-facial-login btn mt-1 mb-1"
+                  <button id="escuelasCursos_saltar_facial" class="btn-validar-facial-login btn mt-1 mb-1"
                     [disabled]="errors.length > 0" (click)="closeModalFacial()">
                     <h5 class="m-0">Saltar facial</h5>
                   </button>
                 </div>
                 <div class="mt-4 d-flex flex-column align-items-center" *ngIf="utilitiesService.desdelogin">
-                  <button id="miperfil_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
+                  <button id="escuelasCursos_validar" class="btn-validar btn mt-1 mb-4" [disabled]="errors.length > 0"
                     (click)="triggerSnapshot()">
                     <h5 class="m-0">Validar</h5>
                   </button>
-                  <button id=" miperfil_otros_metodos" class="btn-validar-facial-login btn mt-1 mb-1"
+                  <button id=" escuelasCursos_otros_metodos" class="btn-validar-facial-login btn mt-1 mb-1"
                     (click)="saltarFacialLogin()">
                     <h5 class="m-0">Probar con otros métodos</h5>
                   </button>
@@ -281,7 +281,7 @@
                     </div>
 
                     <div class="flex-column">
-                      <button id="miperfil_otp_envio" class="btn-credits-blue btn mt-2 mb-1 btn-block py-1"
+                      <button id="escuelasCursos_otp_envio" class="btn-credits-blue btn mt-2 mb-1 btn-block py-1"
                         *ngIf="!codigoEnviado && !contituarInicio" (click)="enviarCodigoOTP()" [disabled]="!opcionEnvio"
                         [ngStyle]="{
                         color: !opcionEnvio ? '#667085' : '#FFF',
@@ -290,14 +290,14 @@
                       }">
                         Continuar
                       </button>
-                      <button id="miperfil_otp_confirmar" class="btn-credits-blue btn mt-1 mb-1 btn-block p-1"
+                      <button id="escuelasCursos_otp_confirmar" class="btn-credits-blue btn mt-1 mb-1 btn-block p-1"
                         *ngIf="codigoEnviado && !contituarInicio" (click)="validarCodigoOTP()" [disabled]="
                           formValidateOTP.invalid || utilitiesService.loading
                         ">
                         <h5 class="m-0 p-1">Continuar</h5>
                       </button>
 
-                      <button id="miperfil_otp_envio" (click)="enviarOtpXdocTipodoc()"
+                      <button id="escuelasCursos_otp_envio" (click)="enviarOtpXdocTipodoc()"
                         class="btn-credits-blue btn btn-block my-4" *ngIf="!codigoEnviado && contituarInicio"
                         [disabled]="!opcionEnvio" [ngStyle]="{
                         color: !opcionEnvio ? '#667085' : '#FFF',
