@@ -45,37 +45,12 @@ export class ModalPayComponent implements OnInit {
   ngOnInit() {
   }
 
-   
+
 
   captureParameters() {
+    this.path = this.activatedRoute.snapshot.routeConfig?.path || null;
 
-    const queryString = window.location.search; // Obtiene la parte de la URL que contiene los parámetros, e.g., "?7dc7dc58cdcadaea=curso--1-1053837687-1731933423890"
-    let value: any;
-    this.ruta =  queryString
-    if (queryString) {
-      const key = queryString.split('?')[1].split('=')[0]; // Extrae la clave antes del '='
-      
-      this.parametro = key
-      value = queryString.split('=')[1];
-      //console.log('Clave extraída:', key, 'valor', value);
-
-    } else {
-      //console.log('No hay parámetros en la URL');
-    }
-
-    if (this.activatedRoute.snapshot.routeConfig != null) {
-      this.path = this.activatedRoute.snapshot.routeConfig.path;
-      //console.log("entro por capturar parametros " + this.path);
-    } else {
-      //console.log("routeConfig o path no están definidos");
-      
-      this.path = ''; // Asigna un valor predeterminado si no está definido
-    }
-
-    this.activatedRoute.queryParams.subscribe(params => {
-      //console.log('Parámetros de consulta:', params);
-    });
-
+    // console.log("entro por capturar parametros  "+this.path)
     let confirmUser =
       this.activatedRoute.snapshot.queryParams[
       "34240997a16763c011134c570fcc149e"
@@ -84,15 +59,6 @@ export class ModalPayComponent implements OnInit {
       this.activatedRoute.snapshot.queryParams[
       "e541f24f0b06368c9cfb418174699da5"
       ];
-
-
-    if(this.parametro == "34240997a16763c011134c570fcc149e" ){
-      confirmUser = value;
-    }
-
-    if (this.parametro == "e541f24f0b06368c9cfb418174699da5" ) {
-      changePassword = value;
-    }
 
     if (confirmUser || changePassword) {
       if (confirmUser) {
@@ -121,17 +87,17 @@ export class ModalPayComponent implements OnInit {
 
       if (this.ruta) {
         const key = this.ruta.split('=')[1]; // Extrae la clave antes del '='
-        
+
         this.parametro = key
         //console.log('Clave extraída:', key);
       }
-      
-     let productoId = this.parametro;
+
+      let productoId = this.parametro;
       //console.log("productoId " + productoId)
 
       if (productoId) {
         this.loading = true;
-        
+
         this.dataServiciosCursos
           .verifyTransaction(productoId)
           .pipe(first())
