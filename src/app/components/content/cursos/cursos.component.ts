@@ -228,7 +228,8 @@ export class CursosComponent {
               localStorage.setItem("user", JSON.stringify(response));
               localStorage.setItem("cc", response.usuario.documento);
               this.document = response.usuario.documento;
-              this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
+               this.utilitiesService.fullNameUser =`${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
+              //this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
               //this.utilitiesService.loading = true;
               //this.consultarInformacionMiPerfilConfa(this.document);
             }else{

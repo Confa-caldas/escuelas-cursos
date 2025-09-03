@@ -140,6 +140,7 @@ export class SeleccionAsistentesComponent implements OnInit {
             localStorage.setItem("user", JSON.stringify(response));
             localStorage.setItem("cc", response.usuario.documento);
             this.document = response.usuario.documento;
+            this.utilitiesService.fullNameUser =`${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
             //console.log(this.document)
             this.utilitiesService.loading = false;
           } else {

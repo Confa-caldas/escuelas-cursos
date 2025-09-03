@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-        /* ||res==null */
+        /* ||res==null */ 
         this.authenticationService
           .loginNew(ptoken.token)
           .pipe(first())
