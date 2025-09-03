@@ -130,7 +130,7 @@ export class ModalPayComponent implements OnInit {
      let productoId = this.parametro;
       console.log("productoId " + productoId)
 
-      if (productoId) {
+        if (productoId != null && productoId.toLowerCase().includes("curso")) {
         this.loading = true;
         
         this.dataServiciosCursos
@@ -175,6 +175,9 @@ export class ModalPayComponent implements OnInit {
               this.loading = false;
             }
           });
+      }
+      else{
+        this.loading = false;
       }
 
     } else {
