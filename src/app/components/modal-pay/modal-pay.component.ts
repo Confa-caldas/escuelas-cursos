@@ -157,8 +157,7 @@ export class ModalPayComponent implements OnInit {
               });
 
               $(".btn-info-pay-dues").click();
-            } /* else { */
-            if (response.paymentOrderStatusId === "REFUSED") {
+            } else if (response.paymentOrderStatusId === "REFUSED") {
 
               this.loading = false;
 
@@ -172,8 +171,10 @@ export class ModalPayComponent implements OnInit {
 
               $(".modalNuevoError").click();
             }
+            else{
+              this.loading = false;
+            }
           });
-           this.loading = false;
       }
 
     } else {
