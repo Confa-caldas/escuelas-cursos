@@ -84,7 +84,7 @@ export class CursosComponent {
                 <li><strong>Ciclo 1:</strong> Inscripciones 21 de enero.</li>
                 <li><strong>Ciclo 2:</strong> Inscripciones 8 de abril.</li>
                 <li><strong>Ciclo 3:</strong> Inscripciones 17 de junio.</li>
-                <li><strong>Ciclo 4:</strong> Inscripciones 2 de septiembre.</li>
+                <li><strong>Ciclo 4:</strong> Inscripciones 3 de septiembre.</li>
               </ul>
               <p>Cursos de actividad física como yoga, clases al parque, baile para mayores, actividad física para mayores de 60 años, las matrículas son la última semana de cada mes.</p>`,
       open: false,
@@ -219,20 +219,24 @@ export class CursosComponent {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-      this.authenticationService
-        .loginNew(ptoken.token)
-        .pipe(first())
-        .subscribe((response: Session) => {
-          this.utilitiesService.currentUser = response.usuario;
-          if (response.usuario.existeUsuario) {
-            localStorage.setItem("user", JSON.stringify(response));
-            localStorage.setItem("cc", response.usuario.documento);
-            this.document = response.usuario.documento;
-            this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
-            //this.utilitiesService.loading = true;
-            //this.consultarInformacionMiPerfilConfa(this.document);
+        this.authenticationService
+          .loginNew(ptoken.token)
+          .pipe(first())
+          .subscribe((response: Session) => {
+            this.utilitiesService.currentUser = response.usuario;
+            this.utilitiesService.messageLoading = null;
+            if (response.usuario.existeUsuario) {
+              localStorage.setItem("user", JSON.stringify(response));
+              localStorage.setItem("cc", response.usuario.documento);
+              this.document = response.usuario.documento;
+               this.utilitiesService.fullNameUser =`${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
+              //this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
+              //this.utilitiesService.loading = true;
+              //this.consultarInformacionMiPerfilConfa(this.document);
+            }else{
+            location.reload();
           }
-        });
+          });
     }
   }
 

@@ -138,14 +138,16 @@ export class SeleccionAsistentesComponent implements OnInit {
         .loginNew(ptoken.token)
         .pipe(first())
         .subscribe((response: Session) => {
+          console.log(response.usuario)
           if (response.usuario.existeUsuario) {
             localStorage.setItem("user", JSON.stringify(response));
             localStorage.setItem("cc", response.usuario.documento);
             this.document = response.usuario.documento;
+            this.utilitiesService.fullNameUser =`${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
             //console.log(this.document)
             this.utilitiesService.loading = false;
           } else {
-            location.reload()
+            location.reload();
           }
         });
     }
@@ -818,6 +820,8 @@ export class SeleccionAsistentesComponent implements OnInit {
         }
       }, 1000);
     }, 1000);
+
+    this.utilitiesService.loading = false;
   }
 
 

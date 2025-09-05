@@ -9,21 +9,81 @@
           <div class="card-login card m-0 d-flex flex-column align-items-center align-items-stretch">
             <div class="collapse show collapseForgotPassword collapseRegister">
               <div class="card-body  card-body-login animated fadeIn fast">
-                <h3 class="mb-4">
+                <div class="d-flex justify-content-start">
+                  <button
+                    type="button"
+                    class="close btn-flecha-otp"
+                    (click)="regresarFacial()"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    *ngIf="utilitiesService.otrosIngresos"
+                  >
+                    <i class="bx bx-left-arrow-alt"></i>
+                  </button>
+                </div>
+                <h3 class="mb-2">
                   Inscríbete y paga el cupo de tu curso deportivo
                 </h3>
-                <p class="card-text m-0">Puedes pagar por PSE, tarjeta de débito o crédito.</p>
+                <p class="m-0">Puedes pagar por PSE, tarjeta de débito o crédito.</p>
+                <div class="image-overlay-container my-4">
+                  <img src="assets/img/imageValida.png" alt="Confa" class="img-fluid base-image" />
+                  <img src="assets/img/cuadroValida.png" alt="Confa" class="img-fluid overlay-image" />
+                  <img src="assets/img/imageValida2.png" alt="Confa" class="img-fluid points-image" />
+                </div>
                 <div class="login-content">
-                  <app-card-login></app-card-login>
-                  <div class="form-group m-0">
-                    <button id="escuelaCursoOlvidoContra" class="btn-forgot-password btn btn-block mt-1 mb-1"
-                      data-toggle="collapse" data-target=".collapseForgotPassword" aria-expanded="false"
-                      aria-controls="collapseForgotPassword">
-                      ¿Olvidaste la contraseña?
+                  <!-- <app-card-login></app-card-login> -->
+                  <div class="" *ngIf="!utilitiesService.otrosIngresos">
+                    <button id="escuelasCursos_facialIngreso" [disabled]="utilitiesService.loading"
+                      class="btn btn-credits btn-signin btn-block mt-1 mb-1"
+                      (click)="activarFacial()"><!-- (click)="mostrarOtrasAlternativas()" -->
+                      <span *ngIf="utilitiesService.loading" class="spinner-border spinner-border-sm mr-1"></span>
+                      Ingresar
                     </button>
-                    <button id="escuelaCursoRegistro" class="btn-secun btn btn-block mt-1 mb-1" data-toggle="collapse"
-                      data-target=".collapseRegister" aria-expanded="false" aria-controls="collapseRegister">
-                      Registrarse
+                    <div class="form-group m-0">
+                      <button id="escuelaCursoOlvidoContra" class="btn-forgot-password btn btn-block mt-1 mb-1"
+                        data-toggle="collapse" data-target=".collapseForgotPassword" aria-expanded="false"
+                        aria-controls="collapseForgotPassword">
+                        ¿Olvidaste la contraseña?
+                      </button>
+                      <button id="escuelaCursoRegistro" class="btn-secun btn btn-block mt-1 mb-1" data-toggle="collapse"
+                        data-target=".collapseRegister" aria-expanded="false" aria-controls="collapseRegister">
+                        Registrarse
+                      </button>
+                    </div>
+                  </div>
+                  <div class="login-otros-ingresos mx-auto" *ngIf="utilitiesService.otrosIngresos">
+                    <button class="btn-alternativa-acceso my-2 btn-block" (click)="mostrarOtrasAlternativas()">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="col-2">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M15 8.09V3.27L7.5 0L0 3.27V8.18C0 12.72 3.2 16.97 7.5 18C8.05 17.87 8.58 17.68 9.1 17.45C10.18 18.99 11.97 20 14 20C17.31 20 20 17.31 20 14C20 11.03 17.84 8.57 15 8.09ZM8 14C8 14.56 8.08 15.11 8.23 15.62C7.99 15.73 7.75 15.84 7.5 15.92C4.33 14.92 2 11.68 2 8.18V4.58L7.5 2.18L13 4.58V8.09C10.16 8.57 8 11.03 8 14ZM14 18C11.79 18 10 16.21 10 14C10 11.79 11.79 10 14 10C16.21 10 18 11.79 18 14C18 16.21 16.21 18 14 18Z"
+                          fill="#ff2c80" />
+                      </svg>
+                      <span class="col-8">Código de validación</span>
+
+                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="col-2">
+                        <path
+                          d="M0.590086 10.59L5.17009 6L0.590088 1.41L2.00009 2.46532e-07L8.00009 6L2.00009 12L0.590086 10.59Z"
+                          fill="#D0D5DD" />
+                      </svg>
+                    </button>
+                    <button class="btn-alternativa-acceso my-2 btn-block" (click)="activarCredenciales()">
+                      <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="col-2">
+                        <path
+                          d="M1 10H21V12H1V10ZM2.15 5.95L3 4.47L3.85 5.95L5.15 5.2L4.3 3.72H6V2.22H4.3L5.15 0.75L3.85 0L3 1.47L2.15 0L0.85 0.75L1.7 2.22H0V3.72H1.7L0.85 5.2L2.15 5.95ZM8.85 5.2L10.15 5.95L11 4.47L11.85 5.95L13.15 5.2L12.3 3.72H14V2.22H12.3L13.15 0.75L11.85 0L11 1.47L10.15 0L8.85 0.75L9.7 2.22H8V3.72H9.7L8.85 5.2ZM22 2.22H20.3L21.15 0.75L19.85 0L19 1.47L18.15 0L16.85 0.75L17.7 2.22H16V3.72H17.7L16.85 5.2L18.15 5.95L19 4.47L19.85 5.95L21.15 5.2L20.3 3.72H22V2.22Z"
+                          fill="#ff2c80" />
+                      </svg>
+
+                      <span class="col-8">Usuario y contraseña</span>
+
+                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="col-2">
+                        <path
+                          d="M0.590086 10.59L5.17009 6L0.590088 1.41L2.00009 2.46532e-07L8.00009 6L2.00009 12L0.590086 10.59Z"
+                          fill="#D0D5DD" />
+                      </svg>
                     </button>
                   </div>
                   <div class="form-group form-group-custom">
@@ -114,16 +174,25 @@
 </section>
 <!-- TODO: Migrar los card del modal para algo mas general, agregar el todo a boletines cuando este hecho -->
 <!-- TODO: Hacer componente modal-login -->
+ <button
+  type="button"
+  class="btnLogin btn btn-primary"
+  data-toggle="modal"
+  data-target="#modalPopupLogin"
+  hidden
+>
+  Form Login
+</button>
 <!-- Modal -->
 <div class="modal fade modal-popup-login" id="modalPopupLogin" tabindex="-1" role="dialog"
   aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
+  <div class="modal-dialog modal-dialog-centered justify-content-center modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header login-header" id="modalPopupLoginLabel">
         <div class="col-md-11">
           <div class="d-flex align-items-center justify-content-center">
             <p class="m-0 pl-4 pr-2">
-              Ingresa para disfrutar de todos nuestros servicios
+              Ingresa para disfrutar de todos nuestros servicios.
             </p>
           </div>
         </div>
@@ -242,9 +311,10 @@
 
 <div class="modal fade modal-form-register" id="modalFormRegister" tabindex="-1" role="dialog"
   aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center" role="document">
-    <div class="modal-content">
-      <app-card-register-form [respuesta]="respuesta" [user]="utilitiesService.registerUser"></app-card-register-form>
+  <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered justify-content-center"
+    role="document">
+    <div class="modal-content" style="overflow-y: auto;">
+      <app-card-register-form [respuesta]="respuesta" [user]="user"></app-card-register-form>
     </div>
   </div>
 </div>
@@ -256,42 +326,57 @@
 <div class="modal fade modal-form-questions" id="modalFormQuestions" tabindex="-1" role="dialog"
   aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg modal-dialog-centered justify-content-center" role="document">
-    <div class="modal-content">
-      <div class="modal-header login-header" id="modalPopupLoginLabel"
-        style="background-color: #03a9f4; color: #fff; font-style: bold">
-        <div class="col-md-11 text-center">
-          <div class="d-flex align-items-center justify-content-center">
-            <h4>
-              <i class="far fa-list-alt"></i> Preguntas de validacion de
-              identidad
-            </h4>
-          </div>
-        </div>
-        <button type="button" class="close btn-close-form-questions text-white" data-dismiss="modal" aria-label="Close">
+        <div class="modal-content">   
+      <div class="modal-header login-header">
+        <h5 class="modal-title text-white">Modal title</h5>
+        <button type="button" class="close  btn-close-form-questions" data-dismiss="modal" aria-label="Close"   >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body pr-lg-5 pl-lg-5">
-        <div class="col-12 text-center p-3" style="
-            font-family: Ubuntu;
-            color: #000;
-            font-size: 17px;
-            line-height: 35px;
-          ">
-          <p>
-            Tu seguridad es importante para nosotros, responde las siguientes
-            preguntas.
-          </p>
+
+      <div
+        class="modal-header login-header text-center pt-4"
+        id="modalPopupLoginLabel"
+        style="
+          background-color: #fff;
+          color: #03a9f4;
+          font-style: bold;
+          margin-bottom: -60px;
+        "
+      >
+        <div class="col-12 text-center">
+        
+          <div class="d-flex align-items-center justify-content-center">
+            <h4>Responde las preguntas de validación de identidad.</h4>
+          </div>
         </div>
+      </div>
+      <div
+        class="col-12 text-center p-5"
+        style="color: #03a9f4; font-size: 22px"
+      >
+        <p>
+          Si la información proporcionada no coincide con tu información
+          personal, por favor realiza tu solicitud a través de
+          <span style="font-weight: bolder; text-decoration: underline"
+            >PQRS</span
+          >
+        </p>
+      </div>
+      <div class="modal-body pr-lg-5 pl-lg-5">
         <div class="animated fadeIn fast">
           <div class="login-content pl-5 pr-5 pt-1 pb-1">
-            <app-card-questions (respuestaEmitter)="processRespuestas($event)" [user]="user"
-              [preguntas]="preguntas"></app-card-questions>
+            <app-card-questions
+              (respuestaEmitter)="processRespuestas($event)"
+              [user]="user"
+              [preguntas]="preguntas"
+            ></app-card-questions>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-validacion-identidad></app-validacion-identidad>
 
 <app-footer></app-footer>

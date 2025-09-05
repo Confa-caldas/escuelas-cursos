@@ -64,4 +64,8 @@ export const environment = {
   param1: "YmQ2YmU2YzkxYzRmNmM0ZUNJUkNVX0YqMjAyMCQ=",
   param2: "Q2lyY3VsYXJfQ29uZmE3YjdhNTNlMjM5NDAwYTEz",
   servicio: 1,
+
+  validacionIndentidad: "https://serviciosweb.confa.co/validacionIdentidadWS/",
+   /*-----------------DEPARTAMENTOS Y MUNICIPIOS----------------- */
+  apiAlojamiento: "https://alojamiento.confa.co/alojamientoWS/rest/",
 };

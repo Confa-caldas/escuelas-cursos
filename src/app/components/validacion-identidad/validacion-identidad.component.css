@@ -1,0 +1,105 @@
+/* .btn-validar-facial-login {
+    width: 85%;
+    background-color: #03a9f4;
+    border-color: #03a9f4;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 20px;
+    outline: 0px;
+    font-family: Ubuntu;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    max-width: 85%;
+
+} */
+
+
+
+.btn-validar-facial-login {
+  background-color: #fff;
+  width: 85%;
+  border: 1px solid #EAECF0;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu;
+  font-weight: 600;
+  font-size: 14px !important;
+  line-height: 24px;
+  letter-spacing: 0%;
+  max-width: 300px;
+  margin-top: -4px !important;
+}
+
+.btn-validar-facial-login:hover {
+  background-color: rgba(249, 250, 251, 1);
+  color: black;
+}
+
+
+
+.btn-sin-acceso {
+  border: none;
+  background-color: transparent;
+}
+
+
+
+.btn-validar {
+  background-color: #ff2c80;
+  width: 85%;
+  border-color: #ff2c80;
+  color: #fff;
+  border-radius: 25px;
+  outline: 0px;
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  max-width: 300px;
+
+}
+
+.btn-validar:hover {
+   background: #FF5D9F;
+  border-color: #FF5D9F;
+  color: white;
+}
+
+.margin-otp {
+  margin-left: 6rem;
+}
+
+
+
+@media (max-width: 576px) {
+  .modal-otp-estilo {
+    min-width: 90vw !important;
+    /* Ajusta el ancho del modal en móviles */
+  }
+
+  .dash {
+    flex-basis: 100%;
+    text-align: center;
+    display: block;
+    /* Asegura que se comporte como bloque */
+  }
+
+  .margin-otp {
+    margin-left: 2rem;
+  }
+}
+
+@media (min-width: 577px) {
+  .modal-otp-estilo {
+    max-width: 800px !important;
+    /* Tamaño similar a modal-lg */
+  }
+}
+
+  ::ng-deep webcam video {
+    transform: none !important;
+  }
+

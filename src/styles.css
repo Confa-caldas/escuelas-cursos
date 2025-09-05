@@ -8,6 +8,13 @@
   --gris: #D0D5DD;
 }
 
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #6F7785;
+  /* background: rgba(52, 64, 84, 0.7); */
+}
+
 body {
   font-family: Poppins;
   -moz-transition: opacity 0.24s ease-in-out;
@@ -54,6 +61,8 @@ span.badge {
   opacity: 0.8;
   white-space: normal;
   font-size: 10px;
+  color: red;
+  background: none;
 }
 
 .dropdown-toggle::after {
@@ -119,21 +128,22 @@ button.btn-credits:hover {
 }
 
 button.btn-credits-blue {
-  background-color: #00AEEF;
-  border-color: #00AEEF;
-  color: white;
+  background-color: #00aeef;
+  border-color: #00aeef;
+  color: #fff;
   border-radius: 25px;
   outline: 0px;
-  font-family: Ubuntu, Poppins;
+  font-family: Ubuntu;
+  font-weight: 700;
   font-size: 14px;
-  line-height: 21px;
-  padding: 8px 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
 }
 
 button.btn-credits-blue:hover {
-  background: #63d4fd;
-  border-color: #63d4fd;
-  color: white;
+  background-color: #4cceff;
+  border: #A8E7FF#4CCEFF;
+  color: #fff;
 }
 
 button.btn-cred {
@@ -1888,7 +1898,7 @@ div.modal-popup-login div.modal-body div.login-content form.form-login input {
   color: #495057;
   background-clip: padding-box;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  background-color: #eee;
+  /* background-color: #eee; */
 }
 
 div.modal-popup-login div.modal-body div.login-content div button.btn-signin,
@@ -3032,7 +3042,8 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
   cursor: default;
 }
 
-.ngx-pagination a, .ngx-pagination button {
+.ngx-pagination a,
+.ngx-pagination button {
   background-color: #fff !important;
   color: #0a0a0a;
   display: block;
@@ -3194,7 +3205,7 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
 
 .select-filter {
   width: 100%;
-  padding: 8px ;
+  padding: 8px;
   border: none;
   border-radius: 5px;
   box-shadow: 0px 1px 2px 0px #1018280F;
@@ -3223,4 +3234,303 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
   border-radius: 32px 0px 0px 0px;
   border: 1px 0px 0px 0px;
   opacity: 0px;
+}
+
+
+/************************************ IMAGEN DE VALIDACION ************************************/
+.image-overlay-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.base-image {
+  width: 100%;
+  height: auto;
+}
+
+.overlay-image {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+.points-image {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  pointer-events: none;
+}
+
+/* ************************************* ESTILOS PARA LA CAMARA DE VALIDACION  */
+ul.links {
+  padding-bottom: 20px;
+}
+
+.modal-camara .container2 .text1 {
+  font-weight: bold;
+  color: #ff2c80;
+}
+
+.modal-camara .btn-close-camaraR {
+  cursor: none;
+}
+
+.modal-camara .camara-header,
+.modal-camara .card-login {
+  border: none;
+}
+
+.modal-camara .card-body-login {
+  position: relative;
+  /* background-color: #d9d9d9; */
+  width: 550px;
+  height: 400px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.modal-camara .wrapper {
+  width: 100%;
+  /* height: 350px; */
+  background-color: white;
+  /* border-radius: 50%; */
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.modal-camara .webcam-view {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textCamaraInactiva {
+  background-color: hsl(12, 100%, 50%);
+  color: white;
+  margin-top: 0;
+  border-radius: 15px;
+  border: none;
+}
+
+button.btn-facial {
+  background-color: #fff;
+  border-radius: 25px;
+  padding: 5px 20px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+button.btn-facial img {
+  width: 20px;
+}
+
+.botones {
+  width: 100% !important;
+}
+
+p.paragraph {
+  position: relative;
+  color: #475467 !important;
+  font-size: 14px;
+  line-height: 16.8px;
+}
+
+.form-check label {
+  font-size: 14px;
+  color: #475467 !important;
+  font-weight: 600;
+}
+
+.form-check input[type="radio"] {
+  margin-top: 7px;
+}
+
+input[type="radio"].is-invalid {
+  border-color: red;
+}
+
+.invalid-feedback {
+  color: red;
+  display: block;
+}
+
+.form-group-custom label {
+  font-size: 16px;
+  color: #9a9a9a !important;
+}
+
+.modal-otp .otp-header {
+  border: none;
+  margin-bottom: -10px;
+  padding: 1.5rem 1.8rem;
+}
+
+.modal-otp .modal-content {
+  width: 70%;
+  border-radius: 1.4rem;
+}
+
+.modal-otp .text1 {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.modal-otp .card-login {
+  border: none;
+}
+
+.modal-otp .text-reenvio-otp {
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.modal-otp .circulo-otp {
+  background-color: #9a9a9a;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  /* Espaciado entre los inputs */
+  flex-wrap: wrap;
+  /* Permite que los elementos pasen a una nueva línea */
+}
+
+.modal-otp .otp-input {
+  width: 55px !important;
+  height: 60px !important;
+  text-align: center !important;
+  margin: 0 5px !important;
+  border: 1px solid #d3d3d3 !important;
+  border-radius: 5px !important;
+  font-size: 24px !important;
+  font-weight: bold !important;
+  background-color: #f9f9f9 !important;
+ color: #03a9f4 !important;
+}
+
+.modal-otp .otp-input::placeholder {
+  color: #9a9a9a !important;
+}
+
+.modal-otp .otp-input:focus {
+  border-color: #00afef93 !important;
+  outline: none;
+  box-shadow: 0px 0px 0px 4px #00afef85;
+  box-shadow: 0px 1px 2px 0px #1018280D;
+
+}
+
+@media (max-width: 576px) {
+
+  /* Para pantallas pequeñas */
+  .otp-input {
+    width: 32px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+.modal-otp .dash {
+  margin: 0 10px;
+  font-size: 24px;
+  color: #9a9a9a;
+}
+
+.modal-otp .content-icon {
+  width: 80px;
+  height: 80px;
+  border: 9px solid rgba(0, 178, 255, 0.3);
+  background-color: white;
+  border-radius: 50%;
+  margin-left: 40px;
+}
+
+.modal-otp .content-icon img {
+  width: 35px;
+  height: 40px;
+}
+
+.modal-otp .btn-flecha-otp {
+  padding: 1.5rem 1rem !important;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+}
+
+.modal-camara .validar,
+.form-group .validar {
+  width: 60% !important;
+}
+
+.form-group .validar {
+  width: 45% !important;
+}
+
+.card-custom-select {
+  border: none !important;
+}
+
+h3.card-title-inicio-tpdoc {
+
+  color: #ff2c80;
+  font-family: Ubuntu;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+
+
+.btn-cerrar-modal {
+  background-color: #ff2c80;
+  border-color: #ff2c80;
+  color: #fff;
+  border-radius: 25px;
+  padding: 10px 30px;
+  outline: 0px;
+  font-family: Ubuntu, Poppins;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.modal-content {
+  overflow-y: auto;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Edge, Safari */
+}
+
+select {
+  appearance: none;
+  /* Firefox, Safari, Chrome */
+  -webkit-appearance: none;
+  /* Safari, Chrome */
+  -moz-appearance: none;
+  /* Firefox */
+  background: none;
+  background-image: none;
 }

@@ -4,7 +4,7 @@ import { ReactiveFormsModule, UntypedFormGroup, UntypedFormBuilder, Validators, 
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "../../services/authentication.service";
 import { first } from "rxjs/operators";
-import { User, Token, PreguntasUser, Questions, Session, EstadoAplicativo } from "../../interfaces/user.interface";
+import { TipoDoc, Token, PreguntasUser, Questions, Session, EstadoAplicativo } from "../../interfaces/user.interface";
 import { UtilitiesService } from "../../services/utilities.service";
 import { QuestionsService } from "src/app/services/questions.service";
 import { DataServiciosCursos } from 'src/app/services/data-cursos.service'
@@ -28,6 +28,9 @@ export class CardLoginComponent implements OnInit {
   returnUrl: string;
   preguntar: Boolean = false;
   pass: string;
+  tpDoc: string = "";
+  dataTpDoc: TipoDoc[];
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -39,7 +42,9 @@ export class CardLoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getTipoDoc(); // hace el llamdo a la consulta de tipos de documentos
     this.formLogin = new UntypedFormGroup({
+      tpDoc: new UntypedFormControl("", [Validators.required]),
       document: new UntypedFormControl("", [
         Validators.required,
         Validators.min(99999),
@@ -73,7 +78,13 @@ export class CardLoginComponent implements OnInit {
     return this.formLogin.controls;
   }
 
-  onSubmit() {
+  get getTpDoc() {
+    return (
+      this.formLogin.get("tpDoc").invalid && this.formLogin.get("tpDoc").touched
+    );
+  }
+
+  async onSubmit() {
     this.submitted = true;
     this.utilitiesService.messageLoading = "";
 
@@ -101,7 +112,7 @@ export class CardLoginComponent implements OnInit {
             return;
           }
 
-          this.authenticationService.loginCredenciales(document, password)
+          this.authenticationService.loginCredenciales(document, password, this.tpDoc)
             .pipe(first())
             .subscribe({
               next: (response: Session) => {
@@ -119,6 +130,34 @@ export class CardLoginComponent implements OnInit {
                 }
 
                 if (usuario.bloqueo) {
+
+                  switch (response.tipoBloqueo) {
+                    case "OTP_TEMP":
+                      this.utilitiesService.messageModal =
+                        "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, intenta nuevamente en 24 horas.";
+                      break;
+              
+                    case "FACIAL":
+                      this.utilitiesService.messageTitleModal =
+                        "No se pudo generar el código validación. Intenta nuevamente en 24 horas.";
+                      this.utilitiesService.messageModal =
+                        "No puedes ingresar debido a que excediste los intentos permitidos para ingreso con facial.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      break;
+              
+                    case "PREGUNTAS":
+                      this.utilitiesService.messageModal =
+                        "No puedes ingresar debido a que excediste los intentos permitidos para responder las preguntas.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      break;
+              
+                    case "CONTRASENA":
+                      this.utilitiesService.messageModal =
+                        "No puedes ingresar debido a que excediste los intentos permitidos para autenticarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                      break;
+              
+                    default:
+                      this.utilitiesService.messageModal =
+                        "No puedes ingresar debido a que excediste los intentos permitidos para validarte.  Por favor, realiza la revisión de tus datos, escríbenos al siguiente correo: pqrsf@confa.co (Anexando copia de tu documento de identidad)";
+                  }
                   this.showModalMessage(
                     "¡Usuario Bloqueado!",
                     "No puedes ingresar debido a que excediste los intentos permitidos para validarte. Escríbenos a pqrsf@confa.co con copia de tu documento.",
@@ -227,7 +266,10 @@ export class CardLoginComponent implements OnInit {
           const servicios = response.servicios || [];
           if (servicios.length === 0) {
             this.showModalMessage("No puedes continuar", "No hay cursos activos.", false);
-            this.authenticationService.logout();
+             this.authenticationService.logout();
+
+             $('.btn-close-popup-login').click()
+             this.utilitiesService.otrosIngresos = false;
             return;
           }
 
@@ -371,6 +413,39 @@ export class CardLoginComponent implements OnInit {
     }
   }
 
+  getTipoDoc() {
+    this.authenticationService
+      .getGenericToken()
+      .pipe(first())
+      .subscribe((tokenDoc: Token) => {
+        if (tokenDoc.token) {
+          this.authenticationService
+            .tipoDoc(tokenDoc.token)
+            .pipe(first())
+            .subscribe((res: TipoDoc[]) => {
+              if (res?.length && res[0].id != "0") {
+                this.dataTpDoc = res;
+              } else {
+                this.utilitiesService.messageTitleModal = "Espera";
+                this.utilitiesService.messageModal =
+                  "Error consultando los tipos de documentos";
+                this.utilitiesService.backLogin = true;
+
+                setTimeout(() => {
+                  this.utilitiesService.loading = false;
+                  $(".modalNuevowarning").click();
+                }, 500);
+              }
+            });
+        }
+      });
+  }
+
+  capturar(value) {
+    this.formLogin.get("tpDoc").setValue(value);
+    this.tpDoc = value;
+    console.log(value);
+  }
   consultarGrupoFamiliar(documento: string) {
     this.authenticationService.consultarInformacionMiPerfilConfa(documento).pipe(first())
       .subscribe((response: any) => {

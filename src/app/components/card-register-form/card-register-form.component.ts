@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input,OnChanges,SimpleChanges } from "@angular/core";
 import { ReactiveFormsModule, UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from "@angular/forms";
 import { AuthenticationService } from "../../services/authentication.service";
 import { first } from "rxjs/operators";
-import { Token, User, UserRegister } from "../../interfaces/user.interface";
+import { Token, User, Departamento,Municipio } from "../../interfaces/user.interface";
 import * as CryptoJS from "crypto-js";
 import * as Md5 from "crypto-js/md5";
 import { UtilitiesService } from "../../services/utilities.service";
@@ -10,6 +10,7 @@ import { environment } from "src/environments/environment";
 import { CookieService } from "ngx-cookie-service";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ValidationService } from "src/app/services/validation.service";
 declare var $;
 
 @Component({
@@ -19,34 +20,40 @@ declare var $;
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, FormsModule]
 })
-export class CardRegisterFormComponent implements OnInit {
+export class CardRegisterFormComponent implements OnInit, OnChanges {
   formRegister: UntypedFormGroup;
   submitted: boolean = false;
   showPassword: boolean = false;
-  datosUsuario:any;
+  isComercialCheched: boolean = false;
   @Input() user: User;
   @Input() respuesta: boolean;
+  departamento: string;
+  dataDepartamentos: Departamento[];
+  dataMunicipios: Municipio[];
+  municipio: string;
+
   constructor(
     private authenticationService: AuthenticationService,
     public utilitiesService: UtilitiesService,
+    private validationService: ValidationService,
     private cookieService: CookieService
-  ) {this.user = this.utilitiesService.registerUser;
-    console.log(this.user)
-   }
-
+    
+  ) {}
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
   }
-
   ngOnInit() {
-    console.log('entro al componente register-form')
+    this.getDepartamentos();
     this.formRegister = new UntypedFormGroup({
       typeDocument: new UntypedFormControl("", [Validators.required]),
       firstName: new UntypedFormControl("", [
         Validators.required,
         Validators.pattern("[A-Za-zá-úÁ-Ú ]*"),
       ]),
-      secondName: new UntypedFormControl("", Validators.pattern("[A-Za-zá-úÁ-Ú ]*")),
+      secondName: new UntypedFormControl(
+        "",
+        Validators.pattern("[A-Za-zá-úÁ-Ú ]*")
+      ),
       firstLastName: new UntypedFormControl("", [
         Validators.required,
         Validators.pattern("[A-Za-zá-úÁ-Ú ]*"),
@@ -64,11 +71,12 @@ export class CardRegisterFormComponent implements OnInit {
       birthDate: new UntypedFormControl("", Validators.required),
       address: new UntypedFormControl("", Validators.required),
       phone: new UntypedFormControl("", Validators.required),
+      confirmPhone: new UntypedFormControl("", Validators.required),
       email: new UntypedFormControl("", [
         Validators.required,
         Validators.pattern(
           "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
-          "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+            "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         ),
         Validators.email,
       ]),
@@ -76,7 +84,7 @@ export class CardRegisterFormComponent implements OnInit {
         Validators.required,
         Validators.pattern(
           "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
-          "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+            "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         ),
         Validators.email,
       ]),
@@ -90,6 +98,9 @@ export class CardRegisterFormComponent implements OnInit {
         Validators.minLength(6),
       ]),
       aceptHabeasData: new UntypedFormControl(false, Validators.required),
+      checkComercial: new UntypedFormControl(false, Validators.required),
+      departamento: new UntypedFormControl("", Validators.required),
+      municipio: new UntypedFormControl("", Validators.required),
     });
 
     this.formRegister.controls["confirmEmail"].setValidators([
@@ -102,8 +113,31 @@ export class CardRegisterFormComponent implements OnInit {
       this.equalsPassword.bind(this.formRegister),
     ]);
 
+    this.formRegister.controls["confirmPhone"].setValidators([
+      Validators.required,
+      this.equalsPhone.bind(this.formRegister),
+    ]);
 
   }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['user'] && changes['user'].currentValue) {
+      console.log('Usuario cambiado:', this.user);
+      // Lógica cuando llega o cambia el `user`
+        this.formRegister?.get('email')?.setValue(this.user.correo || '');
+        this.formRegister?.get("phone")?.setValue(this.user.celular  || '');
+ 
+    
+    }
+  }
+
+
+ /*  onEmailInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.formRegister.get("email").setValue(input.value); 
+  } */
+
   validarPassword(control: UntypedFormControl) {
     const valor = control.value;
     const tieneMayuscula = /[A-Z]/.test(valor);
@@ -119,12 +153,12 @@ export class CardRegisterFormComponent implements OnInit {
     return esValido ? null : { passwordInvalida: true };
   }
   get f() {
-    return this.formRegister?.controls || {};
+    return this.formRegister.controls;
   }
 
   fullNameDisabled() {
-
     let existUser = this.utilitiesService.existUser;
+    // console.log("existUser", existUser);
     if (existUser) {
       this.formRegister.get("firstName").setValue(this.user.primerNombre);
       this.formRegister.get("secondName").setValue(this.user.segundoNombre);
@@ -133,40 +167,55 @@ export class CardRegisterFormComponent implements OnInit {
         .get("secondLastName")
         .setValue(this.user.segundoApellido);
       this.formRegister.get("birthDate").setValue(this.user.fechaNacimiento);
+      this.formRegister
+        .get("typeDocument")
+        .setValue(this.utilitiesService.tipoDoc);
+
+      if (this.user.correo) {
+        //this.formRegister.get("email").setValue(this.user.correo);
+      //  this.formRegister.get("confirmEmail").setValue(this.user.correo);
+      }
+      if (this.user.celular) {
+        this.formRegister.get("phone").setValue(this.user.celular);
+        this.formRegister.get("confirmPhone").setValue(this.user.celular);
+      }
     }
   }
 
   close() {
+    // location.reload()
     this.cookieService.delete("gtoken");
     this.formRegister.get("firstName").setValue("");
     this.formRegister.get("secondName").setValue("");
     this.formRegister.get("firstLastName").setValue("");
     this.formRegister.get("secondLastName").setValue("");
     this.formRegister.get("birthDate").setValue("");
+    this.formRegister.get("typeDocument").setValue("");
+    this.formRegister.get("phone").setValue("");
+    this.formRegister.get("email").setValue("");
+    this.formRegister.get("confirmEmail").setValue("");
+    this.formRegister.get("password").setValue("");
+    this.formRegister.get("confirmPassword").setValue("");
+     window.location.reload();
   }
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.user)
-    //this.formRegister.get("document").setValue(this.user.documento);
-
-    console.log(this.formRegister)
+    this.formRegister.get("document").setValue(this.user.documento);
+    this.formRegister.get("typeDocument").setValue(this.user.tipoDocumento);
     this.fullNameDisabled();
-
-    
 
     if (this.formRegister.invalid) {
       return;
     } else {
-      const document = this.utilitiesService.registerUser.documento;
       let userRegister = this.generateUser(this.f, this.user);
+      /*  console.log("Envio a registro ", userRegister); */
 
       if (
-        /* this.formRegister.controls["document"].value !== || */ document !== "" || document !== null &&
-        this.formRegister.controls["aceptHabeasData"].value
+        this.formRegister.controls["document"].value !== "" &&
+        userRegister.usuario.aceptaHabeas
       ) {
-        this.utilitiesService.loading = true; //1022254874
-
+        this.utilitiesService.loading = true;
         this.authenticationService
           .getGenericToken()
           .pipe(first())
@@ -176,7 +225,8 @@ export class CardRegisterFormComponent implements OnInit {
                 .saveUserRegister(userRegister,responseTING.token)
                 .pipe(first())
                 .subscribe((response: any) => {
-                  if (response === "") {
+                  console.log(response);
+                  if (response == "") {
                     this.utilitiesService.messageTitleModal =
                       "Registro en proceso";
                     this.utilitiesService.messageModal =
@@ -185,11 +235,7 @@ export class CardRegisterFormComponent implements OnInit {
 
                     $(".btn-close-form-register").click();
                     this.cookieService.delete("gtoken");
-
-                    setTimeout(() => {
-                      this.utilitiesService.loading = false;
-                      $(".modalNuevowarning").click();
-                    }, 1000);
+                    this.infoCheckComercial();
 
                     this.formRegister.reset({
                       firstName: "",
@@ -201,7 +247,20 @@ export class CardRegisterFormComponent implements OnInit {
                       password: "",
                       confirmPassword: "",
                       aceptHabeasData: false,
+                      checkComercial: false,
+                      documento: "",
+                      municipio: "",
+                      departamento: "",
+                      typeDocument: "",
+                      confirmPhone: "",
                     });
+
+                    setTimeout(() => {
+                      this.utilitiesService.loading = false;
+                      $(
+                        ".modalNuevowarning-confirmacion-registro"
+                      ).click();
+                    }, 1000);
                   } else {
                     this.utilitiesService.messageTitleModal =
                       "Tu registro ha fallado";
@@ -243,59 +302,90 @@ export class CardRegisterFormComponent implements OnInit {
     return null;
   }
 
+  equalsPhone(control: UntypedFormControl): { [s: string]: boolean } {
+    let formRegister: any = this;
+    if (control.value !== formRegister.controls["phone"].value) {
+      return {
+        equalspassword: true,
+      };
+    }
+    return null;
+  }
+
   private generateUser(f: any, user: User) {
+
     let url = `${environment.apiUrl}` + "confirm";
     let fechaRegistroPreguntas = null;
+    let habeasData;
+    if (
+      this.utilitiesService.calculateAge(user.fechaNacimiento) < 18 ||
+      !user.usuarioNasfa
+    ) {
+      habeasData = true;
+    } else {
+      habeasData = f.aceptHabeasData.value;
+    }
+
     if (this.respuesta) {
       fechaRegistroPreguntas = new Date();
     } else {
       fechaRegistroPreguntas = null;
     }
-    console.log(user)
+    this.isComercialCheched = f.checkComercial.value;
     let userRegister = {
-      sistema: "Escuela y cursos",
+      sistema: "Mi perfil",
       linkMensaje: url,
       parametro: "34240997a16763c011134c570fcc149e",
-      remitente: "Escuela y cursos",
+      remitente: "Mi perfil",
       asunto: "Confirmación de registro",
+      facialOtp: this.utilitiesService.facialOtp,
+      preguntasOtp: this.utilitiesService.preguntasOtp,
+      idTransaccion: this.utilitiesService.transaccionId
+        ? this.utilitiesService.transaccionId.toString()
+        : "",
+      checkComercial: f.checkComercial.value,
+      departamento: f.departamento.value,
+      municipio: f.municipio.value,
       usuario: {
-        documento: user && user.documento && user.documento.trim() ? user.documento : this.utilitiesService.registerUser.documento,
+        documento: user.documento,
         direccion: f.address.value,
         telefono: f.phone.value,
-        sexo: user && user.sexo && user.sexo.trim() ? user.sexo : "",
-        categoria: user && user.categoria && user.categoria.trim() ? user.categoria : "D",
+        sexo: user.sexo,
+        categoria: user.categoria,
         celular: f.phone.value,
         correo: f.email.value,
         clave: this.hashMD5(f.password.value),
         clave1: this.encriptar(f.password.value),
-        codBeneficiario: user && user.codBeneficiario && user.codBeneficiario.trim() ? user.codBeneficiario : "",
-        nombreBeneficiario: user && user.nombreBeneficiario && user.nombreBeneficiario.trim() ? user.nombreBeneficiario : "",
+        codBeneficiario: user.codBeneficiario,
+        nombreBeneficiario: user.nombreBeneficiario,
         fechaNacimiento: f.birthDate.value,
-        fechaRegistro: user && user.fechaRegistro && user.fechaRegistro.trim() ? user.fechaRegistro : "",
-        documentoTrabajador: user && user.documento && user.documento.trim() ? user.documento : this.utilitiesService.registerUser.documento,
+        fechaRegistro: user.fechaRegistro,
+        documentoTrabajador: user.documentoTrabajador,
         primerNombre: f.firstName.value,
         segundoNombre: f.secondName.value,
         primerApellido: f.firstLastName.value,
         segundoApellido: f.secondLastName.value,
         link: url,
-        existeUsuario: user && user.existeUsuario ? user.existeUsuario : false,
-        usuarioNasfa: user && user.usuarioNasfa ? user.existeUsuario : false,
-        sistemaActualizacion: user && user.sistemaActualizacion && user.sistemaActualizacion.trim() ? user.sistemaActualizacion : "",
+        existeUsuario: user.existeUsuario,
+        usuarioNasfa: user.usuarioNasfa,
+        sistemaActualizacion: user.sistemaActualizacion,
         correoMd5: "" + this.hashMD5(f.email.value),
-        aceptaHabeas: f.aceptHabeasData.value,
+        aceptaHabeas: habeasData,
         tipoDocumento: f.typeDocument.value,
         preguntasValidacion: this.respuesta,
-        fechaRespuestasValidacion: fechaRegistroPreguntas,
+        fechaRespuestasValidacion: fechaRegistroPreguntas
+          ? fechaRegistroPreguntas
+          : "",
         bloqueoUser: false,
-        estadoUser: user && user.estadoUser ? user.estadoUser : "",
+        estadoUser: user.estadoUser,
         contUser: 0,
-        bloqueo: user && user.bloqueo ? user.bloqueo : false,
-        /* preguntas: user.preguntas,  */
-        mensaje: '',
-        registroPendiente: false
+        bloqueo: user.bloqueo,
+        preguntas: user.preguntas,
+        mensaje: "",
+        registroPendiente: false,
       },
     };
-    console.log(userRegister)
+
     return userRegister;
   }
 
@@ -333,7 +423,6 @@ export class CardRegisterFormComponent implements OnInit {
       const claveSHA256 = this.hashSHA256(claveMD5);
       const claveconfa = this.encriptarConfa(claveSHA256);
       return claveconfa;
-      console.log("Nueva contraseña: " + claveconfa);
     } catch (error) {
       console.error("Error al encriptar la contraseña:", error);
     }
@@ -377,4 +466,126 @@ export class CardRegisterFormComponent implements OnInit {
       throw error;
     }
   }
+
+  getDepartamentos() {
+    this.authenticationService
+      .getGenericToken()
+      .pipe(first())
+      .subscribe((responseTING: Token) => {
+        if (responseTING.token) {
+          this.authenticationService
+            .getGenericToken()
+            .pipe(first())
+            .subscribe((responseTING: Token) => {
+              if (responseTING.token) {
+                this.authenticationService
+                  .getDepartamentos(responseTING.token)
+                  .subscribe((response: Departamento[]) => {
+                    if (response?.length > 0) {
+                     
+                      this.dataDepartamentos = response;
+                      this.dataDepartamentos =  this.ordenarDepartamentosYMunicipios( this.dataDepartamentos);
+
+                    } else {
+                      this.utilitiesService.messageTitleModal = "Espera";
+                      this.utilitiesService.messageModal =
+                        "Error consultando los tipos de documentos.";
+                      this.utilitiesService.backLogin = true;
+                      setTimeout(() => {
+                        this.utilitiesService.loading = false;
+                        $(".modalNuevowarning").click();
+                      }, 500);
+                    }
+                  });
+              }
+            });
+        }
+      });
+  }
+
+
+  ordenarDepartamentosYMunicipios(departamentos: Departamento[]): Departamento[] {
+    // Primero ordenamos los municipios de cada departamento
+    departamentos.forEach(depto => {
+      depto.municipios.sort((a, b) =>
+        a.nombre_municipio.localeCompare(b.nombre_municipio)
+      );
+    });
+  
+    // Luego ordenamos los departamentos dejando Caldas de primero
+    departamentos.sort((a, b) => {
+      if (a.nombre_departamento === 'CALDAS') return -1;
+      if (b.nombre_departamento === 'CALDAS') return 1;
+      return a.nombre_departamento.localeCompare(b.nombre_departamento);
+    });
+  
+    return departamentos;
+  }
+
+
+
+  captureDepartamento(value: string) {
+    this.formRegister.controls["departamento"].setValue(value);
+    this.departamento = value;
+
+    const departamento = this.dataDepartamentos.find(
+      (d) => d.nombre_departamento === this.departamento
+    );
+    this.dataMunicipios = departamento.municipios;
+  }
+
+  captureMunicipio(value: string) {
+    this.formRegister.controls["municipio"].setValue(value);
+    this.municipio = value;
+  }
+
+  private getInfoCheck() {
+    const infoCheckComercial = {
+      tipoDocumentoTitular: this.utilitiesService.tipoDoc,
+      numeroDocumentoTitular: this.user.documento,
+      tipoDocumentoAutorizado: this.utilitiesService.tipoDoc,
+      numeroDocumentoAutorizado: this.user.documento,
+      autorizacionHabeas: true,
+      autorizacionComercial: this.isComercialCheched,
+      SMS: this.isComercialCheched,
+      correo: this.isComercialCheched,
+      llamada: this.isComercialCheched,
+      whatsApp: this.isComercialCheched,
+      transaccionId: this.utilitiesService.transaccionId.toString(),
+    };
+
+    return infoCheckComercial;
+  }
+
+  infoCheckComercial() {
+    this.authenticationService
+      .getGenericToken()
+      .pipe(first())
+      .subscribe((responseTING: Token) => {
+        if (responseTING.token) {
+          this.validationService
+            .postInfoCheckComercial(responseTING.token, this.getInfoCheck())
+            .subscribe((response: any) => {
+              if (response) {
+                console.log(
+                  "Respuesta de la autorización comercial:",
+                  response
+                );
+              } else {
+                console.error("Error al enviar la autorización comercial");
+              }
+            });
+        }
+      });
+  }
+
+  onCheckboxChange(event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.formRegister.get("checkComercial")?.setValue(checked);
+    console.log(
+      "Estado de checkComercial:",
+      this.formRegister.get("checkComercial")?.value
+    );
+  }
+
 }

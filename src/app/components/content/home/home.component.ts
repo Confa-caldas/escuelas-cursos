@@ -85,20 +85,23 @@ export class HomeComponent implements OnInit {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-      /* ||res==null */
-      this.authenticationService
-        .loginNew(ptoken.token)
-        .pipe(first())
-        .subscribe((response: Session) => {
-          this.utilitiesService.currentUser = response.usuario;
-          if (response.usuario.existeUsuario) {
-            localStorage.setItem("user", JSON.stringify(response));
-            localStorage.setItem("cc", response.usuario.documento);
-            this.document = response.usuario.documento;
-            this.utilitiesService.loading = true;
-            this.consultarInformacionMiPerfilConfa(this.document);
+        /* ||res==null */ 
+        this.authenticationService
+          .loginNew(ptoken.token)
+          .pipe(first())
+          .subscribe((response: Session) => {
+            this.utilitiesService.messageLoading = null;
+            this.utilitiesService.currentUser = response.usuario;
+            if (response.usuario.existeUsuario) {
+              localStorage.setItem("user", JSON.stringify(response));
+              localStorage.setItem("cc", response.usuario.documento);
+              this.document = response.usuario.documento;
+              this.utilitiesService.loading = true;
+              this.consultarInformacionMiPerfilConfa(this.document);
+            }else{
+            location.reload();
           }
-        });
+          });
     }
   }
 

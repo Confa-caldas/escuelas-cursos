@@ -106,6 +106,7 @@ export class ModalPayComponent implements OnInit {
         });
       }
     } else {
+
       this.verifyTransaction();
     }
   }
@@ -127,9 +128,9 @@ export class ModalPayComponent implements OnInit {
       }
       
      let productoId = this.parametro;
-      //console.log("productoId " + productoId)
+      console.log("productoId " + productoId)
 
-      if (productoId) {
+        if (productoId != null && productoId.toLowerCase().includes("curso")) {
         this.loading = true;
         
         this.dataServiciosCursos
@@ -156,8 +157,7 @@ export class ModalPayComponent implements OnInit {
               });
 
               $(".btn-info-pay-dues").click();
-            } /* else { */
-            if (response.paymentOrderStatusId === "REFUSED") {
+            } else if (response.paymentOrderStatusId === "REFUSED") {
 
               this.loading = false;
 
@@ -171,8 +171,15 @@ export class ModalPayComponent implements OnInit {
 
               $(".modalNuevoError").click();
             }
+            else{
+              this.loading = false;
+            }
           });
       }
+      else{
+        this.loading = false;
+      }
+
     } else {
       // Elimina los parametros en la Url para enviar al path actual
       this.router.navigate(["/" + this.path]);

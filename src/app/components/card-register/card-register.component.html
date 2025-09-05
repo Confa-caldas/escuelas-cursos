@@ -1,30 +1,48 @@
 <form class="form-login needs-validation" [formGroup]="formValidate" (ngSubmit)="validateDocument()">
+    <div class="form-group form-group-custom conteninputlabelform">
+        <label class="m-0 labelLoginHome">Selecciona el tipo de documento *.</label>
+        <div class="card card-custom-select">
+          <div class="content-custom-select">
+            <select
+              class="form-control inputloginsimulador"
+              formControlName="tpDoc"
+              (change)="capturar($event.target.value)"
+              [class.is-invalid]="(submitted || f.tpDoc.touched) && f.tpDoc.errors"
+            >
+              <option value="" hidden selected>
+                * Selecciona el tipo de documento
+              </option>
+              <option *ngFor="let dt of dataTpDoc" value="{{ dt.tipoDocumento }}">
+                {{ dt.nombre }}
+              </option>
+            </select>
+            <i class="icon-down1 fas fa-chevron-down pl-2"></i>
+          </div>
+        </div>
+        <span
+          *ngIf="(submitted || f.tpDoc.touched) && f.tpDoc.errors"
+          class="badge badge-pill badge-danger cf-badge d-block mt-2 text-left"
+          >Debes seleccionar un tipo de documento.</span
+        >
+      </div>
     <div class="form-group form-group-custom">
         <label class="m-0 mb-1">Número de documento</label>
         <input type="number" formControlName="document" class="form-control clean-input" placeholder="* Número de documento" placement="right" autocomplete="off" min="1" [ngClass]="{ 'is-invalid': (submitted || f.document.touched) && f.document.errors }">
         <div *ngIf="(submitted || f.document.touched) && f.document.errors?.required" class="invalid-feedback animated fadeIn fast">
             <span *ngIf="f.document.errors.required" class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
-                NÚMERO DE DOCUMENTO
-                ES
-                REQUERIDO</span>
+                Número de documento requerido.</span>
         </div>
         <div *ngIf="(submitted || f.document.touched) && f.document.errors?.min" class="invalid-feedback animated fadeIn fast">
             <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
-                DEBES INGRESAR MÍNIMO
-                6
-                DÍGITOS</span>
+                Debes ingresar mínimo 6 dígitos.</span>
         </div>
         <div *ngIf="(submitted || f.document.touched) && f.document.errors?.max" class="invalid-feedback animated fadeIn fast">
             <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
-                DEBES INGRESAR MÁXIMO
-                15
-                DÍGITOS</span>
+                Debes ingresar máximo 15 dígitos.</span>
         </div>
         <div *ngIf="(submitted || f.document.touched) && f.document.errors?.pattern" class="invalid-feedback animated fadeIn fast">
             <span class="badge badge-pill badge-danger d-block mt-2 pt-1 pb-1 pr-2 pl-2 text-left">
-                DEBES INGRESAR
-                DÍGITOS
-                POSITIVOS</span>
+                Debes ingresar dígitos positivos</span>
         </div>
     </div>
 
