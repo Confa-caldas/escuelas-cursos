@@ -83,7 +83,7 @@ export class CursosComponent {
                 <li><strong>Ciclo 1:</strong> Inscripciones 21 de enero.</li>
                 <li><strong>Ciclo 2:</strong> Inscripciones 8 de abril.</li>
                 <li><strong>Ciclo 3:</strong> Inscripciones 17 de junio.</li>
-                <li><strong>Ciclo 4:</strong> Inscripciones 2 de septiembre.</li>
+                <li><strong>Ciclo 4:</strong> Inscripciones 3 de septiembre.</li>
               </ul>
               <p>Cursos de actividad física como yoga, clases al parque, baile para mayores, actividad física para mayores de 60 años, las matrículas son la última semana de cada mes.</p>`,
       open: false,
