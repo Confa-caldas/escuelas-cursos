@@ -11,7 +11,7 @@
               stroke="#475467" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <!-- <h6 class="ml-2 my-2">Hola {{ utilitiesService.currentUser.primerNombre | titlecase}} {{ utilitiesService.currentUser.segundoNombre | titlecase }} {{ utilitiesService.currentUser.primerApellido | titlecase }} </h6> -->
-        <h6 class="ml-2 my-2">Hola {{utilitiesService.fullNameUser  | titlecase}}</h6>
+          <h6 class="ml-2 my-2">Hola {{utilitiesService.fullNameUser | titlecase}}</h6>
         </div>
         <div class="card mt-3 mb-3 m-0 p-0">
           <div class="card-body m-0 p-0">
@@ -66,7 +66,8 @@
             <select class="form-select select-filter mb-4" aria-label="Default select example"
               (change)="aplicarFiltros()" [(ngModel)]="deporteSeleccionado">
               <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
-              <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id" [title]="deporte.nombre">{{ deporte.nombre }}</option>
+              <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id"
+                [title]="deporte.nombre">{{ deporte.nombre }}</option>
             </select>
           </div>
           <!-- nivel -->
@@ -107,18 +108,19 @@
           <div class="d-flex justify-content-center px-3 mb-2">
             <button (click)="mostrar()" class="btn btn-credits mx-auto btn-block">Buscar</button>
           </div>
-          <div class="d-flex justify-content-center px-3">
+          <!-- <div class="d-flex justify-content-center px-3">
             <button (click)="limpiarFiltros()" class="btn btn-secun mx-auto btn-block">Limpiar
               Filtros</button>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div class="col-md-9 col-11 mx-auto">
         <div class="row" *ngIf="mostrarCuros">
           <div class="col-12 col-md-6 mb-4"
-            *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }" >
-            <div class="card card-curso" style="width: 100%;">
+            *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+            <div class="card card-curso" style="width: 100%;"
+              [ngClass]="{'card-agotado': curso.programacion.cuposDisponibles == 0}">
               <div class="card-header card-header-curso">
                 <div class="row align-items-center">
                   <div class="col-2">
@@ -152,47 +154,18 @@
                 <p class="card-text">{{curso.sede.nombreMunicipio | titlecase}} </p>
                 <p class="card-text">{{curso.horarioAjustado | titlecase}} </p>
 
-               <!--  <div class="mb-2"  *ngFor="let horarios of curso.horario ">
-                  <p class="card-text">{{horarios.nombreDia }} - {{horarios.horaInicio}}</p>
-                </div> -->
-                <!-- <div class="">
-                  <p class="card-text">
-                    {{ curso.horario[0].nombreDia }} - {{ curso.horario[0].horaInicio }}
-                    <button class="btn p-0" (click)="toggleHorarios()" *ngIf="curso.horario.length > 1">
-                      <span *ngIf="mostrarHorarios">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-                      </svg>
-                    </span>
-                      <span *ngIf="!mostrarHorarios">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                        </svg>
-                      </span>
-                    </button>
-                  </p>
-                  
-                  <div *ngIf="mostrarHorarios">
-                    <div class="mb-2" *ngFor="let horario of curso.horario.slice(1)">
-                      <p class="card-text">{{ horario.nombreDia }} - {{ horario.horaInicio }}</p>
-                    </div>
-                  </div>
-                </div> -->
                 <p class="card-text mt-3"><strong>Inicio: {{curso.programacion.fechaInicio}}</strong> - <strong>Fin:
                     {{curso.programacion.fechaFin}}</strong></p>
               </div>
               <div class="card-footer card-header-curso">
-                 <p class="card-text text-danger" *ngIf="curso.programacion.cuposDisponibles == 0"> No tiene cupos disponibles, agotado</p>
-                 
-                <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles == 0 && !inactivarbotonSeleccionCurso">
+
+                <div class="d-flex justify-content-end">
                   <button class="btn btn-credits" (click)="cursoSeleccionado(curso)">Seleccionar</button>
                 </div>
-
-                <div class="d-flex justify-content-end" *ngIf="curso.programacion.cuposDisponibles != 0">
-                  <button class="btn btn-credits" (click)="cursoSeleccionado(curso)" >Seleccionar</button>
-                </div>
+              </div>
+              <!-- Overlay "AGOTADO" -->
+              <div class="overlay-agotado" *ngIf="curso.programacion.cuposDisponibles == 0">
+                AGOTADO
               </div>
             </div>
           </div>
@@ -212,49 +185,41 @@
     </div>
 
     <div id="accordion" class="acordeon mx-auto">
-      <div
-        class="card card-acordeon"
-        *ngFor="let item of preguntas; let i = index"
-        [attr.aria-expanded]="item.open"
-        [ngClass]="{ 'card-acordeon-activo': item.open }"
-      >
-        <div class="card-header d-flex justify-content-between align-items-center header-accordeon" [id]="'heading' + i">
+      <div class="card card-acordeon" *ngFor="let item of preguntas; let i = index" [attr.aria-expanded]="item.open"
+        [ngClass]="{ 'card-acordeon-activo': item.open }">
+        <div class="card-header d-flex justify-content-between align-items-center header-accordeon"
+          [id]="'heading' + i">
           <h5 class="mb-0">
-            <button
-              class="btn btn-acordeon d-flex align-items-center"
-              [class.collapsed]="!item.open"
-              [attr.aria-controls]="'collapse' + i"
-              (click)="toggleAccordion(i)"
-            >
+            <button class="btn btn-acordeon d-flex align-items-center" [class.collapsed]="!item.open"
+              [attr.aria-controls]="'collapse' + i" (click)="toggleAccordion(i)">
               <ng-container *ngIf="item.open; else closedIcon">
                 <!-- Icono SVG abierto -->
                 <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z" stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z"
+                    stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </ng-container>
               <ng-template #closedIcon>
                 <!-- Icono SVG cerrado -->
                 <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 10V18M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z" stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12 10V18M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z"
+                    stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </ng-template>
               <span class="ml-2">{{ item.title }}</span>
             </button>
           </h5>
         </div>
-        <div
-          [id]="'collapse' + i"
-          class="collapse"
-          [ngClass]="{ show: item.open }"
-          [attr.aria-labelledby]="'heading' + i"
-          data-parent="#accordion"
-        >
+        <div [id]="'collapse' + i" class="collapse" [ngClass]="{ show: item.open }"
+          [attr.aria-labelledby]="'heading' + i" data-parent="#accordion">
           <div class="card-body" [innerHTML]="item.description"></div>
         </div>
       </div>
     </div>
-    
-    
+
+
 
   </section>
 </div>
