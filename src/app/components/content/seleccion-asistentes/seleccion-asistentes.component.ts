@@ -101,6 +101,7 @@ export class SeleccionAsistentesComponent implements OnInit {
   valorTarifa: number | null = null;
   existeUsuario: boolean = null;
   existeUsuarioAdi: boolean = true;
+  masDeTres: boolean = true;
 
   mayorEdad: boolean = null;
   menorEdad: boolean = null;
@@ -870,15 +871,21 @@ export class SeleccionAsistentesComponent implements OnInit {
     this.fechaNacOtroAsistente = '';
     this.correoOtroAssistente = '';
     this.generoAsistenteAdd = '';
-    this.existeUsuarioAdi = false;
+    this.existeUsuarioAdi = true;
     this.InhabilitarInputDate = false;
     this.InhabilitarBtnAddOtroasistente = false;
 
     // Opcional: ocultar formulario o limpiar flags
-    this.habilitarFondo = false;
+    this.habilitarFondo = true;
+
+    console.log(this.listaAsistentesAdicionales)
+    if (this.listaAsistentesAdicionales.length >= 3) {
+      this.masDeTres = false;
+      return;
+    }
   }
 
-  eliminarAsistenteAdicional(documento: string) {
+  eliminarAsistenteAdicional(documento: any) {
     this.listaAsistentesAdicionales = this.listaAsistentesAdicionales.filter(
       (asistente) => asistente.documento !== documento
     );
