@@ -831,6 +831,11 @@ export class SeleccionAsistentesComponent implements OnInit {
   crearListaOtroAsistentes() {
     const documento = this.documentoOtroAsistente;
 
+    if (!this.deporteMayores) {
+       this.habilitarFondo = true;
+      this.masDeTres = false;
+    }
+
     // Evita más de 3 asistentes
     if (this.listaAsistentesAdicionales.length >= 3) {
       this.utilitiesService.messageTitleModal = "Límite alcanzado";
