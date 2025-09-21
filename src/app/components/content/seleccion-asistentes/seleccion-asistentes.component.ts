@@ -72,6 +72,7 @@ export class SeleccionAsistentesComponent implements OnInit {
   correoOtroAssistente: string = "";
   tipoUsuarioAdd: string = "";
   catgoriaMenor: string = "";
+  direccionOtroAsistente: string = "";
 
   /* VALIDACIONES */
   cardeRegistro = false;
@@ -139,6 +140,7 @@ export class SeleccionAsistentesComponent implements OnInit {
         .loginNew(ptoken.token)
         .pipe(first())
         .subscribe((response: Session) => {
+          this.utilitiesService.currentUser = response.usuario;
           console.log(response.usuario)
           if (response.usuario.existeUsuario) {
             localStorage.setItem("user", JSON.stringify(response));
@@ -325,6 +327,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                   this.correoOtroAssistente = resultadoObj.email || '';
                   this.generoAsistenteAdd = resultadoObj.sexo || 'M';
                   this.tipoUsuarioAdd = resultadoObj.tipoAfiliacion;
+                  this.direccionOtroAsistente = resultadoObj.direccion;
                   this.InhabilitarInputDate = true;
 
                 } else {
@@ -834,6 +837,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     if (!this.deporteMayores) {
        this.habilitarFondo = true;
       this.masDeTres = false;
+      this.InhabilitarBtnContinuar = false;
     }
 
     // Evita más de 3 asistentes
@@ -855,17 +859,32 @@ export class SeleccionAsistentesComponent implements OnInit {
       return;
     }
 
+     const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === this.categoriaOtroAsistente);
     // Agregar asistente
     const nuevoAsistente = {
-      tipoDoc: this.tipoDocOtroAsistente,
-      documento: this.documentoOtroAsistente,
-      nombre: this.nombreOtroAsistente || `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`,
-      correo: this.correoOtroAssistente,
-      fechaNacimiento: this.fechaNacOtroAsistente,
-      genero: this.generoAsistenteAdd,
+        nombreCompleto: this.nombreOtroAsistente || `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`,
+        documento: this.documentoOtroAsistente.toString(),
+        tipoDocumento:this.tipoDocOtroAsistente,
+        direccionResidencia: this.direccionOtroAsistente,
+        celular: 3333333,
+        email: this.correoOtroAssistente,
+        categoria: this.categoriaOtroAsistente,
+        municipioId: 1,
+        mayor19Anios: this.mayorEdad,
+        esMenor18: this.menorEdad,
+        esConfaRisaralda: null,
+        tipoAfiliacion: this.tipoAfiliacionOtroAsistente,
+        genero: this.generoAsistenteAdd,
+        fechaNacimiento: this.fechaNacOtroAsistente,
+        docAfiliado: this.documento,
+        esDeportista: false,
+        esTrabajadorConfa: false,
+        centroCostos: 'A',
+        valorPagoCurso: Number(tarifaBeneficiario[1]),
     };
 
     this.listaAsistentesAdicionales.push(nuevoAsistente);
+    this.asistentes.push(nuevoAsistente);
 
     // Resetear campos
     this.tipoDocOtroAsistente = '';
@@ -879,6 +898,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     this.existeUsuarioAdi = true;
     this.InhabilitarInputDate = false;
     this.InhabilitarBtnAddOtroasistente = false;
+    this.InhabilitarBtnContinuar = false;
 
     // Opcional: ocultar formulario o limpiar flags
     this.habilitarFondo = true;

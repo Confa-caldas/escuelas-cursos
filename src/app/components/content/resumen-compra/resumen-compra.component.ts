@@ -115,10 +115,12 @@ export class ResumenCompraComponent {
     }
     this.horarios =this.utilitiesService.horarioCurso;
 
-    console.log(this.utilitiesService.curso,this.horarios)
-    this.cursoSeleccionado = this.utilitiesService.curso
+    //console.log(this.utilitiesService.curso,this.horarios)
+    this.cursoSeleccionado = this.utilitiesService.curso;
 
-    console.log(this.listaAsistentes)
+    const infoU = JSON.parse(localStorage.getItem("user"));
+    this.utilitiesService.currentUser = infoU.usuario;
+    //console.log(this.listaAsistentes,infoU)
 
     this.cuposDisonibles();
   }
@@ -359,6 +361,7 @@ export class ResumenCompraComponent {
       docres = "";
       nombreres = "";
     }
+    console.log(this.utilitiesService.currentUser)
     let body: InitiateTransaction = {
       documento: this.utilitiesService.documentUser || this.utilitiesService.currentUser.documento,
       tipoDocumento:this.utilitiesService.currentUser.tipoDocumento || "C",
