@@ -914,6 +914,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     this.listaAsistentesAdicionales = this.listaAsistentesAdicionales.filter(
       (asistente) => asistente.documento !== documento
     );
+    this.masDeTres = true;
   }
 
 

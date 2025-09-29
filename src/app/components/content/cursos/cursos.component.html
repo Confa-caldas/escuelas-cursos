@@ -34,7 +34,7 @@
 
   <section class="pt-4 pb-4 px-4 fondo">
     <div class="row px-4">
-      <h4>Explora nuestras opciones y elige cómo quieres moverte y disfrutar.</h4>
+      <h4> <strong>Explora nuestras opciones y elige cómo quieres moverte y disfrutar.</strong></h4>
       <span>Selecciona la ubicación, nivel, edad, sede, y horario y escoge la opción de tu interés.</span>
     </div>
     <hr>
@@ -64,7 +64,7 @@
           <!-- Cursos / deportes -->
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-              (change)="aplicarFiltros()" [(ngModel)]="deporteSeleccionado">
+               [(ngModel)]="deporteSeleccionado">
               <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
               <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id"
                 [title]="deporte.nombre">{{ deporte.nombre }}</option>
@@ -73,7 +73,7 @@
           <!-- nivel -->
           <div class="col mx-auto">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-              (change)="aplicarFiltros()" [(ngModel)]="nivelSeleccionado">
+               [(ngModel)]="nivelSeleccionado">
               <option [value]="'default'" selected disabled>Nivel</option>
               <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
             </select>
@@ -82,7 +82,7 @@
 
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-              (change)="aplicarFiltros()" [(ngModel)]="sedeSeleccionada">
+               [(ngModel)]="sedeSeleccionada">
               <option [value]="'default'" selected disabled>Sede</option>
               <option *ngFor="let sede of sedes" [value]="sede.sedeId">{{ sede.nombreSede }}</option>
             </select>
@@ -90,7 +90,7 @@
           <!-- edad -->
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-              (change)="aplicarFiltros()" [(ngModel)]="edadSeleccionada">
+             [(ngModel)]="edadSeleccionada">
               <option [value]="'default'" selected disabled>Edad</option>
               <option *ngFor="let ed of edades" [value]="ed.min + '-' + ed.max">{{ ed.min }} - {{ ed.max }}</option>
             </select>
@@ -99,7 +99,7 @@
           <div class="col mx-auto ">
             <!-- <label for="">{{horarioSeleccionada}}</label> -->
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-              (change)="aplicarFiltros()" [(ngModel)]="horarioSeleccionada">
+               [(ngModel)]="horarioSeleccionada">
               <option [value]="'default'" selected disabled>Horario</option>
               <option *ngFor="let hora of horarios" [value]="hora.horarioId">{{hora.nombreDia}} {{ hora.horaInicio
                 }}-{{hora.horaFin}}</option>
@@ -116,6 +116,10 @@
       </div>
 
       <div class="col-md-9 col-11 mx-auto">
+        <div class="row" *ngIf="!mostrarCuros">
+          <h4><strong> Filtra y encuentra tu curso</strong></h4>
+          <span>Ahora selecciona las opciones que más se justen a lo que buscas: tio de curso, horario, edad y nivel. Entre más detalles elijas, más fácil será mostrarte los cursos érfectos para ti.</span>
+        </div>
         <div class="row" *ngIf="mostrarCuros">
           <div class="col-12 col-md-6 mb-4"
             *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">

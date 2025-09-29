@@ -487,7 +487,7 @@ export class CursosComponent {
     this.edadSeleccionada = 'default';
     this.horarioSeleccionada = 'default';
     this.servicioActivo = 'default';
-    this.consultarCursos();// Restablece los cursos originales
+    //this.consultarCursos();// Restablece los cursos originales
 
 
   }
@@ -516,7 +516,10 @@ export class CursosComponent {
 
   mostrar() {
     this.mostrarCuros = true;
-    this.limpiarFiltros();
+    this.aplicarFiltros();
+    setTimeout(() => {
+      this.limpiarFiltros();
+    }, 500);
   }
   
 }
