@@ -146,7 +146,7 @@ export class SeleccionAsistentesComponent implements OnInit {
             localStorage.setItem("user", JSON.stringify(response));
             localStorage.setItem("cc", response.usuario.documento);
             this.document = response.usuario.documento;
-            this.utilitiesService.fullNameUser =`${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
+            this.utilitiesService.fullNameUser = `${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
             //console.log(this.document)
             this.utilitiesService.loading = false;
           } else {
@@ -330,6 +330,8 @@ export class SeleccionAsistentesComponent implements OnInit {
                   this.direccionOtroAsistente = resultadoObj.direccion;
                   this.InhabilitarInputDate = true;
 
+                  this.OtrosAsistentes();
+
                 } else {
                   this.utilitiesService.messageTitleModal = "Tu registro ha fallado"
                   this.utilitiesService.messageModal = 'No cumples con los requisitos de edad para este curso.'
@@ -364,6 +366,8 @@ export class SeleccionAsistentesComponent implements OnInit {
                         this.generoAsistenteAdd = response.genero || 'M';
                         this.tipoUsuarioAdd = response.tipoUsuario;
                         this.InhabilitarInputDate = true;
+
+                        this.OtrosAsistentes();
 
                       } else {
                         this.utilitiesService.messageTitleModal = "Tu registro ha fallado"
@@ -578,40 +582,40 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   /* Agregar el otro asistenta al array */
-/*   crearListaOtroAsistentes() {
-    //console.log(this.nombreOtroAsistente)
-
-    if (!this.existeUsuarioAdi) {
-      this.nombreOtroAsistente = `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`;
-    }
-    const tarifa = this.tarifas.find(tarifa => tarifa[0] === this.categoriaOtroAsistente);
-
-    this.asistentes.push({
-      nombreCompleto: this.nombreOtroAsistente,
-      documento: String(this.documentoOtroAsistente),
-      tipoDocumento: this.tipoDocOtroAsistente,
-      direccionResidencia: '',
-      celular: 123,
-      email: this.correoOtroAssistente,
-      categoria: this.categoriaOtroAsistente,
-      municipioId: 1,
-      mayor19Anios: this.mayorEdad,
-      esMenor18: this.menorEdad,
-      esConfaRisaralda: false,
-      esDeportista: false,
-      tipoAfiliacion: this.tipoAfiliacionOtroAsistente,
-      genero: this.generoAsistenteAdd,
-      fechaNacimiento: this.fechaNacOtroAsistente,
-      docAfiliado: '',
-      esTrabajadorConfa: false,
-      centroCostos: '1',
-      valorPagoCurso: Number(tarifa[1])
-    })
-
-    ////console.log(this.asistentes)
-    this.InhabilitarBtnContinuar = false;
-    this.existeUsuario = null;
-  } */
+  /*   crearListaOtroAsistentes() {
+      //console.log(this.nombreOtroAsistente)
+  
+      if (!this.existeUsuarioAdi) {
+        this.nombreOtroAsistente = `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`;
+      }
+      const tarifa = this.tarifas.find(tarifa => tarifa[0] === this.categoriaOtroAsistente);
+  
+      this.asistentes.push({
+        nombreCompleto: this.nombreOtroAsistente,
+        documento: String(this.documentoOtroAsistente),
+        tipoDocumento: this.tipoDocOtroAsistente,
+        direccionResidencia: '',
+        celular: 123,
+        email: this.correoOtroAssistente,
+        categoria: this.categoriaOtroAsistente,
+        municipioId: 1,
+        mayor19Anios: this.mayorEdad,
+        esMenor18: this.menorEdad,
+        esConfaRisaralda: false,
+        esDeportista: false,
+        tipoAfiliacion: this.tipoAfiliacionOtroAsistente,
+        genero: this.generoAsistenteAdd,
+        fechaNacimiento: this.fechaNacOtroAsistente,
+        docAfiliado: '',
+        esTrabajadorConfa: false,
+        centroCostos: '1',
+        valorPagoCurso: Number(tarifa[1])
+      })
+  
+      ////console.log(this.asistentes)
+      this.InhabilitarBtnContinuar = false;
+      this.existeUsuario = null;
+    } */
 
   continuar() {
     this.utilitiesService.listadoAsistentes = this.asistentes;
@@ -835,7 +839,7 @@ export class SeleccionAsistentesComponent implements OnInit {
     const documento = this.documentoOtroAsistente;
 
     if (!this.deporteMayores) {
-       this.habilitarFondo = true;
+      this.habilitarFondo = true;
       this.masDeTres = false;
       this.InhabilitarBtnContinuar = false;
     }
@@ -859,28 +863,28 @@ export class SeleccionAsistentesComponent implements OnInit {
       return;
     }
 
-     const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === this.categoriaOtroAsistente);
+    const tarifaBeneficiario = this.tarifas.find(tarifa => tarifa[0] === this.categoriaOtroAsistente);
     // Agregar asistente
     const nuevoAsistente = {
-        nombreCompleto: this.nombreOtroAsistente || `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`,
-        documento: this.documentoOtroAsistente.toString(),
-        tipoDocumento:this.tipoDocOtroAsistente,
-        direccionResidencia: this.direccionOtroAsistente,
-        celular: 3333333,
-        email: this.correoOtroAssistente,
-        categoria: this.categoriaOtroAsistente,
-        municipioId: 1,
-        mayor19Anios: this.mayorEdad,
-        esMenor18: this.menorEdad,
-        esConfaRisaralda: null,
-        tipoAfiliacion: this.tipoAfiliacionOtroAsistente,
-        genero: this.generoAsistenteAdd,
-        fechaNacimiento: this.fechaNacOtroAsistente,
-        docAfiliado: this.documento,
-        esDeportista: false,
-        esTrabajadorConfa: false,
-        centroCostos: 'A',
-        valorPagoCurso: Number(tarifaBeneficiario[1]),
+      nombreCompleto: this.nombreOtroAsistente || `${this.nombresAsistenteAdd} ${this.apellidosAsistenteAdd}`,
+      documento: this.documentoOtroAsistente.toString(),
+      tipoDocumento: this.tipoDocOtroAsistente,
+      direccionResidencia: this.direccionOtroAsistente,
+      celular: 3333333,
+      email: this.correoOtroAssistente,
+      categoria: this.categoriaOtroAsistente,
+      municipioId: 1,
+      mayor19Anios: this.mayorEdad,
+      esMenor18: this.menorEdad,
+      esConfaRisaralda: false,
+      tipoAfiliacion: this.tipoAfiliacionOtroAsistente,
+      genero: this.generoAsistenteAdd,
+      fechaNacimiento: this.fechaNacOtroAsistente,
+      docAfiliado: this.documento,
+      esDeportista: false,
+      esTrabajadorConfa: false,
+      centroCostos: 'A',
+      valorPagoCurso: Number(tarifaBeneficiario[1]),
     };
 
     this.listaAsistentesAdicionales.push(nuevoAsistente);
@@ -911,9 +915,26 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   eliminarAsistenteAdicional(documento: any) {
-    this.listaAsistentesAdicionales = this.listaAsistentesAdicionales.filter(
-      (asistente) => asistente.documento !== documento
+    const index = this.listaAsistentesAdicionales.findIndex(
+      (a) => a.documento === documento
     );
+
+    if (index !== -1) {
+      this.listaAsistentesAdicionales.splice(index, 1);
+
+      // Elimina el objeto del array
+      this.asistentes.splice(index, 1);
+    } else {
+      console.error(`No se encontró un asistente con documento ${documento}.`);
+    }
+
+    // Verifica si la lista está vacía para ajustar `InhabilitarBtnContinuar`
+    if (this.asistentes.length === 0 || this.listaAsistentesAdicionales.length === 0) {
+      this.InhabilitarBtnContinuar = true;
+    }
+    this.utilitiesService.loading = false;
+    console.log(this.listaAsistentesAdicionales)
+    //const index = this.asistentes.findIndex(asistente => asistente.documento === documento);
     this.masDeTres = true;
   }
 

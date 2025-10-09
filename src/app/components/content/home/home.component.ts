@@ -298,7 +298,18 @@ export class HomeComponent implements OnInit {
 
     // Asignamos la lista filtrada a la variable que se muestra en el HTML
     this.cursosVisibles = cursosFiltrados;
-    console.log(this.cursosVisibles)
+// Filtramos cada servicio, quedándonos solo con los cursos del municipio
+  const serviciosFiltrados = this.servicios
+    .map(servicio => ({
+      ...servicio,
+      cursos: servicio.curso.filter(curso => curso.sede.municipioId === Number(municipioId))
+    }))
+    // Ahora eliminamos los servicios sin cursos
+    .filter(servicio => servicio.cursos.length > 0);
+    
+    console.log(this.servicios, this.cursosVisibles, 'servicios filtrados:',serviciosFiltrados);
+
+    this.servicios = serviciosFiltrados;
   }
 
 }

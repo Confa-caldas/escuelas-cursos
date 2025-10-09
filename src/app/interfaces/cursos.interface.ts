@@ -49,6 +49,7 @@ export interface InitiateTransaction {
   haymenor18: boolean;
   asistentes: Asistente[];
   nombreDatafono: String;
+  
 }
 export interface TransactionStatus {
   entityCode: string;

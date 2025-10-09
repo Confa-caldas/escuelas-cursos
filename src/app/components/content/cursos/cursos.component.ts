@@ -291,84 +291,92 @@ export class CursosComponent {
     return routesWithMenu.includes(this.router.url);
   }
 
-  consultarCursos() {
-    this.utilitiesService.loading = true;
-    const idServicio = Number(localStorage.getItem('idServicio'));
-    const idMunicipio = Number(localStorage.getItem('idMunicipio'));
+consultarCursos() {
+  this.utilitiesService.loading = true;
+  const idServicio = Number(localStorage.getItem('idServicio'));
+  const idMunicipio = Number(localStorage.getItem('idMunicipio'));
 
-    const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-    const ordenarHorarios = (horarios: { nombreDia: string }[]): { nombreDia: string }[] => {
-      return horarios.sort((a, b) => {
-        const indiceA = diasOrdenados.indexOf(a.nombreDia.trim());
-        const indiceB = diasOrdenados.indexOf(b.nombreDia.trim());
-        return indiceA - indiceB;  // Cambiar a `indiceB - indiceA` para orden descendente
-      });
-    };
+  const ordenarHorarios = (horarios: { nombreDia: string }[]): { nombreDia: string }[] => {
+    return horarios.sort((a, b) => {
+      const indiceA = diasOrdenados.indexOf(a.nombreDia.trim());
+      const indiceB = diasOrdenados.indexOf(b.nombreDia.trim());
+      return indiceA - indiceB;
+    });
+  };
 
-    this.dataServiciosCursos.getServicios().pipe(first())
-      .subscribe((response: any) => {
-        const servicios = response.servicios || [];
-        const servicioFiltradoCursos = servicios.find(servicio => servicio.id === idServicio);
+  this.dataServiciosCursos.getServicios().pipe(first())
+    .subscribe((response: any) => {
+      const servicios = response.servicios || [];
+      const servicioFiltradoCursos = servicios.find(servicio => servicio.id === idServicio);
 
-        /*INICIO SECCION SOLO PARACARGAR LOS DEPORTES EN LOS FILTROS DESPLEGABLES */
-
-        const cursos = servicioFiltradoCursos.curso;
-        const deporteMap = new Map();
-        cursos.forEach(cur => {
-          if (cur.modalidadDeportiva) {
-            deporteMap.set(cur.modalidadDeportiva.id, cur.modalidadDeportiva);
-          }
-        })
-
-        this.deportes = Array.from(deporteMap.values());
-
-        /* FIN */
-
-        const servicioFiltrado = cursos.filter(servicio => servicio.sede?.municipioId === idMunicipio);
-
+      if (!servicioFiltradoCursos || !servicioFiltradoCursos.curso) {
+        this.cursos = [];
+        this.cursosFiltrados = [];
+        this.deportes = [];
         this.utilitiesService.loading = false;
-        if (servicioFiltrado) {
-          this.cursos = servicioFiltrado || [];
-          this.cursosFiltrados = [...this.cursos]; // Clona el array original
+        return;
+      }
 
+      // 🔹 Primero filtrar los cursos por municipio
+      const cursos = servicioFiltradoCursos.curso;
+      const servicioFiltrado = cursos.filter(c => c.sede?.municipioId === idMunicipio);
 
-          // Cambia el formato de las horas para visualización y ordena los horarios
-          this.cursosFiltrados.forEach(curso => {
-            console.log(curso.programacion.cuposDisponibles);
+      // 🔹 Si no hay cursos, limpiar todo
+      if (!servicioFiltrado.length) {
+        this.cursos = [];
+        this.cursosFiltrados = [];
+        this.deportes = [];
+        this.utilitiesService.loading = false;
+        return;
+      }
 
-            if (curso.programacion.cuposDisponibles === 0) {
-              this.inactivarbotonSeleccionCurso = true;
+      // 🔹 Ahora sí: cargar solo los deportes con cursos en ese municipio
+      const deporteMap = new Map();
+      servicioFiltrado.forEach(cur => {
+        if (cur.modalidadDeportiva) {
+          deporteMap.set(cur.modalidadDeportiva.id, cur.modalidadDeportiva);
+        }
+      });
+      this.deportes = Array.from(deporteMap.values());
+
+      // 🔹 Asignar cursos
+      this.cursos = servicioFiltrado;
+      this.cursosFiltrados = [...this.cursos];
+
+      // 🔹 Ajustar horarios
+      this.cursosFiltrados.forEach(curso => {
+        if (curso.programacion.cuposDisponibles === 0) {
+          this.inactivarbotonSeleccionCurso = true;
+        }
+
+        if (curso.horario && Array.isArray(curso.horario)) {
+          curso.horario.forEach(horario => {
+            if (horario.horaInicio) {
+              horario.horaInicio = moment(horario.horaInicio, "HH:mm:ss").format("h:mm A");
             }
-
-            if (curso.horario && Array.isArray(curso.horario)) {
-              curso.horario.forEach(horario => {
-                if (horario.horaInicio) {
-                  horario.horaInicio = moment(horario.horaInicio, "HH:mm:ss").format("h:mm A");
-                }
-                if (horario.horaFin) {
-                  horario.horaFin = moment(horario.horaFin, "HH:mm:ss").format("h:mm A");
-                }
-              });
-
-              // Ordena los horarios del curso
-              curso.horario = ordenarHorarios(curso.horario);
+            if (horario.horaFin) {
+              horario.horaFin = moment(horario.horaFin, "HH:mm:ss").format("h:mm A");
             }
-
           });
 
-          // Inicializa las opciones de filtros
-          this.actualizarOpcionesFiltros(this.cursos);
-        } else {
-          console.log('Esta entrando aca ?')
-          this.cursos = [];
-          this.cursosFiltrados = [];
+          curso.horario = ordenarHorarios(curso.horario);
         }
-      },
-        error => {
-          console.error('Error al consultar los cursos:', error);
-        });
-  }
+      });
+
+      // 🔹 Actualizar opciones de filtros
+      this.actualizarOpcionesFiltros(this.cursos);
+
+      this.utilitiesService.loading = false;
+    },
+    error => {
+      console.error('Error al consultar los cursos:', error);
+      this.utilitiesService.loading = false;
+    });
+}
+
+
 
   // Método para recalcular las opciones únicas de filtros
   actualizarOpcionesFiltros(cursos: any[]) {
@@ -517,9 +525,9 @@ export class CursosComponent {
   mostrar() {
     this.mostrarCuros = true;
     this.aplicarFiltros();
-    setTimeout(() => {
-      this.limpiarFiltros();
-    }, 500);
+    this.limpiarFiltros();
+    /* setTimeout(() => {
+    }, 500); */
   }
   
 }

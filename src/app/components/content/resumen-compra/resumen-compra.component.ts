@@ -383,7 +383,7 @@ export class ResumenCompraComponent {
       nombreResponsable: nombreres || "",
       asistentes: this.listaAsistentes,
       haymenor18: haymenor, //NO
-      nombreDatafono: ""
+      nombreDatafono: "",
     };
     console.log(body);
     return body;
