@@ -219,24 +219,24 @@ export class CursosComponent {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-        this.authenticationService
-          .loginNew(ptoken.token)
-          .pipe(first())
-          .subscribe((response: Session) => {
-            this.utilitiesService.currentUser = response.usuario;
-            this.utilitiesService.messageLoading = null;
-            if (response.usuario.existeUsuario) {
-              localStorage.setItem("user", JSON.stringify(response));
-              localStorage.setItem("cc", response.usuario.documento);
-              this.document = response.usuario.documento;
-               this.utilitiesService.fullNameUser =`${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
-              //this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
-              //this.utilitiesService.loading = true;
-              //this.consultarInformacionMiPerfilConfa(this.document);
-            }else{
+      this.authenticationService
+        .loginNew(ptoken.token)
+        .pipe(first())
+        .subscribe((response: Session) => {
+          this.utilitiesService.currentUser = response.usuario;
+          this.utilitiesService.messageLoading = null;
+          if (response.usuario.existeUsuario) {
+            localStorage.setItem("user", JSON.stringify(response));
+            localStorage.setItem("cc", response.usuario.documento);
+            this.document = response.usuario.documento;
+            this.utilitiesService.fullNameUser = `${response.usuario.primerNombre} ${response.usuario.segundoNombre} ${response.usuario.primerApellido} ${response.usuario.segundoApellido}`;
+            //this.utilitiesService.fullNameUser = this.utilitiesService.currentUser.nombreBeneficiario
+            //this.utilitiesService.loading = true;
+            //this.consultarInformacionMiPerfilConfa(this.document);
+          } else {
             location.reload();
           }
-          });
+        });
     }
   }
 
@@ -291,90 +291,90 @@ export class CursosComponent {
     return routesWithMenu.includes(this.router.url);
   }
 
-consultarCursos() {
-  this.utilitiesService.loading = true;
-  const idServicio = Number(localStorage.getItem('idServicio'));
-  const idMunicipio = Number(localStorage.getItem('idMunicipio'));
+  consultarCursos() {
+    this.utilitiesService.loading = true;
+    const idServicio = Number(localStorage.getItem('idServicio'));
+    const idMunicipio = Number(localStorage.getItem('idMunicipio'));
 
-  const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+    const diasOrdenados = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-  const ordenarHorarios = (horarios: { nombreDia: string }[]): { nombreDia: string }[] => {
-    return horarios.sort((a, b) => {
-      const indiceA = diasOrdenados.indexOf(a.nombreDia.trim());
-      const indiceB = diasOrdenados.indexOf(b.nombreDia.trim());
-      return indiceA - indiceB;
-    });
-  };
-
-  this.dataServiciosCursos.getServicios().pipe(first())
-    .subscribe((response: any) => {
-      const servicios = response.servicios || [];
-      const servicioFiltradoCursos = servicios.find(servicio => servicio.id === idServicio);
-
-      if (!servicioFiltradoCursos || !servicioFiltradoCursos.curso) {
-        this.cursos = [];
-        this.cursosFiltrados = [];
-        this.deportes = [];
-        this.utilitiesService.loading = false;
-        return;
-      }
-
-      // 🔹 Primero filtrar los cursos por municipio
-      const cursos = servicioFiltradoCursos.curso;
-      const servicioFiltrado = cursos.filter(c => c.sede?.municipioId === idMunicipio);
-
-      // 🔹 Si no hay cursos, limpiar todo
-      if (!servicioFiltrado.length) {
-        this.cursos = [];
-        this.cursosFiltrados = [];
-        this.deportes = [];
-        this.utilitiesService.loading = false;
-        return;
-      }
-
-      // 🔹 Ahora sí: cargar solo los deportes con cursos en ese municipio
-      const deporteMap = new Map();
-      servicioFiltrado.forEach(cur => {
-        if (cur.modalidadDeportiva) {
-          deporteMap.set(cur.modalidadDeportiva.id, cur.modalidadDeportiva);
-        }
+    const ordenarHorarios = (horarios: { nombreDia: string }[]): { nombreDia: string }[] => {
+      return horarios.sort((a, b) => {
+        const indiceA = diasOrdenados.indexOf(a.nombreDia.trim());
+        const indiceB = diasOrdenados.indexOf(b.nombreDia.trim());
+        return indiceA - indiceB;
       });
-      this.deportes = Array.from(deporteMap.values());
+    };
 
-      // 🔹 Asignar cursos
-      this.cursos = servicioFiltrado;
-      this.cursosFiltrados = [...this.cursos];
+    this.dataServiciosCursos.getServicios().pipe(first())
+      .subscribe((response: any) => {
+        const servicios = response.servicios || [];
+        const servicioFiltradoCursos = servicios.find(servicio => servicio.id === idServicio);
 
-      // 🔹 Ajustar horarios
-      this.cursosFiltrados.forEach(curso => {
-        if (curso.programacion.cuposDisponibles === 0) {
-          this.inactivarbotonSeleccionCurso = true;
+        if (!servicioFiltradoCursos || !servicioFiltradoCursos.curso) {
+          this.cursos = [];
+          this.cursosFiltrados = [];
+          this.deportes = [];
+          this.utilitiesService.loading = false;
+          return;
         }
 
-        if (curso.horario && Array.isArray(curso.horario)) {
-          curso.horario.forEach(horario => {
-            if (horario.horaInicio) {
-              horario.horaInicio = moment(horario.horaInicio, "HH:mm:ss").format("h:mm A");
-            }
-            if (horario.horaFin) {
-              horario.horaFin = moment(horario.horaFin, "HH:mm:ss").format("h:mm A");
-            }
-          });
+        // 🔹 Primero filtrar los cursos por municipio
+        const cursos = servicioFiltradoCursos.curso;
+        const servicioFiltrado = cursos.filter(c => c.sede?.municipioId === idMunicipio);
 
-          curso.horario = ordenarHorarios(curso.horario);
+        // 🔹 Si no hay cursos, limpiar todo
+        if (!servicioFiltrado.length) {
+          this.cursos = [];
+          this.cursosFiltrados = [];
+          this.deportes = [];
+          this.utilitiesService.loading = false;
+          return;
         }
-      });
 
-      // 🔹 Actualizar opciones de filtros
-      this.actualizarOpcionesFiltros(this.cursos);
+        // 🔹 Ahora sí: cargar solo los deportes con cursos en ese municipio
+        const deporteMap = new Map();
+        servicioFiltrado.forEach(cur => {
+          if (cur.modalidadDeportiva) {
+            deporteMap.set(cur.modalidadDeportiva.id, cur.modalidadDeportiva);
+          }
+        });
+        this.deportes = Array.from(deporteMap.values());
 
-      this.utilitiesService.loading = false;
-    },
-    error => {
-      console.error('Error al consultar los cursos:', error);
-      this.utilitiesService.loading = false;
-    });
-}
+        // 🔹 Asignar cursos
+        this.cursos = servicioFiltrado;
+        this.cursosFiltrados = [...this.cursos];
+
+        // 🔹 Ajustar horarios
+        this.cursosFiltrados.forEach(curso => {
+          if (curso.programacion.cuposDisponibles === 0) {
+            this.inactivarbotonSeleccionCurso = true;
+          }
+
+          if (curso.horario && Array.isArray(curso.horario)) {
+            curso.horario.forEach(horario => {
+              if (horario.horaInicio) {
+                horario.horaInicio = moment(horario.horaInicio, "HH:mm:ss").format("h:mm A");
+              }
+              if (horario.horaFin) {
+                horario.horaFin = moment(horario.horaFin, "HH:mm:ss").format("h:mm A");
+              }
+            });
+
+            curso.horario = ordenarHorarios(curso.horario);
+          }
+        });
+
+        // 🔹 Actualizar opciones de filtros
+        this.actualizarOpcionesFiltros(this.cursos);
+
+        this.utilitiesService.loading = false;
+      },
+        error => {
+          console.error('Error al consultar los cursos:', error);
+          this.utilitiesService.loading = false;
+        });
+  }
 
 
 
@@ -525,9 +525,67 @@ consultarCursos() {
   mostrar() {
     this.mostrarCuros = true;
     this.aplicarFiltros();
-    this.limpiarFiltros();
-    /* setTimeout(() => {
-    }, 500); */
+    this.filtrarPorDeporteYActualizarOpciones();
+
+    
   }
-  
+
+  filtrarPorDeporteYActualizarOpciones() {
+    console.log(this.deporteSeleccionado, 'this.deporteSeleccionad')
+
+    let cursosFiltrados = [...this.cursos]; 
+    // Si no hay deporte seleccionado, usa la lista original completa
+    if (this.deporteSeleccionado !== 'default') {
+      const deporteSeleccionado = Number(this.deporteSeleccionado);
+      cursosFiltrados = cursosFiltrados.filter(curso => curso.modalidadDeportiva.id === deporteSeleccionado);
+    }
+
+    // --- Llamamos al mismo proceso de actualización de filtros ---
+    const sedesMap = new Map();
+    const ciudadMap = new Map();
+    const nivelMap = new Map();
+    const horarioMap = new Map();
+
+    cursosFiltrados.forEach(servicio => {
+      if (servicio.sede) {
+        sedesMap.set(servicio.sede.sedeId, servicio.sede);
+        ciudadMap.set(servicio.sede.municipioId, servicio.sede);
+      }
+
+      if (servicio.etapa) {
+        nivelMap.set(servicio.etapa.id, servicio.etapa);
+      }
+
+
+      if (servicio.horario && Array.isArray(servicio.horario)) {
+        servicio.horario.forEach(horario => {
+          horarioMap.set(horario.horarioId, horario);
+
+        });
+      }
+      console.log(Array.from(horarioMap.values()))
+
+      const rangos = cursosFiltrados.map(curso => ({
+        min: curso.edadMinima,
+        max: curso.edadMaxima,
+        id: curso.id, //391
+      }));
+
+      this.edades = rangos.filter(
+        (rango, index, self) =>
+          index === self.findIndex(r => r.min === rango.min && r.max === rango.max)
+      ).sort((a, b) => a.min - b.min); // Ordenar por edad mínima
+
+    });
+
+    // Actualiza las opciones de los filtros
+    this.sedes = Array.from(sedesMap.values());
+    this.ciudades = Array.from(ciudadMap.values());
+    this.niveles = Array.from(nivelMap.values());
+    this.horarios = Array.from(horarioMap.values());
+
+    this.limpiarFiltros();
+  }
+
+
 }

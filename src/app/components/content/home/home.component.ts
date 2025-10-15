@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
 
   /* Escuelas y cursos */
   servicios: Servicio[] = [];
+  serviciosFiltradosFinal: Servicio[] = [];
   dataCursosOriginal: any[] = []; // estructura original con [{ curso: [...] }]
   cursosVisibles: any[] = []; // estructura original con [{ curso: [...] }]
 
@@ -231,6 +232,7 @@ export class HomeComponent implements OnInit {
         this.utilitiesService.servicios = this.servicios
 
         this.utilitiesService.loading = false;
+        this.serviciosFiltradosFinal = this.utilitiesService.servicios 
       },
         error => {
           console.error('Error al consultar los cursos:', error);
@@ -309,7 +311,8 @@ export class HomeComponent implements OnInit {
     
     console.log(this.servicios, this.cursosVisibles, 'servicios filtrados:',serviciosFiltrados);
 
-    this.servicios = serviciosFiltrados;
+    //this.servicios = serviciosFiltrados;
+    this.serviciosFiltradosFinal = serviciosFiltrados
   }
 
 }

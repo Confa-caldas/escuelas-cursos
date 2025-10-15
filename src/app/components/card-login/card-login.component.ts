@@ -236,6 +236,7 @@ export class CardLoginComponent implements OnInit {
 
           localStorage.setItem("user", JSON.stringify(response.usuario));
           localStorage.setItem("cc", response.usuario.documento);
+          this.utilitiesService.currentUser = response.usuario;
 
           /*if (response.debeRealizarValidacion) {
             localStorage.setItem("preguntas", JSON.stringify(response.usuario.preguntas));

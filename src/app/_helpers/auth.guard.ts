@@ -32,6 +32,8 @@ export class AuthGuard  {
     let cc = (localStorage.getItem('cc') !== '') ? JSON.parse(localStorage.getItem('cc')) : null;
     //localStorage.setItem("ptokenn", token)
 
+    console.log(currentToken)
+
     if (currentToken) {
       return this.validate(currentToken).then(() => {
         if (this.validateToken) {

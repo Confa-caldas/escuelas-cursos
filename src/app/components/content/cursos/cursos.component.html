@@ -46,7 +46,7 @@
         <div class="card py-3 card-filters">
           <!-- Servicios -->
           <!-- <div class="col mx-auto ">
-          <select class="form-select select-filter mb-4" aria-label="Default select example" (change)="aplicarFiltros()"
+          <select class="form-select select-filter mb-4" aria-label="Default select example"
             [(ngModel)]="servicioActivo">
             <option [value]="'default'" selected disabled>Selecciona el servicio</option>
             <option *ngFor="let serv of servicios" [value]="serv.id">{{ serv.nombre }} </option>
@@ -55,7 +55,7 @@
           <!-- Municipios -->
           <!-- <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-              (change)="aplicarFiltros()" [(ngModel)]="ciudadSeleccionada">
+              [(ngModel)]="ciudadSeleccionada"  (change)="aplicarFiltros()">
               <option [value]="'default'" selected disabled>Municipio</option>
               <option *ngFor="let ciudad of ciudades" [value]="ciudad.municipioId">{{ ciudad.nombreMunicipio }}
               </option>
@@ -64,7 +64,7 @@
           <!-- Cursos / deportes -->
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="deporteSeleccionado">
+               [(ngModel)]="deporteSeleccionado" (change)="aplicarFiltros()">
               <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
               <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id"
                 [title]="deporte.nombre">{{ deporte.nombre }}</option>
@@ -73,7 +73,7 @@
           <!-- nivel -->
           <div class="col mx-auto">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="nivelSeleccionado">
+               [(ngModel)]="nivelSeleccionado" >
               <option [value]="'default'" selected disabled>Nivel</option>
               <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
             </select>
@@ -82,7 +82,7 @@
 
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="sedeSeleccionada">
+               [(ngModel)]="sedeSeleccionada" >
               <option [value]="'default'" selected disabled>Sede</option>
               <option *ngFor="let sede of sedes" [value]="sede.sedeId">{{ sede.nombreSede }}</option>
             </select>
@@ -90,7 +90,7 @@
           <!-- edad -->
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-             [(ngModel)]="edadSeleccionada">
+             [(ngModel)]="edadSeleccionada" >
               <option [value]="'default'" selected disabled>Edad</option>
               <option *ngFor="let ed of edades" [value]="ed.min + '-' + ed.max">{{ ed.min }} - {{ ed.max }}</option>
             </select>

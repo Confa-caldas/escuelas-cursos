@@ -51,7 +51,7 @@
   <section class="py-4 fondo">
     <div class="container">
       <div class="row justify-content-center " style="background: #FCFCFC;">
-        <div *ngFor="let servicio of servicios; let i = index"
+        <div *ngFor="let servicio of serviciosFiltradosFinal; let i = index"
           [ngClass]="{'col-md-6': isTwoOrFour, 'col-md-4': !isTwoOrFour}" class="mb-4 d-flex justify-content-center">
           <div class="card p-4">
             <img [src]="servicio.urlImagen || '../../../../assets/img/curso-tenis.png'" alt="Imagen del servicio" />
