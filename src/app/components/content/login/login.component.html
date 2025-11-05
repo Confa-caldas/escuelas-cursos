@@ -22,7 +22,7 @@
                   </button>
                 </div>
                 <h3 class="mb-2">
-                  Inscríbete y paga el cupo de tu curso deportivo
+                  Inscríbete y paga tu programa deportivo o recreativo.
                 </h3>
                 <p class="m-0">Puedes pagar por PSE, tarjeta de débito o crédito.</p>
                 <div class="image-overlay-container my-4">
@@ -52,7 +52,7 @@
                     </div>
                   </div>
                   <div class="login-otros-ingresos mx-auto" *ngIf="utilitiesService.otrosIngresos">
-                    <button class="btn-alternativa-acceso my-2 btn-block" (click)="mostrarOtrasAlternativas()">
+                    <button class="btn-alternativa-acceso my-2 btn-block" (click)="mostrarOtrasAlternativas()" id="escuelas_otp">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="col-2">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -68,7 +68,7 @@
                           fill="#D0D5DD" />
                       </svg>
                     </button>
-                    <button class="btn-alternativa-acceso my-2 btn-block" (click)="activarCredenciales()">
+                    <button class="btn-alternativa-acceso my-2 btn-block" (click)="activarCredenciales()" id="escuelas_usuariocontraseña">
                       <svg width="22" height="12" viewBox="0 0 22 12" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="col-2">
                         <path
@@ -163,7 +163,7 @@
               sentirte increíble. Camina, corre, salta, ¡Empieza hoy!
             </p>
             <p class="m-0">
-              Conoce los cursos deportivos que tenemos para ti y hazlos parte de tu rutina.
+              Conoces los programas deportivos y recreativos que tenemos para ti y hazlos parte de tu rutina.
 
             </p>
           </div>
