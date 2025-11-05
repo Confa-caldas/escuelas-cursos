@@ -167,10 +167,10 @@ button.btn-perfil-red {
   height: 44px;
   border-radius: 83px;
   border: 1px solid #D0D5DD;
-  padding: 10px 2.5rem 10px 14px; /* espacio a la derecha para el icono */
+  padding: 8px 3.5rem 10px 18px; /* espacio a la derecha para el icono */
   background: #FFFFFF;
   box-shadow: 0px 1px 2px 0px #1018280D;
-
+  color: #6d6c6c;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -179,8 +179,49 @@ button.btn-perfil-red {
 .custom-icon {
   position: absolute;
   right: 15px;   /* dentro del select */
-  top: 38%;
+  top: 34%;
   transform: translateY(-50%);
   pointer-events: none;
   color: #555;
 }
+
+.btn-acordeon {
+  font-family: Ubuntu;
+  color: black !important;
+  font-weight: bold;
+}
+
+.acordeon{
+  width: 80%;
+}
+
+.header-accordeon{
+  background: white;
+  border: none !important;
+}
+
+.card-acordeon{
+  border: none;
+}
+.card-acordeon-activo{
+  background:#F9FAFB !important;
+  border: none;
+}
+
+@media (max-width: 576px) {
+  .select-filter-municipio {
+  width: 360px;
+  height: 44px;
+  border-radius: 83px;
+  border: 1px solid #D0D5DD;
+  padding: 8px 3.5rem 10px 18px; /* espacio a la derecha para el icono */
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px 0px #1018280D;
+  color: #6d6c6c;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+}
+
+

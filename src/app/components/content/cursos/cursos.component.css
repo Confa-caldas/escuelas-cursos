@@ -38,6 +38,21 @@
   text-transform: uppercase;
 }
 
+.select-wrapper {
+  position: relative;
+  display: inline-block; /* se ajusta al tamaño del select */
+}
+
+.custom-icon {
+  position: absolute;
+  top: 34%;
+  right: 25px;   /* dentro del select */
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555;
+  z-index: 1000;
+}
+
 
 
 

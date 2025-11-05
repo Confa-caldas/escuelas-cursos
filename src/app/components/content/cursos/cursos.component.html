@@ -63,12 +63,15 @@
           </div> -->
           <!-- Cursos / deportes -->
           <div class="col mx-auto ">
+
             <select class="form-select select-filter mb-4" aria-label="Default select example"
                [(ngModel)]="deporteSeleccionado" (change)="aplicarFiltros()">
               <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
               <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id"
                 [title]="deporte.nombre">{{ deporte.nombre }}</option>
             </select>
+            <i class="fas fa-chevron-down custom-icon"></i>
+
           </div>
           <!-- nivel -->
           <div class="col mx-auto">
@@ -77,6 +80,7 @@
               <option [value]="'default'" selected disabled>Nivel</option>
               <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
             </select>
+            <i class="fas fa-chevron-down custom-icon"></i>
           </div>
           <!-- Sede -->
 
@@ -86,6 +90,7 @@
               <option [value]="'default'" selected disabled>Sede</option>
               <option *ngFor="let sede of sedes" [value]="sede.sedeId">{{ sede.nombreSede }}</option>
             </select>
+            <i class="fas fa-chevron-down custom-icon"></i>
           </div>
           <!-- edad -->
           <div class="col mx-auto ">
@@ -94,6 +99,7 @@
               <option [value]="'default'" selected disabled>Edad</option>
               <option *ngFor="let ed of edades" [value]="ed.min + '-' + ed.max">{{ ed.min }} - {{ ed.max }}</option>
             </select>
+            <i class="fas fa-chevron-down custom-icon"></i>
           </div>
           <!-- Horario -->
           <div class="col mx-auto ">
@@ -104,6 +110,7 @@
               <option *ngFor="let hora of horarios" [value]="hora.horarioId">{{hora.nombreDia}} {{ hora.horaInicio
                 }}-{{hora.horaFin}}</option>
             </select>
+            <i class="fas fa-chevron-down custom-icon"></i>
           </div>
           <div class="d-flex justify-content-center px-3 mb-2">
             <button (click)="mostrar()" class="btn btn-credits mx-auto btn-block">Buscar</button>
@@ -115,7 +122,7 @@
         </div>
       </div>
 
-      <div class="col-md-9 col-11 mx-auto">
+      <div class="col-md-9 col-11 mx-auto mt-3">
         <div class="row" *ngIf="!mostrarCuros">
           <h4><strong> Filtra y encuentra tu curso</strong></h4>
           <span>Ahora selecciona las opciones que más se justen a lo que buscas: tio de curso, horario, edad y nivel. Entre más detalles elijas, más fácil será mostrarte los cursos érfectos para ti.</span>
@@ -212,7 +219,7 @@
                     stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </ng-template>
-              <span class="ml-2">{{ item.title }}</span>
+              <span class="ml-2 text-left">{{ item.title }}</span>
             </button>
           </h5>
         </div>

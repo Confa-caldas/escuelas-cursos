@@ -80,7 +80,7 @@
         </div>
         <!-- <hr class="hr-separador"> -->
         <div class="">
-          <div class=" fondo">
+          <div class=" fondo mt-3">
             <h4 style="font-weight: 600;">Agrega una persona adicional</h4>
             <p class="item-titulo">Podrás adicionar a una persona que no esté en tu grupo familiar.</p>
           </div>
@@ -91,7 +91,7 @@
           <div class="card p-2" *ngIf="masDeTres">
             <form class="">
               <div class="row" >
-                <div class="col form-group form-group-custom content-custom-select">
+                <div class="col-md-4 col-sm-6 form-group form-group-custom content-custom-select">
                   <label for="inputState">Tipo documento</label>
                   <select id="inputState" class="form-control custom-select" name="tipoDocOtroAsistente"
                     #tipoDocumentoRef [(ngModel)]="tipoDocOtroAsistente" placeholder="Escoge"
@@ -114,19 +114,19 @@
                     (paste)="evitarPegado($event)">
                 </div>
                 <div class="col mt-4">
-                  <button class="btn btn-cred" (click)="ValidarOtroAsistente()" id="escuelaCursoAgregarAdi"
+                  <button class="btn btn-cred" (click)="ValidarOtroAsistente()" id="escuelaCursoAgregarAdi" style="width: 90%; height: 36px;"
                     [disabled]="!documentoOtroAsistente">Buscar</button>
                 </div>
               </div>
               <div class="row">
-                <div class="col">
+                <div class="col-6">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Nombres </label>
                     <input type="text" [(ngModel)]="nombresAsistenteAdd" class="form-control" placeholder="*Nombres"
                       placement="right" autocomplete="off" name="Nombre" />
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-6">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Apellidos </label>
                     <input type="text" [(ngModel)]="apellidosAsistenteAdd" class="form-control" placeholder="*Apellidos"
@@ -135,7 +135,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col form-group form-group-custom content-custom-select">
+                <div class="col-6 form-group form-group-custom content-custom-select">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Genero </label>
                     <select id="inputgenero" class="form-control custom-select" name="generoAsistenteAdd"
@@ -148,7 +148,7 @@
 
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-6">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Correo </label>
                     <input type="email" [(ngModel)]="correoOtroAssistente" class="form-control"
@@ -158,7 +158,7 @@
               </div>
               <div class="row">
                   
-                <div class="col">
+                <div class="col-6">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for="">Fecha de nacimiento</label>
                     <input [attr.disabled]="utilitiesService.existUser ? '' : null" type="date"
@@ -212,7 +212,7 @@
           </div>
 
 
-          <div class="card-body-resumen">
+          <div class="card-body-resumen mt-3">
             <button class="btn btn-credits col-8  btn-block " (click)="continuar()" id="escuelaCursoContinuar"
               [disabled]="InhabilitarBtnContinuar">Continuar</button> <br>
             <button class="btn btn-secun col-8 btn-block " (click)="atras()" id="escuelaCursoRegresar">Regresar</button>

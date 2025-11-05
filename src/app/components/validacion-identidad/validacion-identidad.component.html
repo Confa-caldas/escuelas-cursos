@@ -168,28 +168,28 @@
                       <form class="form-indicios" [formGroup]="formValidate">
                         <div class="margin-otp">
                           <div class="form-check d-flex align-items-center mb-2"
-                          *ngIf="celularIndicio || utilitiesService.indiciocel">
-                          <input type="radio" formControlName="opcionOTP" class="form-check-input me-2"
-                            autocomplete="off" name="opcionOTP" value="movil" [ngClass]="{
+                            *ngIf="celularIndicio || utilitiesService.indiciocel">
+                            <input type="radio" formControlName="opcionOTP" class="form-check-input me-2"
+                              autocomplete="off" name="opcionOTP" value="movil" [ngClass]="{
                               'is-invalid': submitted || f.opcionOTP.touched
                             }" (change)="opcionEnvio = true" />
-                          <label class="form-check-label m-0 text-wrap">
-                            <strong>Celular:</strong>  {{ celularIndicio || utilitiesService.indiciocel }}
-                          </label>
-                        </div>
+                            <label class="form-check-label m-0 text-left">
+                              <strong>Celular:</strong> {{ celularIndicio || utilitiesService.indiciocel }}
+                            </label>
+                          </div>
 
-                        <div class="form-check d-flex align-items-center"
-                          *ngIf="correoIndicio || utilitiesService.indiciocorreo">
-                          <input type="radio" formControlName="opcionOTP" class="form-check-input me-2"
-                            autocomplete="off" name="opcionOTP" value="correo" [ngClass]="{
+                          <div class="form-check d-flex align-items-center"
+                            *ngIf="correoIndicio || utilitiesService.indiciocorreo">
+                            <input type="radio" formControlName="opcionOTP" class="form-check-input me-2"
+                              autocomplete="off" name="opcionOTP" value="correo" [ngClass]="{
                               'is-invalid': (submitted || f.opcionOTP.touched) && f.opcionOTP.errors
                             }" (change)="opcionEnvio = true" />
-                          <label class="form-check-label m-0 text-wrap">
-                            <strong>Correo:</strong>  {{ correoIndicio || utilitiesService.indiciocorreo }}
-                          </label>
+                            <label class="form-check-label m-0 text-left">
+                              <strong>Correo:</strong> {{ correoIndicio || utilitiesService.indiciocorreo }}
+                            </label>
+                          </div>
                         </div>
-                        </div>
-                        
+
 
                         <div class="form-check" style="align-items: flex-start"
                           *ngIf="celularIndicio || utilitiesService.indiciocel">
@@ -202,9 +202,9 @@
                               ¿No tengo acceso a este dato?
                             </p>
                           </button>
-                          
+
                         </div>
-                        
+
                       </form>
                     </div>
                     <div class="my-5" *ngIf="codigoEnviado">
@@ -328,7 +328,7 @@
 <div class="modal fade modal-otp" id="btn-TpDocYdoc-login" tabindex="-1" role="dialog"
   aria-labelledby="modalPopupLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-md modal-dialog-centered justify-content-center" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 96%;">
       <div class="card-body card-body-login animated fadeIn fast">
         <button type="button" class="close btn-cerra-tpDcYdoc" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>

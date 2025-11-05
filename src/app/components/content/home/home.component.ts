@@ -64,6 +64,129 @@ export class HomeComponent implements OnInit {
   dataCursosOriginal: any[] = []; // estructura original con [{ curso: [...] }]
   cursosVisibles: any[] = []; // estructura original con [{ curso: [...] }]
 
+  isAccordionOpen: boolean = false;
+  preguntas = [];
+  private _collection: any = [
+    {
+      title: "¿Cuándo son las inscripciones?",
+      description: `<p>Los cursos deportivos de Natación, karate, exploración deportiva e iniciación deportiva se realizan por ciclos de 10 clases y las fechas de inscripción son las siguientes:</p>
+              <ul>
+                <li><strong>Ciclo 1:</strong> Inscripciones 21 de enero.</li>
+                <li><strong>Ciclo 2:</strong> Inscripciones 8 de abril.</li>
+                <li><strong>Ciclo 3:</strong> Inscripciones 17 de junio.</li>
+                <li><strong>Ciclo 4:</strong> Inscripciones 3 de septiembre.</li>
+              </ul>
+              <p>Cursos de actividad física como yoga, clases al parque, baile para mayores, actividad física para mayores de 60 años, las matrículas son la última semana de cada mes.</p>`,
+      open: false,
+    },
+    {
+      title: "¿Cuándo se realizan los cursos deportivos Confa?",
+      description: `Los cursos deportivos de Natación, karate, Exploración Deportiva e Iniciación deportiva se realizan en ciclos de 10 clases que es aproximadamente 2.5 meses. Los cursos de actividad física como yoga, baile para mayores, clases al parque, entre otras, son de periodicidad mensual.`,
+      open: false,
+    },
+    {
+      title: "¿Dónde se ofrecen las clases de los cursos de Formación deportiva?",
+      description: `<ul>
+                <li><strong>Natación Manizales:</strong> Complejo Acuático del Bosque Popular.</li>
+                <li><strong>Natación Santágueda:</strong> Centro Recreacional Santágueda.</li>
+                <li><strong>Natación Dorada:</strong> Centro Recreacional Alegría Tropical.</li>
+                <li><strong>Karate:</strong> Confa sede La Asunción Manizales y en Versalles Plaza.</li>
+                <li><strong>Danzeatro:</strong> Municipio de Chinchiná.</li>
+                <li><strong>Iniciación deportiva y exploración motriz:</strong> Confa sede La Asunción Manizales y sede Versalles Plaza Manizales.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Qué se requiere para las clases de natación?",
+      description: `Es indispensable que el estudiante lleve gorro, vestido de baño y chanclas adecuadas para cuando se sale del agua.`,
+      open: false,
+    },
+    {
+      title: "¿Los bebés siempre deben entrar al agua con el padre de familia?",
+      description: `Sí, estudiantes hasta los 5 años deben ingresar con el acudiente.`,
+      open: false,
+    },
+    {
+      title: "¿Cuáles son los niveles del curso de natación?",
+      description: `<ul>
+                <li><strong>Nivel básico:</strong> No sabe nada o apenas está empezando.</li>
+                <li><strong>Nivel intermedio:</strong> Conoce algo de técnica de libre y espalda.</li>
+                <li><strong>Nivel avanzado:</strong> Ya domina los estilos libre, espalda y pecho.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Cuánto tiempo tengo que quedarme en el mismo nivel?",
+      description: `<p>Se debe permanecer en el mismo nivel hasta que se desarrollen las habilidades necesarias para poder avanzar al siguiente nivel y se alcancen los objetivos propuestos. Pueden repetir el nivel. Al iniciar cada nivel, los profesores hacen una evaluación de entrada en la que verifican sus capacidades y recomiendan seguir en el mismo nivel o pasar al siguiente siempre y cuando se puedan mover de manera interna.</p>`,
+      open: false,
+    },
+    {
+      title: "¿Por ser antiguo tengo prioridad en la inscripción?",
+      description: `<ul>
+                <li>No, la inscripción es abierta al público y no prioriza antigüedad.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Desde qué edad se puede practicar karate en los cursos deportivos de Confa?",
+      description: `<ul>
+                <li>Desde los 0 meses hasta los 59 años y de 60 a más años para los programas de adulto mayor. Para los bebés, y buscando evitar enfermedades de otitis, se recomienda a partir de los 6 meses.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Se requiere uniforme para practicar karate?",
+      description: `<ul>
+                <li>No es obligatorio, se puede asistir con ropa deportiva y a medida que se desarrolle el gusto por la disciplina asesoramos para conseguirlo.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Qué se ve en el curso de Iniciación deportiva? ¿Quiénes se pueden inscribir?",
+      description: `<ul>
+                <li>Los niños experimentan con diferentes deportes, aprenden los fundamentos básicos e identifican sus fortalezas para practicarlo. Buscamos que conozcan variedad de deportes y desarrollen técnicas básicas. Pueden inscribirse niños entre los 6 y 8 años.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Qué se ve en el curso de exploración motriz? ¿Quiénes se pueden inscribir?",
+      description: `<ul>
+                <li>Estimulamos los patrones básicos de movimientos como correr, saltar, atrapar, patear, girar, entre otras. Pueden inscribirse niños entre los 3 y 5 años.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Cuánto tiempo dura un ciclo de los cursos deportivos?",
+      description: `<ul>
+                <li>Cada ciclo consta de 10 clases, una a la semana, con duración de 1 hora cada clase. (Aproximadamente 2 meses y medio)</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Puedo inscribir a mi hijo a varios cursos al mismo tiempo?",
+      description: `<ul>
+                <li>Los niños pueden estar en varios cursos siempre y cuando se cumpla con los requisitos de edad y que los horarios no se crucen entre sí. Se debe realizar el pago de la tarifa de inscripción correspondiente a cada uno de los cursos en los que se inscriba.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿De qué consta el curso de Karate?",
+      description: `<ul>
+                <li>En este curso se fortalecen conocimientos en un arte marcial que se convierte en un estilo de vida. Favorece aspectos como la respiración adecuada y consciente, la coordinación y la concentración, el autocontrol, autoconocimiento y otras habilidades importantes en la vida diaria. Cabe aclarar que en esta disciplina no hay contacto físico entre los deportistas.</li>
+              </ul>`,
+      open: false,
+    },
+    {
+      title: "¿Qué niveles tienen en la escuela de Karate Confa?",
+      description: ` Se tiene solo un nivel pero cada persona avanzará con esquema de cinturones:<ul>
+                <li> Principiantes (Cinturones blanco, amarillo y naranja).</li>
+                <li> Intermedios (Cinturones verdes y azules).</li>
+                <li> Avanzados (Cinturones violetas, marrones y negros).</li>
+              </ul>`,
+      open: false,
+    },
+  ];
+
   constructor(
     private router: Router,
     public utilitiesService: UtilitiesService,
@@ -86,23 +209,23 @@ export class HomeComponent implements OnInit {
         ? JSON.parse(localStorage.getItem("cc"))
         : null;
     if (ptoken != "") {
-        /* ||res==null */ 
-        this.authenticationService
-          .loginNew(ptoken.token)
-          .pipe(first())
-          .subscribe((response: Session) => {
-            this.utilitiesService.messageLoading = null;
-            this.utilitiesService.currentUser = response.usuario;
-            if (response.usuario.existeUsuario) {
-              localStorage.setItem("user", JSON.stringify(response));
-              localStorage.setItem("cc", response.usuario.documento);
-              this.document = response.usuario.documento;
-              this.utilitiesService.loading = true;
-              this.consultarInformacionMiPerfilConfa(this.document);
-            }else{
+      /* ||res==null */
+      this.authenticationService
+        .loginNew(ptoken.token)
+        .pipe(first())
+        .subscribe((response: Session) => {
+          this.utilitiesService.messageLoading = null;
+          this.utilitiesService.currentUser = response.usuario;
+          if (response.usuario.existeUsuario) {
+            localStorage.setItem("user", JSON.stringify(response));
+            localStorage.setItem("cc", response.usuario.documento);
+            this.document = response.usuario.documento;
+            this.utilitiesService.loading = true;
+            this.consultarInformacionMiPerfilConfa(this.document);
+          } else {
             location.reload();
           }
-          });
+        });
     }
   }
 
@@ -110,6 +233,12 @@ export class HomeComponent implements OnInit {
     //Llamamos modal de la sugerencia de seguridad
     this.utilitiesService.loading = true;
     this.consultarCursos();
+    this.preguntas = this._collection;
+  }
+  toggleAccordion(index: number): void {
+    this._collection.forEach((item, i) => {
+      item.open = i === index ? !item.open : false;
+    });
   }
 
   navigate() {
@@ -232,7 +361,7 @@ export class HomeComponent implements OnInit {
         this.utilitiesService.servicios = this.servicios
 
         this.utilitiesService.loading = false;
-        this.serviciosFiltradosFinal = this.utilitiesService.servicios 
+        this.serviciosFiltradosFinal = this.utilitiesService.servicios
       },
         error => {
           console.error('Error al consultar los cursos:', error);
@@ -300,16 +429,16 @@ export class HomeComponent implements OnInit {
 
     // Asignamos la lista filtrada a la variable que se muestra en el HTML
     this.cursosVisibles = cursosFiltrados;
-// Filtramos cada servicio, quedándonos solo con los cursos del municipio
-  const serviciosFiltrados = this.servicios
-    .map(servicio => ({
-      ...servicio,
-      cursos: servicio.curso.filter(curso => curso.sede.municipioId === Number(municipioId))
-    }))
-    // Ahora eliminamos los servicios sin cursos
-    .filter(servicio => servicio.cursos.length > 0);
-    
-    console.log(this.servicios, this.cursosVisibles, 'servicios filtrados:',serviciosFiltrados);
+    // Filtramos cada servicio, quedándonos solo con los cursos del municipio
+    const serviciosFiltrados = this.servicios
+      .map(servicio => ({
+        ...servicio,
+        cursos: servicio.curso.filter(curso => curso.sede.municipioId === Number(municipioId))
+      }))
+      // Ahora eliminamos los servicios sin cursos
+      .filter(servicio => servicio.cursos.length > 0);
+
+    console.log(this.servicios, this.cursosVisibles, 'servicios filtrados:', serviciosFiltrados);
 
     //this.servicios = serviciosFiltrados;
     this.serviciosFiltradosFinal = serviciosFiltrados
