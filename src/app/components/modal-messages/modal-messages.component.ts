@@ -175,6 +175,10 @@ export class ModalMessagesComponent implements OnInit {
     $(".modalNuevoInfoCancelReserva").click();
 
   }
+  
+  confirmarRegistro() {
+    location.reload();
+  }
 
   limpiarCupos(){ 
     const programacionId =  this.utilitiesService.programacionId;
@@ -190,3 +194,5 @@ export class ModalMessagesComponent implements OnInit {
         });
   }
 }
+
+

@@ -3,7 +3,7 @@
   <div class="navbar-welcome">
     <div class="content-welcome col-sm-12 my-4">
       <div class="row">
-        <div class="my-3 col-md-8 row">
+        <div class="my-3 col-md-7 row">
           <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="48" height="48" rx="24" fill="#F2F4F7" />
             <path
@@ -14,8 +14,8 @@
           <h6 class="ml-2 my-2">Hola {{utilitiesService.fullNameUser | titlecase}}</h6>
         </div>
         <div class="card mt-3 mb-3 m-0 p-0">
-          <div class="card-body m-0 p-0">
-            <div class="row p-0 pr-1 d-flex justify-content-end">
+          <div class="card-body m-0 p-1">
+            <div class="row p-0 pl-2 pr-1 d-flex justify-content-end">
               <button class="btn-credits btn" (click)="navigate()" id="escuelaCursoHistorico">
                 Historial de transacciones
               </button>
@@ -188,7 +188,7 @@
       </div>
     </div>
   </section>
-  <section class="pt-4 pb-4 mb-4">
+<!--   <section class="pt-4 pb-4 mb-4">
     <div class="row">
       <div class="d-flex justify-content-center mx-auto">
         <h3 class="titulos">Preguntas Frecuentes</h3>
@@ -204,7 +204,7 @@
             <button class="btn btn-acordeon d-flex align-items-center" [class.collapsed]="!item.open"
               [attr.aria-controls]="'collapse' + i" (click)="toggleAccordion(i)">
               <ng-container *ngIf="item.open; else closedIcon">
-                <!-- Icono SVG abierto -->
+                
                 <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z"
@@ -212,7 +212,7 @@
                 </svg>
               </ng-container>
               <ng-template #closedIcon>
-                <!-- Icono SVG cerrado -->
+                
                 <svg width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M12 10V18M8 14H16M22 14C22 19.5228 17.5228 24 12 24C6.47715 24 2 19.5228 2 14C2 8.47715 6.47715 4 12 4C17.5228 4 22 8.47715 22 14Z"
@@ -232,6 +232,6 @@
 
 
 
-  </section>
+  </section> -->
 </div>
 <app-footer></app-footer>

@@ -815,3 +815,76 @@
     </div>
   </div>
 </div>
+
+
+<!-- Button modal exclaim confirmacion registro -->
+<button
+  type="button"
+  class="btn-modal-exclaim-validation-confirmacion-registro btn btn-primary"
+  data-toggle="modal"
+  data-target="#modal-exclaim-validation-confirmacion-registro"
+  hidden
+
+>
+  Modal exclaim validation confirmacion registro
+</button>
+
+<!-- Modal exclaim   -->
+<div
+  class="modal fade modal-exclaim-validation-confirmacion-registro"
+  id="modal-exclaim-validation-confirmacion-registro"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modal-exclaim-validationLabel"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div
+    class="modal-dialog modal-dialog-centered justify-content-center"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row p-2">
+          <div class="col-md-3 p-0 pl-2">
+            <div class="row">
+              <div class="col-md-2 col-11">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="64" height="64" rx="32" fill="white" />
+                  <rect x="4" y="4" width="64" height="64" rx="32" stroke="#FFECB9" stroke-width="8" />
+                  <path
+                    d="M34 42H38V46H34V42ZM34 26H38V38H34V26ZM35.98 16C24.94 16 16 24.96 16 36C16 47.04 24.94 56 35.98 56C47.04 56 56 47.04 56 36C56 24.96 47.04 16 35.98 16ZM36 52C27.16 52 20 44.84 20 36C20 27.16 27.16 20 36 20C44.84 20 52 27.16 52 36C52 44.84 44.84 52 36 52Z"
+                    fill="#FFBB00" />
+                </svg>
+              </div>
+          </div>
+          </div>
+          <div class="col-md-9 p-0 texto-modal-validacion">
+            <div>
+              <h6 class="m-0 pb-2">
+                {{ utilitiesService.messageTitleModal }}
+              </h6>
+              <div class="m-0">
+                <p class="m-0">{{ utilitiesService.messageModal }}</p>
+              </div>
+            </div>
+          </div>
+        
+        <div class="p-2">
+          <div class="d-flex justify-content-end justify-content-center-sm">
+            <button
+              type="button"
+              class="btn-cerrar-modal btn btn-cerrar-modal-validacion"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="confirmarRegistro()"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

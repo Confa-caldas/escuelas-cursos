@@ -3209,6 +3209,7 @@ div.modal-carnet-digital div.modal-body div.login-content div button.btn-next:ho
   border: none;
   border-radius: 5px;
   box-shadow: 0px 1px 2px 0px #1018280F;
+  color: #000 !important;
 }
 
 

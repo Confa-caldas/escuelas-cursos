@@ -14,12 +14,12 @@ import { ResumenCompraComponent } from "./components/content/resumen-compra/resu
 export const routes: Routes = [
   
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent}, //
-  { path: 'cursos', component: CursosComponent}, //, canActivate: [AuthGuard]
-  { path: 'asistente', component: SeleccionAsistentesComponent},
-  { path: 'resumen', component: ResumenCompraComponent},
-  { path: 'questions', component: QuestionsLoginComponent}, //canActivate: [AuthGuard]
-  { path: 'confirm', component: ConfirmRegistroServicesComponent},
-  {path: "historico", component: HistoricoPagosComponent },
+  { path: 'home', component: HomeComponent,canActivate: [AuthGuard]}, 
+  { path: 'cursos', component: CursosComponent,canActivate: [AuthGuard]},  
+  { path: 'asistente', component: SeleccionAsistentesComponent,canActivate: [AuthGuard]},
+  { path: 'resumen', component: ResumenCompraComponent,canActivate: [AuthGuard]},
+  { path: 'questions', component: QuestionsLoginComponent,canActivate: [AuthGuard]},
+  { path: 'confirm', component: ConfirmRegistroServicesComponent,canActivate: [AuthGuard]},
+  {path: "historico", component: HistoricoPagosComponent,canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];

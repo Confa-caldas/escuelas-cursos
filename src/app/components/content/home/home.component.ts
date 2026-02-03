@@ -71,10 +71,10 @@ export class HomeComponent implements OnInit {
       title: "¿Cuándo son las inscripciones?",
       description: `<p>Los cursos deportivos de Natación, karate, exploración deportiva e iniciación deportiva se realizan por ciclos de 10 clases y las fechas de inscripción son las siguientes:</p>
               <ul>
-                <li><strong>Ciclo 1:</strong> Inscripciones 21 de enero.</li>
+                <li><strong>Ciclo 1:</strong> Inscripciones 7 de enero.</li>
                 <li><strong>Ciclo 2:</strong> Inscripciones 8 de abril.</li>
-                <li><strong>Ciclo 3:</strong> Inscripciones 17 de junio.</li>
-                <li><strong>Ciclo 4:</strong> Inscripciones 3 de septiembre.</li>
+                <li><strong>Ciclo 3:</strong> Inscripciones 24 de junio.</li>
+                <li><strong>Ciclo 4:</strong> Inscripciones 16 de septiembre.</li>
               </ul>
               <p>Cursos de actividad física como yoga, clases al parque, baile para mayores, actividad física para mayores de 60 años, las matrículas son la última semana de cada mes.</p>`,
       open: false,
@@ -216,6 +216,7 @@ export class HomeComponent implements OnInit {
         .subscribe((response: Session) => {
           this.utilitiesService.messageLoading = null;
           this.utilitiesService.currentUser = response.usuario;
+          console.log(response);
           if (response.usuario.existeUsuario) {
             localStorage.setItem("user", JSON.stringify(response));
             localStorage.setItem("cc", response.usuario.documento);
@@ -226,6 +227,7 @@ export class HomeComponent implements OnInit {
             location.reload();
           }
         });
+        console.log(this.utilitiesService.currentUser);
     }
   }
 

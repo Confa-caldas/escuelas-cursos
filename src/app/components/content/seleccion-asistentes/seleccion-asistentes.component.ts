@@ -73,6 +73,8 @@ export class SeleccionAsistentesComponent implements OnInit {
   tipoUsuarioAdd: string = "";
   catgoriaMenor: string = "";
   direccionOtroAsistente: string = "";
+  telefonoOtroAsistente: number;
+  telefonoTitular: number;
 
   /* VALIDACIONES */
   cardeRegistro = false;
@@ -263,15 +265,24 @@ export class SeleccionAsistentesComponent implements OnInit {
 
   /* BUSCA LA INFORMACION DE EL OTRO ASISTENTE ADICIONAL */
   ValidarOtroAsistente() {
-    this.utilitiesService.loading = true;
+    //this.utilitiesService.loading = true;
     let documentoOtro = String(this.documentoOtroAsistente);
-    //console.log(documentoOtro)
+    console.log(documentoOtro, this.nucleoFamiliar)
 
-    const existeEnGrupoFamiliar = this.resultadoGF.some(
-      (persona) => persona.documento === documentoOtro
-    );
+    let existeEnGrupoFamiliar = false;
 
-    if (existeEnGrupoFamiliar) {
+    for (const persona of this.nucleoFamiliar) {
+      if (
+        persona?.documento?.toString().trim() ===
+        documentoOtro?.toString().trim()
+      ) {
+        existeEnGrupoFamiliar = true;
+      }
+    }
+
+    console.log(existeEnGrupoFamiliar)
+
+    if (existeEnGrupoFamiliar || documentoOtro == this.document) {
       this.utilitiesService.messageTitleModal = "No puedes continuar"
       this.utilitiesService.messageModal = 'El documento ya pertenece al grupo familiar.'
       this.utilitiesService.backLogin = false;
@@ -282,19 +293,7 @@ export class SeleccionAsistentesComponent implements OnInit {
       this.tipoDocOtroAsistente = "";
       this.documentoOtroAsistente = null
       this.fechaNacOtroAsistente = "";
-    } else if (documentoOtro == this.document) {
-      this.utilitiesService.messageTitleModal = "No puedes continuar"
-      this.utilitiesService.messageModal = 'El documento ya pertenece al grupo familiar.'
-      this.utilitiesService.backLogin = false;
-      setTimeout(() => {
-        this.utilitiesService.loading = false;
-        $(".modalNuevowarning").click();
-      }, 1000);
-      this.tipoDocOtroAsistente = "";
-      this.documentoOtroAsistente = null
-      this.fechaNacOtroAsistente = "";
-    } else {
-
+    }  else {
 
       //valida si el usuario ya se encuentra incrito en el curso seleccionado
       this.yaEstaIncrito(documentoOtro, this.programacionId);
@@ -328,6 +327,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                   this.generoAsistenteAdd = resultadoObj.sexo || 'M';
                   this.tipoUsuarioAdd = resultadoObj.tipoAfiliacion;
                   this.direccionOtroAsistente = resultadoObj.direccion;
+                  this.telefonoOtroAsistente = resultadoObj.celular || this.telefonoTitular;
                   this.InhabilitarInputDate = true;
 
                   this.OtrosAsistentes();
@@ -363,6 +363,7 @@ export class SeleccionAsistentesComponent implements OnInit {
                         this.nombreOtroAsistente = `${response.primerNombre} ${response.segundoNombre} ${response.primerApellido} ${response.segundoApellido}`;
                         this.tipoAfiliacionOtroAsistente = response.tipoUsuario || ''
                         this.correoOtroAssistente = response.correo || '';
+                        this.telefonoOtroAsistente = response.celular || this.telefonoTitular;
                         this.generoAsistenteAdd = response.genero || 'M';
                         this.tipoUsuarioAdd = response.tipoUsuario;
                         this.InhabilitarInputDate = true;
@@ -558,9 +559,11 @@ export class SeleccionAsistentesComponent implements OnInit {
   }
 
   crearListaAsistentes(as: any) {
-    ////console.log(as)
+    console.log(as)
     this.dataServiciosCursos.menorCategoria(as.documento).pipe(first())
       .subscribe((response: any) => {
+
+        console.log(response)
 
         if (response.estado != 'OK') {
           //console.log('Error procesando la respuesta para menorCategoria:', response);
@@ -765,6 +768,7 @@ export class SeleccionAsistentesComponent implements OnInit {
       this.documento = infoUser.documento;
       this.fullName = `${infoUser.primerNombre} ${infoUser.segundoNombre} ${infoUser.primerApellido} ${infoUser.segundoApellido}`;
       this.utilitiesService.fechaNaciemintoResponsable = infoUser.fechaNacimiento;
+      this.telefonoTitular = Number(infoUser.celular)
 
       //infromacion del grupo familiar 
       const gfUnico = JSON.parse(localStorage.getItem("grupoFamiliarFusionado"));
@@ -870,7 +874,7 @@ export class SeleccionAsistentesComponent implements OnInit {
       documento: this.documentoOtroAsistente.toString(),
       tipoDocumento: this.tipoDocOtroAsistente,
       direccionResidencia: this.direccionOtroAsistente,
-      celular: 3333333,
+      celular: this.telefonoOtroAsistente || this.telefonoTitular,
       email: this.correoOtroAssistente,
       categoria: this.categoriaOtroAsistente,
       municipioId: 1,

@@ -257,9 +257,7 @@ export class CardRegisterFormComponent implements OnInit, OnChanges {
 
                     setTimeout(() => {
                       this.utilitiesService.loading = false;
-                      $(
-                        ".modalNuevowarning-confirmacion-registro"
-                      ).click();
+                      $(".btn-modal-exclaim-validation-confirmacion-registro").click();
                     }, 1000);
                   } else {
                     this.utilitiesService.messageTitleModal =

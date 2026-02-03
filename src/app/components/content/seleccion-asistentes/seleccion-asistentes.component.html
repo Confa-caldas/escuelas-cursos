@@ -51,7 +51,7 @@
                     <h6 style="font-weight: 500;">{{ grupof.nombreCompleto | titlecase }}</h6>
                     <p>{{ grupof.documento }}</p>
                   </div>
-                  <div class="col-md-3 d-flex flex-column justify-content-center agregar-btn align-items-center"
+                  <div class="col-md-3 col-2 d-flex flex-column justify-content-center agregar-btn align-items-center"
                     *ngIf="!grupof.inhabilitado">
                     <p class="mb-1 mx-auto">Agregar</p>
                     <div class="cntr ml-1 mx-auto">
@@ -60,7 +60,7 @@
                       <label class="cbx" for="cbx-{{gf}}"></label>
                     </div>
                   </div>
-                  <div class="col-md-3 d-flex flex-column justify-content-center aling-items-center"
+                  <div class="col-md-3 col-2 d-flex flex-column justify-content-center aling-items-center"
                     *ngIf="grupof.inhabilitado">
                     <button class="btn" (click)="eliminarAsistente(grupof)">
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
@@ -115,7 +115,7 @@
                 </div>
                 <div class="col mt-4">
                   <button class="btn btn-cred" (click)="ValidarOtroAsistente()" id="escuelaCursoAgregarAdi" style="width: 90%; height: 36px;"
-                    [disabled]="!documentoOtroAsistente">Buscar</button>
+                    [disabled]="!documentoOtroAsistente">Buscar..</button>
                 </div>
               </div>
               <div class="row">
@@ -170,7 +170,7 @@
                 <div class="col">
                   <div class="form-group form-group-custom" *ngIf="!existeUsuarioAdi">
                     <label for=""> Número de telefono </label>
-                    <input type="tel" class="form-control" placeholder="*Número de telefono" placement="right"
+                    <input type="tel" class="form-control" placeholder="*Número de telefono" placement="right"  [(ngModel)]="telefonoOtroAsistente"
                       autocomplete="off" name="telefono" />
                   </div>
                 </div>
@@ -196,7 +196,7 @@
                     <p>{{ asistente.tipoDocumento }} - {{ asistente.documento }}</p>
                   </div>
 
-                  <div class="col-md-2 d-flex flex-column justify-content-center">
+                  <div class="col-md-2 col-2 d-flex flex-column justify-content-center">
                     <button class="btn" (click)="eliminarAsistenteAdicional(asistente.documento)">
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="btn-delete"
                         xmlns="http://www.w3.org/2000/svg">
