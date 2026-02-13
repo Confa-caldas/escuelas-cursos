@@ -291,6 +291,18 @@ export class ResumenCompraComponent {
             this.utilitiesService.identifierProductNopyzen = response.paymentUrl;
             this.documentNopyzen = response.message;
             this.identifierProductNopyzen = response.paymentUrl;
+          } else if (response.paymentOrderStatus === "PENDIENTE") {
+            this.utilitiesService.messageTitleModal =
+            "Espera";
+          this.utilitiesService.messageModal =
+            response.message;
+          this.utilitiesService.backLogin = false;
+
+          $(".btn-close-form-pay-dues").click();
+          setTimeout(() => {
+            this.utilitiesService.loading = false;
+            $(".modalNuevowarning").click();
+          }, 1000);
           } else {
             this.utilitiesService.messageTitleModal =
               "Error al iniciar la transacción.";

@@ -159,10 +159,15 @@
                 </div>
               </div>
               <div class="card-body card-body-curso">
+                <p class="card-text" *ngIf="curso.horario?.length">
+                  <ng-container *ngFor="let h of curso.horario; let last = last">
+                    {{ h.nombreDia }}: {{ h.horaInicio }} - {{ h.horaFin }}<ng-container *ngIf="!last"> | </ng-container>
+                  </ng-container>
+                </p>
                 <p class="card-text">{{curso.sede.nombreSede | titlecase}}</p>
                 <p class="card-text">{{curso.edadMinima}} a {{curso.edadMaxima }} años -
                   {{curso.etapa.nombre | titlecase}}</p>
-                <p class="card-text">{{curso.sede.nombreMunicipio | titlecase}} </p>
+                <!-- <p class="card-text">{{curso.sede.nombreMunicipio | titlecase}} </p> -->
                 <p class="card-text">{{curso.horarioAjustado | titlecase}} </p>
 
                 <p class="card-text mt-3"><strong>Inicio: {{curso.programacion.fechaInicio}}</strong> - <strong>Fin:
