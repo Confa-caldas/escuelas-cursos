@@ -43,14 +43,27 @@
   display: inline-block; /* se ajusta al tamaño del select */
 }
 
+/* Evita que el texto largo del select invada el espacio del icono chevron */
+.select-filter {
+  padding-right: 0.75rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+}
+
 .custom-icon {
   position: absolute;
   top: 34%;
-  right: 25px;   /* dentro del select */
+  right: 0.75rem;
   transform: translateY(-50%);
   pointer-events: none;
   color: #555;
   z-index: 1000;
+}
+
+/* Contenedor del select + icono: necesario para posicionar el icono sobre el select */
+.col:has(.select-filter) {
+  position: relative;
 }
 
 

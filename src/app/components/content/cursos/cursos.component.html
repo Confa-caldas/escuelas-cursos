@@ -65,7 +65,7 @@
           <div class="col mx-auto ">
 
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="deporteSeleccionado" (change)="aplicarFiltros()">
+               [(ngModel)]="deporteSeleccionado" (change)="onCursoChange()">
               <option class="pl-4" [value]="'default'" selected disabled>Curso</option>
               <option class="pl-4 text-wrap" *ngFor="let deporte of deportes" [value]="deporte.id"
                 [title]="deporte.nombre">{{ deporte.nombre }}</option>
@@ -76,7 +76,7 @@
           <!-- nivel -->
           <div class="col mx-auto">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="nivelSeleccionado" >
+               [(ngModel)]="nivelSeleccionado" (change)="onNivelChange()">
               <option [value]="'default'" selected disabled>Nivel</option>
               <option *ngFor="let nivel of niveles" [value]="nivel.id">{{ nivel.nombre }}</option>
             </select>
@@ -86,7 +86,7 @@
 
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="sedeSeleccionada" >
+               [(ngModel)]="sedeSeleccionada" (change)="onSedeChange()">
               <option [value]="'default'" selected disabled>Sede</option>
               <option *ngFor="let sede of sedes" [value]="sede.sedeId">{{ sede.nombreSede }}</option>
             </select>
@@ -95,7 +95,7 @@
           <!-- edad -->
           <div class="col mx-auto ">
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-             [(ngModel)]="edadSeleccionada" >
+             [(ngModel)]="edadSeleccionada" (change)="onEdadChange()">
               <option [value]="'default'" selected disabled>Edad</option>
               <option *ngFor="let ed of edades" [value]="ed.min + '-' + ed.max">{{ ed.min }} - {{ ed.max }}</option>
             </select>
@@ -105,7 +105,7 @@
           <div class="col mx-auto ">
             <!-- <label for="">{{horarioSeleccionada}}</label> -->
             <select class="form-select select-filter mb-4" aria-label="Default select example"
-               [(ngModel)]="horarioSeleccionada">
+               [(ngModel)]="horarioSeleccionada" (change)="aplicarFiltros()">
               <option [value]="'default'" selected disabled>Horario</option>
               <option *ngFor="let hora of horarios" [value]="hora.horarioId">{{hora.nombreDia}} {{ hora.horaInicio
                 }}-{{hora.horaFin}}</option>

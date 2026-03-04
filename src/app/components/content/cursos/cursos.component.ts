@@ -378,116 +378,190 @@ export class CursosComponent {
 
 
 
-  // Método para recalcular las opciones únicas de filtros
-  actualizarOpcionesFiltros(cursos: any[]) {
+  /**
+   * Resetea a 'default' los filtros inferiores al nivel indicado (cascada).
+   * Gestiona la limpieza sistemática: al cambiar un filtro superior, los inferiores se invalidan.
+   * @param desde - Desde qué nivel de la jerarquía (Curso > Nivel > Sede > Edad > Horario) resetear hacia abajo.
+   */
+  resetFiltrosInferiores(desde: 'nivel' | 'sede' | 'edad' | 'horario'): void {
+    if (desde === 'nivel') {
+      this.nivelSeleccionado = 'default';
+      this.sedeSeleccionada = 'default';
+      this.edadSeleccionada = 'default';
+      this.horarioSeleccionada = 'default';
+    } else if (desde === 'sede') {
+      this.sedeSeleccionada = 'default';
+      this.edadSeleccionada = 'default';
+      this.horarioSeleccionada = 'default';
+    } else if (desde === 'edad') {
+      this.edadSeleccionada = 'default';
+      this.horarioSeleccionada = 'default';
+    } else {
+      this.horarioSeleccionada = 'default';
+    }
+  }
+
+  /**
+   * Devuelve this.cursos filtrado solo por los criterios hasta el nivel indicado (sin aplicar horario).
+   * Usado para recalcular las opciones de los desplegables inferiores en la cascada.
+   * @param nivel - Hasta qué nivel aplicar filtros: 'curso' (solo deporte), 'nivel', 'sede' o 'edad'.
+   */
+  getCursosFiltradosHastaNivel(nivel: 'curso' | 'nivel' | 'sede' | 'edad'): any[] {
+    let list = [...this.cursos];
+
+    if (this.ciudadSeleccionada !== 'default') {
+      list = list.filter(c => c.sede?.municipioId === Number(this.ciudadSeleccionada));
+    }
+    if (this.deporteSeleccionado !== 'default') {
+      list = list.filter(c => c.modalidadDeportiva?.id === Number(this.deporteSeleccionado));
+    }
+    if (nivel === 'curso') return list;
+
+    if (this.nivelSeleccionado !== 'default') {
+      list = list.filter(c => c.etapa?.id === Number(this.nivelSeleccionado));
+    }
+    if (nivel === 'nivel') return list;
+
+    if (this.sedeSeleccionada !== 'default') {
+      list = list.filter(c => c.sede?.sedeId === Number(this.sedeSeleccionada));
+    }
+    if (nivel === 'sede') return list;
+
+    if (this.edadSeleccionada !== 'default') {
+      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
+      list = list.filter(c => c.edadMinima === minEdad && c.edadMaxima <= maxEdad);
+    }
+    return list;
+  }
+
+  /**
+   * Recalcula las opciones de los filtros a partir de los cursos pasados.
+   * this.deportes no se modifica (siempre muestra todas las opciones del municipio).
+   * Solo actualiza las listas indicadas en opciones para mantener las opciones visibles en los selectores superiores.
+   * @param cursos - Cursos ya filtrados por los criterios superiores de la cascada.
+   * @param opciones - Qué listas actualizar. Si no se pasa, se actualizan todas (niveles, sedes, edades, horarios).
+   */
+  actualizarOpcionesFiltros(
+    cursos: any[],
+    opciones?: { niveles?: boolean; sedes?: boolean; edades?: boolean; horarios?: boolean }
+  ): void {
+    const actualizarTodo = opciones == null;
     const sedesMap = new Map();
     const ciudadMap = new Map();
     const nivelMap = new Map();
-    //const deporteMap = new Map();
     const edadMap = new Map();
     const horarioMap = new Map();
-
-    /*   //console.log(cursos, "Cursos") */
 
     cursos.forEach(servicio => {
       if (servicio.sede) {
         sedesMap.set(servicio.sede.sedeId, servicio.sede);
         ciudadMap.set(servicio.sede.municipioId, servicio.sede);
       }
-
       if (servicio.etapa) {
         nivelMap.set(servicio.etapa.id, servicio.etapa);
       }
-
-      /* if (servicio.modalidadDeportiva) {
-        deporteMap.set(servicio.modalidadDeportiva.id, servicio.modalidadDeportiva);
-      } */
-
-
       if (servicio.horario && Array.isArray(servicio.horario)) {
-        servicio.horario.forEach(horario => {
-          horarioMap.set(horario.horarioId, horario);
-
-        });
+        servicio.horario.forEach((horario: any) => horarioMap.set(horario.horarioId, horario));
       }
-      /* //console.log(Array.from(horarioMap.values())) */
-
-      const rangos = cursos.map(curso => ({
-        min: curso.edadMinima,
-        max: curso.edadMaxima,
-        id: curso.id, //391
-      }));
-
-      this.edades = rangos.filter(
-        (rango, index, self) =>
-          index === self.findIndex(r => r.min === rango.min && r.max === rango.max)
-      ).sort((a, b) => a.min - b.min); // Ordenar por edad mínima
-
     });
 
-    // Actualiza las opciones de los filtros
-    this.sedes = Array.from(sedesMap.values());
-    this.ciudades = Array.from(ciudadMap.values());
-    this.niveles = Array.from(nivelMap.values());
-    //this.deportes = Array.from(deporteMap.values());
-    this.horarios = Array.from(horarioMap.values());
+    const rangos = cursos.map(curso => ({
+      min: curso.edadMinima,
+      max: curso.edadMaxima,
+      id: curso.id,
+    }));
+    const edadesUnicas = rangos.filter(
+      (rango, index, self) =>
+        index === self.findIndex(r => r.min === rango.min && r.max === rango.max)
+    ).sort((a, b) => a.min - b.min);
 
-    //console.log(this.edades, 'Edades')
-  }
-
-
-  // Método para aplicar los filtros seleccionados
-  aplicarFiltros() {
-    let cursosFiltrados = [...this.cursos]; // Siempre trabaja sobre el conjunto original
-
-    if (this.ciudadSeleccionada !== 'default') {
-      const ciudadSeleccionada = Number(this.ciudadSeleccionada);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.sede.municipioId === ciudadSeleccionada);
-    }
-
-    if (this.sedeSeleccionada !== 'default') {
-      const sedeIdSeleccionado = Number(this.sedeSeleccionada);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.sede.sedeId === sedeIdSeleccionado);
-    }
-
-    if (this.nivelSeleccionado !== 'default') {
-      const nivelSeleccionado = Number(this.nivelSeleccionado);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.etapa.id === nivelSeleccionado);
-    }
-
-    if (this.deporteSeleccionado !== 'default') {
-      const deporteSeleccionado = Number(this.deporteSeleccionado);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.modalidadDeportiva.id === deporteSeleccionado);
-      //cursosFiltrados = cursosFiltrados.filter(curso => curso.id === deporteSeleccionado);
-    }
-
-    if (this.edadSeleccionada !== 'default') {
-      const edadSeleccionada = Number(this.edadSeleccionada);
-      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
-      console.log(minEdad)
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.edadMinima === minEdad && curso.edadMaxima <= maxEdad);
-    }
-
-
-
-    if (this.horarioSeleccionada !== 'default') {
-      const horarioSeleccionada = Number(this.horarioSeleccionada); // Asegúrate de convertirlo a número
-      cursosFiltrados = cursosFiltrados.filter(curso =>
-        curso.horario?.some(horario => horario.horarioId === horarioSeleccionada)
+    if (actualizarTodo || opciones?.niveles) {
+      this.niveles = Array.from(nivelMap.values()).sort((a, b) =>
+        (a.nombre || '').localeCompare(b.nombre || '', 'es')
       );
     }
+    if (actualizarTodo || opciones?.sedes) {
+      this.sedes = Array.from(sedesMap.values());
+      this.ciudades = Array.from(ciudadMap.values());
+    }
+    if (actualizarTodo || opciones?.edades) {
+      this.edades = edadesUnicas;
+    }
+    if (actualizarTodo || opciones?.horarios) {
+      this.horarios = Array.from(horarioMap.values());
+    }
+  }
 
-    // Actualiza los cursos filtrados y recalcula las opciones de filtros
-    this.cursosFiltrados = cursosFiltrados;
-    this.actualizarOpcionesFiltros(cursosFiltrados);
+  /**
+   * Única responsabilidad: genera this.cursosFiltrados aplicando todos los criterios activos en cascada
+   * (ciudad, curso, nivel, sede, edad, horario). No resetea ni actualiza opciones de los desplegables.
+   */
+  aplicarFiltros(): void {
+    let list = [...this.cursos];
 
-    // ✅ Reiniciar paginador a la primera página
+    if (this.ciudadSeleccionada !== 'default') {
+      list = list.filter(c => c.sede?.municipioId === Number(this.ciudadSeleccionada));
+    }
+    if (this.deporteSeleccionado !== 'default') {
+      list = list.filter(c => c.modalidadDeportiva?.id === Number(this.deporteSeleccionado));
+    }
+    if (this.nivelSeleccionado !== 'default') {
+      list = list.filter(c => c.etapa?.id === Number(this.nivelSeleccionado));
+    }
+    if (this.sedeSeleccionada !== 'default') {
+      list = list.filter(c => c.sede?.sedeId === Number(this.sedeSeleccionada));
+    }
+    if (this.edadSeleccionada !== 'default') {
+      const [minEdad, maxEdad] = this.edadSeleccionada.split('-').map(Number);
+      list = list.filter(c => c.edadMinima === minEdad && c.edadMaxima <= maxEdad);
+    }
+    if (this.horarioSeleccionada !== 'default') {
+      const horarioId = Number(this.horarioSeleccionada);
+      list = list.filter(c => c.horario?.some((h: any) => h.horarioId === horarioId));
+    }
+
+    this.cursosFiltrados = list;
     this.p = 1;
   }
 
+  /** Cascada nivel Curso: resetea Nivel, Sede, Edad y Horario; actualiza todas las opciones inferiores; aplica filtros. */
+  onCursoChange(): void {
+    this.resetFiltrosInferiores('nivel');
+    this.actualizarOpcionesFiltros(this.getCursosFiltradosHastaNivel('curso'));
+    this.aplicarFiltros();
+  }
 
+  /** Cascada nivel Nivel: resetea Sede, Edad y Horario; actualiza solo opciones de Sede, Edad y Horario (mantiene Nivel). */
+  onNivelChange(): void {
+    this.resetFiltrosInferiores('sede');
+    this.actualizarOpcionesFiltros(this.getCursosFiltradosHastaNivel('nivel'), {
+      sedes: true,
+      edades: true,
+      horarios: true,
+    });
+    this.aplicarFiltros();
+  }
 
-  limpiarFiltros() {
+  /** Cascada nivel Sede: resetea Edad y Horario; actualiza solo opciones de Edad y Horario (mantiene Nivel y Sede). */
+  onSedeChange(): void {
+    this.resetFiltrosInferiores('edad');
+    this.actualizarOpcionesFiltros(this.getCursosFiltradosHastaNivel('sede'), {
+      edades: true,
+      horarios: true,
+    });
+    this.aplicarFiltros();
+  }
+
+  /** Cascada nivel Edad: resetea Horario; actualiza solo opciones de Horario (mantiene Nivel, Sede y Edad). */
+  onEdadChange(): void {
+    this.resetFiltrosInferiores('horario');
+    this.actualizarOpcionesFiltros(this.getCursosFiltradosHastaNivel('edad'), {
+      horarios: true,
+    });
+    this.aplicarFiltros();
+  }
+
+  limpiarFiltros(): void {
     //this.ciudadSeleccionada = 'default';
     this.sedeSeleccionada = 'default';
     this.nivelSeleccionado = 'default';
@@ -496,8 +570,6 @@ export class CursosComponent {
     this.horarioSeleccionada = 'default';
     this.servicioActivo = 'default';
     //this.consultarCursos();// Restablece los cursos originales
-
-
   }
 
   cursoSeleccionado(curso: any) {
@@ -522,70 +594,9 @@ export class CursosComponent {
   }
 
 
-  mostrar() {
+  /** Muestra la grilla de resultados aplicando los filtros actuales (solo aplica filtros, no limpia). */
+  mostrar(): void {
     this.mostrarCuros = true;
     this.aplicarFiltros();
-    this.filtrarPorDeporteYActualizarOpciones();
-
-    
   }
-
-  filtrarPorDeporteYActualizarOpciones() {
-    console.log(this.deporteSeleccionado, 'this.deporteSeleccionad')
-
-    let cursosFiltrados = [...this.cursos]; 
-    // Si no hay deporte seleccionado, usa la lista original completa
-    if (this.deporteSeleccionado !== 'default') {
-      const deporteSeleccionado = Number(this.deporteSeleccionado);
-      cursosFiltrados = cursosFiltrados.filter(curso => curso.modalidadDeportiva.id === deporteSeleccionado);
-    }
-
-    // --- Llamamos al mismo proceso de actualización de filtros ---
-    const sedesMap = new Map();
-    const ciudadMap = new Map();
-    const nivelMap = new Map();
-    const horarioMap = new Map();
-
-    cursosFiltrados.forEach(servicio => {
-      if (servicio.sede) {
-        sedesMap.set(servicio.sede.sedeId, servicio.sede);
-        ciudadMap.set(servicio.sede.municipioId, servicio.sede);
-      }
-
-      if (servicio.etapa) {
-        nivelMap.set(servicio.etapa.id, servicio.etapa);
-      }
-
-
-      if (servicio.horario && Array.isArray(servicio.horario)) {
-        servicio.horario.forEach(horario => {
-          horarioMap.set(horario.horarioId, horario);
-
-        });
-      }
-      console.log(Array.from(horarioMap.values()))
-
-      const rangos = cursosFiltrados.map(curso => ({
-        min: curso.edadMinima,
-        max: curso.edadMaxima,
-        id: curso.id, //391
-      }));
-
-      this.edades = rangos.filter(
-        (rango, index, self) =>
-          index === self.findIndex(r => r.min === rango.min && r.max === rango.max)
-      ).sort((a, b) => a.min - b.min); // Ordenar por edad mínima
-
-    });
-
-    // Actualiza las opciones de los filtros
-    this.sedes = Array.from(sedesMap.values());
-    this.ciudades = Array.from(ciudadMap.values());
-    this.niveles = Array.from(nivelMap.values());
-    this.horarios = Array.from(horarioMap.values());
-
-    this.limpiarFiltros();
-  }
-
-
 }
