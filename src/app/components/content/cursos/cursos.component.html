@@ -35,14 +35,15 @@
   <section class="pt-4 pb-4 px-4 fondo">
     <div class="row px-4">
       <h4> <strong>Explora nuestras opciones y elige cómo quieres moverte y disfrutar.</strong></h4>
-      <span>Selecciona la ubicación, nivel, edad, sede, y horario y escoge la opción de tu interés.</span>
+      <span *ngIf="utilitiesService.vacacionesRecreativas == false">Selecciona la ubicación, nivel, edad, sede, y horario y escoge la opción de tu interés.</span>
+      <span *ngIf="utilitiesService.vacacionesRecreativas">Selecciona la opción de tu interés.</span>
     </div>
     <hr>
   </section>
   <section class="pt-2 pb-4 px-4 fondo">
     <div class="row">
       <!-- servicios -->
-      <div class="col-md-3 mx-auto">
+      <div class="col-md-3 mx-auto" *ngIf="utilitiesService.vacacionesRecreativas == false">
         <div class="card py-3 card-filters">
           <!-- Servicios -->
           <!-- <div class="col mx-auto ">
@@ -123,11 +124,70 @@
       </div>
 
       <div class="col-md-9 col-11 mx-auto mt-3">
-        <div class="row" *ngIf="!mostrarCuros">
+        <div class="row" *ngIf="!mostrarCuros && !utilitiesService.vacacionesRecreativas">
           <h4><strong> Filtra y encuentra tu curso</strong></h4>
           <span>Ahora selecciona las opciones que más se justen a lo que buscas: tio de curso, horario, edad y nivel. Entre más detalles elijas, más fácil será mostrarte los cursos érfectos para ti.</span>
         </div>
-        <div class="row" *ngIf="mostrarCuros">
+        <div class="row" *ngIf="mostrarCuros && !utilitiesService.vacacionesRecreativas">
+          <div class="col-12 col-md-6 mb-4"
+            *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+            <div class="card card-curso" style="width: 100%;"
+              [ngClass]="{'card-agotado': curso.programacion.cuposDisponibles == 0}">
+              <div class="card-header card-header-curso">
+                <div class="row align-items-center">
+                  <div class="col-2">
+                    <span class="span-icono-card-curso">
+                      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+                        <rect x="4" y="4" width="32" height="32" rx="16" fill="white" />
+                        <rect x="4" y="4" width="32" height="32" rx="16" stroke="#FFD1E4" stroke-width="8" />
+                        <g clip-path="url(#clip0_124_5603)">
+                          <path
+                            d="M22.5 19.1667V14.1667L20 11.6667L17.5 14.1667V15.8334H12.5V27.5001H27.5V19.1667H22.5ZM15.8333 25.8334H14.1667V24.1667H15.8333V25.8334ZM15.8333 22.5001H14.1667V20.8334H15.8333V22.5001ZM15.8333 19.1667H14.1667V17.5001H15.8333V19.1667ZM20.8333 25.8334H19.1667V24.1667H20.8333V25.8334ZM20.8333 22.5001H19.1667V20.8334H20.8333V22.5001ZM20.8333 19.1667H19.1667V17.5001H20.8333V19.1667ZM20.8333 15.8334H19.1667V14.1667H20.8333V15.8334ZM25.8333 25.8334H24.1667V24.1667H25.8333V25.8334ZM25.8333 22.5001H24.1667V20.8334H25.8333V22.5001Z"
+                            fill="#FF2B81" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_124_5603">
+                            <rect width="20" height="20" fill="white" transform="translate(10 10)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="col-10 ">
+                    <!-- <span class="card-title-curso">{{curso.modalidadDeportiva.nombre | titlecase}}</span> -->
+                    <span class="card-title-curso">{{curso.nombre | titlecase}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body card-body-curso">
+                <p class="card-text" *ngIf="curso.horario?.length">
+                  <ng-container *ngFor="let h of curso.horario; let last = last">
+                    {{ h.nombreDia }}: {{ h.horaInicio }} - {{ h.horaFin }}<ng-container *ngIf="!last"> | </ng-container>
+                  </ng-container>
+                </p>
+                <p class="card-text">{{curso.sede.nombreSede | titlecase}}</p>
+                <p class="card-text">{{curso.edadMinima}} a {{curso.edadMaxima }} años -
+                  {{curso.etapa.nombre | titlecase}}</p>
+                <!-- <p class="card-text">{{curso.sede.nombreMunicipio | titlecase}} </p> -->
+                <p class="card-text">{{curso.horarioAjustado | titlecase}} </p>
+
+                <p class="card-text mt-3"><strong>Inicio: {{curso.programacion.fechaInicio}}</strong> - <strong>Fin:
+                    {{curso.programacion.fechaFin}}</strong></p>
+              </div>
+              <div class="card-footer card-header-curso">
+
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-credits" (click)="cursoSeleccionado(curso)">Seleccionar</button>
+                </div>
+              </div>
+              <!-- Overlay "AGOTADO" -->
+              <div class="overlay-agotado" *ngIf="curso.programacion.cuposDisponibles == 0">
+                AGOTADO
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="utilitiesService.vacacionesRecreativas">
           <div class="col-12 col-md-6 mb-4"
             *ngFor="let curso of cursosFiltrados | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
             <div class="card card-curso" style="width: 100%;"

@@ -244,6 +244,12 @@ export class CursosComponent {
     this.preguntas = this._collection;
     this.consultarCursos();
     this.consultarInformacionMiPerfilConfa(this.document);
+    console.log(localStorage.getItem("idServicio"))
+    if(Number(localStorage.getItem("idServicio")) == 39){
+        this.utilitiesService.vacacionesRecreativas = true
+    }else{
+      this.utilitiesService.vacacionesRecreativas = false
+    }
   }
 
   toggleAccordion(index: number): void {

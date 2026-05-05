@@ -107,6 +107,7 @@ export class UtilitiesService {
 
   dataTpDoc: TipoDoc[]
   mostrarModalSugerencia: boolean = true;
+  vacacionesRecreativas: boolean = false;
 
 
   constructor() { }
